@@ -5,19 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>G2Project</groupId>
-  <artifactId>G2Project</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>overAll</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <modules>
-    <module>yakovlevProj</module>
-    <module>overAll</module>
-    <module>shevaryovProj</module>
-    <module>chuprynaProj</module>
-    <module>tatsiiProj</module>
-    <module>rakhmanovaProj</module>
-  </modules>
 
-  <name>G2Project</name>
+  <name>overAll</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
