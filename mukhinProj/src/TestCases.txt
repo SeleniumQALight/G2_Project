@@ -1,4 +1,4 @@
-Test case #1. Registration with valid data
+Test case #1_. Registration with valid data
 
 1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
 2. enter the value "Ivan" in the "Username" field of the "Sing up" form
