@@ -1,0 +1,43 @@
+Case 1. Name “Registration”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Fill in the “Username “
+3. Fill in the “Email”
+4. Fill in the “Password”
+5. Click on “Sign up for OurApp”
+Expected Result: A button appeared “Sign out”
+
+Case 2. Name “Create Post”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on “Create Post”
+4. Fill in the “Title”
+5. Fill in the “Body Content”
+5. Click on “Save New Post”
+Expected Result: “New Post” created.
+
+Case 3. Name “Delete Post”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Open “My Profile”
+4. Click on field “Post”
+5. Click on “Delete”
+Expected Result: “Post deleted”
+
+Case 4. Name :Check if the “Search” button is active
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on “Search”
+4. Fill “Hello”
+Expected Result: Get “Search Result”
+
+Case 5. Name: Checking the “Sign Out”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on field “Sign out”
+Expected Result: Go to the main page
+
