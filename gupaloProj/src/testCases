@@ -1,0 +1,37 @@
+TestCase_1 Login
+1. Open url https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome
+2. Fill the field Username: auto
+3. Fill the field Email: 123456qwerty
+4. Click the button Sign in
+ER: User log in successfully, appear the button Sign Out.
+
+TestCase_2 Check the button search
+Pre-condition: User login in https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome
+1. Press the button search
+2. Clean the field 'What are you interested in?'
+3. In input 'What are you interested in?' write '123'
+4. Check the notification
+ER: below input appear notification about search result
+
+TestCase_3 Close Search and return to HomePage
+Pre-condition: User login and open the button search in https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome.
+1. Press the button Close
+ER: User back to the HomePage
+
+TestCase_4 Check the Chat work
+Pre-condition: User login in https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome
+1. Press the chat button
+2. In popup window in the field 'Type a message' write text 'test'
+3. Press the Enter in keyboard
+ER: text appear in the chat window
+
+TestCase_5 Create new Post
+Pre-condition: User login in https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome
+1. Press the button Create Post
+2. In the field Title write: test123
+3. In the field Body content post: some text
+4. Press the button Save New Post
+ER:The message appear: New post successfully created
+
+
+
