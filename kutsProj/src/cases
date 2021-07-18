@@ -1,0 +1,156 @@
+ID: TC-01
+Preconditions: -
+Priority: P0
+Type: Functional
+Title: Check new user registration in system
+
+Steps:
+1. Open https://qa-complex-app-for-testing.herokuapp.com/ page
+2. Click on 'Sign up for OurApp' button
+3. Click on Username field, enter valid username
+4. Click on Email field, enter valid email address
+5. Click on Password field, enter valid password
+6. Move mouse over 'Sign up for OurApp' button
+7. Click on 'Sign up for OurApp' button
+
+Expected results:
+1. Body of Login page consists of following items:
+- 'Remember Writing?' text
+- Username text field with 'Pick a username' placeholder
+- Email text field with 'you@example.com' placeholder
+- Password text field with 'Create a password' placeholder
+- 'Sign up for OurApp' button
+2. Login page is displayed:
+- 'Username must be at least 3 characters.' validation message is displayed above Username field
+- 'You must provide a valid email address.' validation message is displayed above Email field
+- 'Password must be at least 12 characters.' validation message is displayed above Password field
+3. Entered Username is displayed in field, 'Pick a username' placeholder is not displayed
+4. Entered Email is displayed in field, 'you@example.com' placeholder is not displayed
+5. Entered Password is displayed in field, 'Create a password' placeholder is not displayed
+6. Button has onhover state
+7. Home page is opened:
+- Username is displayed in Header
+- 'Sign Out' button is displayed in Header
+- 'Hello <username>, your feed is empty.' text is displayed in Body
+
+
+ID: TC-02
+Preconditions: User is registered in system. Storage (Local/Session/Cache), Cookies should be cleared
+Priority: P0
+Type: Functional
+Title: Check login functionality
+
+Steps:
+1. Open https://qa-complex-app-for-testing.herokuapp.com/ page
+2. Click 'Sign In' button
+3. Click on Username field, enter valid username
+4. Click on Password field, enter valid password
+5. Move mouse over 'Sign In' button
+6. Click on 'Sign In' button
+
+Expected results:
+1. Header of Login page consists of following items:
+- 'Complex app for testing - QA' text
+- Username text field with 'Username' placeholder
+- Password field with 'Password' placeholder
+- 'Sign In' button
+2. Login page is displayed:
+- 'Invalid username / password' error message is displayed below Header
+3. Entered username is displayed in field, 'Username' placeholder is not displayed
+4. Entered password is displayed in field, 'Password' placeholder is not displayed
+5. Button has onhover state
+6. Home page is opened:
+- Username is displayed in Header
+- 'Sign Out' button is displayed in Header
+
+
+ID: TC-03
+Preconditions: Page https://qa-complex-app-for-testing.herokuapp.com/ is opened. User is logged in system
+Priority: P0
+Type: Functional
+Title: Check Header on Home page
+
+Steps:
+1. Observe the Header
+2. Move mouse over 'Complex app for testing - QA' text
+3. Move mouse over Search icon
+4. Move mouse over Chat icon
+5. Move mouse over User's profile icon
+6. Move mouse over Username
+7. Move cursor over 'Create Post' button
+8. Move cursor over 'Sign Out' button
+
+Expected results:
+1. Header consists of following items:
+- 'Complex app for testing - QA' text
+- Search icon
+- Chat icon
+- User's profile icon
+- Username
+- 'Create Post' button
+- 'Sign Out' button
+2. Text is displayed as link. Cursor is displayed as Pointer
+3. Cursor is displayed as Pointer. 'Search' tooltip is displayed
+4. Cursor is displayed as Pointer. 'Chat' tooltip is displayed
+5. Cursor is displayed as Pointer. 'My Profile' tooltip is displayed
+6. Cursor is displayed as Text
+7. Button has onhover state
+8. Button has onhover state
+
+
+ID: TC-04
+Preconditions: Page https://qa-complex-app-for-testing.herokuapp.com/ is opened. User is logged in system
+Priority: P0
+Type: Functional
+Title: Check creating post functionality
+
+Steps:
+1. Click on 'Create Post' button
+2. Click on 'Title' text field, enter title
+3. Click on 'Body Content' text area, enter body content
+4. Click on 'This is a unique post' checkbox
+5. Click on 'Select value' dropdown
+6. Move cursor over 'Save New Post' button
+7. Click on 'Save New Post' button
+
+Expected results:
+1. Creating Post page consists of following items:
+- text field with 'Title' name
+- text area with 'Body Content' name
+- checkbox with 'This is a unique post' name, checkbox is disabled
+- dropdown menu with 'Select value' name, 'Общедоступное' is selected as default value
+- 'Save New Post' button
+4. Checkbox is enabled
+5. Dropdown list is opened and displayed with values:
+'Общедоступное', 'Частное сообщение', 'Сообщение для группы'
+6. Button has onhover state
+7. Created Post page consists of following items:
+- 'New post successfully created' message
+- title from step 2
+- Edit icon
+- Delete icon
+- User's profile icon
+- 'Posted by <username> on <date>' text
+- 'Note: This post was written for All Users' text
+- body content from step 3
+
+
+ID: TC-05
+Preconditions: Page https://qa-complex-app-for-testing.herokuapp.com/ is opened. User is logged in system. Some posts are created in system
+Priority: P0
+Type: Functional
+Title: Check searching functionality
+
+Steps:
+1. Click on 'Search' button
+2. Click on Search field, enter title of one of existing posts
+3. Click 'Close' button
+
+Expected results:
+1. Searching page consists of following items:
+- 'Search' icon
+- text field with 'What are you interested in?' placeholder
+- 'Close' button
+2. Search is started. 'Search Results (<number> items found)' text is displayed in header of reach results list.
+All posts which contained in title entered text from step 2 are displayed from top to bottom
+3. Search results list is not displayed. Home page is opened
