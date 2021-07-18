@@ -1,0 +1,28 @@
+#LoginPage
+inputUsername = ".//input[@placeholder='Username']"
+inputPassword = ".//input[@placeholder='Password']"
+clickSignIn = ".//button[text()='Sign In']"
+
+
+#HomePage
+clickSearch = ".//a[@href='#']"
+clickChat = ".//span[@data-original-title='Chat']"
+clickCreatePost = ".//a[@href='/create-post']"
+SignOut = ".//button[text()='Sign Out']"
+
+
+#Search
+inputTextSearch = ".//input[@placeholder='What are you interested in?']"
+clickClose = ".//span[@class='close-live-search']"
+
+#Chat
+inputMessage = ".//input[@placeholder='Type a message…']"
+
+#CreatePost
+inputTextInTitle = ".//input[@name='title']"
+inputBodyContent = ".//textarea[@id='post-body']"
+clickSaveNewPost = ".//button[text()='Save New Post']"
+
+
+
+
