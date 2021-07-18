@@ -30,8 +30,8 @@ Test case #3. Sign in with valid data
 Use valid data of a previously successfully registered user
 
 1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
-2. enter the value "Ivan" in the "Username" field of the "Sing up" form
-3. enter the value "123456789123" in the "Password" field of the "Sing up" form
+2. enter the value "Ivan" in the "Username" field of the "Sing in" form
+3. enter the value "123456789123" in the "Password" field of the "Sing in" form
 5. click on the "Sign in" button and pay attention to the display on the page
 
 
@@ -55,7 +55,7 @@ Password: 123456789123
 
 
 
-Expected result: post successfully created and displayed on the page
+Expected result: post with the title "Post" is displayed on the page
 
 
 
@@ -74,4 +74,4 @@ Previously created post "One"
 
 
 
-Expected result: the post was successfully deleted, the post is not in the list of posts
+Expected result: post named "One" is not displayed on the page

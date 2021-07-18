@@ -1,0 +1,31 @@
+Test case #4. Create post
+
+Follow the link https://qa-complex-app-for-testing.herokuapp.com/
+Login data:
+Username: Ivan
+Password: 123456789123
+
+1. click on the "Create post" button
+2. enter the value "Post" in the "Title" field
+3. enter the value "Post" in the "Body Content" field
+4. select the checkbox "This is a unique post"
+5. select "Public" in "Select value"
+6. press the button "Save new post" and pay attention to the display on the page
+
+
+
+Expected result: post with the title "Post" is displayed on the page
+
+
+Locators
+
+1. The "Username" field - .//input[@placeholder="Username"]
+2. The the "Password" field - .//input[@placeholder="Password"]
+3. The "Sign in" button - .//button[text()='Sign In']
+4. The "Create post" button - .//a[@href="/create-post"]
+5. The "Title" field - .//input[@id="post-title"]
+6. The "Body Content" field - .//textarea[@id="post-body"]
+7. The checkbox "This is a unique post" - .//input[@id="”UniquePost”"]
+8. select "Public" in "Select value" - .//option[text() = 'Общедоступное']
+9. The "Save new post" button - .//button[text() = 'Save New Post']
+10. post with the title "Post" - .//*[text() = 'Post']

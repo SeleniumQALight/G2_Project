@@ -1,0 +1,24 @@
+Test case #5. Delete post
+
+Follow the link https://qa-complex-app-for-testing.herokuapp.com/
+Login data:
+Username: Ivan
+Password: 123456789123
+Previously created post "One"
+
+1. click on "My profile" in the main menu
+2. open post "One"
+3. click on the "Delete" icon
+4. pay attention to the display on the page
+
+
+
+Expected result: post named "One" is not displayed on the page
+
+
+Locators
+
+1. "My profile" in the main menu - .//a[@href="/profile/bill"]
+2. post "One" - .//a[@href="/post/60f40dfffd4553000408704a"]
+3. the "Delete" icon - .//button[@class="delete-post-button text-danger"]
+4. post with the title "One" - .//*[text() = 'One']
