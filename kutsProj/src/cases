@@ -2,7 +2,7 @@ ID: TC-01
 Preconditions: -
 Priority: P0
 Type: Functional
-Title: Check new user registration in system
+Title: Check validation of fields for registration. Check new user registration in system
 
 Steps:
 1. Open https://qa-complex-app-for-testing.herokuapp.com/ page
@@ -136,14 +136,15 @@ Expected results:
 
 
 ID: TC-05
-Preconditions: Page https://qa-complex-app-for-testing.herokuapp.com/ is opened. User is logged in system. Some posts are created in system
+Preconditions: Page https://qa-complex-app-for-testing.herokuapp.com/ is opened. User is logged in system.
+Some posts are created in system among which is post with unique title
 Priority: P0
 Type: Functional
 Title: Check searching functionality
 
 Steps:
 1. Click on 'Search' button
-2. Click on Search field, enter title of one of existing posts
+2. Click on Search field, enter title of post which is unique
 3. Click 'Close' button
 
 Expected results:
@@ -151,6 +152,6 @@ Expected results:
 - 'Search' icon
 - text field with 'What are you interested in?' placeholder
 - 'Close' button
-2. Search is started. 'Search Results (<number> items found)' text is displayed in header of reach results list.
-All posts which contained in title entered text from step 2 are displayed from top to bottom
+2. Search is started. 'Search Results (1 item found)' text is displayed in header of search results list.
+Post which contained in title entered text from step 2 is displayed in search results list
 3. Search results list is not displayed. Home page is opened
