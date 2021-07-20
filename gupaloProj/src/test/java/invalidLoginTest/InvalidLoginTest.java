@@ -37,6 +37,6 @@ public class InvalidLoginTest {
     }
 
     private boolean isValidateMessageVisible() {
-        return webDriver.findElement(By.xpath(".//html/body/div[2]/div[1]")).isDisplayed();
+        return webDriver.findElement(By.xpath(".//div[text()='Invalid username / password']")).isDisplayed();
     }
 }
