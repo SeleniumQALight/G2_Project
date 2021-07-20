@@ -1,5 +1,38 @@
-#HomePage
+I.
+.//input[@id='username-register']
+ .//input[@name='email']
+ .//input[@name='password']
+.//button[@type='submit']
 
-inputLogin = " "
+II.
+.//a[@class='btn btn-sm btn-success mr-2']
+.//input[@id='post-title']
+.//textarea[@id='post-body']
+.//input[@type='checkbox']
+.//select[@name='select1']
+.//button[@class='btn btn-primary']
 
-#LoginPage
+III.
+.//svg[@class='svg-inline--fa fa-search fa-w-16']  ---is it wrong?
+.//input[@type='text']
+(( .//path[@fill='currentColor'] --- wrong? ))
+.//a[@class='text-primary mr-2']
+.//input[@required name='title'] -----wrong?
+.//textarea[@required name='body'] ----wrong?
+.//button[@class='btn btn-primary']
+
+IV.
+.//svg[@class='svg-inline--fa fa-search fa-w-16']  ---is it wrong?
+.//input[@type='text']
+.//button[@class='delete-post-button text-danger']
+
+V.
+.//span[@class='text-white mr-2 header-chat-icon']
+.//input[@type='text']
+
+
+
+
+
+
+
