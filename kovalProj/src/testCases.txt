@@ -21,7 +21,7 @@ Expected result:
 User should be logged out. The button "Sign in" should appear.
 
 
-Test Case #3 New Post Creation Check
+Test Case #3 New Post Creation Message Check
 
 Steps to reproduce:
 1) When the user is logged in, press the button "Create Post"
@@ -38,13 +38,16 @@ Test Case #4 Post Deletion Check
 
 Steps to reproduce:
 1) When the user is logged in, press the button "My profile"
-2) Click on any of the posts
-3) Press the button "Delete"
-4) The selected Post should disappear
+2) Press the button "Create Post"
+3) Input text "Hello" in Title and "Test" in Body Content
+4) Press button "Save New Post"
+5) On the screen, which show the message "New post successfully created", press the button "Delete"
+6) Press the button "Delete"
+
 
 Expected result:
 
-The message "Post successfully deleted" should appear.
+ The selected post should disappear and the message "Post successfully deleted" should appear
 
 
 Test Case #5 Chat Functionality Check
