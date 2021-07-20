@@ -12,6 +12,8 @@ Actual result:
 
 
 CASE 2. Выход из профиля пользователя - Sign Out
+Precondition:
+1. Залогинится на сайте https://qa-complex-app-for-testing.herokuapp.com/ под только что созаднным пользователем
 Steps:
 1. Нажать в header кнопку "Sign Out"
 
@@ -23,6 +25,8 @@ Actual result:
 
 
 CASE 3. Вход в профиль на сайте зарегистрированным пользователем
+Precondition:
+1. Залогинится на сайте https://qa-complex-app-for-testing.herokuapp.com/ под только что созаднным пользователем
 Steps:
 1. В поле "Username" указать имя пользователя под которым он зарегистрирован на сайте
 2. В поле "Password" указать пароль этого пользователя
@@ -35,7 +39,9 @@ Actual result:
 
 
 CASE 4. Создание сообщения - Create Post
-Steps:
+Precondition:
+1. Залогинится на сайте https://qa-complex-app-for-testing.herokuapp.com/ под только что созаднным пользователем
+
 1. Нажать кнопку "Create Post"
 2. Заполнить название сообщения в поле Title - "Это мой первый пост"
 3. Заполнить поле "Body Content" текстом сообщения:
@@ -53,6 +59,9 @@ Actual result:
 
 
 CASE 5. Редактирование только что созданного сообщения - Edit
+Precondition:
+1. Залогинится на сайте https://qa-complex-app-for-testing.herokuapp.com/ под только что созаднным пользователем
+Steps:
 1. Перейти в профиль - синяя кнопка "My Profile"
 2. На закладке "Posts:" нажать строку с названием "Это мой первый пост"
 3. В открывшемся сообщении нажать кнопку "Edit" (листочек с карандашом)
