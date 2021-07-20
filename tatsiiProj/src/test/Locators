@@ -1,0 +1,34 @@
+Locators
+
+Case1
+//LoginPage
+Input Username = “.//input[@id="username0"]”
+Input Password =”.//input[@class="form-control form-control-sm input-dark"]”
+Click the button SignIn=”.//button[@class="btn btn-primary btn-sm"]”
+
+Case2
+//HomePage
+Click on the button SignOut=”.//button[@class="btn btn-sm btn-secondary"]”
+
+Case3
+//LoginPage
+Input Username = “.//input[@id="username-register"]”
+Input e-mail=”.//input[@id="email-register"]”
+Input Password=”.//input[@id="password-register"]”
+Click the button “Sign Up for OurApp” =”.//button[@class="py-3 mt-4 btn btn-lg btn-success btn-block"]”
+
+Case4
+//HomePage
+Input the Post’s name=”.//input[@id="post-title"]”
+Input the Post’s text=”.//textarea[@class="body-content tall-textarea form-control"]”
+Input the tick if this Post is Unique=” .//input[@type="checkbox"]”
+Select the Post’s priority from the proposed=”.//select”
+Click the button to save the new post=” .//button[@class="btn btn-primary"]”
+
+Case5
+//HomePage
+Click on search Icon=”.//*[@class="svg-inline--fa fa-search fa-w-16"]”
+Input the text in order to find it in the application=”.//*[@class="live-search-field"]”
+Click on the found post=”.//*[@class="text-muted small"]”
+
+
