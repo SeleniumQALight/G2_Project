@@ -1,17 +1,38 @@
 CASE 1.Регистрация на сайте https://qa-complex-app-for-testing.herokuapp.com/
-Steps
+Steps:
 1. Заполнить поле "Username" - имя пользователя
 2. Заполнить поле "Email" - почтовый адрес
 3. Заполнить поле "Password" - пароль. Длинна пароля не менее 12 символов
 4. Нажать кнопку "Sign up for OurApp"
 
-Actual result
+Actual result:
 1. В header отображено имя пользователя под которым выполнена регистрация на сайте
 2. Отображено приветственное сообщение: Hello %USERNAME%, your feed is empty.
 
+
+
 CASE 2. Выход из профиля пользователя - Sign Out
+Steps:
+1. Нажать в header кнопку "Sign Out"
 
-Steps
-1.
+Actual result:
+1. В header отбражена кнопка "Sign In"
+2. Отображены поля для входа в профиль пользователя на сайте - "Username" и "Password"
+3. Отображены поля для регистрации пользователя - "Username", "Email" и "Password"
 
-Actual result
+
+
+CASE 3. Вход в профиль пользователя на сайте
+Steps:
+1. В поле "Username" указать имя пользователя под которым он зарегистрирован на сайте
+2. В поле "Password" указать пароль этого пользователя
+3. Нажать кнопку "Sign In"
+
+Actual result:
+1. В header отображена кнопка "Create Post"
+2. В header отбражена кнопка "Sign Out"
+
+
+CASE 4. Создание сообщения - Create Post
+Steps:
+1. Нажать кнопку "Create Post"
