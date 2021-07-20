@@ -1,0 +1,63 @@
+#LoginPage
+
+buttonSignUpForOurApp = ".//button[text()='Sign up for OurApp']"
+inputUsernameRegister = ".//input[@id='username-register']"
+inputEmailRegister = ".//input[@id='email-register']"
+inputPasswordRegister = ".//input[@id='password-register']"
+h1Text = ".//h1"
+h1Subtext = ".//h1//..//p[@class='lead text-muted']"
+inputUsernamePlaceholder = ".//input[@placeholder='Pick a username']"
+inputEmailPlaceholder = ".//input[@placeholder='you@example.com']"
+inputPasswordPlaceholder = ".//input[@placeholder='Create a password']"
+alertUsername = ".//div[text()='Username must be at least 3 characters.']"
+alertEmail = ".//div[text()='You must provide a valid email address.']"
+alertPassword = ".//div[text()='Password must be at least 12 characters.']"
+inputLogin = ".//input[@placeholder='Username']"
+inputPassword = ".//input[@placeholder='Password']"
+buttonSignIn = ".//button[text()='Sign In']"
+alertInvalidUsernamePassword = ".//div[text()='Invalid username / password']"
+linkHeader = ".//a[text()='Complex app for testing - QA']"
+
+#HomePage
+
+iconSearch = ".//a[@href='#']"
+iconChat = ".//span[@data-original-title='Chat']"
+iconuserProfile = ".//img[@data-original-title='My Profile']"
+textUsername = ".//span[text()=' testovi4']"
+buttonCreatePost = ".//a[text()='Create Post']"
+buttonSignOut = ".//button[text()='Sign Out']"
+h2Text = ".//h2"
+h2Subtext = ".//h2//..//p[@class='lead text-muted']"
+
+#CreatePost
+
+labelPostTitle = ".//small[text()='Title']"
+inputPostTitle = ".//input[@id='post-title']"
+labelPostBody = ".//small[text()='Body Content']"
+textareaPostBody = ".//textarea[@id='post-body']"
+labelCheckboxUnique = ".//small[text()='This is a unique post']"
+checkboxUnique = ".//input[@type='checkbox']"
+labelDropdownValue = ".//small[text()='Select value']"
+selectDropdownValue = ".//select"
+optionAllUsersDropdownValue = ".//select//option[text()='Общедоступное']"
+optionOnePersonDropdownValue = ".//select//option[text()='Частное сообщение']"
+optionGroupMessageDropdownValue = ".//select//option[text()='Сообщение для группы']"
+buttonSaveNewPost = ".//button[text()='Save New Post']"
+
+#CreatedPost
+
+alertSuccessfullyCreatedPost = ".//div[text()='New post successfully created.']"
+h2TitleOfCreatedPost = ".//h2"
+buttonEdit = ".//a[@data-original-title='Edit']"
+buttonDelete = ".//button[@data-original-title='Delete']"
+textNote = ".//i[text()=' Note: This post was written for ']"
+
+#Search
+
+iconSearch = ".//label[@class='search-overlay-icon']"
+inputSearchField = ".//input[@id='live-search-field']"
+inputSearchPlaceholder = ".//input[@placeholder='What are you interested in?']"
+buttonClose = ".//span[@class='close-live-search']"
+titleSearchResults = ".//strong[text()='Search Results']"
+numberOfFoundPosts = ".//div[text()=' (1 item found)']"
+titleOfFoundPost = ".//strong[text()='qazwsxedcrfvtgbyhnujmik,ol.p']"
