@@ -17,7 +17,7 @@ Case 2.     Check-up if the button “Sign Out” is working.
 Steps:
 1. The page with url    https://qa-complex-app-for-testing.herokuapp.com/
 is open with the “Sign Out” button on the top right corner.
-2. Move the cursor to the button “Sign Out” and click on it.
+2. Click the button “Sign Out”.
 3. Check-up if you are logged-out.
        Actual Results:
 1. Switched to another page with same url  https://qa-complex-app-for-testing.herokuapp.com/, but with the different content on it.
@@ -29,10 +29,10 @@ is open with the “Sign Out” button on the top right corner.
 Case 3.     New User’s Registration.
 Steps:
 1. Open the page with url    https://qa-complex-app-for-testing.herokuapp.com/
-2. Move the cursor to the input Username in the lower right corner, put the cursor there, and enter the new User’s Name: RobotsWar.
-3. Move the cursor to the input Email in the lower right corner, put the cursor there, and enter the new User’s Email:  java@robots.net.
-4. Move the cursor to the input Password in the lower right corner, put the cursor there, and enter the new Password: RobotsWar888.
-5. Move the cursor to the green button “Sign Up for OurApp” and click on it.
+2. Input Username in the lower right corner. User’s Name: RobotsWar.
+3. Input Email in the lower right corner. User’s Email:  java@robots.net.
+4. Input Password in the lower right corner. The new Password: RobotsWar888.
+5. Click on the green button “Sign Up for OurApp”.
 6. Check-up if you are registered.
        Actual Results:
 1. Switched to another page with same url  https://qa-complex-app-for-testing.herokuapp.com/, but with the different content on it.
@@ -42,35 +42,79 @@ Steps:
 
 Case 4.     Check-up if the button “Create Post” is working.
 Steps:
-1. The page with url    https://qa-complex-app-for-testing.herokuapp.com/ is open with the “Sign Out” button on the top right corner and with the text “Hello robotswar, your feed is empty.”
-2. Move the cursor to the button “Create Post” and click on it.
-3. Now you are redirected to another page with the different url  https://qa-complex-app-for-testing.herokuapp.com/create-post
-4. Create the new post, using 3 empty fields for input by filling them in:
-   4.1. Move the cursor to the input Title and enter any Title of the post: RobotsWar
-   4.2. Move the cursor to the input BodyContent and enter any Title of the post: RobotsWar was very difficult task.
-   4.3. Mark tick or ignore the input if it is a unique post or not. We mark as unique “tick”.
-   4.4. Move the cursor to the input Select value and select one of the three options. Let’s select “Private message”
-5. Move the cursor to the blue button “Save New Post” and click on it.
-6. Check-up if the button “Create Post” is working.
+1. Open the page with url    https://qa-complex-app-for-testing.herokuapp.com/
+2. Input Username in the lower right corner. User’s Name: RobotsWar.
+3. Input Email in the lower right corner. User’s Email:  java@robots.net.
+4. Input Password in the lower right corner. The new Password: RobotsWar888.
+5. The page with url    https://qa-complex-app-for-testing.herokuapp.com/ is open with the “Sign Out”
+button on the top right corner and with the text “Hello robotswar, your feed is empty.”
+6. Click on the button “Create Post”.
+7. Now you are redirected to another page with the different url  https://qa-complex-app-for-testing.herokuapp.com/create-post
+8. Create the new post, using 3 empty fields for input by filling them in:
+   8.1. Input Title and enter any Title of the post: RobotsWar
+   8.2. Input BodyContent and enter any Title of the post: RobotsWar was very difficult task.
+   8.3. Mark tick or ignore the input if it is a unique post or not. We mark as unique “tick”.
+   8.4. Move the cursor to the input Select value and select one of the three options. Let’s select “Private message”
+9. Click on the blue button “Save New Post”.
+10. Check-up if the button “Create Post” is working.
        Actual Results:
-1. Switched to another page with different url   https://qa-complex-app-for-testing.herokuapp.com/post/60f1614919ae4c00045668f9 , and with the different content on it.
-2. The message “New post successfully created”, appeared on the new opened page.
-3. The content of the new post is on this page with all the details when it was posted and who posted it: “Posted by robotswar on 7/16/2021”
-4. In the lower right corner,  two buttons “Edit” and “Delete”.
-5. The newly created post has the ID, mentioned in url    post/60f1614919ae4c00045668f9.
+1. Switched to another page with same url  https://qa-complex-app-for-testing.herokuapp.com/, but with the different content on it.
+2. Welcome message Hello, robotswar, is on the new opened page.
+3. The new button “Sign Out” appeared on the top right corner, instead of the button “Sign In”.
+4. The button “Sign In” disappeared.
+5. Switched to another page with different url   https://qa-complex-app-for-testing.herokuapp.com/post/60f1614919ae4c00045668f9 , and with the different content on it.
+6. The message “New post successfully created”, appeared on the new opened page.
+7. The content of the new post is on this page with all the details when it was posted and who posted it: “Posted by robotswar
+due to actual date in the format [mm/dd/year]”
+8. In the lower right corner,  two buttons “Edit” and “Delete”.
+9. The newly created post has the ID, mentioned in url    post/60f1614919ae4c00045668f9.
 
 Case 5.     Check-up if the option “Search” is working.
 Steps:
-1. The page with url    https://qa-complex-app-for-testing.herokuapp.com/ is open with the “Sign Out” button on the top right corner and with the text “Hello lana230208, your feed is empty.”
-2. Move the cursor to the search icon on the top of menu “Seacrh” and click on it.
-3. Now you are redirected to another page with the same url  https://qa-complex-app-for-testing.herokuapp.com/, but with the different content with the search input “What are you interested in?”
-4. Input the text from the previous test4 “robotswar” , and we can see in pop-up line, that 1 item found.
-5. Move the cursor to the found post RobotsWar and click on it.
-6. Check-up if the option “Search” is working.
+1. Open the page with url    https://qa-complex-app-for-testing.herokuapp.com/
+2. Input Username in the lower right corner. User’s Name: RobotsWar.
+3. Input Email in the lower right corner. User’s Email:  java@robots.net.
+4. Input Password in the lower right corner. The new Password: RobotsWar888.
+5. The page with url    https://qa-complex-app-for-testing.herokuapp.com/ is open with the “Sign Out”
+button on the top right corner and with the text “Hello robotswar, your feed is empty.”
+6. Click on the button “Create Post”.
+7. Now you are redirected to another page with the different url  https://qa-complex-app-for-testing.herokuapp.com/create-post
+8. Create the new post, using 3 empty fields for input by filling them in:
+   4.1. Input Title and enter any Title of the post: RobotsWar
+   4.2. Input BodyContent and enter any Title of the post: RobotsWar was very difficult task.
+   4.3. Mark tick or ignore the input if it is a unique post or not. We mark as unique “tick”.
+   4.4. Move the cursor to the input Select value and select one of the three options. Let’s select “Private message”
+9. Click on the blue button “Save New Post”.
+10. Check-up if the button “Create Post” is working.
+11. Logout.
+12. Open the page with url    https://qa-complex-app-for-testing.herokuapp.com/
+13. Enter the valid login into input Username.        Lana230208
+14. Enter the valid password into input Password.      TVVtsv230208
+15. Click the button “Sign In” and enter the application.
+16. Check-up if you are logged in.
+17. The page with url    https://qa-complex-app-for-testing.herokuapp.com/ is open with
+the “Sign Out” button on the top right corner and with the text “Hello lana230208, your feed is empty.”
+18. Search icon on the top of menu “Seacrh” and click on it.
+19. Now you are redirected to another page with the same url  https://qa-complex-app-for-testing.herokuapp.com/,
+but with the different content with the search input “What are you interested in?”
+20. Input the text “robotswar” (this post was created in the index #8) , and we can see in pop-up line,
+that 1 item found.
+21. Found post RobotsWar and click on it.
+22. Check-up if the option “Search” is working.
        Actual Results:
-1. Switched to another page with different url   https://qa-complex-app-for-testing.herokuapp.com/post/60f1614919ae4c00045668f9 , and with the different content on it.
-2. The message “This post was written for one person”, appeared on the new opened page.
-3. The content of the new post is on this page with all the details when it was posted and who posted it: “Posted by robotswar on 7/16/2021”.
-4. The newly created post has the ID, mentioned in url    post/60f1614919ae4c00045668f9.
+1. Switched to another page with same url  https://qa-complex-app-for-testing.herokuapp.com/, but with the different content on it.
+2. Welcome message Hello, robotswar, is on the new opened page.
+3. The new button “Sign Out” appeared on the top right corner, instead of the button “Sign In”.
+4. The button “Sign In” disappeared.
+5. Switched to another page with different url   https://qa-complex-app-for-testing.herokuapp.com/post/60f1614919ae4c00045668f9 , and with the different content on it.
+6. The message “New post successfully created”, appeared on the new opened page.
+7. The content of the new post is on this page with all the details when it was posted and who posted it: “Posted by robotswar
+due to actual date in the format [mm/dd/year]”
+8. In the lower right corner,  two buttons “Edit” and “Delete”.
+9. The newly created post has the ID, mentioned in url    post/60f1614919ae4c00045668f9.
+10. Switched to another page with different url   https://qa-complex-app-for-testing.herokuapp.com/post/60f1614919ae4c00045668f9 , and with the different content on it.
+11. The message “This post was written for one person”, appeared on the new opened page.
+12. The content of the new post is on this page with all the details when it was posted and who posted it: “Posted by robotswar due to actual date in the format [mm/dd/year]”.
+13. The newly created post has the ID, mentioned in url    post/60f1614919ae4c00045668f9.
 
 
