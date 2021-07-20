@@ -11,12 +11,12 @@ Pre-condition: User login in https://qa-complex-app-for-testing.herokuapp.com in
 2. Clean the field 'What are you interested in?'
 3. In input 'What are you interested in?' write '123'
 4. Check the notification
-ER: below input appear notification about search result
+ER: below input appear notification about search result: "Sorry, we could not find any results for that search."
 
 TestCase_3 Close Search and return to HomePage
 Pre-condition: User login and open the button search in https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome.
 1. Press the button Close
-ER: User back to the HomePage
+ER: The element 'close-life-search' is not displayed on the page
 
 TestCase_4 Check the Chat work
 Pre-condition: User login in https://qa-complex-app-for-testing.herokuapp.com in the browser Chrome
@@ -31,7 +31,7 @@ Pre-condition: User login in https://qa-complex-app-for-testing.herokuapp.com in
 2. In the field Title write: test123
 3. In the field Body content post: some text
 4. Press the button Save New Post
-ER:The message appear: New post successfully created
+ER:The message appear: New post successfully created. Message 'test123' appear in the table "Posts"
 
 
 
