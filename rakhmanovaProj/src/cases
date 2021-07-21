@@ -7,6 +7,7 @@ I. Sign up for OurApp:
 6. Click button Sign up for OurApp
 Expected:new account is created, and the user name is displayed on the right upper panel.
 
+
 II. Check a message for a new created post
 1. On the welcome page click on the button Create Post.
 2. In the Title field enter "New post on Tuesday".
@@ -15,6 +16,7 @@ II. Check a message for a new created post
 5. Select "Общедоступное" from the drop-menu Select value.
 6. Click button Save New Post.
 Expected: "New post successfully created" is displayed on the screen.
+Post-conditions: delete the new created post.
 
 III. Edit the created post.
 Preconditions:
@@ -35,6 +37,7 @@ Edit the created post:
 7. Click button Save Updates.
 8. Find the updated post and check if it's updated.
 Expected: Post is updated.
+Post-conditions: delete the new created post.
 
 IV. Delete the post.
 Preconditions:
