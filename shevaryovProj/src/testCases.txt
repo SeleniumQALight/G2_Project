@@ -1,8 +1,8 @@
 CASE 1.Регистрация на сайте https://qa-complex-app-for-testing.herokuapp.com/
 Steps:
-1. Заполнить поле "Username" - имя пользователя
-2. Заполнить поле "Email" - почтовый адрес
-3. Заполнить поле "Password" - пароль. Длинна пароля не менее 12 символов
+1. Заполнить поле "Username" - имя пользователя "user00001"
+2. Заполнить поле "Email" - почтовый адрес "user00001@gmail.com"
+3. Заполнить поле "Password" - пароль "123456qwerty"
 4. Нажать кнопку "Sign up for OurApp"
 
 Actual result:
