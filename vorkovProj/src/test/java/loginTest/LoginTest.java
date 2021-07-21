@@ -88,19 +88,11 @@ public class LoginTest {
         System.out.println("Button 'Sign In' was clicked");
 
         // Search for button Sign Out
-        Assert.assertFalse("Button 'Sign Out' was NOT found", buttonSignOutIsNotVisible());
+        Assert.assertFalse("Button 'Sign Out' was NOT found", isButtonSignOutVisible());
         System.out.println("Button 'Sign Out' was not found");
 
         // Close browser
         webDriver.quit();
         System.out.println("Quit browser");
-    }
-
-    private boolean buttonSignOutIsNotVisible() {
-        try {
-            return webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
     }
 }
