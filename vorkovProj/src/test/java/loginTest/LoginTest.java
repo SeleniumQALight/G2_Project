@@ -51,11 +51,56 @@ public class LoginTest {
     }
 
     private boolean isButtonSignOutVisible() {
-        try{
+        try {
             return webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
         } catch (Exception e) {
             return false;
         }
 
+    }
+
+    @Test
+    public void invalidLogin() {
+        File fileFF = new File("./src/drivers/91/chromedriver");
+        System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
+        webDriver = new ChromeDriver();
+
+        // Manage browser and add timeout
+        webDriver.manage().window().maximize();
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Open
+        webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+        System.out.println("Site was opened");
+
+        // Input username
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("a");
+        System.out.println("Username was inputted");
+
+        // Input password
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("123456qwerty");
+        System.out.println("Password was inputted");
+
+        // CLick Sign In
+        webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
+        System.out.println("Button 'Sign In' was clicked");
+
+        // Search for button Sign Out
+        Assert.assertFalse("Button 'Sign Out' was NOT found", buttonSignOutIsNotVisible());
+        System.out.println("Button 'Sign Out' was not found");
+
+        // Close browser
+        webDriver.quit();
+        System.out.println("Quit browser");
+    }
+
+    private boolean buttonSignOutIsNotVisible() {
+        try {
+            return webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
