@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
             webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
             webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("o");
-            System.out.println("'o' was inputted."); // auto
+            System.out.println("'o' was inputted.");
 
             webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
             webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("123456qwerty");
