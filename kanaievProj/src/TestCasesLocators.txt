@@ -1,0 +1,29 @@
+    #Login Page
+WebElement loginUsername = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
+WebElement loginPassword = webDriver.findElement(By.xpath(".//input[@placeholder='Password']"));
+WebElement signInButton = webDriver.findElement(By.xpath(".//button[text()='Sign In']"));
+WebElement alertInvalidLogin = webDriver.findElement(By.xpath(".//div[text()='Invalid username / password']"));
+WebElement registerUsername = webDriver.findElement(By.xpath(".//input[@id='username-register']"));
+WebElement registerPassword = webDriver.findElement(By.xpath(".//input[@id='password-register']"));
+WebElement registerEmail = webDriver.findElement(By.xpath(".//input[@id='email-register']"));
+WebElement registerButton = webDriver.findElement(By.xpath(".//button[@type='submit']"));
+
+    #Header Page
+WebElement signOutButton = webDriver.findElement(By.xpath(".//button[text()='Sign Out']"));
+WebElement myProfileLink = webDriver.findElement(By.xpath(".//header//a[contains(@href,'profile')]"));
+WebElement createPostLink = webDriver.findElement(By.xpath(".//header//a[@href='/create-post']"));
+WebElement searchLink = webDriver.findElement(By.xpath(".//header//a[@href='#']"));
+
+    #CreateNewPost Page
+WebElement newPostTitle = webDriver.findElement(By.xpath(".//input[@id='post-title']"));
+WebElement newPostBody = webDriver.findElement(By.xpath(".//input[@id='post-body']"));
+WebElement signOutButton = webDriver.findElement(By.xpath(".//button[text()='Save New Post']"));
+WebElement alertSuccessPost = webDriver.findElement(By.xpath(".//div[text()='New post successfully created.']"));
+
+    #Post Page
+WebElement postTitle = webDriver.findElement(By.xpath(".//div[text()='New title1 usver654321']"));
+
+    #Search Page
+WebElement searchInput = webDriver.findElement(By.xpath(".//input[@id='live-search-field']"));
+WebElement searchedPostTitle = webDriver.findElement(By.xpath(".//a[.//strong[text()='new title11']]"));
+WebElement searchResultsTitle = webDriver.findElement(By.xpath(".//a[.//strong[text()='Search Results']]"));
