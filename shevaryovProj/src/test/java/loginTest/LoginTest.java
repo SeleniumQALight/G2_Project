@@ -58,16 +58,8 @@ public class LoginTest {
         webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
         System.out.println("Button was clicked");
 
-        Assert.assertFalse("Button SignOut is displayed", isButtonSignOutUnVisible());
+        Assert.assertFalse("Button SignOut is displayed", isButtonSignOutVisible());
         webDriver.quit();
-    }
-
-    private boolean isButtonSignOutUnVisible() {
-        try{
-            return webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
-        } catch (Exception e){
-            return false;
-        }
     }
 
     private boolean isButtonSignOutVisible() {
