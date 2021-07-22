@@ -1,0 +1,16 @@
+#Header
+Username input  .//input[@placeholder='Username']
+Password input  .//input[@placeholder='Password']
+Sign In button  .//button[text()='Sign In']
+Sign Out button .//button[text()='Sign Out']
+
+
+
+#My profile page
+My profile icon .//a[@href='/profile/auto']
+Latest post     .//div[@class='list-group']//a
+Edit            .//a[@data-original-title='Edit']
+Body Content    .//textarea[@name='body']
+Save Updates    .//button[text()='Sign Out']
+Success alert   .//div[@class='alert alert-success text-center']
+

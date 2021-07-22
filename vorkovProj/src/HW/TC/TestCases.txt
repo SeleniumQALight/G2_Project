@@ -1,0 +1,63 @@
+TC 1 Valid login
+Precondition: User open the 'http://qa-complex-app-for-testing.herokuapp.com/'
+
+STR:
+1 Enter Username 'auto'.
+2 Enter Password '123456qwerty'.
+3 Click on 'Sign In' button.
+
+ER: User is successfully logged in as user 'auto'.
+
+
+Postcondition: Click on 'Sing Out' button. User is logged out.
+
+---------------------------------------------------------------
+TC 2 Edit post
+Precondition: User is logged in with credentials Username 'auto' and Password '123456qwerty.
+
+STR:
+1 Click on 'My profile' icon
+2 Click on latest post
+3 Click on 'edit'
+4 Input into field 'Body Content': 'some body text'
+5 Click on 'Save Updates' button
+
+ER: After post updating user appears success alert with text :'Post successfully updated.'
+
+Postcondition: Click on 'Sing Out' button. User is logged out.
+
+---------------------------------------------------------------
+TC 3
+Precondition:
+
+STR:
+
+
+ER:
+
+
+Postcondition:
+
+---------------------------------------------------------------
+TC 4
+Precondition:
+
+STR:
+
+
+ER:
+
+
+Postcondition:
+
+---------------------------------------------------------------
+TC 5
+Precondition:
+
+STR:
+
+
+ER:
+
+
+Postcondition:
