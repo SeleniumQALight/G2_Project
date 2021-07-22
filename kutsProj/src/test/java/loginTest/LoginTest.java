@@ -47,4 +47,32 @@ public class LoginTest {
             return false;
         }
     }
+
+    @Test
+    public void invalidLogin(){
+        File Chrome = new File("./src/drivers/91/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", Chrome.getAbsolutePath());
+        webDriver = new ChromeDriver();
+
+        webDriver.manage().window().maximize();
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+        System.out.println("Site was opened");
+
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("test");
+        System.out.println("'test' was inputted");
+
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("123456qwerty");
+        System.out.println("Password was inputted");
+
+        webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
+        System.out.println("Button was clicked");
+
+        Assert.assertFalse("Button SignOut is displayed", isButtonSignOutVisible());
+
+        webDriver.quit();
+    }
 }
