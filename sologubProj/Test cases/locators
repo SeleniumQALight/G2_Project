@@ -1,0 +1,36 @@
+~ Login/Register page:
+loginName = ".//input[@placeholder='Username']"
+loginPassword = ".//input[@placeholder='Password']"
+SignInButton = ".//button[text()='Sign In']"
+UsernameRegister = .//input[@id='username-register']
+EmailRegister = ".//input[@id='email-register']"
+PasswordRegister = ".//input[@id='password-register']"
+SubmitButton = ".//button[@type='submit']"
+
+~ LoggedIn/UserRegistered page
+SignOutButton = ".//button[@class='btn btn-sm btn-secondary']"
+CreatePostButton = ".//a[@href='/create-post']"
+ProfileIcon = ".//a[@href='/profile/auto']"
+ChatIcon = ".//*[@data-original-title='Chat']"
+SearchIcon = ".//*[@data-original-title='Search']"
+
+~ CreatePost
+PostTitle = ".//input[@id='post-title']"
+PostBody = ".//textarea[@id='post-body']"
+UniquePostCheckbox = ".//input[@type='checkbox']"
+SelectValueDropdown = ".//select[@id='select1']"
+SaveNewPostButton = ".//button[@class='btn btn-primary']"
+
+~ CreatedPost
+NewPostAlert = ".//*[@class='alert alert-success text-center']"
+EditPostLink = ".//*[@data-original-title='Edit']"
+DeletePostButton = ".//button[@class='delete-post-button text-danger']"
+PostBodyContent = ".//*[@class='body-content']"
+TitleContent = ".//*[@class='d-flex justify-content-between']"
+
+~ Search
+SearchField = ".//input[@class='live-search-field']"
+CloseSearch = ".//*[@class='close-live-search']"
+SearchIcon = ".//*[@data-icon='search']"
+NoResultsText = ".//*[@class='alert alert-danger text-center shadow-sm']"
+ItemInSearchResults = ".//a[@class='list-group-item list-group-item-action']"
