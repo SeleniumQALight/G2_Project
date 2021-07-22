@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
         WebDriver webDriver;
 
         @Test
-        public void validLogin() {
+        public void notValidLogin() {
             File fileFF = new File("./src/drivers/91-1/chromedriver.exe");
             System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
             webDriver = new ChromeDriver();
