@@ -28,7 +28,7 @@ public class ParentPage {
 
     protected void clickOnElement(WebElement webElement){
         try {
-            webElement.clear();
+            webElement.click();
             logger.info("Element was clicked");
         }catch (Exception e){
             writeErrorAndStopTest(e);
