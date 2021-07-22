@@ -51,13 +51,13 @@
 
     Steps:
 1. Нажать кнопку с текстом "Create Post" и атрибутом href "/create-post"
-2. В инпут-поле с атрибутом id "post-title" ввести текст "New title1 usver654321"
-3. В инпут-поле с атрибутом id "post-body" ввести текст "New body content1 usver654321"
+2. В инпут-поле с атрибутом id "post-title" ввести текст "New title1 [currentUserName]"
+3. В инпут-поле с атрибутом id "post-body" ввести текст "New body content1 [currentUserName]"
 4. Нажать кнопку с текстом "Save New Post"
 
     Exp.result:
 1. На странице присутствует елемент с текстом "New post successfully created."
-2. На странице присутствует елемент с текстом "New title1 usver654321"
+2. На странице присутствует елемент с текстом "New title1 [currentUserName]"
 
     Post-condition:
 1. Удалить из базы данных пользователя "usver654321"
