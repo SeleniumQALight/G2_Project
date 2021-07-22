@@ -25,7 +25,7 @@ public class LoginTest {
         System.out.println("Site was opened.");
 
         webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
-        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("o");// auto
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("auto");
         System.out.println("'o' was inputted."); // auto
 
         webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
