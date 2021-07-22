@@ -13,16 +13,15 @@ II.
 .//button[@class='btn btn-primary']
 
 III.
-.//svg[@class='svg-inline--fa fa-search fa-w-16']  ---is it wrong?
+.//a[@href='#']
 .//input[@type='text']
-(( .//path[@fill='currentColor'] --- wrong? ))
 .//a[@class='text-primary mr-2']
-.//input[@required name='title'] -----wrong?
-.//textarea[@required name='body'] ----wrong?
+.//input[@name='title']
+.//textarea[@name='body']
 .//button[@class='btn btn-primary']
 
 IV.
-.//svg[@class='svg-inline--fa fa-search fa-w-16']  ---is it wrong?
+.//a[@href='#']
 .//input[@type='text']
 .//button[@class='delete-post-button text-danger']
 
