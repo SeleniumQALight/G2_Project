@@ -1,0 +1,117 @@
+TC # 1: Login functionality
+1. Open "https://qa-complex-app-for-testing.herokuapp.com/" in browser
+Expected result:
+~ "Username" field with placeholder "Username" is present
+~ "Password" field with placeholder "Password" is present
+~ "Sign in" button is present
+2. Fill in Login field with "auto"
+3. Fill in Password field with "123456qwerty"
+4. Click "Sign in" button
+Expected result:
+~ "Sign out" button is present
+~ "New post" button is present
+~ Link to profile with "My profile" tooltip is present
+~ Chat button with "Chat" tooltip is present
+~ Search button with "Search" tooltip is present
+
+TC # 2: Verify Registration/Error messages in empty registration fields
+1. Open "https://qa-complex-app-for-testing.herokuapp.com/" in browser
+Expected result:
+~ "Username" field with "Pick a username" placeholder is present
+~ Email field with "you@example.com" placeholder is present
+~ "Password" field with "Create a password" placeholder is present
+2. Click Enter in username field
+Expected result:
+~ "Username must be at least 3 characters." text is appeared above Username field
+~ "You must provide a valid email address." text is appeared above Email field
+~ "Password must be at least 12 characters." text is appeared above Password field
+3. Fill in Username field
+4. Fill in Email field with email that has not been used yet
+5. Fill in Password field
+6. Click "Sign up for OurApp"
+Expected Result:
+~ "Sign out" button is present
+~ "New post" button is present
+~ Link to profile with "My profile" tooltip is present
+~ Chat button with "Chat" tooltip is present
+~ Search button with "Search" tooltip is present
+
+
+TC # 3: Creating posts fuctionality
+Preconditions:
+1. Open "https://qa-complex-app-for-testing.herokuapp.com/" in browser
+2. Log in with "auto" login and "123456qwerty" password
+Expected result:
+~ "Sign out" button is present
+~ "New post" button is present
+~ Link to profile with "My profile" tooltip is present
+~ Chat button with "Chat" tooltip is present
+~ Search button with "Search" tooltip is present
+3. Click "Create post"
+4. Fill in "Title" with "Title1" text
+5. Fill in "Body Content" field with "Body content 1" text
+5. Mark "This is a unique post"
+6. Select "Общедоступное" in "Select value" drop-down
+5. Click "Save New Post" button
+Expected Result:
+~ "New post successfully created" text is displayed
+~ New post details are displayed in separate lines:
+ - "Title1";
+ - "Body content 1"
+ - "Note: This post was written for All Users"
+ - "Posted by ani on <date of creating>"
+ - time of creating
+ Postconditions: delete created post
+
+TC # 4: Search functionality
+Preconditions:
+ 1. login as "auto" with password "123456qwerty" in "https://qa-complex-app-for-testing.herokuapp.com/"
+ 2. create post with title "Title1" and content body "body1"
+ STR:
+1. Click Search button
+~ Search icon is displayed
+~ Cancel icon is displayed
+~ "What you are interested in" placeholder text is displayed
+2. Click Cancel icon
+~ "Sign out" button is present
+~ "New post" button is present
+~ Link to profile with "My profile" tooltip is present
+~ Chat button with "Chat" tooltip is present
+~ Search button with "Search" tooltip is present
+3. Click Search button again
+4. Fill "Title1" in search field
+Expected Result:
+~ raw with next text is displayed: "title1 by ani on <date of creation>"
+5. Fill "body1" in search field:
+ Expected result:
+ raw with next text is displayed: "title1 by ani on <date of creation>"
+6. Click on found post
+Expected results: verify that next details of post is present
+ - "title1";
+ - "body1"
+ - "Posted by ani on <date of creating>"
+ Postconditions: delete created post
+
+TC # 5: Verify deleting post
+Preconditions:
+ 1. login as "auto" with password "123456qwerty" in "https://qa-complex-app-for-testing.herokuapp.com/"
+ 2. create post with title "Title2" and content body "body2"
+STR:
+1. Click profile button
+ER:
+~ user account details are opened with 3 tabs:
+  - Posts: <n> where n is number of posts,
+  - Followers: <n> where n is number of followers,
+  - Following: <n> where n is number of following,
+~ "Posts" tab is selected by default
+~ list of posts is displayed in "Posts" tab
+4. Click on post from preconditions
+5. Click "Delete" button
+ER:
+~ "Post successfully deleted" text is displayed
+~ deleted post is not displayed in "Posts" tab
+~ Post tab headline is "Posts: <n-1>"
+
+
+
+

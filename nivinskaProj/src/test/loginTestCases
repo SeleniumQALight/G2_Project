@@ -1,0 +1,49 @@
+Login test cases
+
+Case #1. Sign In - Empty fields
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Push the button "Sign In" .//button[text()='Sign In']
+
+find allert .//div[text()='Invalid username / password']
+find Sign In button .//button[text()='Sign In']
+
+Case #2. Sign In - Error
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Enter random name to Username field .//input[@name='username']
+3. Enter random to Password field .//input[@name='password']
+4. Push the button "Sign In" .//button[text()='Sign In']
+
+find allert .//div[text()='Invalid username / password']
+find Sign In button .//button[text()='Sign In']
+
+Case #3. Sign up
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Enter random name to Username field .//input[@id='username-register']
+3. Save value name for the future*
+4. Enter random email to Email field .//input[@id='email-register']
+5. Enter random password to Password field .//input[@id='password-register']
+6. Save value password for the future*
+7. Push the button "Sign up for OurApp" .//button[text()="Sign up for OurApp"]
+
+find name in .//span[@class='text-white mr-2']
+find name in .//strong
+finf Sign Out button .//button[text()='Sign Out']
+
+Case #4. Sign In
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Enter name to Username field .//input[@name='username']
+3. Enter password to Password field .//input[@name='password']
+4. Push the button "Sign In" .//button[text()='Sign In']
+
+find name in .//span[@class='text-white mr-2']
+find name in .//strong
+finf Sign Out button .//button[text()='Sign Out']
+
+Case #5. Sign out
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Enter name to Username field .//input[@name='username']
+3. Enter password to Password field .//input[@name='password']
+4. Push the button "Sign in" .//button[text()='Sign In']
+5. Push Sign Out button .//button[text()='Sign Out']
+
+find Sign In button .//button[text()='Sign In']
