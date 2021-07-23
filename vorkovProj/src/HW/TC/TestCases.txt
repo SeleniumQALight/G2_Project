@@ -11,9 +11,9 @@ ER: User is successfully logged in as user 'auto'.
 Postcondition: Click on 'Sing Out' button. User is logged out.
 
 ---------------------------------------------------------------
-TC 2 Edit post
+TC 2 Text 'Post successfully updated.' is displayed
 Precondition: User is logged in on page 'http://qa-complex-app-for-testing.herokuapp.com/',
-              with credentials Username 'auto' and Password '123456qwerty.
+              with credentials Username 'auto' and Password '123456qwerty. Create post with title: 'post1', body: 'first post'.
 
 STR:
 1 Click on 'My profile' icon
@@ -60,7 +60,7 @@ Postcondition: Click on 'Sing Out' button. User is logged out.
 ---------------------------------------------------------------
 TC 5 Follow follower
 Precondition: User is logged in on page 'http://qa-complex-app-for-testing.herokuapp.com/',
-              with credentials Username 'auto' and Password '123456qwerty.
+              with credentials Username 'auto' and Password '123456qwerty. Login as other user and follow user 'auto'.
 
 STR:
 1 Click on 'My profile' icon

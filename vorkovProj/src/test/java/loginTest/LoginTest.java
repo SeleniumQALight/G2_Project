@@ -88,7 +88,7 @@ public class LoginTest {
         System.out.println("Button 'Sign In' was clicked");
 
         // Search for button Sign Out
-        Assert.assertFalse("Button 'Sign Out' was NOT found", isButtonSignOutVisible());
+        Assert.assertFalse("Button 'Sign Out' is visible, but shouldn't", isButtonSignOutVisible());
         System.out.println("Button 'Sign Out' was not found");
 
         // Close browser
