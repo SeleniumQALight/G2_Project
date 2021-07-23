@@ -8,7 +8,9 @@ public class LoginTestWithPageObject extends BaseTest {
     public void validLogin(){
         loginPage.openLoginPage();
         loginPage.enterLoginIn("auto");
-
+        loginPage.enterPasswwordInSign("123456qwerty");
+        loginPage.clickOnButtonSignIn();
+        checkExpectedResult("Button SignOut is not visible ",homePage.isButtonSignOutPresent(),true);
 
     }
 }
