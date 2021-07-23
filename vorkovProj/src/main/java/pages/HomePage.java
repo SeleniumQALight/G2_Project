@@ -10,15 +10,26 @@ public class HomePage extends ParentPage {
         super(webDriver);
     }
 
+    // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private WebElement buttonSignOut;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    WebElement buttonSignIn;
+    private WebElement buttonSignIn;
 
     @FindBy(xpath = ".//div[contains(text(),'Invalid username / password')]")
-    WebElement alertInvalidLogin;
+    private WebElement alertInvalidLogin;
 
+    @FindBy(xpath = ".//div[contains(text(),'Username must be at least 3 characters.')]")
+    private WebElement validationMessageUsernameRegistration;
+
+    @FindBy(xpath = ".//div[contains(text(),'You must provide a valid email address.')]")
+    private WebElement validationMessageEmailRegistration;
+
+    @FindBy(xpath = ".//div[contains(text(),'Password must be at least 12 characters.')]")
+    private WebElement validationMessagePasswordRegistration;
+
+    // --------------------------------------------------------------------------------------------------
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
     }
@@ -29,5 +40,17 @@ public class HomePage extends ParentPage {
 
     public boolean isAlertPresent() {
         return isElementPresent(alertInvalidLogin);
+    }
+
+    public boolean isValidationMessageUsernameRegistrationPresent() {
+        return isElementPresent(validationMessageUsernameRegistration);
+    }
+
+    public boolean isValidationMessageEmailRegistrationPresent() {
+        return isElementPresent(validationMessageEmailRegistration);
+    }
+
+    public boolean isValidationMessagePasswordRegistrationPresent() {
+        return isElementPresent(validationMessagePasswordRegistration);
     }
 }

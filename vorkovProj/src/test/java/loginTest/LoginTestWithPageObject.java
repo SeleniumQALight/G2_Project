@@ -26,6 +26,5 @@ public class LoginTestWithPageObject extends BaseTest {
         checkExpectedResult("Button Sign Out is visible, but shouldn't", homePage.isButtonSignOutPresent(), false);
         checkExpectedResult("Button Sign In is visible", homePage.isButtonSignInPresent(), true);
         checkExpectedResult("Alert invalid login present", homePage.isAlertPresent(), true);
-
     }
 }

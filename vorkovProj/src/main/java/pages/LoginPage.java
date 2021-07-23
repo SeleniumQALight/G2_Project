@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends ParentPage {
+    // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -15,6 +16,19 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath = ".//input[@id='username-register' and @placeholder='Pick a username']")
+    private WebElement inputUsernameRegistration;
+
+    @FindBy(xpath = ".//input[@id='email-register' and @placeholder='you@example.com']")
+    private WebElement inputEmailRegistration;
+
+    @FindBy(xpath = ".//input[@id='password-register' and @placeholder='Create a password']")
+    private WebElement inputPasswortRegistration;
+
+    @FindBy(xpath = ".//button[contains(text(),'Sign up for OurApp')]")
+    private WebElement buttonSignUpRegistration;
+
+    // --------------------------------------------------------------------------------------------------
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -41,4 +55,19 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
+    public void enterUsernameRegistration(String usernameRegistration) {
+        enterTextToElement(inputUsernameRegistration, usernameRegistration);
+    }
+
+    public void enterEmailRegistration(String emailRegistration) {
+        enterTextToElement(inputEmailRegistration, emailRegistration);
+    }
+
+    public void enterPasswordRegistration(String passwordRegistration) {
+        enterTextToElement(inputPasswortRegistration, passwordRegistration);
+    }
+
+    public void clickOnButtonSignUpRegistration() {
+        clickOnElement(buttonSignUpRegistration);
+    }
 }
