@@ -1,0 +1,28 @@
+#Header
+Username input              './/input[@placeholder='Username']'
+Password input              './/input[@placeholder='Password']'
+Sign In button              './/button[text()='Sign In']'
+Sign Out button             './/button[text()='Sign Out']'
+
+
+#My profile page
+My profile icon             './/a[@href='/profile/auto']'
+Latest post                 './/div[@class='list-group']//a'
+Edit                        './/a[@data-original-title='Edit']'
+Body Content                './/textarea[@name='body']'
+Save Updates                './/button[text()='Sign Out']'
+Success alert               './/div[@class='alert alert-success text-center']'
+Followers item              './/a[@href='/profile/auto/followers']'
+Follower                    './/a[@class='list-group-item list-group-item-action'][1]'
+Follow button               './/button[contains(text(),'Follow')]'
+Stop Following button       './/button[contains(text(),'Stop Following')]'
+
+
+#Chat
+Chat icon                   './/span[@data-original-title='Chat']'
+Chat input field            './/input[@placeholder='Type a message…']'
+Button enter from keyboard   webDriver.findElement(By.id("Value")).sendKeys(Keys.RETURN);'
+Sent message                './/div[@class='chat-message-inner' and contains(text(),'Can you help me?')]'
+Close chat button           './/span[@class='chat-title-bar-close']'
+Chat                        './/div[@id='chat-wrapper']'
+
