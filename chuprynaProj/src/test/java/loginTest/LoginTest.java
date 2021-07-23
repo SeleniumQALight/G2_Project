@@ -25,7 +25,7 @@ public class LoginTest {
         System.out.println("Site was opened");
 
         webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
-        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("uto");
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("auto");
         System.out.println("'auto' was inputted as a username");
 
         webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
@@ -48,5 +48,32 @@ public class LoginTest {
             System.out.println("Error occurred:" + e);
         }
         return false;
+    }
+
+    @Test
+    public void invalidLogin() {
+        File fileFF = new File("./src/drivers/v91/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
+        webDriver = new ChromeDriver();
+
+        webDriver.manage().window().maximize();
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+        System.out.println("Site was opened");
+
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("auto");
+        System.out.println("'auto' was inputted as a username");
+
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("123456");
+        System.out.println("password was inputted");
+
+        webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
+        System.out.println("'Sign In' button was clicked");
+
+        Assert.assertFalse("Button SignOut is displayed", isButtonSignOutVisible());
+        webDriver.quit();
     }
 }
