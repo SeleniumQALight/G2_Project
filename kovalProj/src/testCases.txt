@@ -1,0 +1,62 @@
+Test Case #1 Authentication Check
+
+Steps to reproduce:
+1) open the website https://qa-complex-app-for-testing.herokuapp.com/
+2) Input Username "auto"
+3) Input Password "123456qwerty"
+4) Press the button "Sign in"
+
+Expected result:
+
+User should be logged in. Button "Sign out" should appear.
+
+
+Test Case #2 Logout Check
+
+Steps to reproduce:
+1) When user is logged in, press the button "Sign out"
+
+Expected result:
+
+User should be logged out. The button "Sign in" should appear.
+
+
+Test Case #3 New Post Creation Message Check
+
+Steps to reproduce:
+1) When the user is logged in, press the button "Create Post"
+2) In the Section "Title", input text "Test"
+3) In the Section "Body Content", input text "Test123"
+4) Press the button "Save New Post"
+
+Expected result:
+
+The message "New post successfully created" should appear.
+
+
+Test Case #4 Post Deletion Check
+
+Steps to reproduce:
+1) When the user is logged in, press the button "My profile"
+2) Press the button "Create Post"
+3) Input text "Hello" in Title and "Test" in Body Content
+4) Press button "Save New Post"
+5) On the screen, which show the message "New post successfully created", press the button "Delete"
+6) Press the button "Delete"
+
+
+Expected result:
+
+ The selected post should disappear and the message "Post successfully deleted" should appear
+
+
+Test Case #5 Chat Functionality Check
+
+Steps to reproduce:
+1) When the user is logged in, press the button "Chat"
+2) In the newly appeared window in the right bottom corner, type the text "Hello"
+3) Press Enter
+
+Expected result:
+
+Your typed message should appear in chat window.
