@@ -16,6 +16,7 @@ Followers item              './/a[@href='/profile/auto/followers']'
 Follower                    './/a[@class='list-group-item list-group-item-action'][1]'
 Follow button               './/button[contains(text(),'Follow')]'
 Stop Following button       './/button[contains(text(),'Stop Following')]'
+Alert invalid login         './/div[contains(text(),'Invalid username / password')]'
 
 
 #Chat
