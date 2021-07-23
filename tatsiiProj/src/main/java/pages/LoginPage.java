@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import sun.security.util.Password;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -16,8 +15,6 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement ButtonSignIn;
-    private String PassWord;
-    private Object Password;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
