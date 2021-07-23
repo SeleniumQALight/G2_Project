@@ -43,7 +43,7 @@ public class LoginTest {
 
     }
 
-    private boolean isButtonSignOutVisible() {
+    protected boolean isButtonSignOutVisible() {
         try {
             return webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
         }catch (Exception e){
@@ -60,7 +60,7 @@ public class LoginTest {
         webDriver = new ChromeDriver();
 
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
         System.out.println("Site was opened");
@@ -101,7 +101,7 @@ public class LoginTest {
         webDriver = new ChromeDriver();
 
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
         System.out.println("Site was opened");
@@ -118,18 +118,11 @@ public class LoginTest {
         webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
         System.out.println("Button was clicked");
 
-        Assert.assertTrue("Button SignOut is not displayed", !isButtonSignOutVisibleOnPage());
+        Assert.assertTrue("Button SignOut is not displayed", !isButtonSignOutVisible());
 
         webDriver.quit();
 
     }
 
-    private boolean isButtonSignOutVisibleOnPage() {
-        try {
-            return webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
-        }catch (Exception e){
-            return false;
-        }
 
-    }
 }

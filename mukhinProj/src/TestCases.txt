@@ -1,77 +1,124 @@
 Test case #1_. Registration with valid data
 
+Precondition:
 1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
-2. enter the value "Ivan" in the "Username" field of the "Sing up" form
-3. enter the value "ivan@mail.com" in the "Email" field of the "Sing up" form
-4. enter the value "123456789123" in the "Password" field of the "Sing up" form
-5. click on the "Sign up for OurApp" button and pay attention to the display on the page
+
+Steps:
+1. enter a unique valid value in the "Username" field of the "Sing up" form
+2. enter a unique valid value in the "Email" field of the "Sing up" form
+3. enter a unique valid value in the "Password" field of the "Sing up" form
+4. click on the "Sign up for OurApp" button and pay attention to the display on the page
 
 Expected result: the user is successfully registered and the button is displayed on the page:"Sign out", "Create post"
 
+Postcondition:
+1. delete user
+2. go out
 
 
 
-Test case #2. Sign out of your account
+Test case #2. Sign out of your account after registration
 
+Precondition:
 1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
-2. enter the value "Ivan" in the "Username" field of the "Sing up" form
-3. enter the value "ivan@mail.com" in the "Email" field of the "Sing up" form
-4. enter the value "123456789123" in the "Password" field of the "Sing up" form
+2. enter a unique valid value in the "Username" field of the "Sing up" form
+3. enter a unique valid value in the "Email" field of the "Sing up" form
+4. enter a unique valid value in the "Password" field of the "Sing up" form
 5. click on the "Sign up for OurApp" button
-6. click on the "Sign out" button and pay attention to the display on the page
 
+Steps
+1. click on the "Sign out" button
+2.  pay attention to the display on the page
 
 Expected result: successful logout and the button "Sing in" is displayed on the page
 
+Postcondition:
+1. delete user
+2. go out
 
 
 Test case #3. Sign in with valid data
 
-Use valid data of a previously successfully registered user
-
+Precondition:
 1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
-2. enter the value "Ivan" in the "Username" field of the "Sing in" form
-3. enter the value "123456789123" in the "Password" field of the "Sing in" form
-5. click on the "Sign in" button and pay attention to the display on the page
+2. enter a unique valid value in the "Username" field of the "Sing up" form
+3. enter a unique valid value in the "Email" field of the "Sing up" form
+4. enter a unique valid value in the "Password" field of the "Sing up" form
+5. click on the "Sign up for OurApp" button
+6. click on the "Sign out" button
+
+Steps:
+1. enter a unique valid value in the "Username" field of the "Sing in" form
+2. enter a unique valid value in the "Password" field of the "Sing in" form
+3. click on the "Sign in" button and pay attention to the display on the page
 
 
 Expected result: successful login and the button is displayed on the page:"Sign out", https://qa-complex-app-for-testing.herokuapp.com/ is displayed in the URL field
 
+Postcondition:
+1. delete user
+2. go out
 
 
 Test case #4. Create post
 
-Follow the link https://qa-complex-app-for-testing.herokuapp.com/
-Login data:
-Username: Ivan
-Password: 123456789123
+Precondition:
+1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
+2. enter a unique valid value in the "Username" field of the "Sing up" form
+3. enter a unique valid value in the "Email" field of the "Sing up" form
+4. enter a unique valid value in the "Password" field of the "Sing up" form
+5. click on the "Sign up for OurApp" button
+6. click on the "Sign out" button
+7. enter a unique valid value in the "Username" field of the "Sing in" form
+8. enter a unique valid value in the "Password" field of the "Sing in" form
+9. click on the "Sign in" button and pay attention to the display on the page
 
+
+Steps:
 1. click on the "Create post" button
-2. enter the value "Post" in the "Title" field
-3. enter the value "Post" in the "Body Content" field
+2. enter a unique valid value in the "Title" field
+3. enter a unique valid value in the "Body Content" field
 4. select the checkbox "This is a unique post"
 5. select "Public" in "Select value"
 6. press the button "Save new post" and pay attention to the display on the page
 
 
-
 Expected result: post with the title "Post" is displayed on the page
 
+Postcondition:
+1. delete created post
+2. delete user
+3. go out
 
 
 Test case #5. Delete post
 
-Follow the link https://qa-complex-app-for-testing.herokuapp.com/
-Login data:
-Username: Ivan
-Password: 123456789123
-Previously created post "One"
+Precondition:
+1. follow the link https://qa-complex-app-for-testing.herokuapp.com/
+2. enter a unique valid value in the "Username" field of the "Sing up" form
+3. enter a unique valid value in the "Email" field of the "Sing up" form
+4. enter a unique valid value in the "Password" field of the "Sing up" form
+5. click on the "Sign up for OurApp" button
+6. click on the "Sign out" button
+7. enter a unique valid value in the "Username" field of the "Sing in" form
+8. enter a unique valid value in the "Password" field of the "Sing in" form
+9. click on the "Sign in" button and pay attention to the display on the page
+10. click on the "Create post" button
+11. enter a unique valid value in the "Title" field
+12. enter a unique valid value in the "Body Content" field
+13. select the checkbox "This is a unique post"
+14. select "Public" in "Select value"
+15. press the button "Save new post"
 
+Steps:
 1. click on "My profile" in the main menu
-2. open post "One"
+2. open a previously created post
 3. click on the "Delete" icon
 4. pay attention to the display on the page
 
 
+Expected result: previously deleted post is not displayed on the page
 
-Expected result: post named "One" is not displayed on the page
+Postcondition:
+1. delete user
+2. go out
