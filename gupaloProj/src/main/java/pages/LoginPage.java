@@ -5,25 +5,44 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends ParentPage{
-    @FindBy (xpath = ".//input[@placeholder='Username']")
+public class LoginPage extends ParentPage {
+    @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
-    @FindBy (xpath = ".//input[@placeholder='Password']")
+    @FindBy(xpath = ".//input[@placeholder='Password']")
     private WebElement inputPassword;
 
-    @FindBy (xpath = ".//button[text()='Sign In']")
+    @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
+
+    @FindBy(xpath = ".//button[text()='Sign Out']")
+    private WebElement buttonSignOut;
+
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    private WebElement alertText;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public void openLoginPage(){
-        try{
+    public boolean isButtonSignOutPresent() {
+        return isElementPresent(buttonSignOut);
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isAlertIsPresent() {
+        return isElementPresent(alertText);
+    }
+
+
+    public void openLoginPage() {
+        try {
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
             logger.info("Login page was opened");
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("Cannot work with LoginPage" + e);
             Assert.fail("Cannot work with LoginPage");
         }
@@ -50,4 +69,14 @@ public class LoginPage extends ParentPage{
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
+
+    public void fillLoginFormAndSubmit() {
+        enterLoginInSignIn("auto");
+        enterPasswordInSignIn("123");
+        clickOnButtonSignIn();
+    }
 }
+
+
+
+
