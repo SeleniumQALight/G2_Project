@@ -21,6 +21,28 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
     private WebElement alertText;
 
+    @FindBy(xpath = ".//input[@placeholder='Pick a username']")
+    private WebElement inputLoginInForm;
+
+    @FindBy(xpath = ".//input[@placeholder='you@example.com']")
+    private WebElement inputEmail;
+
+    @FindBy(xpath = ".//input[@placeholder='Create a password']")
+    private WebElement inputPasswordInForm;
+
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private WebElement buttonSignUp;
+
+    @FindBy (xpath = ".//div[text()='Username must be at least 3 characters.']")
+    private WebElement loginValidMessageInForm;
+
+    @FindBy(xpath = ".//div[text()='You must provide a valid email address.']")
+    private WebElement emailValidMessageInForm;
+
+    @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
+    private WebElement passwordValidMessageInForm;
+
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -37,6 +59,17 @@ public class LoginPage extends ParentPage {
         return isElementPresent(alertText);
     }
 
+    public boolean isLoginValidMessageInFormPresent (){
+        return isElementPresent(loginValidMessageInForm);
+    }
+
+    public boolean isEmailValidMessageInFormPresent (){
+        return isElementPresent(emailValidMessageInForm);
+    }
+
+    public boolean isPasswordValidMessageInFormPresent (){
+        return isElementPresent(passwordValidMessageInForm);
+    }
 
     public void openLoginPage() {
         try {
@@ -74,6 +107,29 @@ public class LoginPage extends ParentPage {
         enterLoginInSignIn("auto");
         enterPasswordInSignIn("123");
         clickOnButtonSignIn();
+    }
+
+    public void enterLoginInRegForm (String login){
+        enterTextToElement(inputLoginInForm, login);
+    }
+
+    public void enterEmailInRegForm (String email){
+        enterTextToElement(inputEmail, email);
+    }
+
+    public void enterPasswordInRegForm (String password){
+        enterTextToElement(inputPasswordInForm, password);
+    }
+
+    public void clickOnButtonSignUp (){
+        clickOnElement(buttonSignUp);
+    }
+
+    public void fillRegFormAndSubmit(){
+        enterLoginInRegForm("tr");
+        enterEmailInRegForm("test.com");
+        enterPasswordInRegForm("123");
+        clickOnButtonSignUp();
     }
 }
 
