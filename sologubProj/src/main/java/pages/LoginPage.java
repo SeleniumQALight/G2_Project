@@ -15,6 +15,31 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath=".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy (xpath = ".//div[text() = 'Invalid username / password']")
+    private WebElement invalidCredentialsAlert;
+
+    @FindBy (xpath = ".//input[@id='username-register']")
+    private WebElement inputRegisterUsername;
+
+
+    @FindBy (xpath=".//input[@id='email-register']")
+    private WebElement inputRegisterEmail;
+
+    @FindBy (xpath = ".//input[@id='password-register']")
+    private WebElement inputRegisterPassword;
+
+    @FindBy (xpath = ".//button[@type='submit']")
+    private WebElement signUpForOurApp;
+
+    @FindBy (xpath = ".//div[text() = 'Username must be at least 3 characters.']")
+    private WebElement registrationUsernameAlert;
+
+    @FindBy (xpath = ".//div[text() = 'You must provide a valid email address.']")
+    private WebElement registrationEmailAlert;
+
+    @FindBy (xpath = ".//div[text() = 'Password must be at least 12 characters.']")
+    private WebElement registrationPasswordAlert;
+
     public LoginPage(WebDriver webdriver) {
         super(webdriver);
     }
@@ -50,4 +75,55 @@ public class LoginPage extends ParentPage {
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
+
+    public void fillLoginFormAndSubmit(String login, String password) {
+        enterLoginInSignIn(login);
+        enterPasswordInSignIn(password);
+        clickOnButtonSignIn();
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isInvalidCredentialsAlertPresent() {
+        return isElementPresent(invalidCredentialsAlert);
+    }
+
+    public void enterRegistrationName(String username) {
+        enterTextToElement(inputRegisterUsername, username);
+    }
+
+    public void enterRegistrationEmail(String email) {
+        enterTextToElement(inputRegisterEmail, email);
+    }
+
+    public void enterRegistrationPassword(String password) {
+        enterTextToElement(inputRegisterPassword, password);
+    }
+
+    public void clickSignUpButton() {
+        clickOnElement(signUpForOurApp);
+    }
+
+    public void fillRegistrationFormAndSubmit(String username, String email, String password) {
+        enterRegistrationName(username);
+        enterRegistrationEmail(email);
+        enterRegistrationPassword(password);
+        clickSignUpButton();
+    }
+
+    public boolean isRegistrationUsernameAlertPresent() {
+        return isElementPresent(registrationUsernameAlert);
+    }
+
+    public boolean isRegistrationEmailAlertPresent() {
+        return isElementPresent(registrationEmailAlert);
+    }
+
+    public boolean isRegistrationPasswordAlertPresent() {
+        return isElementPresent(registrationPasswordAlert);
+    }
+
+
 }
