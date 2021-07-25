@@ -18,6 +18,27 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
     private WebElement alertInvalidUsernamePassword;
 
+    @FindBy(xpath = ".//input[@placeholder='Pick a username']")
+    private WebElement inputLoginRegistration;
+
+    @FindBy(xpath = ".//input[@placeholder='you@example.com']")
+    private WebElement inputEmailRegistration;
+
+    @FindBy(xpath = ".//input[@placeholder='Create a password']")
+    private WebElement inputPassWordRegistration;
+
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private WebElement buttonSignUp;
+
+    @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
+    private WebElement alertInvalidUsernameRegistration;
+
+    @FindBy(xpath = ".//div[text()='You must provide a valid email address.']")
+    private WebElement alertInvalidEmailRegistration;
+
+    @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
+    private WebElement alertInvalidPasswordRegistration;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -66,5 +87,33 @@ public class LoginPage extends ParentPage {
 
     public boolean isAlertInvalidUsernamePasswordDisplayed() {
         return isElementPresent(alertInvalidUsernamePassword);
+    }
+
+    public void enterLoginInRegistration(String login) {
+        enterTextToElement(inputLoginRegistration, login);
+    }
+
+    public void enterEmailRegistration(String email) {
+        enterTextToElement(inputEmailRegistration, email);
+    }
+
+    public void enterPassWordInRegistration(String passWord) {
+        enterTextToElement(inputPassWordRegistration, passWord);
+    }
+
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
+    }
+
+    public boolean isAlertInvalidUsernameRegistrationDisplayed() {
+        return isElementPresent(alertInvalidUsernameRegistration);
+    }
+
+    public boolean isAlertInvalidEmailRegistrationDisplayed() {
+        return isElementPresent(alertInvalidEmailRegistration);
+    }
+
+    public boolean isAlertInvalidPasswordRegistrationDisplayed() {
+        return isElementPresent(alertInvalidPasswordRegistration);
     }
 }
