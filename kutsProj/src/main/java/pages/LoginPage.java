@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends ParentPage{
+public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -14,6 +14,9 @@ public class LoginPage extends ParentPage{
 
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
+
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    private WebElement alertInvalidUsernamePassword;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -49,5 +52,19 @@ public class LoginPage extends ParentPage{
 
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
+    }
+
+    public void fillLoginFormAndSubmit(String login, String passWord) {
+        enterLoginInSignIn(login);
+        enterPassWordInSignIn(passWord);
+        clickOnButtonSignIn();
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isAlertInvalidUsernamePasswordDisplayed() {
+        return isElementPresent(alertInvalidUsernamePassword);
     }
 }
