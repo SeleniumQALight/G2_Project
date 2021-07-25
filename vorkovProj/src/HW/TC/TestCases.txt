@@ -1,0 +1,73 @@
+TC 1 Valid login
+Precondition: User open the 'http://qa-complex-app-for-testing.herokuapp.com/'
+
+STR:
+1 Enter Username 'auto'.
+2 Enter Password '123456qwerty'.
+3 Click on 'Sign In' button.
+
+ER: User is successfully logged in as user 'auto'.
+
+Postcondition: Click on 'Sing Out' button. User is logged out.
+
+---------------------------------------------------------------
+TC 2 Text 'Post successfully updated.' is displayed
+Precondition: User is logged in on page 'http://qa-complex-app-for-testing.herokuapp.com/',
+              with credentials Username 'auto' and Password '123456qwerty. Create post with title: 'post1', body: 'first post'.
+
+STR:
+1 Click on 'My profile' icon
+2 Click on latest post
+3 Click on 'edit'
+4 Input into field 'Body Content': 'some body text'
+5 Click on 'Save Updates' button
+
+ER: After post updating user appears success alert with text :'Post successfully updated.'
+
+Postcondition: Click on 'Sing Out' button. User is logged out.
+
+---------------------------------------------------------------
+TC 3 Send message to a chat
+Precondition: User is logged in on page 'http://qa-complex-app-for-testing.herokuapp.com/',
+              with credentials Username 'auto' and Password '123456qwerty.
+
+STR:
+1 Click on 'Chat' icon
+2 Click on input field in chat
+3 Input text 'Can you help me?'
+4 Press enter button on keyboard
+
+ER: Upon user clicked on 'Chat' icon chat will appears. After input text into chat and press enter from keyboard, message will be send.
+
+Postcondition: Click on 'Sing Out' button. User is logged out.
+
+---------------------------------------------------------------
+TC 4 Close chat
+Precondition: User is logged in on page 'http://qa-complex-app-for-testing.herokuapp.com/',
+              with credentials Username 'auto' and Password '123456qwerty.
+
+STR:
+1 Click on 'Chat' icon
+2 Click on input field in chat
+3 Input text 'Can you help me?'
+4 Press enter button on keyboard
+5 Click on 'close' chat
+
+ER: Upon user clicks on 'close' chat, chat isn't displayed.
+
+Postcondition: Click on 'Sing Out' button. User is logged out.
+
+---------------------------------------------------------------
+TC 5 Follow follower
+Precondition: User is logged in on page 'http://qa-complex-app-for-testing.herokuapp.com/',
+              with credentials Username 'auto' and Password '123456qwerty. Login as other user and follow user 'auto'.
+
+STR:
+1 Click on 'My profile' icon
+2 Click on 'Followers'
+3 Click on first follower
+4 Click on 'Follow' button
+
+ER: Upon user clicks on 'Follow' button, user observe 'Stop following' button.
+
+Postcondition: Click on 'Stop following' button, click on 'Sing Out' button. User is logged out.

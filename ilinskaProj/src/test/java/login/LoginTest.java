@@ -32,8 +32,6 @@ public class LoginTest {
         webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
         System.out.println("Button was clicked");
         Assert.assertTrue("Button Signout is not displayed", isButtonSignOutVisible());
-        webDriver.quit();
-
     }
 
     private boolean isButtonSignOutVisible() {
@@ -43,4 +41,32 @@ public class LoginTest {
             return false;
         }
     }
+        @Test
+     public void InvalidLOg() {
+            File fileFF = new File("./src/drivers/91/91-1/chromedriver (2).exe");
+            System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
+            webDriver = new ChromeDriver();
+
+            webDriver.manage().window().maximize();
+            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            System.out.println("Site was opened");
+            webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
+            webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("test");
+            System.out.println("test was inputted");
+            webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
+            webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("123456qwerty11");
+            System.out.println("pass was inputted");
+            webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
+            System.out.println("Button was clicked");
+            Assert.assertTrue("Error Message appeared! Please try one more time!", isPopupDisplay());
+        }
+    private boolean isPopupDisplay() {
+        try{
+            return webDriver.findElement(By.xpath(".//div[@class='alert alert-danger text-center' and text()='Invalid username / password']")).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+
+}
 }
