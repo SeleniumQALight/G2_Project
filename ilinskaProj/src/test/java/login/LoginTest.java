@@ -1,5 +1,7 @@
 package login;
 
+import org.junit.Test;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -12,8 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
     WebDriver webDriver;
-
-    @Test
+@Test
     public void validLogin() {
         File fileFF = new File("./src/drivers/91/91-1/chromedriver (2).exe");
         System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
@@ -41,7 +42,7 @@ public class LoginTest {
             return false;
         }
     }
-        @Test
+
      public void InvalidLOg() {
             File fileFF = new File("./src/drivers/91/91-1/chromedriver (2).exe");
             System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
@@ -68,5 +69,5 @@ public class LoginTest {
             return false;
         }
 
-}
+    }
 }
