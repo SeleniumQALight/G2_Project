@@ -1,11 +1,20 @@
 package pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends ParentPage {
+    @FindBy(xpath = ".//input[@placeholder='Username']")
+    private WebElement inputLogin;
+
+    @FindBy(xpath = ".//input[@placeholder='Password']")
+    private WebElement inputPassword;
+
+    @FindBy(xpath = ".//button[text()='Sign In']")
+    private WebElement buttonSignIn;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -21,14 +30,22 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterLoginInSignInForm(String userName) {
-        try {
-            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-            element.clear();
-            element.sendKeys(userName);
-            logger.info(userName + " was inputted in SignIn input Username");
-        } catch (Exception e){
-            logger.error("Cannot enter username in SingIn form:" + e);
-            Assert.fail("Cannot enter username in SingIn form");
-        }
+//        try {
+//            inputLogin.clear();
+//            inputLogin.sendKeys(userName);
+//            logger.info(userName + " was inputted in SignIn input Username");
+//        } catch (Exception e){
+//            logger.error("Cannot enter username in SingIn form:" + e);
+//            Assert.fail("Cannot enter username in SingIn form");
+//        }
+        enterTextToElement(inputLogin, userName);
+    }
+
+    public void enterPasswordInSignInForm(String password) {
+        enterTextToElement(inputPassword, password);
+    }
+
+    public void clickOnSignInButton() {
+        clickOnElement(buttonSignIn);
     }
 }
