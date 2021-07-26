@@ -31,7 +31,7 @@ IV. Edit and delete a post
 
 Search field = .//input[@placeholder='What are you interested in?']
 List of the posts in the search = .//a[@class='list-group-item list-group-item-action']
-Select your post from the list = .//a[@strong='New post on Tuesday'] --- ????????????????????????????
+Select your post from the list = .//*[text()='New post on Tuesday']
 
 Edit a post button = .//a[@data-original-title='Edit']
 Delete a post button = .//button[@data-original-title='Delete']
