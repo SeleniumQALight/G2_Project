@@ -103,10 +103,9 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
-    public void fillLoginFormAndSubmit() {
-        enterLoginInSignIn("auto");
-        enterPasswordInSignIn("123");
-        clickOnButtonSignIn();
+    public void fillLoginFormAndSubmit (String login, String password) {
+        enterTextToElement(inputLogin,login);
+        enterTextToElement(inputPassword, password);
     }
 
     public void enterLoginInRegForm (String login){
@@ -125,11 +124,11 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignUp);
     }
 
-    public void fillRegFormAndSubmit(){
-        enterLoginInRegForm("tr");
-        enterEmailInRegForm("test.com");
-        enterPasswordInRegForm("123");
-        clickOnButtonSignUp();
+    public void fillRegFormAndSubmit(String login, String email, String password){
+        enterTextToElement(inputLoginInForm, login);
+        enterTextToElement(inputEmail, email);
+        enterTextToElement(inputPasswordInForm, password);
+
     }
 }
 
