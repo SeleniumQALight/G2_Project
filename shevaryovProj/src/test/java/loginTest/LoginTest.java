@@ -48,11 +48,11 @@ public class LoginTest {
         webDriver.get("https://qa-complex-app-for-testing.herokuapp.com");
         System.out.println("Site was opened");
         webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
-        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("auto1111");
+        webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("aauuutttooo1111");
 
         System.out.println("'auto' was inputted");
         webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).clear();
-        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("123456qwerty");
+        webDriver.findElement(By.xpath(".//input[@placeholder='Password']")).sendKeys("1234566");
         System.out.println("pass was inputted");
 
         webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();

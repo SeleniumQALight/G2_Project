@@ -15,7 +15,7 @@ public class InvalidLoginTest {
     @Test
     public void invalidLogin(){
         File fileFF = new File("./src/drivers/91/chromedriver (3).exe");
-        System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
+        System.setProperty("webDriver.chrome.driver", fileFF.getAbsolutePath());
         webDriver = new ChromeDriver();
 
         webDriver.manage().window().maximize();
@@ -39,4 +39,5 @@ public class InvalidLoginTest {
     private boolean isValidateMessageVisible() {
         return webDriver.findElement(By.xpath(".//div[text()='Invalid username / password']")).isDisplayed();
     }
+
 }
