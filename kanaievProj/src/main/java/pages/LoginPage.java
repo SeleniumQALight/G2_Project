@@ -109,4 +109,11 @@ public class LoginPage extends ParentPage {
     public boolean isAlertInvalidSingUpPasswordPresent() {
         return isElementPresent(alertValidateSignUpPassword);
     }
+
+    public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPasswordInSignIn(password);
+        clickOnButtonSignIn();
+    }
 }
