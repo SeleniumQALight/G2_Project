@@ -50,6 +50,7 @@ public class LoginTest {
         }
     }
 
+    @Test
     public void notValidLogin() {
         File fileFF = new File("./src/drivers/91-1/chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
@@ -57,6 +58,9 @@ public class LoginTest {
 
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+        System.out.println("Site was opened.");
 
         webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
         webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("o");
@@ -69,7 +73,7 @@ public class LoginTest {
         webDriver.findElement(By.xpath(".//button[text()='Sign In']")).click();
         System.out.println("Button was clicked");
 
-        Assert.assertTrue("Button SignOut is not displayed", isButtonSignOutVisible());
+        Assert.assertFalse("Button SignOut is displayed, but shouldn't.", isButtonSignOutVisible());
 
         webDriver.quit();
 
