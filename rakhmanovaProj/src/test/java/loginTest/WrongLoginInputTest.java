@@ -21,9 +21,6 @@ import java.util.concurrent.TimeUnit;
             webDriver.manage().window().maximize();
             webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
-            System.out.println("Site was opened.");
-
             webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).clear();
             webDriver.findElement(By.xpath(".//input[@placeholder='Username']")).sendKeys("o");
             System.out.println("'o' was inputted.");
