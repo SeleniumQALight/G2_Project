@@ -19,7 +19,6 @@ public class LoginTestWithPageObject extends BaseTest {
     public void invalidLogin() {
         loginPage.openLoginPage();
         loginPage.fillLoginFormAndSubmit("auto", "123");
-        loginPage.clickOnButtonSignIn();
 
         checkExpectedResult("Button sign out is not visible", loginPage.isButtonSignOutPresent(), false);
         checkExpectedResult("Button sign in is not visible", loginPage.isButtonSignInPresent(), true);
@@ -31,7 +30,6 @@ public class LoginTestWithPageObject extends BaseTest {
     public void checkValidMessagesInRegForm() {
         loginPage.openLoginPage();
         loginPage.fillRegFormAndSubmit("tr", "test.com", "123");
-        loginPage.clickOnButtonSignUp();
 
         checkExpectedResult("Message  'Username must be at least 3 characters.' is not visible", loginPage.isLoginValidMessageInFormPresent(), true);
         checkExpectedResult("Message  'You must provide a valid email address.' is not visible", loginPage.isEmailValidMessageInFormPresent(), true);

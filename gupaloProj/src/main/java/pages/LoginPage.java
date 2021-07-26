@@ -106,6 +106,7 @@ public class LoginPage extends ParentPage {
     public void fillLoginFormAndSubmit (String login, String password) {
         enterTextToElement(inputLogin,login);
         enterTextToElement(inputPassword, password);
+        clickOnButtonSignIn();
     }
 
     public void enterLoginInRegForm (String login){
@@ -128,7 +129,7 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLoginInForm, login);
         enterTextToElement(inputEmail, email);
         enterTextToElement(inputPasswordInForm, password);
-
+        clickOnButtonSignUp();
     }
 }
 
