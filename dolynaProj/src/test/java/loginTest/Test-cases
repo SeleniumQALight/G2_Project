@@ -1,0 +1,50 @@
+Case 1. Name “Registration”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Fill in the “Username “- “auto”
+3. Fill in the “Email” – “ddd@gmail.com
+4. Fill in the “Password” –“123456qwerty”
+5. Click on “Sign up for OurApp”
+Expected Result: A button appeared “Sign out”
+
+Case 2. Name “Create Post”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on “Create Post”
+4. Fill in the “Title” – “Hello”
+5. Fill in the “Body Content”- “Hello”
+5. Click on “Save New Post”
+Expected Result: “New Post” created. Post with the "Title- Hello" is displayed in the list of posts "My profile"
+
+Case 3. Name “Delete Post”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on “Create Post”
+4. Fill in the “Title” name“ Hello”
+5. Fill in the “Body Content”- “Hello”
+6. Open “My Profile”
+7. Open on field “Post – “Hello”
+8. Click on “Delete”
+Expected Result: “Post successfully deleted”. Open the “My Profile does not exist “Title – Hello”
+
+Case 4. Name: Check if the “Search” button is active
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on “Create Post”
+4. Fill in the “Title” name “Hello”
+5. Fill in the “Body Content”- “Hello”
+6. Click on “Search”
+7. Fill “Hello”
+Expected Result: Get a list of posts with the Title – “Hello”
+
+Case 5. Name: Checking the “Sign Out”
+Steps:
+1. Go to https://qa-complex-app-for-testing.herokuapp.com/
+2. Log in
+3. Click on field “Sign out”
+Expected Result: There is a button “Sign in” on the main page
+
+
