@@ -16,6 +16,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath= ".//div[@class='alert alert-danger text-center']")
+    private WebElement signInAlert;
+
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -52,4 +55,22 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
 
     }
-}
+
+//    public void fillLoginFormAndSubmit(String login, String password) {
+//        openLoginPage();
+//        enterLoginInSignIn(login);
+//        enterPasswordInSignIn(password);
+//        clickOnButtonSignIn();
+//    }
+//
+//    public boolean isButtonSignInPresent() {
+//     return isElementPresent(buttonSignIn);
+//    }
+//
+//    public boolean isSignInAlertPresent() {
+//        return isElementPresent(signInAlert);
+//    }
+
+
+    }
+

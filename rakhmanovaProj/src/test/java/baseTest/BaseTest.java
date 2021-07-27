@@ -1,6 +1,7 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import loginTest.SignUpValidationMessages;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +19,7 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected SignUpValidationMessages signUpValidationMessages;
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -27,6 +29,7 @@ public class BaseTest {
 
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
+        signUpValidationMessages = new SignUpValidationMessages(webDriver);
     }
 
     @After
