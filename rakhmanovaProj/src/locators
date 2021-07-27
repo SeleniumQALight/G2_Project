@@ -1,37 +1,40 @@
-I.
-.//input[@id='username-register']
- .//input[@name='email']
- .//input[@name='password']
-.//button[@type='submit']
+I. Login page:
 
-II.
-.//a[@class='btn btn-sm btn-success mr-2']
-.//input[@id='post-title']
-.//textarea[@id='post-body']
-.//input[@type='checkbox']
-.//select[@name='select1']
-.//button[@class='btn btn-primary']
+Username upper panel = .//input[@placeholder='Username']
+Password upper panel = .//input[@placeholder='Password']
+Sign In button = .//button[text()='Sign In']
 
-III.
-.//svg[@class='svg-inline--fa fa-search fa-w-16']  ---is it wrong?
-.//input[@type='text']
-(( .//path[@fill='currentColor'] --- wrong? ))
-.//a[@class='text-primary mr-2']
-.//input[@required name='title'] -----wrong?
-.//textarea[@required name='body'] ----wrong?
-.//button[@class='btn btn-primary']
+Username = .//input[@id='username-register']
+Email = .//input[@id='email-register']
+Password = .//input[@id='password-register']
+Sign up for OurApp button = .//button[@type='submit']
 
-IV.
-.//svg[@class='svg-inline--fa fa-search fa-w-16']  ---is it wrong?
-.//input[@type='text']
-.//button[@class='delete-post-button text-danger']
+II. Home page:
 
-V.
-.//span[@class='text-white mr-2 header-chat-icon']
-.//input[@type='text']
+Search button = .//a[@href='#']
+Chat button = .//span[@class='text-white mr-2 header-chat-icon']
+My Profile button = .//a[@class='mr-2']
+Create Post button = .//a[@class='btn btn-sm btn-success mr-2']
+Sign Out button = .//form[@action='/logout']
+
+III. Creating a new post
+
+Title field = .//input[@name='title']
+Body Content = .//textarea[@name='body']
+This is a unique post checkbox = .//input[@type='checkbox']
+Select value dropdown = .//select[@name='select1']
+Option value = .//option[@value='Group Message']
+Save New Post button = .//button[@class='btn btn-primary']
 
 
+IV. Edit and delete a post
 
+Search field = .//input[@placeholder='What are you interested in?']
+List of the posts in the search = .//a[@class='list-group-item list-group-item-action']
+Select your post from the list = .//*[text()='New post on Tuesday']
+
+Edit a post button = .//a[@data-original-title='Edit']
+Delete a post button = .//button[@data-original-title='Delete']
 
 
 
