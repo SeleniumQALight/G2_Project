@@ -14,7 +14,19 @@ public class LoginPage extends ParentPage {
     private WebElement inputPassWord;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement ButtonSignIn;
+    private WebElement buttonSignIn;
+
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private WebElement buttonSignUp;
+
+    @FindBy(id = "username-register")
+    private WebElement inputUserNameRegister;
+
+    @FindBy(id = "email-register")
+    private WebElement inputEmailRegister;
+
+    @FindBy(id = "password-register")
+    private WebElement inputPasswordRegister;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -43,12 +55,53 @@ public class LoginPage extends ParentPage {
 //        }
         enterTextToElement(inputLogin, login);
     }
-
+    public void enterLoginInSignUp(String login) {
+        enterTextToElement(inputUserNameRegister, login);
+    }
+    public void enterEmailInSignUp(String email) {
+        enterTextToElement(inputEmailRegister, email);
+    }
+    public void enterPasswordInSignUp(String password) {
+        enterTextToElement(inputPasswordRegister, password);
+    }
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
 
     public void clickOnButtonSignIn() {
-        clickOnElement(ButtonSignIn);
+        clickOnElement(buttonSignIn);
+    }
+
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
+    }
+
+    public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPassWordInSignIn(password);
+        clickOnButtonSignIn();
+    }
+    public void fillRegistrationFormAndSubmit(String login, String email, String password) {
+        openLoginPage();
+        enterLoginInSignUp(login);
+        enterEmailInSignUp(email);
+        enterPasswordInSignUp(password);
+        clickOnButtonSignUp();
+    }
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+    public boolean isLabelMessageInvalidLoginPresent(){
+        return isElementPresent(webDriver.findElement(
+                By.xpath("//div[contains(text(),'Invalid username / password')]")));
+    }
+    public boolean isLabelMessageShortUsernamePresent(){
+        return isElementPresent(webDriver.findElement(
+                By.xpath("//div[contains(text(),'Username must be at least 3 characters.')]")));
+    }
+    public boolean isLabelMessageValidEmailPresent() {
+        return isElementPresent(webDriver.findElement(
+                By.xpath("//div[contains(text(),'You must provide a valid email address.')]")));
     }
 }
