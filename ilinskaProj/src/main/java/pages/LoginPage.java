@@ -1,20 +1,17 @@
 package pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage<errorMessage> extends ParentPage {
+public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
     @FindBy(xpath = ".//input[@placeholder='Password']")
     private WebElement inputPassword;
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
-    @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
     @FindBy(xpath = ".//div[@class='alert alert-danger text-center' and text()='Invalid username / password']")
     private WebElement errorSignIN;
     @FindBy(xpath = ".//input[@placeholder='Pick a username']")
@@ -53,15 +50,10 @@ public class LoginPage<errorMessage> extends ParentPage {
         enterTextToElement(inputLogin, login);
 
     }
+    public boolean isSignINPresent()
 
-    public void isButtonSignOutPresent() {
-        try {
-            webDriver.findElement(By.xpath(".//button[text()='Sign Out']")).isDisplayed();
-            logger.info("Button 'Sign Out is present");
-        } catch (Exception e) {
-            logger.error("Button Sign Out is not present"+ e);
-            Assert.fail("Button Sign Out is not present");
-        }
+    {
+        return isElementPresent(buttonSignIn);
     }
 
 
