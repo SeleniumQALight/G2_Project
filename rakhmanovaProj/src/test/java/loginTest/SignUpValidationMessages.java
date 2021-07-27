@@ -25,5 +25,4 @@ public class SignUpValidationMessages extends BaseTest {
         checkExpectedResult("Password must be at least 12 characters.", loginPage.isErrorPasswordPresent(), true);
     }
 
-
 }
