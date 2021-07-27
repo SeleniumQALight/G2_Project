@@ -37,7 +37,6 @@ public class ParentPage {
     }
 
     protected boolean isElementPresent(WebElement webElement) {
-        webElement.isDisplayed();
         try {
             boolean state= webElement.isDisplayed();
             if (state) {

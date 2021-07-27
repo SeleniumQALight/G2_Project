@@ -105,4 +105,11 @@ public class LoginPage extends ParentPage {
 
     return isElementPresent(errorPassword);
     }
+    public void fillinandsubmit(String login, String password){
+        openLoginPage();
+        enterLoginIn("auto");
+        enterPasswwordInSign("123");
+        clickOnButtonSignIn();
+
+    }
 }
