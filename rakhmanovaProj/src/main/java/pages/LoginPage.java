@@ -20,6 +20,29 @@ public class LoginPage extends ParentPage {
     private WebElement signInAlert;
 
 
+    @FindBy(xpath = ".//input[@id='username-register']")
+    private WebElement userNameInput;
+
+    @FindBy(xpath = ".//input[@id='email-register']")
+    private WebElement emailInput;
+
+    @FindBy(xpath = ".//input[@id='password-register']")
+    private WebElement passwordInput;
+
+    @FindBy(xpath = ".//button[@type='submit']")
+    private WebElement signUpButton;
+
+    @FindBy(xpath = ".//*[text() ='Username must be at least 3 characters']")
+    private WebElement errorUserName;
+
+    @FindBy(xpath = ".//*[text() = 'You must provide a valid email address']")
+    private WebElement errorEmail;
+
+    @FindBy(xpath = ".//*[text() = 'Password must be at least 12 characters']")
+    private WebElement errorPassword;
+
+
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -54,6 +77,35 @@ public class LoginPage extends ParentPage {
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
 
+    }
+
+    public void enterLoginInSignUp(String loginSignUp) {
+        enterTextToElement(userNameInput, loginSignUp);
+    }
+
+    public void enterEmailInSignUp(String emailSignUp) {
+        enterTextToElement(emailInput, emailSignUp);
+    }
+
+    public void enterPasswordInSignUp(String passwordSignUp) {
+        enterTextToElement(passwordInput, passwordSignUp);
+    }
+
+    public void clickOnSignUpButton() {
+        clickOnElement(signUpButton);
+    }
+
+    public boolean isErrorUserNamePresent() {
+        return isElementPresent(userNameInput);
+
+    }
+
+    public boolean isErrorEmailPresent() {
+        return  isElementPresent(emailInput);
+    }
+
+    public boolean isErrorPasswordPresent() {
+        return isElementPresent(passwordInput);
     }
 
 //    public void fillLoginFormAndSubmit(String login, String password) {
