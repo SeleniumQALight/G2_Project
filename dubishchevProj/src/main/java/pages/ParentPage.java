@@ -39,7 +39,7 @@ public class ParentPage {
             boolean state = webElement.isDisplayed();
             if (state) {
                 logger.info("Element present");
-            }else {
+            } else {
                 logger.info("Element is not present");
             }
             return state;
@@ -52,6 +52,15 @@ public class ParentPage {
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Can not work with element " + e);
         Assert.fail("Can not work with element " + e);
+    }
+
+    protected String getElementText(WebElement webElement) {
+        try {
+            return webElement.getText();
+        } catch (Exception e) {
+            logger.info("Element is not present");
+            return "No text was found";
+        }
     }
 
 }
