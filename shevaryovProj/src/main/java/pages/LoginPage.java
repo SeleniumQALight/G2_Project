@@ -1,7 +1,7 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -54,5 +54,19 @@ public class LoginPage extends ParentPage{
 
     public void clickOnButtonInSignIn() {
         clickOnElement(buttonSignIn);
+    }
+
+    // схлопываем методы. открываем главную и логинимся на странице
+    public void fillLoginFormAndSubmit(String login, String passWord){
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPassWordInSignIn(passWord);
+        clickOnButtonInSignIn();
+    }
+
+    public HomePage loginWithValidCred(){
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        // возвращаем новый объект HomePage
+        return new HomePage(webDriver);
     }
 }
