@@ -15,6 +15,30 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    private WebElement alertInvalidSignIn;
+
+    @FindBy(id = "username-register")
+    private WebElement regLogin;
+
+    @FindBy(id = "email-register")
+    private WebElement regEmail;
+
+    @FindBy(id = "password-register")
+    private WebElement regPassword;
+
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private WebElement buttonSignUp;
+
+    @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
+    private WebElement alertValidateSignUpLogin;
+
+    @FindBy(xpath = ".//div[text()='You must provide a valid email address.']")
+    private WebElement alertValidateSignUpEmail;
+
+    @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
+    private WebElement alertValidateSignUpPassword;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -48,5 +72,48 @@ public class LoginPage extends ParentPage {
 
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isAlertInvalidSingInPresent() {
+        return isElementPresent(alertInvalidSignIn);
+    }
+
+    public void enterLoginInRegLogin(String login) {
+        enterTextToElement(regLogin, login);
+    }
+
+    public void enterEmailInRegEmail(String email) {
+        enterTextToElement(regEmail, email);
+    }
+
+    public void enterPasswordInRegPassword(String password) {
+        enterTextToElement(regPassword, password);
+    }
+
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
+    }
+
+    public boolean isAlertInvalidSingUpLoginPresent() {
+        return isElementPresent(alertValidateSignUpLogin);
+    }
+
+    public boolean isAlertInvalidSingUpEmailPresent() {
+        return isElementPresent(alertValidateSignUpEmail);
+    }
+
+    public boolean isAlertInvalidSingUpPasswordPresent() {
+        return isElementPresent(alertValidateSignUpPassword);
+    }
+
+    public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPasswordInSignIn(password);
+        clickOnButtonSignIn();
     }
 }
