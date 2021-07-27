@@ -1,14 +1,15 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import libs.TestData;
 import org.junit.Test;
 
 public class LoginTestWithPageObject extends BaseTest {
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
-        loginPage.enterLoginInSignIn("auto");
-        loginPage.enterPassWordInSignIn("12345qwerty");
+        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
+        loginPage.enterPassWordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
 
         checkExpectedResult("Button SingOut is not visible", homePage.isButtonSignOutPresent(), true);
