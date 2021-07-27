@@ -17,8 +17,9 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+
     @Before
-    public void setUp(){
+    public void setUp() {
         WebDriverManager.chromedriver().setup(); //auto download chromedriver
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -29,12 +30,15 @@ public class BaseTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         webDriver.quit();
     }
 
-    protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
-        Assert.assertThat(message,actualResult,is(expectedResult));
+    protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
+        Assert.assertThat(message, actualResult, is(expectedResult));
+    }
 
+    protected void checkExpectedResult(String message, String expectedResult, String actualResult) {
+        Assert.assertEquals(message, expectedResult, actualResult);
     }
 }
