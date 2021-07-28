@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends ParentPage {
+
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -16,7 +17,7 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
-    @FindBy(xpath= ".//div[@class='alert alert-danger text-center']")
+    @FindBy(xpath = ".//div[@class='alert alert-danger text-center']")
     private WebElement signInAlert;
 
 
@@ -42,13 +43,12 @@ public class LoginPage extends ParentPage {
     private WebElement errorPassword;
 
 
-
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public void openLoginPage(){
-        try{
+    public void openLoginPage() {
+        try {
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
             logger.info("A Login page was opened.");
         } catch (Exception e) {
@@ -101,27 +101,27 @@ public class LoginPage extends ParentPage {
     }
 
     public boolean isErrorEmailPresent() {
-        return  isElementPresent(emailInput);
+        return isElementPresent(emailInput);
     }
 
     public boolean isErrorPasswordPresent() {
         return isElementPresent(passwordInput);
     }
 
-//    public void fillLoginFormAndSubmit(String login, String password) {
-//        openLoginPage();
-//        enterLoginInSignIn(login);
-//        enterPasswordInSignIn(password);
-//        clickOnButtonSignIn();
-//    }
-//
-//    public boolean isButtonSignInPresent() {
-//     return isElementPresent(buttonSignIn);
-//    }
-//
-//    public boolean isSignInAlertPresent() {
-//        return isElementPresent(signInAlert);
-//    }
+    public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPasswordInSignIn(password);
+        clickOnButtonSignIn();
+    }
+
+    public boolean isButtonSignInPresent() {
+     return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isSignInAlertPresent() {
+        return isElementPresent(signInAlert);
+    }
 
 
     }
