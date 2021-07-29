@@ -5,7 +5,7 @@ import libs.TestData;
 import org.junit.Test;
 
 public class LoginTestWithPageObject extends BaseTest {
-    @Test
+@Test
     public void validLogin(){
         loginPage.openLoginPage();
         loginPage.enterLoginIn(TestData.VALIG_LOGin);
@@ -14,4 +14,6 @@ public class LoginTestWithPageObject extends BaseTest {
         checkExpectedResult("Button SignOut is not visible ",homePage.isButtonSignOutPresent(),true);
 
     }
+
+
 }

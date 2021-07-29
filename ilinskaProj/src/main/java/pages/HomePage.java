@@ -28,3 +28,4 @@ private WebElement buttonCreatePost;
         return new CreatePostPage(webDriver);
     }
 }
+
