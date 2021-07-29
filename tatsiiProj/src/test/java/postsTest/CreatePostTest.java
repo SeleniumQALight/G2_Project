@@ -11,12 +11,17 @@ public class CreatePostTest extends BaseTest {
     public void createPost(){
         loginPage
                 .loginWithValidCred()
-                .checkIsButtonSignOutVisible()
+             .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
-                .checkIsInputTitlePresent()
+             .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Body text")
                 .clickOnSaveButton()
+             .checkIsButtonDeletePresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .clickOnButtonProfile()
+            .checkIsPostWasAdded(POST_TITLE)
                 ;
     }
 }
