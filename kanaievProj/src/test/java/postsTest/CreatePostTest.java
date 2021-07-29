@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
     private final String POST_TITLE = "Pasha newbie title-" + Util.getDateAndTimeFormatted();
+
     @Test
     public void createPost() {
         loginPage
@@ -16,6 +17,11 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Body text")
                 .clickButtonSaveNewPost()
-                ;
+                .checkIsButtonDeletePresent()
+                .checkIsAlertElementPresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .clickOnButtonProfile()
+                .checkIsPostWasAdded(POST_TITLE)
+        ;
     }
 }
