@@ -1,5 +1,6 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -77,6 +78,7 @@ public class LoginPage extends ParentPage{
 
 
     public void fillLoginFormAndSubmit(String login, String passWord){
+        openLoginPage();
         enterLoginInSignIn(login);
         enterPassWordInSignIn(passWord);
         clickOnButtonSignIn();
@@ -108,6 +110,7 @@ public class LoginPage extends ParentPage{
     }
 
     public void fillSignUpFormAndSubmit(String login, String email, String passWord){
+        openLoginPage();
         enterLoginInSignUp(login);
         enterEmailInSignUp(email);
         enterPassWordInSignUp(passWord);
@@ -126,4 +129,9 @@ public class LoginPage extends ParentPage{
         return isElementPresent(passwordSignUpAlert);
     }
 
+
+    public HomePage loginWithValidCred(){
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
 }

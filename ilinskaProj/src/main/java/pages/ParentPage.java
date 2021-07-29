@@ -40,7 +40,7 @@ public class ParentPage {
         try {
             boolean state= webElement.isDisplayed();
             if (state) {
-                logger.info("Is element displayed" +  state);
+                logger.info("Is element displayed" +"="+ state);
             } else {
                 logger.info("Element is not present");
             }
@@ -50,7 +50,6 @@ public class ParentPage {
             return false;
         }
     }
-
         private void writeErrorAndStopTest (Exception e){
             logger.error("Сan not work with element" + e);
             Assert.fail("Сan not work with element" + e);

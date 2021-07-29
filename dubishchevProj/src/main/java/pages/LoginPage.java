@@ -1,5 +1,6 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -61,6 +62,12 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    public HomePage loginWithValidCred(){
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+
     public void fillSignUpFormAndSubmit(String username, String email, String password) {
         openLoginPage();
         enterUsernameInSignUp(username);
@@ -70,14 +77,9 @@ public class LoginPage extends ParentPage {
     }
 
 
-    public void enterLoginInSignIn(String login) {
-        enterTextToElement(inputLogin, login);
-    }
+    public void enterLoginInSignIn(String login) { enterTextToElement(inputLogin, login); }
 
-    public void enterPasswordInSignIn(String password) {
-
-        enterTextToElement(inputPassword, password);
-    }
+    public void enterPasswordInSignIn(String password) { enterTextToElement(inputPassword, password); }
 
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
@@ -118,4 +120,7 @@ public class LoginPage extends ParentPage {
     public String getSignUpPasswordWarningText() {
         return getElementText(invalidSignUpPasswordMessage);
     }
+
+
+
 }
