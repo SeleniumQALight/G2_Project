@@ -1,4 +1,4 @@
-package loginTest;
+package registrationTest;
 
 import baseTest.BaseTest;
 import org.junit.Test;
