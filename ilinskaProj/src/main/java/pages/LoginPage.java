@@ -1,7 +1,7 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,16 +28,7 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterLoginIn(String login) {
-//        try{
-//           // WebElement element=webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-//          inputLogin.clear();
-//          inputLogin.sendKeys(login);
-//            logger.info((login+"was inputted in SignIn input login"));
-//
-//        } catch (Exception e){
-//            logger.error("Cannot work with element" +e);
-//            Assert.fail("Сannot work with LoginPage"+e);
-enterTextToElement(inputLogin,login);
+    enterTextToElement(inputLogin,login);
 
         }
 
@@ -49,6 +40,16 @@ enterTextToElement(inputLogin,login);
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
 
+    }
+    public  void fillinLoginFormandSubmit( String login,String password){
+        openLoginPage();
+        enterLoginIn(login);
+        enterPasswwordInSign(password);
+        clickOnButtonSignIn();
+    }
+    public HomePage loginWithValidCred(){
+        fillinLoginFormandSubmit(TestData.VALIG_LOGin,TestData.VALID_PASSWORd);
+        return new HomePage(webDriver);
     }
 }
 
