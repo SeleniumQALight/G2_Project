@@ -1,0 +1,21 @@
+Login page:
+Registration Username = ".//input[@placeholder = 'Pick a username']"
+Registration Email = ".//input[@placeholder = 'you@example.com']"
+Registration Password = ".//input[@placeholder = 'Create a password']"
+Button "Sign up for OurApp" = ".//button[@type = 'submit']"
+Login Username = ".//input[@placeholder = 'Username']"
+Login Password = ".//input[@placeholder = 'Password']"
+Button "Sign In" = ".//button[text()='Sign In']"
+
+Logged user page:
+Button "Sign Out" = ".//button[text() = 'Sign Out']"
+Button "Create post" = ".//a[@href='/create-post']"
+Title = ".//input[@id= 'post-title']"
+"Body Content" = ".//textarea[@id= 'post-body']"
+"This is a unique post" = ".//input[@id= '”UniquePost”']"
+Value "Общедоступное" = ".//select[@id= 'select1']//option[@value='All Users']"
+Save New Post = ".//button[text()= 'Save New Post']"
+Profile icon = ".//a[@class='mr-2']" // плохо что с цифрой, но другого не придумал
+Posts tab = ".//a[@class='profile-nav-link nav-item nav-link active']"
+Post name = ".//a[@class='list-group-item list-group-item-action']"
+Trash icon = ".//button[@class='delete-post-button text-danger']"
