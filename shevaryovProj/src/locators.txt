@@ -1,0 +1,26 @@
+#Login Page
+Input Username = ".//input[@placeholder = 'Username']"
+Input Password = ".//input[@placeholder = 'Password']"
+Input registration Username = ".//input[@placeholder = 'Pick a username']"
+Input registration Email = ".//input[@placeholder = 'you@example.com']"
+Input registration Password = ".//input[@placeholder = 'Create a password']"
+Button Sign up for OurApp = ".//button[@type = 'submit']"
+Button Sign In = ".//button[text()='Sign In']"
+
+#Home Page
+Link Create Post = ".//a[@href='/create-post']"
+Button Sign Out = ".//button[text() = 'Sign Out']"
+Link My Profile = ".//a[@class='mr-2']"
+Link Search = ".//a[@href="#"]"
+
+#Create Post
+Input Title = ".//input[@id= 'post-title']"
+Textarea Body Content = ".//textarea[@id= 'post-body']"
+Checkbox This is a unique post = ".//input[@id= '”UniquePost”']"
+Select value = ".//select[@id= 'select1']"
+Select value Общедоступное = ".//select[@id= 'select1']//option[@value='All Users']"
+Select value Частное сообщение = ".//select[@id= 'select1']//option[@value='All Users']"
+Select value Сообщение для группы = ".//select[@id= 'select1']//option[@value='All Users']"
+
+Button Save New Post = ".//button[text()= 'Save New Post']"
+

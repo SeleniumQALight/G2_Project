@@ -1,0 +1,41 @@
+I. Login page:
+
+Username upper panel = .//input[@placeholder='Username']
+Password upper panel = .//input[@placeholder='Password']
+Sign In button = .//button[text()='Sign In']
+
+Username = .//input[@id='username-register']
+Email = .//input[@id='email-register']
+Password = .//input[@id='password-register']
+Sign up for OurApp button = .//button[@type='submit']
+
+II. Home page:
+
+Search button = .//a[@href='#']
+Chat button = .//span[@class='text-white mr-2 header-chat-icon']
+My Profile button = .//a[@class='mr-2']
+Create Post button = .//a[@class='btn btn-sm btn-success mr-2']
+Sign Out button = .//form[@action='/logout']
+
+III. Creating a new post
+
+Title field = .//input[@name='title']
+Body Content = .//textarea[@name='body']
+This is a unique post checkbox = .//input[@type='checkbox']
+Select value dropdown = .//select[@name='select1']
+Option value = .//option[@value='Group Message']
+Save New Post button = .//button[@class='btn btn-primary']
+
+
+IV. Edit and delete a post
+
+Search field = .//input[@placeholder='What are you interested in?']
+List of the posts in the search = .//a[@class='list-group-item list-group-item-action']
+Select your post from the list = .//*[text()='New post on Tuesday']
+
+Edit a post button = .//a[@data-original-title='Edit']
+Delete a post button = .//button[@data-original-title='Delete']
+
+
+
+

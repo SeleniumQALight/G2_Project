@@ -1,0 +1,77 @@
+I. Sign up for OurApp:
+1. Open a Chrome browser.
+2. In the Search field type: https://qa-complex-app-for-testing.herokuapp.com/, click Enter
+3. In the field Username enter a unique username. (day20 - for myself)
+4. In the field Email enter a unique email. (tetiana.rakhmanova@gmail.com)
+5. In the field Password enter a unique password. ( 9090apple!@# )
+6. Click button Sign up for OurApp
+Expected:new account is created, and the user name is displayed on the right upper panel.
+
+
+II. Check a message for a new created post
+1. On the welcome page click on the button Create Post.
+2. In the Title field enter "New post on Tuesday".
+3. In the Body Content enter "New post which I'm typing here".
+4. Select a checkbox This is a unique post.
+5. Select "Общедоступное" from the drop-menu Select value.
+6. Click button Save New Post.
+Expected: "New post successfully created" is displayed on the screen.
+Post-conditions: delete the new created post.
+
+III. Edit the created post.
+Preconditions:
+Create a new post:
+1. On the welcome page click on the button Create Post.
+2. In the Title field enter "New post on Tuesday".
+3. In the Body Content enter "New post which I'm typing here".
+4. Select a checkbox This is a unique post.
+5. Select "Общедоступное" from the drop-menu Select value.
+6. Click button Save New Post.
+Edit the created post:
+1. On the welcome page click on the button Search in the right upper panel.
+2. Enter the value: "New post on Tuesday", and click enter.
+3. Find "New post on Tuesday" and click on it.
+4. Click edit button, which is located next to the post.
+5. Change the Title into: "New post on Tuesday_updated".
+6. Change the Body Content into:"New post which I'm typing here_updated".
+7. Click button Save Updates.
+8. Find the updated post and check if it's updated.
+Expected: Post is updated.
+Post-conditions: delete the new created post.
+
+IV. Delete the post.
+Preconditions:
+Create a new post:
+1. On the welcome page click on the button Create Post.
+2. In the Title field enter "New post on Tuesday".
+3. In the Body Content enter "New post which I'm typing here".
+4. Select a checkbox This is a unique post.
+5. Select "Общедоступное" from the drop-menu Select value.
+6. Click button Save New Post.
+Delete the post:
+1. On the welcome page click on the button Search in the right upper panel.
+2. Enter the value: "New post on Tuesday", and click enter.
+3. Find "New post on Tuesday" and click on it.
+4. Click Delete button, which is located next to the post.
+Expected: "Post successfully deleted" is displayed on the screen.
+
+V. Creating a new message.
+1. On the welcome page click on the button Chat in the right upper panel.
+2. In an open right bottom window enter a message: "Hi. How are you?" and click Enter.
+Expected Result: a message is sent on the Chat window.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

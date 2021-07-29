@@ -1,0 +1,47 @@
+#Header
+Username input              ".//input[@placeholder='Username']"
+Password input              ".//input[@placeholder='Password']"
+Sign In button              ".//button[text()='Sign In']"
+Sign Out button             ".//button[text()='Sign Out']"
+
+_____________#########___________
+#Home page
+REGISTRATION
+Username                    ".//input[@id='username-register' and @placeholder='Pick a username']"
+Email                       ".//input[@id='email-register' and @placeholder='you@example.com']"
+Password                    ".//input[@id='password-register' and @placeholder='Create a password']"
+'Submit' button             ".//button[contains(text(),'Sign up for OurApp')]"
+
+ERROR REGISTRATION MESSAGES
+Username error              ".//div[contains(text(),'Username must be at least 3 characters.')]"
+Email error                 ".//div[contains(text(),'You must provide a valid email address.')]"
+Password error              ".//div[contains(text(),'Password must be at least 12 characters.')]"
+_____________#########___________
+#My profile page
+My profile icon             ".//a[@href='/profile/auto']"
+Latest post                 ".//div[@class='list-group']//a"
+Edit                        ".//a[@data-original-title='Edit']"
+Body Content                ".//textarea[@name='body']"
+Save Updates                ".//button[text()='Sign Out']"
+Success alert               ".//div[@class='alert alert-success text-center']"
+Followers item              ".//a[@href='/profile/auto/followers']"
+Follower                    ".//a[@class='list-group-item list-group-item-action'][1]"
+Follow button               ".//button[contains(text(),'Follow')]"
+Stop Following button       ".//button[contains(text(),'Stop Following')]"
+Alert invalid login         ".//div[contains(text(),'Invalid username / password')]"
+Create Post                 ".//a[text()='Create Post']"
+Input title post            ".//input[@name='title']"
+Input body post             ".//textarea[@id='post-body']"
+Save new post button        ".//button[text()='Save New Post']"
+Success post                ".//div[text()='New post successfully created.']"
+Followers tab               ".//a[@href='/profile/auto/followers']"
+
+_____________#########___________
+#Chat
+Chat icon                   './/span[@data-original-title='Chat']'
+Chat input field            './/input[@placeholder='Type a message…']'
+Button enter from keyboard   webDriver.findElement(By.id("Value")).sendKeys(Keys.RETURN);'
+Sent message                './/div[@class='chat-message-inner' and contains(text(),'Can you help me?')]'
+Close chat button           './/span[@class='chat-title-bar-close']'
+Chat                        './/div[@id='chat-wrapper']'
+
