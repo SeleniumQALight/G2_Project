@@ -5,9 +5,10 @@ import libs.Util;
 import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
-    final String POST_TITLE = "Tango title of Post"+ Util.getDateAndTimeFormatted();
+    final String POST_TITLE = "Tango title of Post" + Util.getDateAndTimeFormatted();
+
     @Test
-    public void createPost(){
+    public void createPost() {
         loginPage
                 .loginWithValidCred()
                 .checkIsButtonSignOutVisible()
@@ -16,6 +17,11 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Body text")
                 .clickOnSaveButton()
+                .checkIsButtonDeletePresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .clickOnButtonProfile()
+                .checkIsPostWasAdded(POST_TITLE)
         ;
     }
 }
