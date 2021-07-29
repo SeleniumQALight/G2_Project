@@ -38,5 +38,8 @@ public class BaseTest {
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
 //        assertThat - проверка соответствия одного результата (actualResult) другому is(expectedResult)
         Assert.assertThat(message, actualResult, is(expectedResult));
+//        то же что и следующая строка
+//        Assert.assertEquals(message, expectedResult, actualResult);
+
     }
 }
