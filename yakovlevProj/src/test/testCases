@@ -1,0 +1,19 @@
+1. Authorization by valid username / password
+Open the resource https://qa-complex-app-for-testing.herokuapp.com/ in a browser;
+Insert a valid username into the 'Username' field (auto);
+Enter a valid password in the 'Password' field (123456qwerty);
+Click the "Sign In" button;
+Expected Result: Authorization was successful and the 'Sign Out' button is displayed
+
+2. Authorization by invalid username / password
+Open the resource https://qa-complex-app-for-testing.herokuapp.com/ in a browser;
+Insert invalid username in the 'Username' field (Aut0);
+Enter an invalid password in the 'Password' field (123456QWERTY);
+Click the "Sign In" button;
+Expected Result: Authorization failed, 'Sign Out' button not displayed
+
+3.
+
+4.
+
+5.
