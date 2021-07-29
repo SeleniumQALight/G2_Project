@@ -42,4 +42,8 @@ public class PostPage extends ParentPage {
     }
 
 
+    public ProfilePage clickOnButtonDelete() {
+        clickOnElement(buttonDelete);
+        return new ProfilePage(webDriver);
+    }
 }
