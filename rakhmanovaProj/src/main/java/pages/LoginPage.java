@@ -1,10 +1,12 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -48,8 +50,17 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputPassword, password);
     }
 
-    public void clickOnButtonSignIn() {
-        clickOnElement(buttonSignIn);
+    public void clickOnButtonSignIn() { clickOnElement(buttonSignIn); }
 
+        public void fillLoginFormAndSubmit (String login, String password){
+            openLoginPage();
+            enterLoginInSignIn(login);
+            enterPasswordInSignIn(password);
+            clickOnButtonSignIn();
+        }
+
+        public HomePage loginWithValidCred(){
+            fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+            return new HomePage(webDriver);
+        }
     }
-}
