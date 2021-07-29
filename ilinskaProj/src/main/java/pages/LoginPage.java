@@ -92,16 +92,16 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputPass, password);
     }
 
-    public boolean errorPopUpUserName() {
+    public boolean isErrorPopUpUserNamePresent() {
         return isElementPresent(errorMessage);
 
     }
-    public boolean errorPopupEmail(){
+    public boolean isErrorPopupEmailPresent(){
         return  isElementPresent(errorEmailMessage);
 
     }
 
-    public boolean errorPopupPass(){
+    public boolean isErrorPopupPassPresent(){
 
     return isElementPresent(errorPassword);
     }
