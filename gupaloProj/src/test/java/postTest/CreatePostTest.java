@@ -6,18 +6,23 @@ import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Hanna title of Post" + Util.getDateAndTimeFormatted();
+
     @Test
-    public void createPost(){
+    public void createPost() {
         loginPage
                 .loginWithValidCred()
                 .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
                 .checkIsInputTitlePresent()
-                .enterTextIntoInputTitle (POST_TITLE)
-                .enterTextIntoInputBody ("Body text")
-        .clickOnSaveButton()
-
-                ;
+                .enterTextIntoInputTitle(POST_TITLE)
+                .enterTextIntoInputBody("Body text")
+                .clickOnSaveButton()
+                .checkIsButtonDeletePresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .clickOnButtonProfile()
+                .checkIsPostWasAdded(POST_TITLE);
+        ;
 
 
     }
