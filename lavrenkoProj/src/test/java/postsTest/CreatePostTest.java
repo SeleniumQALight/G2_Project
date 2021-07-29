@@ -2,10 +2,11 @@ package postsTest;
 
 import baseTest.BaseTest;
 import libs.Util;
+import org.junit.After;
 import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
-    final String POST_TITLE = "Illia title" + Util.getDateAndTimeFormatted();
+    final String POST_TITLE = "Illia's Post" + Util.getDateAndTimeFormatted();
     final String POST_BODY = "Body test";
 
     @Test
@@ -20,8 +21,18 @@ public class CreatePostTest extends BaseTest {
                 .checkIsButtonDeletePresent()
                 .checkIsSuccesMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
-        .clickOnTheProfileButton()
-        .checkIsPostWasAdded(POST_TITLE)
+                .clickOnTheProfileButton()
+                .checkIsPostWasAdded(POST_TITLE)
+        ;
+    }
+
+    @After
+    public void deletePost() {
+        homePage.openHomepage()
+                .checkIsButtonSignOutVisible()
+                .clickOnTheProfileButton()
+                .deletePostWithTitleWhilePresent(POST_TITLE)
+
         ;
     }
 }
