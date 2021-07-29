@@ -52,9 +52,9 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
-    public MyProfilePage checkIsDeletePostButtonPresent() {
+    public ProfilePage checkIsDeletePostButtonPresent() {
         Assert.assertTrue("Delete button isn't present", isElementPresent(deletePostButton));
-        return new MyProfilePage(webDriver);
+        return new ProfilePage(webDriver);
     }
 
     public CreatePostPage checkIsSuccessMessagePresent() {
@@ -67,5 +67,10 @@ public class CreatePostPage extends ParentPage {
         String actualText = successMessage.getText();
         Assert.assertEquals("Text isn't equals", text, actualText);
         return this;
+    }
+
+    public ProfilePage clickOnDeletePostButton() {
+        clickOnElement(deletePostButton);
+        return new ProfilePage(webDriver);
     }
 }
