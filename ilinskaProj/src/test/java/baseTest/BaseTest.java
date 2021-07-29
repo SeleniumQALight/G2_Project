@@ -32,8 +32,7 @@ public class BaseTest {
 
     }
     protected void checkExpectedResult(String message,boolean actualResult,boolean expectedResult){
-        Assert.assertThat(message,actualResult,is(expectedResult));
-        //Проверяет что что то соотвертствует чему то
+        Assert.assertEquals(message,expectedResult,actualResult);
 
     }
 

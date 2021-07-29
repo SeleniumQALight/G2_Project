@@ -9,14 +9,19 @@ public class CreatePostTest extends BaseTest{
 
     @Test
     public void createPost() {
-        loginPage.
-                loginWithValidCred()
+        loginPage
+                .loginWithValidCred()
                 .checkIsButtonSignOutVisible()
                 .clickonButtonCreatePost()
                 .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTexttoBodyTitle("Body text")
                 .clickOnSaveButton()
+                .checkIsButtonDeletePresent()
+                .checkIsSucessMessagePresent()
+                .checkTextinSuccessMessage("New post successfully created.")
+                .clickonProfile()
+                 .checkisPostwasAdded(POST_TITLE)
                 ;
 
     }
