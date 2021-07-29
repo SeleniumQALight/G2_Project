@@ -17,8 +17,12 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Some body text")
                 .clickOnSaveButton()
+                .checkIsButtonDeletePresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .clickOnProfileButton()
+                .checkIsPostWasAdded(POST_TITLE)
         ;
-
 
 
     }
