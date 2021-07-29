@@ -1,0 +1,49 @@
+Case 1 Checking invalid registration
+
+Steps
+1. Открыть ссылку http://qa-complex-app-for-testing.herokuapp.com/
+2. В блоке регистрации в поля: "Username", "Email", "Password" ввести значение 123
+3. Нажать на кнопку "Sing up for OurApp"
+
+AR Над полем "Username" выскакивает нотификация:That username is already taken.
+   Над полем "Email" выскакивает нотификация:You must provide a valid email address.
+   Над полем "Password" выскакивает нотификация: Password must be at least 12 characters.
+-----------------------------------------------
+Case 2 Checking a valid registration
+
+Steps
+1. Открыть ссылку http://qa-complex-app-for-testing.herokuapp.com/
+2. В блоке регистрации в полe "Username" ввести Denis6666
+3. В блоке регистрации в полe "Email" ввести kulevskyi1233@gmail.com
+4. В блоке регистрации в полe "Password" ввести denisS1234567
+5. Нажать на кнопку "Sing up for OurApp"
+AR Редиректит на следующую страницу с заглавным текстом в главном блоке "Hello Denis6666, your feed is empty."
+-----------------------------------------------
+Case 3 Checking a valid authorization
+
+Steps
+1. Открыть ссылку http://qa-complex-app-for-testing.herokuapp.com/
+2. В хедере в поле "Username" ввести kulevskyi
+3. В хедере в поле "Password" ввести denisS1234567
+4. Нажать на кнопку "Sign in"
+AR Редиректит на следующую страницу с заглавным текстом в главном блоке "Hello kulevskyi, your feed is empty."
+-----------------------------------------------
+Case 4 Checking invalid authorization
+
+Steps
+1. Открыть ссылку http://qa-complex-app-for-testing.herokuapp.com/
+2. В хедере в поле "Username" ввести 12345
+3. В хедере в поле "Password" ввести 12345
+4. Нажать на кнопку "Sign in"
+
+AR Выскакивает ошибка "Invalid username / password"
+-----------------------------------------------
+Case 5 Checking page reload after clicking on the logo
+
+Steps
+1. Открыть ссылку http://qa-complex-app-for-testing.herokuapp.com/
+2. В хедере в поле "Username" ввести 12345
+3. В хедере нажать на лого "Complex app for testing - QA"
+
+AR Происходит перезагрузка страницы и в хедере в поле "Username" значения "12345" стираються
+-----------------------------------------------
