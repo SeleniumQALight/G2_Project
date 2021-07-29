@@ -18,10 +18,12 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody(POST_BODY)
                 .clickOnSaveNewPost()
-                .checkIsSuccessPostAlertPresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .checkIsDeletePostButtonPresent()
                 .clickOnButtonMyProfile()
                 .checkIsFollowerPresent()
-                .checkCreatedPost(POST_TITLE);
+                .checkIsPostWasAdded(POST_TITLE);
 
     }
 }

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.MyProfilePage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected MyProfilePage myProfilePage;
 
     @Before
     public void setUp() {
@@ -41,6 +43,12 @@ public class BaseTest {
         System.out.println("Quit browser");
     }
 
+    @After
+    public void cleanAddedPost(String postName){
+        loginPage.loginWithValidCred();
+        myProfilePage.clickOnButtonMyProfile();
+
+    }
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
         Assert.assertThat(message, actualResult, is(expectedResult));
     }

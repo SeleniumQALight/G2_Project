@@ -6,9 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class MyProfilePage extends ParentPage {
 
-    @FindBy(xpath = ".//a[@href='/profile/auto']")
+    @FindBy(xpath = ".//img[@data-original-title='My Profile']")
     private WebElement buttonMyProfile;
 
     @FindBy(xpath = ".//a[@href='/profile/auto/followers']")
@@ -30,9 +32,16 @@ public class MyProfilePage extends ParentPage {
         return this;
     }
 
-    public void checkCreatedPost(String POST_TITLE) {
-        String currentTitlePost = POST_TITLE;
-        WebElement createPostTitle = webDriver.findElement(By.xpath(".//strong[text()='" + currentTitlePost + "']"));
-        Assert.assertTrue("Created post isn't present in list", isElementPresent(createPostTitle));
+    public MyProfilePage checkIsPostWasAdded(String post_title) {
+        List<WebElement> postList = webDriver.findElements(
+                By.xpath(String.format(".//*[text()='%s']", post_title)));
+        Assert.assertEquals("Count of posts with title " + post_title,1,postList.size());
+        return this;
     }
+
+//    public MyProfilePage selectAddedPost(String post_title){
+//        WebElement postList = webDriver.findElements(
+//                By.xpath(String.format(".//*[text()='%s']", post_title)));
+//        clickOnElement(postList);
+//    }
 }
