@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class PostPage extends ParentPage{
+    public Object clickOnDeleteButton;
     @FindBy (xpath = ".//button[@data-original-title='Delete']")
     private WebElement buttonDelete;
 
@@ -36,6 +37,10 @@ public class PostPage extends ParentPage{
 
     public ProfilePage clickOnButtonProfile(){
         clickOnElement(buttonProfile);
+        return new ProfilePage(webDriver);
+    }
+    public ProfilePage clickOnDeleteButton(){
+        clickOnElement(buttonDelete);
         return new ProfilePage(webDriver);
     }
 }
