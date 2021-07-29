@@ -77,8 +77,6 @@ public class LoginPage extends ParentPage {
 
     public void clickOnButtonSignIn() { clickOnElement(buttonSignIn); }
 
-    }
-
     public void enterLoginInSignUp(String loginSignUp) {
         enterTextToElement(userNameInput, loginSignUp);
     }
