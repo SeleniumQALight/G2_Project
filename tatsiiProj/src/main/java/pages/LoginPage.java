@@ -16,17 +16,8 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
-    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
-
-    @FindBy(id = "username-register")
-    private WebElement inputUserNameRegister;
-
-    @FindBy(id = "email-register")
-    private WebElement inputEmailRegister;
-
-    @FindBy(id = "password-register")
-    private WebElement inputPasswordRegister;
+    @FindBy(xpath = "//div[contains(text(),'Invalid username / password')]")
+    private WebElement labelMessageInvalidLogin;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -43,26 +34,7 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterLoginInSignIn(String login) {
-//        try{
-////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-//            inputLogin.clear();
-//            inputLogin.sendKeys(login);
-//            logger.info(login + "was input in SignIn input login");
-//
-//        }catch (Exception e){
-//            logger.error("Can't work with element" + e);
-//            Assert.fail("Can't work with element" + e);
-//        }
         enterTextToElement(inputLogin, login);
-    }
-    public void enterLoginInSignUp(String login) {
-        enterTextToElement(inputUserNameRegister, login);
-    }
-    public void enterEmailInSignUp(String email) {
-        enterTextToElement(inputEmailRegister, email);
-    }
-    public void enterPasswordInSignUp(String password) {
-        enterTextToElement(inputPasswordRegister, password);
     }
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
@@ -72,41 +44,18 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
-    public void clickOnButtonSignUp() {
-        clickOnElement(buttonSignUp);
-    }
-
     public void fillLoginFormAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
         enterPassWordInSignIn(password);
         clickOnButtonSignIn();
     }
-    public void fillRegistrationFormAndSubmit(String login, String email, String password) {
-        openLoginPage();
-        enterLoginInSignUp(login);
-        enterEmailInSignUp(email);
-        enterPasswordInSignUp(password);
-        clickOnButtonSignUp();
-    }
+
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
+
     public boolean isLabelMessageInvalidLoginPresent(){
-        return isElementPresent(webDriver.findElement(
-                By.xpath("//div[contains(text(),'Invalid username / password')]")));
+        return isElementPresent(labelMessageInvalidLogin);
     }
-//    public boolean isLabelMessageShortUsernamePresent(){
-//        return isElementPresent(webDriver.findElement(
-//                By.xpath("//div[contains(text(),'Username must be at least 3 characters.')]")));
-//    }
-//    public boolean isLabelMessageValidEmailPresent() {
-//        return isElementPresent(webDriver.findElement(
-//                By.xpath("//div[contains(text(),'You must provide a valid email address.')]")));
-//    }
-//
-//    public boolean isLabelMessagePasswordPresent() {
-//        return isElementPresent(webDriver.findElement(
-//                By.xpath("//div[contains(text(),'Password must be at least 12 characters.')]")));
-//    }
 }
