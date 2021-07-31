@@ -35,7 +35,9 @@ public class BaseTest {
     public void tearDown() { webDriver.quit(); }
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
-        Assert.assertThat(message, actualResult, is(expectedResult));
+        //Assert.assertThat(message, is(expectedResult), actualResult,);
+        Assert.assertEquals(message, expectedResult,actualResult);
     }
+
 
 }
