@@ -1,0 +1,6 @@
+
+LoginPage - .//input[@id='username-register'] ; .//input[@id='email-register'] ; .//input[@id='password-register'] ;
+.//button[text()='Sign up for OurApp'] ; .//input[@placeholder='Username'] ; .//input[@placeholder='Password'] ;
+.//button[text()='Sign In'] ; .//a[text()='Complex app for testing - QA'] ; .//div[text()='Invalid username / password']
+
+HomePage - .//H2
