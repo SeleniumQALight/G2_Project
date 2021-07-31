@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.ProfilePage;
+import postsTest.CreatePostTest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +19,7 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected ProfilePage myProfilePage;
 
     @Before
     public void setUp() {

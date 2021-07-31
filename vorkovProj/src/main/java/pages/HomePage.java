@@ -33,6 +33,9 @@ public class HomePage extends ParentPage {
     @FindBy(xpath = ".//a[text()='Create Post']")
     WebElement buttonCreatePost;
 
+    @FindBy(xpath = ".//img[@data-original-title='My Profile']")
+    private WebElement buttonProfile;
+
     // --------------------------------------------------------------------------------------------------
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
@@ -59,12 +62,26 @@ public class HomePage extends ParentPage {
     }
 
     public HomePage checkIsButtonSignOutVisible() {
-        Assert.assertTrue("Button sign out is not displayed",isButtonSignOutPresent());
+        Assert.assertTrue("Button sign out is not displayed", isButtonSignOutPresent());
         return this;
     }
 
     public CreatePostPage clickOnButtonCreatePost() {
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
+    }
+
+    public HomePage openHomePage() {
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.openLoginPage();
+        if (!isButtonSignOutPresent()) {
+            loginPage.loginWithValidCred();
+        }
+        return this;
+    }
+
+    public ProfilePage clickOnButtonProfile(){
+        clickOnElement(buttonProfile);
+        return new ProfilePage(webDriver);
     }
 }
