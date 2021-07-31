@@ -12,4 +12,11 @@ public class SignUpTest extends BaseTest {
         checkExpectedResult("Invalid email alert is not visible", loginPage.isEmailSignUpAlertPresent(),true);
         checkExpectedResult("Invalid password alert is not visible", loginPage.isPasswordSignUpAlertPresent(),true);
     }
+
+
+    @Test
+    public void signUpFieldValidationAlertMessages(){
+        loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
+        loginPage.checkErrors("Username must be at least 3 characters;You must provide a valid email address.");
+    }
 }

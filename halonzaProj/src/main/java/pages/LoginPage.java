@@ -2,11 +2,18 @@ package pages;
 
 import libs.TestData;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends ParentPage{
+import java.util.Arrays;
+import java.util.List;
+
+
+public class LoginPage extends ParentPage {
+    String signUpAlertsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -40,16 +47,19 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//div[contains(text(), 'Password must be at least 12 characters')]")
     private WebElement passwordSignUpAlert;
 
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private WebElement signUpAlert;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public void openLoginPage(){
-        try{
+    public void openLoginPage() {
+        try {
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
             logger.info("Login page was opened");
-        }catch (Exception e){
-           logger.error("Can not work with LoginPage" + e);
+        } catch (Exception e) {
+            logger.error("Can not work with LoginPage" + e);
             Assert.fail("Can not work with LoginPage");
         }
     }
@@ -77,7 +87,7 @@ public class LoginPage extends ParentPage{
     }
 
 
-    public void fillLoginFormAndSubmit(String login, String passWord){
+    public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
         enterPassWordInSignIn(passWord);
@@ -85,11 +95,11 @@ public class LoginPage extends ParentPage{
     }
 
 
-    public boolean isButtonSignInPresent(){
+    public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
-    public boolean isSignInAlertPresent(){
+    public boolean isSignInAlertPresent() {
         return isElementPresent(alertSignIn);
     }
 
@@ -109,7 +119,7 @@ public class LoginPage extends ParentPage{
         clickOnElement(buttonSignUp);
     }
 
-    public void fillSignUpFormAndSubmit(String login, String email, String passWord){
+    public void fillSignUpFormAndSubmit(String login, String email, String passWord) {
         openLoginPage();
         enterLoginInSignUp(login);
         enterEmailInSignUp(email);
@@ -117,21 +127,48 @@ public class LoginPage extends ParentPage{
         clickOnButtonSignUp();
     }
 
-    public boolean isUsernameSignUpAlertPresent(){
+    public boolean isUsernameSignUpAlertPresent() {
         return isElementPresent(usernameSignUpAlert);
     }
 
-    public boolean isEmailSignUpAlertPresent(){
+    public boolean isEmailSignUpAlertPresent() {
         return isElementPresent(emailSignUpAlert);
     }
 
-    public boolean isPasswordSignUpAlertPresent(){
+    public boolean isPasswordSignUpAlertPresent() {
         return isElementPresent(passwordSignUpAlert);
     }
 
 
-    public HomePage loginWithValidCred(){
+    public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
+    }
+
+
+    public void checkErrors(String s) {
+        List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpAlertsLocator));
+        List<String> alertListExpectedText = Arrays.asList(s.split(";"));
+        if (alertsListActual.size() == alertListExpectedText.size()) {
+            for (int i = 0; i < alertListExpectedText.size(); i++) {
+                for (int j = 0; j < alertsListActual.size(); j++) {
+                    String inputSignUpFieldRelatedToErrorMessage
+                            = alertsListActual.get(j).findElement(By.xpath(".//..//input")).getAttribute("name");
+                    if (alertListExpectedText.get(i).toLowerCase()
+                            .contains(inputSignUpFieldRelatedToErrorMessage.toLowerCase())) {
+                        Assert.assertTrue("The actual alert text does not match to the expected text ",
+                                alertsListActual.get(j).getText().contains(alertListExpectedText.get(i)));
+                        logger.info("CheckErrors method part " + (i + 1) + " was matched to "
+                                + inputSignUpFieldRelatedToErrorMessage + "ActualAlertText");
+                    }
+                }
+            }
+
+        } else {
+            logger.error("The actual number of alert messages (" + alertsListActual.size() +
+                    ") is not as expected (" + alertListExpectedText.size() + ")");
+            Assert.fail("The actual number of alert messages (" + alertsListActual.size() +
+                    ") is not as expected (" + alertListExpectedText.size() + ")");
+        }
     }
 }
