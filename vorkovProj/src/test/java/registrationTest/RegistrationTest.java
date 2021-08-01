@@ -18,4 +18,13 @@ public class RegistrationTest extends BaseTest {
         checkExpectedResult("Validation message for input 'Password' isn't visible", homePage.isValidationMessagePasswordRegistrationPresent(), true);
     }
 
+//    @Test
+//    public void dsf() throws {
+//        loginPage.openLoginPage();
+//        loginPage.enterUsernameRegistration("tr");
+//        loginPage.enterEmailRegistration("test.com");
+//        loginPage.enterPasswordRegistration("123");
+//
+//
+//    }
 }
