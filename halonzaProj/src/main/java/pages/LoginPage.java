@@ -7,13 +7,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class LoginPage extends ParentPage {
-    String signUpAlertsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
-
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -47,8 +46,7 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[contains(text(), 'Password must be at least 12 characters')]")
     private WebElement passwordSignUpAlert;
 
-    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
-    private WebElement signUpAlert;
+    private String signUpAlertsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -150,25 +148,38 @@ public class LoginPage extends ParentPage {
         List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpAlertsLocator));
         List<String> alertListExpectedText = Arrays.asList(s.split(";"));
         if (alertsListActual.size() == alertListExpectedText.size()) {
+            int counterExpectedTextMatchToInputSignUpFieldName = 0;
+            int counterExpectedTextNotMatchToActualAlertText = 0;
+            ArrayList<String> notMatchedExpectedTextParts = new ArrayList<>();
             for (int i = 0; i < alertListExpectedText.size(); i++) {
                 for (int j = 0; j < alertsListActual.size(); j++) {
-                    String inputSignUpFieldRelatedToErrorMessage
+                    String inputSignUpFieldNameRelatedToActualAlert
                             = alertsListActual.get(j).findElement(By.xpath(".//..//input")).getAttribute("name");
                     if (alertListExpectedText.get(i).toLowerCase()
-                            .contains(inputSignUpFieldRelatedToErrorMessage.toLowerCase())) {
-                        Assert.assertTrue("The actual alert text does not match to the expected text ",
-                                alertsListActual.get(j).getText().contains(alertListExpectedText.get(i)));
-                        logger.info("CheckErrors method part " + (i + 1) + " was matched to "
-                                + inputSignUpFieldRelatedToErrorMessage + "ActualAlertText");
+                            .contains(inputSignUpFieldNameRelatedToActualAlert.toLowerCase())) {
+                        counterExpectedTextMatchToInputSignUpFieldName++;
+                        if (alertListExpectedText.get(i).equals(alertsListActual.get(j).getText())) {
+                            logger.info("CheckErrors method part " + (i + 1) + " was matched to " +
+                                    inputSignUpFieldNameRelatedToActualAlert + "ActualAlertText");
+                        } else {
+                            counterExpectedTextNotMatchToActualAlertText++;
+                            notMatchedExpectedTextParts.add("\nExpected: " + alertListExpectedText.get(i) + "\n"
+                                    + "Actual: " + alertsListActual.get(i).getText() + "\n");
+                            logger.error("CheckErrors method part " + (i + 1) + " was not  matched to "
+                                    + inputSignUpFieldNameRelatedToActualAlert + "ActualAlertText");
+                        }
                     }
                 }
             }
-
+            if (counterExpectedTextMatchToInputSignUpFieldName < 1) {
+                Assert.fail("Any part of Expected alert text does not correspond with webElementInputName related to actual Alert on the page");
+            } else if (counterExpectedTextNotMatchToActualAlertText > 0) {
+                Assert.fail("Some part of Expected alert text does not correspond with actual alert text on the page. Check log\n" +
+                        notMatchedExpectedTextParts);
+            }
         } else {
-            logger.error("The actual number of alert messages (" + alertsListActual.size() +
-                    ") is not as expected (" + alertListExpectedText.size() + ")");
-            Assert.fail("The actual number of alert messages (" + alertsListActual.size() +
-                    ") is not as expected (" + alertListExpectedText.size() + ")");
+            logger.error("The actual number of alerts (" + alertsListActual.size() + ") is not as expected (" + alertListExpectedText.size() + ")");
+            Assert.fail("The actual number of alerts (" + alertsListActual.size() + ") is not as expected (" + alertListExpectedText.size() + ")");
         }
     }
 }

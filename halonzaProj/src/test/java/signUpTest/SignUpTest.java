@@ -17,6 +17,6 @@ public class SignUpTest extends BaseTest {
     @Test
     public void signUpFieldValidationAlertMessages(){
         loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
-        loginPage.checkErrors("Username must be at least 3 characters;You must provide a valid email address.");
+        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.;");
     }
 }
