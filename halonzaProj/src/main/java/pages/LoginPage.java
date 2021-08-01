@@ -164,7 +164,7 @@ public class LoginPage extends ParentPage {
                         } else {
                             counterExpectedTextNotMatchToActualAlertText++;
                             notMatchedExpectedTextParts.add("\nExpected: " + alertListExpectedText.get(i) + "\n"
-                                    + "Actual: " + alertsListActual.get(i).getText() + "\n");
+                                    + "Actual: " + alertsListActual.get(j).getText() + "\n");
                             logger.error("CheckErrors method part " + (i + 1) + " was not  matched to "
                                     + inputSignUpFieldNameRelatedToActualAlert + "ActualAlertText");
                         }
@@ -174,7 +174,7 @@ public class LoginPage extends ParentPage {
             if (counterExpectedTextMatchToInputSignUpFieldName < 1) {
                 Assert.fail("Any part of Expected alert text does not correspond with webElementInputName related to actual Alert on the page");
             } else if (counterExpectedTextNotMatchToActualAlertText > 0) {
-                Assert.fail("Some part of Expected alert text does not correspond with actual alert text on the page. Check log\n" +
+                Assert.fail("Some part of Method expected alert text does not correspond with actual alert text on the page. Check log\n" +
                         notMatchedExpectedTextParts);
             }
         } else {
