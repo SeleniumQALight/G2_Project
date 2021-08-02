@@ -23,6 +23,12 @@ public class LoginTestWithPageObject extends BaseTest {
         checkExpectedResult("Warning message is not visible", loginPage.isWarningMessagePresent(), true);
     }
 
+    @Test
+    public void validateErrorMessage(){
+        loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
+        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
+    }
+
 
 
 }
