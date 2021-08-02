@@ -2,9 +2,12 @@ package pages;
 
 import libs.TestData;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -95,7 +98,7 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLoginRegistration, login);
     }
 
-    public void enterEmailRegistration(String email) {
+    public void enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
     }
 
@@ -122,5 +125,28 @@ public class LoginPage extends ParentPage {
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
+    }
+
+    public boolean isErrorExpected(String [] errorsExpectedArray, WebElement errorOnPage){
+        for (int i = 0; i < errorsExpectedArray.length; i++){
+            if (errorOnPage.getText().equals(errorsExpectedArray[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkErrors(String errors) {
+        String[] errorsExpectedList = errors.split(";");
+        List<WebElement> errorsOnPageList = webDriver.findElements(By.xpath(".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']"));
+        if (errorsExpectedList.length == errorsOnPageList.size()) {
+                for (int i = 0; i < errorsOnPageList.size(); i++) {
+                    if (!isErrorExpected(errorsExpectedList, errorsOnPageList.get(i))){
+                        return false;
+                    }
+                }
+                return true;
+        }
+        return false;
     }
 }
