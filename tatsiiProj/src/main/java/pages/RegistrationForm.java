@@ -6,6 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class RegistrationForm extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private WebElement buttonSignUp;
@@ -54,6 +58,24 @@ public class RegistrationForm extends ParentPage {
 
     public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
+    }
+
+    public List<String> getActualErrorMessages(List<String> errorItems){
+        List<String> actualErrorMessages = new ArrayList<>();
+
+        for (String error: errorItems) {
+            WebElement label = webDriver.findElement(By.xpath(String.format("//div[contains(text(),'%s')]", error)));
+            if(isElementPresent(label)){
+                actualErrorMessages.add(error);
+            }
+        }
+        return actualErrorMessages;
+    }
+
+    public boolean checkErrors(String errors) {
+        List<String> errorItems = Arrays.asList(errors.split(";"));
+        List<String> actualErrors = getActualErrorMessages(errorItems);
+        return errorItems.size() == actualErrors.size();
     }
 
     public boolean isLabelMessageShortUsernamePresent(){
