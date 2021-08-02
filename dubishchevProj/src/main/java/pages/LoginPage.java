@@ -134,9 +134,7 @@ public class LoginPage extends ParentPage {
         String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
         Util.waitABit(1); //Use waiter because sometimes not  find text in warning messages
         List<WebElement> listOfSignUpErrorMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
-        Assert.assertEquals(String.format("Number of error messages not equal"
-                , arrayOfErrorMessages.length, listOfSignUpErrorMessage.size())
-                , arrayOfErrorMessages.length, listOfSignUpErrorMessage.size());
+        Assert.assertEquals("Number of error messages not equal", arrayOfErrorMessages.length, listOfSignUpErrorMessage.size());
         for (int i = 0; i < arrayOfErrorMessages.length; i++) {
             Assert.assertEquals(i+1 +" pair of error messages not equal", arrayOfErrorMessages[i], listOfSignUpErrorMessage.get(i).getText());
         }
