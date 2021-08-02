@@ -23,7 +23,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        webDriver.manage().window().maximize();
+        //webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);
         homePage= new HomePage(webDriver);
