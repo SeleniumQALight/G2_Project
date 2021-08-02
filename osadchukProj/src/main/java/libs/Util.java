@@ -17,7 +17,7 @@ public class Util {
      * Method returned SystemDateAndTime In Format yyyy-MM-dd_HH-mm-ss
      * @return
      */
-    public static String getDateAndTimeFormated(){
+    public static String getDateAndTimeFormatted(){
 
         return getDateAndTime("yyyy-MM-dd_HH-mm-ss");
     }
@@ -29,9 +29,9 @@ public class Util {
     public static String getDateAndTime(String format){
         DateFormat dateFormat = new SimpleDateFormat(format);
         Date date = new Date();
-        String dateFormated = dateFormat.format(date);
-//        System.out.println(dateFormated);
-        return dateFormated;
+        String dateFormatted = dateFormat.format(date);
+//        System.out.println(dateFormatted);
+        return dateFormatted;
     }
 
 }
