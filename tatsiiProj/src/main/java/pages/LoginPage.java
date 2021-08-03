@@ -46,12 +46,11 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
-    public void fillLoginFormAndSubmit(String login, String password) {
-        openLoginPage();
-        enterLoginInSignIn(login);
-        enterPassWordInSignIn(password);
-        clickOnButtonSignIn();
-    }
+//    public void fillLoginFormAndSubmit(String login, String password) {
+//        openLoginPage();
+//        enterLoginInSignIn(login);
+//        enterPassWordInSignIn(password);
+//        clickOnButtonSignIn();
 
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
