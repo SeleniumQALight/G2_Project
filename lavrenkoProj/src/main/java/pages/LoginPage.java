@@ -2,9 +2,14 @@ package pages;
 
 import libs.TestData;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -38,6 +43,9 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    private String displayedWarningsXpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+//    WebDriverWait wait = new WebDriverWait(webDriver, 10);
+
     public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
@@ -50,11 +58,11 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
-    private void enterUsernameInSignUp(String regLogin) {
+    public void enterUsernameInSignUp(String regLogin) {
         enterTextToElement(inputLoginForReg, regLogin);
     }
 
-    private void enterEmailInSignUp(String regEmail) {
+    public void enterEmailInSignUp(String regEmail) {
         enterTextToElement(inputEmailForReg, regEmail);
     }
 
@@ -66,6 +74,15 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignUp);
     }
 
+    public void clickonFieldUsernameSignUp() {
+        clickOnElement(inputLoginForReg);
+    }
+
+    public void clickOnPasswordFieldSignUp() {
+        clickOnElement(inputPasswordForReg);
+    }
+
+
     public void fillLoginAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -73,13 +90,14 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
-    private void fillRegAndSubmit(String invalidLogin, String invalidEmail, String password) {
+    private void fillRegAndSubmit(String Login, String Email, String Password) {
         openLoginPage();
-        enterUsernameInSignUp(invalidLogin);
-        enterEmailInSignUp(invalidEmail);
-        enterPasswordInSignUp(password);
+        enterUsernameInSignUp(Login);
+        enterEmailInSignUp(Email);
+        enterPasswordInSignUp(Password);
         clickOnButtonSignUp();
     }
+
 
     public HomePage loginWithValidCred() {
         fillLoginAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
@@ -92,9 +110,16 @@ public class LoginPage extends ParentPage {
     }
 
 
-    public HomePage checkErrors(String s) {
-
-
-        return new HomePage(webDriver);
+    public void checkErrors(String warnings) {
+//        String[] expectedWarnings = warnings.split(";");
+        List<WebElement> displayedWarnings = webDriver.findElements(By.xpath(displayedWarningsXpath));
+        List<String> expectedWarnings = Arrays.asList(warnings.split(";"));
+        System.out.println(expectedWarnings.size());
+        System.out.println(displayedWarnings.size());
+        if (expectedWarnings.size() == displayedWarnings.size()){
+            System.out.println("Message amount is matching");
+        }else{
+            System.out.println("Message amount is not matching");
+        }
     }
 }

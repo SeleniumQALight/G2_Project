@@ -7,9 +7,14 @@ public class ValidationRegistration extends BaseTest {
     @Test
     public void validationRegistration() throws InterruptedException {
 
-        loginPage.RegWithInvalidCred()
+        String warning = "Username must be at least 3 characters.;You must provide a valid email address.";
+//        loginPage.RegWithInvalidCred()
+        loginPage.openLoginPage();
+        loginPage.enterUsernameInSignUp("az");
+        loginPage.enterEmailInSignUp("azaz.com");
+        loginPage.enterPasswordInSignUp("123456qwerty");
+        loginPage.checkErrors(warning);
 
-                .checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
 
     }
 
