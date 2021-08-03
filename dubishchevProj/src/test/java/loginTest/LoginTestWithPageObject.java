@@ -22,7 +22,4 @@ public class LoginTestWithPageObject extends BaseTest {
         checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
         checkExpectedResult("Warning message is not visible", loginPage.isWarningMessagePresent(), true);
     }
-
-
-
 }

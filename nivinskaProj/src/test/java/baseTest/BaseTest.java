@@ -35,6 +35,7 @@ public class BaseTest {
     }
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
-        Assert.assertThat(message, actualResult, is(expectedResult));
+//        Assert.assertThat(message, actualResult, is(expectedResult));
+        Assert.assertEquals(message, expectedResult, actualResult);
     }
 }
