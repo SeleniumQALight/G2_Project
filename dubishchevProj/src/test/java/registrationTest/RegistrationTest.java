@@ -13,4 +13,10 @@ public class RegistrationTest extends BaseTest {
         checkExpectedResult("Email actual warning message not equals to expected", "You must provide a valid email address.", loginPage.getSignUpEmailWarningText());
         checkExpectedResult("Password actual warning message not equals to expected", "Password must be at least 12 characters.", loginPage.getSignUpPasswordWarningText());
     }
+
+    @Test
+    public void validateErrorMessage(){
+        loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
+        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
+    }
 }

@@ -17,26 +17,23 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
-
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
-       webDriver = new ChromeDriver();
-       webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-       webDriver.manage().window().maximize();
+        webDriver = new ChromeDriver();
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().window().maximize();
 
-       loginPage = new LoginPage(webDriver);
-       homePage = new HomePage(webDriver);
+        loginPage = new LoginPage(webDriver);
+        homePage = new HomePage(webDriver);
+
     }
     @After
     public void tearDown(){
         webDriver.quit();
     }
 
-
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
-       // Assert.assertThat(message, actualResult, is(expectedResult));
-        Assert.assertEquals(message, expectedResult, actualResult);
+        Assert.assertThat(message, actualResult, is(expectedResult));
     }
-
 }
