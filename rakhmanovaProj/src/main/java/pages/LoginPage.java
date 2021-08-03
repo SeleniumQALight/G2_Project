@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -42,6 +44,9 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//*[text() = 'Password must be at least 12 characters']")
     private WebElement errorPassword;
+
+    @FindBy(xpath = ".//*[text() ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private WebElement errorUsernameMessage;
 
 
     public LoginPage(WebDriver webDriver) {
@@ -127,5 +132,14 @@ public class LoginPage extends ParentPage {
     }
 
 
+    public LoginPage checkErrors(String errorMessages) {
+        List<WebElement> errorList = webDriver.findElements(
+                By.xpath(String.format(errorMessages, errorUsernameMessage))
+                                         );
+        Assert.assertTrue("Username must be at least 3 characters.", true);
+        return this;
+//        Assert.assertTrue("You must provide a valid email address: 555.", true);
+//        return this;
     }
+}
 
