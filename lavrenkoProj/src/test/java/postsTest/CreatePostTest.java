@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
-    final String POST_TITLE = "Illia's Post" + Util.getDateAndTimeFormatted();
+    final String POST_TITLE = "Illias Post" + Util.getDateAndTimeFormatted();
     final String POST_BODY = "Body test";
 
     @Test

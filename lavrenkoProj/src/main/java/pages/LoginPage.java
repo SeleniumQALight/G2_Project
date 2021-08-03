@@ -13,6 +13,14 @@ public class LoginPage extends ParentPage {
     private WebElement inputPassword;
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
+    @FindBy(xpath = ".//input[@id='username-register']")
+    private WebElement inputLoginForReg;
+    @FindBy(xpath = ".//input[@id='email-register']")
+    private WebElement inputEmailForReg;
+    @FindBy(xpath = ".//input[@id='password-register']")
+    private WebElement inputPasswordForReg;
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private WebElement buttonSignUp;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -30,18 +38,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
-    public void enterLoginInSidnIn(String login) {
-//        try {
-////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-//            inputLogin.clear();
-//            inputLogin.sendKeys(login);
-////            element.clear();
-////            element.sendKeys(login);
-//            logger.info(login + " was inputted in SingIn");
-//        } catch (Exception e) {
-//            logger.error("Cannot work with element" + e);
-//            Assert.fail("Cannot work with element");
-//        }
+    public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
 
@@ -50,17 +47,54 @@ public class LoginPage extends ParentPage {
     }
 
     public void clickOnButtonSignIn() {
-    clickOnElement(buttonSignIn);
+        clickOnElement(buttonSignIn);
     }
-    public void fillLoginAndSubmit(String login, String password){
+
+    private void enterUsernameInSignUp(String regLogin) {
+        enterTextToElement(inputLoginForReg, regLogin);
+    }
+
+    private void enterEmailInSignUp(String regEmail) {
+        enterTextToElement(inputEmailForReg, regEmail);
+    }
+
+    public void enterPasswordInSignUp(String password) {
+        enterTextToElement(inputPassword, password);
+    }
+
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
+    }
+
+    public void fillLoginAndSubmit(String login, String password) {
         openLoginPage();
-        enterLoginInSidnIn(login);
+        enterLoginInSignIn(login);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
 
-    public HomePage loginWithValidCred(){
-        fillLoginAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
+    private void fillRegAndSubmit(String invalidLogin, String invalidEmail, String password) {
+        openLoginPage();
+        enterUsernameInSignUp(invalidLogin);
+        enterEmailInSignUp(invalidEmail);
+        enterPasswordInSignUp(password);
+        clickOnButtonSignUp();
+    }
+
+    public HomePage loginWithValidCred() {
+        fillLoginAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+    public HomePage RegWithInvalidCred() {
+        fillRegAndSubmit(TestData.INVALID_LOGIN, TestData.INVALID_EMAIL, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+
+    public HomePage checkErrors(String s) {
+
+
         return new HomePage(webDriver);
     }
 }

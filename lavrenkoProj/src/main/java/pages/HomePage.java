@@ -5,6 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class HomePage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private WebElement buttSignOut;
@@ -47,5 +51,10 @@ public class HomePage extends ParentPage {
     public ProfilePage clickOnTheProfileButton() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
+    }
+
+    public void checkErrors(String warnings) {
+        List <String> expectedWarnings = Arrays.asList(warnings.split(";"));
+        System.out.println(expectedWarnings.size());
     }
 }
