@@ -22,7 +22,7 @@ III. Creating a new post
 Title field = .//input[@name='title']
 Body Content = .//textarea[@name='body']
 This is a unique post checkbox = .//input[@type='checkbox']
-Select value dropdown = .//select[@name='select1']
+Select value dropdown = .//select[@id='select1']
 Option value = .//option[@value='Group Message']
 Save New Post button = .//button[@class='btn btn-primary']
 
