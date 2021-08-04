@@ -1,6 +1,7 @@
 package pages;
 
 import libs.TestData;
+import libs.Util;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -45,8 +46,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//*[text() = 'Password must be at least 12 characters']")
     private WebElement errorPassword;
 
-    @FindBy(xpath = ".//*[text() ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
-    private WebElement errorUsernameMessage;
+    String errorUserNameLocator = ".//div[@class ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+//    @FindBy(xpath = ".//div[@class ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+//    private WebElement errorUsernameMessage;
 
 
     public LoginPage(WebDriver webDriver) {
@@ -111,9 +113,10 @@ public class LoginPage extends ParentPage {
         return isElementPresent(passwordInput);
     }
 
-    public void fillLoginFormAndSubmit(String login, String password) {
+    public void fillLoginFormAndSubmit(String login, String password) { //String email
         openLoginPage();
         enterLoginInSignIn(login);
+        //enterEmailInSignUp(email);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
@@ -133,13 +136,18 @@ public class LoginPage extends ParentPage {
 
 
     public LoginPage checkErrors(String errorMessages) {
-        List<WebElement> errorList = webDriver.findElements(
-                By.xpath(String.format(errorMessages, errorUsernameMessage))
+
+        Util.waitABit(2);
+        List<WebElement> actualErrorList = webDriver.findElements(
+                By.xpath(errorUserNameLocator)
                                          );
-        Assert.assertTrue("Username must be at least 3 characters.", true);
-        return this;
-//        Assert.assertTrue("You must provide a valid email address: 555.", true);
-//        return this;
+        String [] expectedErrorMessages = errorMessages.split(";");
+
+        Assert.assertEquals("Number of messages are not equal", expectedErrorMessages.length, actualErrorList.size());
+        for (int i = 0; i < expectedErrorMessages.length; i++) {
+            Assert.assertEquals("Messages are not equal", expectedErrorMessages[i], actualErrorList.get(i).getText());
+        }
+       return this;
     }
 }
 

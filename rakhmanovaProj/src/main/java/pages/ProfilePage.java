@@ -38,7 +38,7 @@ public class ProfilePage extends ParentPage{
                                                            )));
             new PostPage(webDriver)
                       .clickOnDeleteButton()
-                      .checkIsSuccessDeletepostMessagePresent();
+                      .checkIsSuccessDeletePostMessagePresent();
 
             listOfPosts = webDriver.findElements(
                     By.xpath(String.format(postTitleLocator, post_title))
@@ -49,7 +49,7 @@ public class ProfilePage extends ParentPage{
         return this;
     }
 
-    public ProfilePage checkIsSuccessDeletepostMessagePresent() {
+    public ProfilePage checkIsSuccessDeletePostMessagePresent() {
         Assert.assertTrue("Element is not present", isElementPresent(successPostDeleteElement));
         return this;
     }
