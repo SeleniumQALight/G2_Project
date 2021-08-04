@@ -18,13 +18,16 @@ public class CreatePostTest extends BaseTest {
                 .checkIsInputTitleIsPresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody(POST_BODY)
+//                .selectTextInDDSelectValue("Частное сообщение")
+                .selectValueInDDSelectValue("One Person")
                 .clickOnSaveNewPost()
                 .checkIsSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
                 .checkIsDeletePostButtonPresent()
                 .clickOnButtonMyProfile()
                 .checkIsFollowerPresent()
-                .checkIsPostWasAdded(POST_TITLE);
+                .checkIsPostWasAdded(POST_TITLE)
+                ;
     }
 
     @After
