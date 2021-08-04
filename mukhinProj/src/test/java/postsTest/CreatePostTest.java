@@ -6,33 +6,34 @@ import org.junit.After;
 import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
-    final String POST_TITLE = "Yevhen Vorkov title of Post" + Util.getDateAndTimeFormated();
-    final String POST_BODY = "Yevhen Vorkov body of Post";
-
+    final String POST_TITLE = "DenDeche title of Post" + Util.getDateAndTimeFormatted();
     @Test
     public void createPost() {
         loginPage
                 .loginWithValidCred()
                 .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
-                .checkIsInputTitleIsPresent()
+                .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
-                .enterTextIntoInputBody(POST_BODY)
+                .enterTextIntoInputBody("Body text")
 //                .selectTextInDDSelectValue("Частное сообщение")
                 .selectValueInDDSelectValue("One Person")
-                .clickOnSaveNewPost()
+                .clickOnSaveButton()
+                . checkIsButtonDeletePresent()
                 .checkIsSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
-                .checkIsDeletePostButtonPresent()
-                .clickOnButtonMyProfile()
-                .checkIsFollowerPresent()
+                .clickOnButtonProfile()
                 .checkIsPostWasAdded(POST_TITLE)
                 ;
-    }
 
+    }
     @After
-    public void deletePost() {
-        homePage.openHomePage()
-                .checkIsButtonSignOutVisible().clickOnButtonProfile().deletePostWithTitleWhilePresent(POST_TITLE);
+    public void deletePost(){
+        homePage
+                .openHomePage()
+                .checkIsButtonSignOutVisible()
+                .clickOnButtonProfile()
+                .deletePostWithTitleWhilePresent(POST_TITLE)
+                ;
     }
 }
