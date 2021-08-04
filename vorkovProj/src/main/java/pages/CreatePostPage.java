@@ -27,6 +27,9 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
     private WebElement successMessage;
 
+    @FindBy(xpath = ".//select[@id='select1']")
+    private WebElement dropDownSelectValue;
+
     // --------------------------------------------------------------------------------------------------
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -72,5 +75,15 @@ public class CreatePostPage extends ParentPage {
     public ProfilePage clickOnDeletePostButton() {
         clickOnElement(deletePostButton);
         return new ProfilePage(webDriver);
+    }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTextInDD(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectValueInDDSelectValue(String value) {
+        selectValueInDD(dropDownSelectValue, value);
+        return this;
     }
 }
