@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
@@ -95,7 +96,7 @@ public class LoginPage extends ParentPage {
         enterUsernameInSignUp(Login);
         enterEmailInSignUp(Email);
         enterPasswordInSignUp(Password);
-        clickOnButtonSignUp();
+
     }
 
 
@@ -112,14 +113,13 @@ public class LoginPage extends ParentPage {
 
     public void checkErrors(String warnings) {
 //        String[] expectedWarnings = warnings.split(";");
-        List<WebElement> displayedWarnings = webDriver.findElements(By.xpath(displayedWarningsXpath));
         List<String> expectedWarnings = Arrays.asList(warnings.split(";"));
-        System.out.println(expectedWarnings.size());
-        System.out.println(displayedWarnings.size());
-        if (expectedWarnings.size() == displayedWarnings.size()){
-            System.out.println("Message amount is matching");
-        }else{
-            System.out.println("Message amount is not matching");
+        webDriverWait10.until(ExpectedConditions.numberOfElementsToBe(By.xpath(displayedWarningsXpath),expectedWarnings.size()));
+        List<WebElement> displayedWarnings = webDriver.findElements(By.xpath(displayedWarningsXpath));
+        Assert.assertEquals("Amount isn't matching", expectedWarnings.size(), displayedWarnings.size());
+
+        for (int i = 0; i < expectedWarnings.size(); i++) {
+            Assert.assertEquals("Messages are not matching",expectedWarnings.get(i), displayedWarnings.get(i).getText());
         }
-    }
-}
+
+}}
