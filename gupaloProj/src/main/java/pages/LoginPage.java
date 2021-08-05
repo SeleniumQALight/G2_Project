@@ -1,11 +1,13 @@
 package pages;
 
 import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -48,6 +50,11 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
     private WebElement passwordValidMessageInForm;
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
+
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
 
     public LoginPage(WebDriver webDriver) {
@@ -149,11 +156,28 @@ public class LoginPage extends ParentPage {
 
     public void checkErrors(String errorsMessages) {
         String[] arrErrorMessages = errorsMessages.split(";");
-        List<WebElement> errorsListMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
-        Assert.assertEquals("Numbers of messages are not equals", arrErrorMessages.length, errorsListMessage.size());
-        for (int i = 0; i < arrErrorMessages.length; i++) {
-            Assert.assertEquals("Messages are not equals", arrErrorMessages[i], errorsListMessage.get(i).getText());
+       // List<WebElement> errorsListMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
+        webDriverWait10.withMessage("Number of Message")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"), arrErrorMessages.length));
+
+//        Assert.assertEquals("Numbers of messages are not equals", arrErrorMessages.length, errorsListMessage.size());
+//        for (int i = 0; i < arrErrorMessages.length; i++) {
+//            Assert.assertEquals("Messages are not equals", arrErrorMessages[i], errorsListMessage.get(i).getText());
+//        }
+
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element: actualListOfErrors) {
+            actualTextFromErrors.add(element.getText());
+
         }
+        for (int i = 0; i < arrErrorMessages.length; i++) {
+            softAssertions.assertThat(arrErrorMessages[i]).isIn(actualTextFromErrors);
+
+        }
+
+        softAssertions.assertAll();
+
     }
 }
 
