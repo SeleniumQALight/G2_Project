@@ -2,6 +2,7 @@ package pages;
 
 import libs.TestData;
 import libs.Util;
+import org.apache.commons.logging.Log;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -109,16 +110,19 @@ public class LoginPage extends ParentPage {
         return isElementPresent(invalidUsernamePasswordMessage);
     }
 
-    public void enterUsernameInSignUp(String username) {
+    public LoginPage enterUsernameInSignUp(String username) {
         enterTextToElement(signUpUsername, username);
+        return this;
     }
 
-    public void enterPasswordInSignUp(String password) {
+    public LoginPage enterPasswordInSignUp(String password) {
         enterTextToElement(signUpPassword, password);
+        return this;
     }
 
-    public void enterEmailInSignUp(String email) {
+    public LoginPage enterEmailInSignUp(String email) {
         enterTextToElement(signUpEmail, email);
+        return this;
     }
 
     public void clickOnButtonSignUp() {
@@ -148,7 +152,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
-    public void checkErrorWithSoftAssertion(String stringOfErrorMessages) {
+    public void checkErrorMessages(String stringOfErrorMessages) {
         String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
         webDriverWait10.withMessage("Number of messages ").until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), arrayOfErrorMessages.length));
         SoftAssertions softAssertions = new SoftAssertions();
