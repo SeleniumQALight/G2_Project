@@ -21,6 +21,14 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//div[text()='New post successfully created.']")
     private WebElement alertPostSuccess;
 
+    @FindBy(xpath = ".//button[@data-original-title='Delete']")
+    private WebElement deletePostButton;
+
+    @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
+    private WebElement successMessage;
+
+    @FindBy(xpath = ".//select[@id='select1']")
+    private WebElement dropDownSelectValue;
 
     // --------------------------------------------------------------------------------------------------
     public CreatePostPage(WebDriver webDriver) {
@@ -47,10 +55,35 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
-    public MyProfilePage checkIsSuccessPostAlertPresent() {
-        Assert.assertTrue("Success create post alert isn't present", isElementPresent(alertPostSuccess));
-        return new MyProfilePage(webDriver);
+    public ProfilePage checkIsDeletePostButtonPresent() {
+        Assert.assertTrue("Delete button isn't present", isElementPresent(deletePostButton));
+        return new ProfilePage(webDriver);
+    }
+
+    public CreatePostPage checkIsSuccessMessagePresent() {
+        Assert.assertTrue("Success message isn't present", isElementPresent(successMessage));
+        return this;
     }
 
 
+    public CreatePostPage checkTextInSuccessMessage(String text) {
+        String actualText = successMessage.getText();
+        Assert.assertEquals("Text isn't equals", text, actualText);
+        return this;
+    }
+
+    public ProfilePage clickOnDeletePostButton() {
+        clickOnElement(deletePostButton);
+        return new ProfilePage(webDriver);
+    }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTextInDD(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectValueInDDSelectValue(String value) {
+        selectValueInDD(dropDownSelectValue, value);
+        return this;
+    }
 }

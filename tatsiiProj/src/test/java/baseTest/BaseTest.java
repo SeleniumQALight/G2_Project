@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.RegistrationForm;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected RegistrationForm registrationForm;
     @Before
     public void setUp(){
         WebDriverManager.chromedriver().setup();
@@ -26,6 +28,7 @@ public class BaseTest {
 
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
+        registrationForm = new RegistrationForm(webDriver);
     }
     @After
     public void tearDown(){
@@ -35,6 +38,7 @@ public class BaseTest {
 
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
-        Assert.assertThat(message, actualResult, is(expectedResult));
+//        Assert.assertThat(message, actualResult, is(expectedResult));
+        Assert.assertEquals(message, expectedResult, actualResult);
     }
 }

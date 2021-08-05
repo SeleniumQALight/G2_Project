@@ -15,7 +15,10 @@ public class LoginPage extends ParentPage {
     private WebElement inputPassWord;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement ButtonSignIn;
+    private WebElement buttonSignIn;
+
+    @FindBy(xpath = "//div[contains(text(),'Invalid username / password')]")
+    private WebElement labelMessageInvalidLogin;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -32,26 +35,30 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterLoginInSignIn(String login) {
-//        try{
-////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-//            inputLogin.clear();
-//            inputLogin.sendKeys(login);
-//            logger.info(login + "was input in SignIn input login");
-//
-//        }catch (Exception e){
-//            logger.error("Can't work with element" + e);
-//            Assert.fail("Can't work with element" + e);
-//        }
         enterTextToElement(inputLogin, login);
     }
-
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
 
 
     public void clickOnButtonSignIn() {
-        clickOnElement(ButtonSignIn);
+        clickOnElement(buttonSignIn);
+    }
+
+    public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPassWordInSignIn(password);
+        clickOnButtonSignIn();
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isLabelMessageInvalidLoginPresent(){
+        return isElementPresent(labelMessageInvalidLogin);
     }
 
     public void fillLoginFormAndSubmit(String login, String passWord) {

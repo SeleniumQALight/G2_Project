@@ -2,6 +2,7 @@ package postsTest;
 
 import baseTest.BaseTest;
 import libs.Util;
+import org.junit.After;
 import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
@@ -17,11 +18,21 @@ public class CreatePostTest extends BaseTest {
                 .checkIsInputTitleIsPresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody(POST_BODY)
+//                .selectTextInDDSelectValue("Частное сообщение")
+                .selectValueInDDSelectValue("One Person")
                 .clickOnSaveNewPost()
-                .checkIsSuccessPostAlertPresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .checkIsDeletePostButtonPresent()
                 .clickOnButtonMyProfile()
                 .checkIsFollowerPresent()
-                .checkCreatedPost(POST_TITLE);
+                .checkIsPostWasAdded(POST_TITLE)
+                ;
+    }
 
+    @After
+    public void deletePost() {
+        homePage.openHomePage()
+                .checkIsButtonSignOutVisible().clickOnButtonProfile().deletePostWithTitleWhilePresent(POST_TITLE);
     }
 }
