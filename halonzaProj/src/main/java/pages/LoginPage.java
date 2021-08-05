@@ -1,11 +1,13 @@
 package pages;
 
 import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +48,10 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[contains(text(), 'Password must be at least 12 characters')]")
     private WebElement passwordSignUpAlert;
 
-    private String signUpAlertsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+    final String signUpErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -125,6 +130,21 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignUp();
     }
 
+    public LoginPage enterLoginRegistration (String username){
+        enterTextToElement(inputLoginSignUpForm, username);
+        return this;
+    }
+
+    public LoginPage enterEmailRegistration(String email) {
+        enterTextToElement(inputEmailSignUpForm, email);
+        return this;
+    }
+
+    public LoginPage enterPasswordRegistration(String password) {
+        enterTextToElement(inputPasswordSignUpForm, password);
+        return this;
+    }
+
     public boolean isUsernameSignUpAlertPresent() {
         return isElementPresent(usernameSignUpAlert);
     }
@@ -145,7 +165,7 @@ public class LoginPage extends ParentPage {
 
 
     public void checkErrors(String s) {
-        List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpAlertsLocator));
+        List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpErrorsLocator));
         List<String> alertListExpectedText = Arrays.asList(s.split(";"));
         Assert.assertEquals("The actual number of alerts (" + alertsListActual.size() + ")" +
                 "is not as expected (" + alertListExpectedText.size() + ")", alertListExpectedText.size(), alertsListActual.size());
@@ -180,5 +200,20 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    public void checkErrorsMessages(String expectedErrors) {
+        String[] errorsArray = expectedErrors.split(";");
+        webDriverWait10.withMessage("Number of Messages")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(signUpErrorsLocator), errorsArray.length));
+//        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length);
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element : actualListOfErrors) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < errorsArray.length; i++) {
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
+        }
+        softAssertions.assertAll();
 
+    }
 }

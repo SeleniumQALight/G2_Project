@@ -19,4 +19,13 @@ public class SignUpTest extends BaseTest {
         loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
         loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.;");
     }
+
+    @Test
+    public void registrationErrors(){
+        loginPage.openLoginPage();
+        loginPage.enterLoginRegistration("12")
+                .enterEmailRegistration(".com")
+//                .enterPasswordRegistration("45")
+                .checkErrorsMessages("Username must be at least 3 characters.;You must provide a valid email address.;");
+    }
 }
