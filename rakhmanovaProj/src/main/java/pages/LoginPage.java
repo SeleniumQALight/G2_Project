@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -137,11 +139,11 @@ public class LoginPage extends ParentPage {
 
     public LoginPage checkErrors(String errorMessages) {
 
-        Util.waitABit(2);
+        String [] expectedErrorMessages = errorMessages.split(";");
+        webDriverWait10.until(ExpectedConditions.numberOfElementsToBe(By.xpath(errorUserNameLocator), expectedErrorMessages.length));
         List<WebElement> actualErrorList = webDriver.findElements(
                 By.xpath(errorUserNameLocator)
                                          );
-        String [] expectedErrorMessages = errorMessages.split(";");
 
         Assert.assertEquals("Number of messages are not equal", expectedErrorMessages.length, actualErrorList.size());
         for (int i = 0; i < expectedErrorMessages.length; i++) {

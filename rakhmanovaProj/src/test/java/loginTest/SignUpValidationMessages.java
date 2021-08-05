@@ -15,8 +15,8 @@ public class SignUpValidationMessages extends BaseTest {
         loginPage.enterLoginInSignUp("tr");
         loginPage.enterEmailInSignUp("test.com");
         //loginPage.enterPasswordInSignUp("123");
-        //loginPage.clickOnSignUpButton();
-        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
+        loginPage.clickOnSignUpButton();
+        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.;Password must be at least 12 characters.");
 
 //        checkExpectedResult( "Username must be at least 3 characters.", loginPage.isErrorUserNamePresent(),true);
 //        checkExpectedResult("You must provide a valid email address.", loginPage.isErrorEmailPresent(), true);
