@@ -1,10 +1,16 @@
 package pages;
 
 import libs.TestData;
+import libs.Util;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.*;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -39,6 +45,9 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
     private WebElement alertValidateSignUpPassword;
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> errorsList;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -121,5 +130,16 @@ public class LoginPage extends ParentPage {
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
+    }
+
+    public void checkErrors(String errors) {
+        Util.waitABit(1);
+        String[] expectedErrors = errors.split(";");
+        List<String> actualErrorsList = new ArrayList<>();
+        for (WebElement error: errorsList) {
+            actualErrorsList.add(error.getText());
+        }
+        Assert.assertEquals("Number of errors - " + errorsList.size() + ", not as expected", errorsList.size(), expectedErrors.length);
+        Assert.assertThat("Error test is not as expected", actualErrorsList, hasItems(expectedErrors));
     }
 }
