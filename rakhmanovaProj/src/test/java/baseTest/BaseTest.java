@@ -1,6 +1,7 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import loginTest.SignUpValidationMessages;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +19,7 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -33,7 +35,9 @@ public class BaseTest {
     public void tearDown() { webDriver.quit(); }
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
-        Assert.assertThat(message, actualResult, is(expectedResult));
+        //Assert.assertThat(message, is(expectedResult), actualResult,);
+        Assert.assertEquals(message, expectedResult,actualResult);
     }
+
 
 }

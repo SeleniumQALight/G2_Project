@@ -1,0 +1,13 @@
+#Login page
+1.pickUsername = ".//input[@placeholder='Pick a username']"
+2.inputEmail = ".//input[@placeholder='you@example.com']"
+3.createPassword = ".//input[@placeholder='Create a password']"
+4.clickSignUp = ".//button[text()='Sign up for OurApp']"
+
+5.inputLogin = ".//input[@placeholder='Username']"
+6.inputPassword = ".//input[@placeholder='Password']"
+7.clickSignIn = ".//button[text()='Sign In']"
+
+#Home Page
+1.clickCreatePost = ".//*[text()='Create Post']"
+2.clickSignOut = ".//button[text()='Sign Out']"

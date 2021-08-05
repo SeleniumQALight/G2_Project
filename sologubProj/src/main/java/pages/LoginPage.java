@@ -1,9 +1,15 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath=".//input[@placeholder='Username']")
@@ -77,9 +83,15 @@ public class LoginPage extends ParentPage {
     }
 
     public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
         enterLoginInSignIn(login);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
+    }
+
+    public HomePage loginWithValidCred() {
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
     }
 
     public boolean isButtonSignInPresent() {
@@ -125,5 +137,31 @@ public class LoginPage extends ParentPage {
         return isElementPresent(registrationPasswordAlert);
     }
 
+    public LoginPage checkErrors(String alerts) {
+        List <String> expectedListOfAlerts = Arrays.asList(alerts.split(";"));
+        List <WebElement> actualListOfAlertsObjects = webDriver.findElements(
+                By.xpath(".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']"));
+        List<String> actualListOfAlerts = new ArrayList<String>();
 
+        for (WebElement element: actualListOfAlertsObjects) {
+            actualListOfAlerts.add(element.getText());
+        }
+
+        Assert.assertTrue(
+                String.format("Number of expected and actual alerts is not equal. Expected number: %d, actual number: %d",
+                expectedListOfAlerts.size(), actualListOfAlerts.size()),
+                expectedListOfAlerts.size() == actualListOfAlerts.size());
+          //variant # 1: checking alerts text
+//        int n = 0;
+//        for (String text: expectedListOfAlerts) {
+//            Assert.assertTrue( "Expected alert is not present: " + text,text.equals(actualListOfAlerts.get(n)));
+//            n++;
+//        }
+
+        //variant # 2: checking alerts text
+        for (String text: expectedListOfAlerts) {
+            Assert.assertTrue("Expected alert is not present: " + text, actualListOfAlerts.contains(text));
+        }
+        return this;
+    }
 }

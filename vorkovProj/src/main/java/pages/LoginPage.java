@@ -1,9 +1,13 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import static libs.TestData.VALID_LOGIN;
+import static libs.TestData.VALID_PASSWORD;
 
 public class LoginPage extends ParentPage {
     // --------------------------------------------------------------------------------------------------
@@ -69,5 +73,18 @@ public class LoginPage extends ParentPage {
 
     public void clickOnButtonSignUpRegistration() {
         clickOnElement(buttonSignUpRegistration);
+    }
+
+    public void fillLoginAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPasswordInSignIn(password);
+        clickOnButtonSignIn();
+    }
+
+    public HomePage loginWithValidCred() {
+        fillLoginAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+
+        return new HomePage(webDriver);
     }
 }

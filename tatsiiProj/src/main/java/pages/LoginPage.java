@@ -1,7 +1,7 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +14,10 @@ public class LoginPage extends ParentPage {
     private WebElement inputPassWord;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement ButtonSignIn;
+    private WebElement buttonSignIn;
+
+    @FindBy(xpath = "//div[contains(text(),'Invalid username / password')]")
+    private WebElement labelMessageInvalidLogin;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -31,24 +34,34 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterLoginInSignIn(String login) {
-//        try{
-////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-//            inputLogin.clear();
-//            inputLogin.sendKeys(login);
-//            logger.info(login + "was input in SignIn input login");
-//
-//        }catch (Exception e){
-//            logger.error("Can't work with element" + e);
-//            Assert.fail("Can't work with element" + e);
-//        }
         enterTextToElement(inputLogin, login);
     }
-
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
 
+
     public void clickOnButtonSignIn() {
-        clickOnElement(ButtonSignIn);
+        clickOnElement(buttonSignIn);
+    }
+
+    public void fillLoginFormAndSubmit(String login, String passWord) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPassWordInSignIn(passWord);
+        clickOnButtonSignIn();
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isLabelMessageInvalidLoginPresent() {
+        return isElementPresent(labelMessageInvalidLogin);
+    }
+
+    public HomePage loginWithValidCred(){
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
     }
 }

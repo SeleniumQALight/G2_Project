@@ -1,12 +1,19 @@
 package pages;
 
+import libs.TestData;
+import libs.Util;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class LoginPage extends ParentPage {
+
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -16,13 +23,42 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath = ".//div[@class='alert alert-danger text-center']")
+    private WebElement signInAlert;
+
+
+    @FindBy(xpath = ".//input[@id='username-register']")
+    private WebElement userNameInput;
+
+    @FindBy(xpath = ".//input[@id='email-register']")
+    private WebElement emailInput;
+
+    @FindBy(xpath = ".//input[@id='password-register']")
+    private WebElement passwordInput;
+
+    @FindBy(xpath = ".//button[@type='submit']")
+    private WebElement signUpButton;
+
+    @FindBy(xpath = ".//*[text() ='Username must be at least 3 characters']")
+    private WebElement errorUserName;
+
+    @FindBy(xpath = ".//*[text() = 'You must provide a valid email address']")
+    private WebElement errorEmail;
+
+    @FindBy(xpath = ".//*[text() = 'Password must be at least 12 characters']")
+    private WebElement errorPassword;
+
+    String errorUserNameLocator = ".//div[@class ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+//    @FindBy(xpath = ".//div[@class ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+//    private WebElement errorUsernameMessage;
+
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public void openLoginPage(){
-        try{
+    public void openLoginPage() {
+        try {
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
             logger.info("A Login page was opened.");
         } catch (Exception e) {
@@ -48,8 +84,72 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputPassword, password);
     }
 
-    public void clickOnButtonSignIn() {
-        clickOnElement(buttonSignIn);
+    public void clickOnButtonSignIn() { clickOnElement(buttonSignIn); }
+
+    public void enterLoginInSignUp(String loginSignUp) {
+        enterTextToElement(userNameInput, loginSignUp);
+    }
+
+    public void enterEmailInSignUp(String emailSignUp) {
+        enterTextToElement(emailInput, emailSignUp);
+    }
+
+    public void enterPasswordInSignUp(String passwordSignUp) {
+        enterTextToElement(passwordInput, passwordSignUp);
+    }
+
+    public void clickOnSignUpButton() {
+        clickOnElement(signUpButton);
+    }
+
+    public boolean isErrorUserNamePresent() {
+        return isElementPresent(userNameInput);
 
     }
+
+    public boolean isErrorEmailPresent() {
+        return isElementPresent(emailInput);
+    }
+
+    public boolean isErrorPasswordPresent() {
+        return isElementPresent(passwordInput);
+    }
+
+    public void fillLoginFormAndSubmit(String login, String password) { //String email
+        openLoginPage();
+        enterLoginInSignIn(login);
+        //enterEmailInSignUp(email);
+        enterPasswordInSignIn(password);
+        clickOnButtonSignIn();
+    }
+
+    public boolean isButtonSignInPresent() {
+     return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isSignInAlertPresent() {
+        return isElementPresent(signInAlert);
+    }
+
+    public HomePage loginWithValidCred(){
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+
+    public LoginPage checkErrors(String errorMessages) {
+
+        String [] expectedErrorMessages = errorMessages.split(";");
+        webDriverWait10.until(ExpectedConditions.numberOfElementsToBe(By.xpath(errorUserNameLocator), expectedErrorMessages.length));
+        List<WebElement> actualErrorList = webDriver.findElements(
+                By.xpath(errorUserNameLocator)
+                                         );
+
+        Assert.assertEquals("Number of messages are not equal", expectedErrorMessages.length, actualErrorList.size());
+        for (int i = 0; i < expectedErrorMessages.length; i++) {
+            Assert.assertEquals("Messages are not equal", expectedErrorMessages[i], actualErrorList.get(i).getText());
+        }
+       return this;
+    }
 }
+

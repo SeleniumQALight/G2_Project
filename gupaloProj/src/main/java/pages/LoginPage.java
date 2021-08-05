@@ -1,9 +1,16 @@
 package pages;
 
+import libs.TestData;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -33,7 +40,7 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private WebElement buttonSignUp;
 
-    @FindBy (xpath = ".//div[text()='Username must be at least 3 characters.']")
+    @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
     private WebElement loginValidMessageInForm;
 
     @FindBy(xpath = ".//div[text()='You must provide a valid email address.']")
@@ -59,15 +66,15 @@ public class LoginPage extends ParentPage {
         return isElementPresent(alertText);
     }
 
-    public boolean isLoginValidMessageInFormPresent (){
+    public boolean isLoginValidMessageInFormPresent() {
         return isElementPresent(loginValidMessageInForm);
     }
 
-    public boolean isEmailValidMessageInFormPresent (){
+    public boolean isEmailValidMessageInFormPresent() {
         return isElementPresent(emailValidMessageInForm);
     }
 
-    public boolean isPasswordValidMessageInFormPresent (){
+    public boolean isPasswordValidMessageInFormPresent() {
         return isElementPresent(passwordValidMessageInForm);
     }
 
@@ -103,33 +110,50 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
-    public void fillLoginFormAndSubmit (String login, String password) {
-        enterTextToElement(inputLogin,login);
-        enterTextToElement(inputPassword, password);
+    public void fillLoginFormAndSubmit(String login, String password) {
+        openLoginPage();
+        enterLoginInSignIn(login);
+        enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
 
-    public void enterLoginInRegForm (String login){
+    public void enterLoginInRegForm(String login) {
         enterTextToElement(inputLoginInForm, login);
     }
 
-    public void enterEmailInRegForm (String email){
+    public void enterEmailInRegForm(String email) {
         enterTextToElement(inputEmail, email);
     }
 
-    public void enterPasswordInRegForm (String password){
+    public void enterPasswordInRegForm(String password) {
         enterTextToElement(inputPasswordInForm, password);
     }
 
-    public void clickOnButtonSignUp (){
+    public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
     }
 
-    public void fillRegFormAndSubmit(String login, String email, String password){
+    public void fillRegFormAndSubmit(String login, String email, String password) {
+        openLoginPage();
         enterTextToElement(inputLoginInForm, login);
         enterTextToElement(inputEmail, email);
         enterTextToElement(inputPasswordInForm, password);
         clickOnButtonSignUp();
+    }
+
+    public HomePage loginWithValidCred() {
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+
+    public void checkErrors(String errorsMessages) {
+        String[] arrErrorMessages = errorsMessages.split(";");
+        List<WebElement> errorsListMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
+        Assert.assertEquals("Numbers of messages are not equals", arrErrorMessages.length, errorsListMessage.size());
+        for (int i = 0; i < arrErrorMessages.length; i++) {
+            Assert.assertEquals("Messages are not equals", arrErrorMessages[i], errorsListMessage.get(i).getText());
+        }
     }
 }
 

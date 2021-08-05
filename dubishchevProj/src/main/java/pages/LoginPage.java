@@ -1,9 +1,14 @@
 package pages;
 
+import libs.TestData;
+import libs.Util;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -61,6 +66,12 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    public HomePage loginWithValidCred() {
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+
     public void fillSignUpFormAndSubmit(String username, String email, String password) {
         openLoginPage();
         enterUsernameInSignUp(username);
@@ -75,7 +86,6 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterPasswordInSignIn(String password) {
-
         enterTextToElement(inputPassword, password);
     }
 
@@ -117,5 +127,18 @@ public class LoginPage extends ParentPage {
 
     public String getSignUpPasswordWarningText() {
         return getElementText(invalidSignUpPasswordMessage);
+    }
+
+
+    public void checkErrors(String stringOfErrorMessages) {
+        String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
+        Util.waitABit(1); //Use waiter because sometimes not  find text in warning messages
+        List<WebElement> listOfSignUpErrorMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
+        Assert.assertEquals("Number of error messages not equal", arrayOfErrorMessages.length, listOfSignUpErrorMessage.size());
+        for (int i = 0; i < arrayOfErrorMessages.length; i++) {
+            Assert.assertEquals(i+1 +" pair of error messages not equal", arrayOfErrorMessages[i], listOfSignUpErrorMessage.get(i).getText());
+        }
+
+
     }
 }
