@@ -18,13 +18,14 @@ public class RegistrationTest extends BaseTest {
         checkExpectedResult("Validation message for input 'Password' isn't visible", homePage.isValidationMessagePasswordRegistrationPresent(), true);
     }
 
-//    @Test
-//    public void dsf() throws {
-//        loginPage.openLoginPage();
-//        loginPage.enterUsernameRegistration("tr");
-//        loginPage.enterEmailRegistration("test.com");
+    @Test
+    public void registrationErrors(){
+        loginPage.openLoginPage();
+        loginPage.enterUsernameRegistration("tr");
+        loginPage.enterEmailRegistration("test.com");
 //        loginPage.enterPasswordRegistration("123");
-//
-//
-//    }
+        loginPage.checkErrorsMessages("Username must be at least 3 characters.;You must provide a valid email address.");
+
+    }
+
 }
