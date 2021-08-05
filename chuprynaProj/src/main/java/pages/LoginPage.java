@@ -105,22 +105,6 @@ public class LoginPage extends ParentPage {
         return isElementPresent(alertMessage);
     }
 
-    public void enterUsernameInRegistrationForm(String username) {
-        enterTextToElement(inputRegistrationUsername, username);
-    }
-
-    public void enterEmailInRegistrationForm(String email) {
-        enterTextToElement(inputRegistrationEmail, email);
-    }
-
-    public void enterPasswordInRegistrationForm(String password) {
-        enterTextToElement(inputRegistrationPassword, password);
-    }
-
-    public void clickOnSignUpButton() {
-        clickOnElement(buttonSignUp);
-    }
-
     public boolean isUsernameValidationMessagePresent() {
         return isElementPresent(usernameValidationMsg);
     }
