@@ -21,7 +21,7 @@ public class LoginPage extends ParentPage{
     private WebElement buttonSignIn;
     @FindBy(id = "username-register")
     private WebElement inputLoginRegistration;
-    @FindBy(id = "email-registration")
+    @FindBy(id = "email-register")
     private WebElement inputEmailRegistration;
     @FindBy(id = "password-register")
     private WebElement inputPassWordRegistration;
@@ -32,13 +32,15 @@ public class LoginPage extends ParentPage{
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
-
-
-
-
     public LoginPage(WebDriver webDriver){
         super(webDriver);
     }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public void openLoginPage(){
         try{
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
