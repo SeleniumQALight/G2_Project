@@ -31,7 +31,7 @@ public class RegistrationTest extends BaseTest {
             "tr,test.com,123456qwerty,Username must be at least 3 characters.;You must provide a valid email address."
     })
     @TestCaseName("validate error messages : login = {0}, email = {1}, password = {2}")
-    public void validateErrorMessageWithSoftAssertion(String login, String email, String password, String errors){
+    public void validateErrorMessageWithSoftAssertionAndParams(String login, String email, String password, String errors){
         loginPage.openLoginPage();
         loginPage.
                 enterUsernameInSignUp(login).
