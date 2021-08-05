@@ -121,6 +121,7 @@ public class LoginPage extends ParentPage {
         for (int i = 0; i < errorsArray.length; i++) {
             softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
+        softAssertions.assertAll();
     }
 
     public LoginPage clickOnSignUpButton() {
