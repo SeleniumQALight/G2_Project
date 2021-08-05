@@ -10,7 +10,7 @@ public class RegistrationTest extends BaseTest {
         loginPage
                 .enterLoginInRegistration("12")
                 .enterEmailInRegistration("qqq")
-                .enterPasswordRegistration("345")
+                //.enterPasswordRegistration("345")
                 .checkErrorsMessages("Username must be at least 3 characters.;You must provide a valid email address.")
                 ;
 
