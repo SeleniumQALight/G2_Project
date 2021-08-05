@@ -2,12 +2,15 @@ package pages;
 
 import libs.TestData;
 import libs.Util;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends ParentPage {
@@ -43,6 +46,11 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//input[@id='password-register']/../div")
     private WebElement invalidSignUpPasswordMessage;
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> listOfSignUpErrorMessage;
+
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
 
     public LoginPage(WebDriver webDriver) {
@@ -138,7 +146,20 @@ public class LoginPage extends ParentPage {
         for (int i = 0; i < arrayOfErrorMessages.length; i++) {
             Assert.assertEquals(i+1 +" pair of error messages not equal", arrayOfErrorMessages[i], listOfSignUpErrorMessage.get(i).getText());
         }
-
-
     }
+
+    public void checkErrorWithSoftAssertion(String stringOfErrorMessages) {
+        String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
+        webDriverWait10.withMessage("Number of messages ").until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), arrayOfErrorMessages.length));
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element:listOfSignUpErrorMessage) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < arrayOfErrorMessages.length; i++) {
+            softAssertions.assertThat(arrayOfErrorMessages[i]).isIn(actualTextFromErrors);
+        }
+        softAssertions.assertAll();
+    }
+
 }

@@ -19,4 +19,10 @@ public class RegistrationTest extends BaseTest {
         loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
         loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
     }
+
+    @Test
+    public void validateErrorMessageWithSoftAssertion(){
+        loginPage.fillSignUpFormAndSubmit("tr", "test.com", "123456qwerty");
+        loginPage.checkErrorWithSoftAssertion("Username must be at least 3 characters.;You must provide a valid email address.");
+    }
 }
