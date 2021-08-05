@@ -23,6 +23,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath = ".//div[text() = 'Invalid username / password']")
+    private WebElement alertMessage;
+
     @FindBy(id = "username-register")
     private WebElement inputRegistrationUsername;
 
@@ -34,6 +37,15 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//button[text() = 'Sign up for OurApp']")
     private WebElement buttonSignUp;
+
+    @FindBy(xpath = ".//div[text() = 'Username must be at least 3 characters.']")
+    private WebElement usernameValidationMsg;
+
+    @FindBy(xpath = ".//div[text() = 'You must provide a valid email address.']")
+    private WebElement emailValidationMsg;
+
+    @FindBy(xpath = ".//div[text() = 'Password must be at least 12 characters.']")
+    private WebElement passwordValidationMsg;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
@@ -83,6 +95,42 @@ public class LoginPage extends ParentPage {
         enterLoginInSignInForm(userName);
         enterPasswordInSignInForm(password);
         clickOnSignInButton();
+    }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isAlertMessagePresent() {
+        return isElementPresent(alertMessage);
+    }
+
+    public void enterUsernameInRegistrationForm(String username) {
+        enterTextToElement(inputRegistrationUsername, username);
+    }
+
+    public void enterEmailInRegistrationForm(String email) {
+        enterTextToElement(inputRegistrationEmail, email);
+    }
+
+    public void enterPasswordInRegistrationForm(String password) {
+        enterTextToElement(inputRegistrationPassword, password);
+    }
+
+    public void clickOnSignUpButton() {
+        clickOnElement(buttonSignUp);
+    }
+
+    public boolean isUsernameValidationMessagePresent() {
+        return isElementPresent(usernameValidationMsg);
+    }
+
+    public boolean isEmailValidationMessagePresent() {
+        return isElementPresent(emailValidationMsg);
+    }
+
+    public boolean isPasswordValidationMessagePresent() {
+        return isElementPresent(passwordValidationMsg);
     }
 
     public HomePage loginWithValidCredentials(){
