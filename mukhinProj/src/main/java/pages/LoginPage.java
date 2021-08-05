@@ -17,6 +17,15 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath = ".//input[@id='username-register']")
+    private WebElement inputUseName;
+
+    @FindBy(xpath = ".//input[@id='email-register']")
+    private WebElement inputEMail;
+
+    @FindBy(xpath = ".//button[text() = 'Sign up for OurApp']")
+    private WebElement buttonSignOut;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -64,5 +73,35 @@ public class LoginPage extends ParentPage{
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return  new HomePage(webDriver);
 
+    }
+
+    public HomePage loginWithInvalidCred(){
+        fillLoginFormAndSubmit(TestData.INVALID_LOGIN, TestData.INVALID_PASSWORD);
+        return  new HomePage(webDriver);
+    }
+
+
+    public void fillSignOutFormAndSubmit(String userName, String eMail, String passWord) {
+        openLoginPage();
+        enterUserNameInSignOut(userName);
+        enterEMailInSignOut(eMail);
+        enterPassWordInSignOut(passWord);
+        clickOnButtonSignOut();
+    }
+
+    private void clickOnButtonSignOut() {
+        clickOnElement(buttonSignOut);
+    }
+
+    private void enterPassWordInSignOut(String passWord) {
+        enterTextToElement(inputPassWord, passWord);
+    }
+
+    private void enterEMailInSignOut(String eMail) {
+        enterTextToElement(inputEMail, eMail);
+    }
+
+    private void enterUserNameInSignOut(String userName) {
+        enterTextToElement(inputUseName, userName);
     }
 }
