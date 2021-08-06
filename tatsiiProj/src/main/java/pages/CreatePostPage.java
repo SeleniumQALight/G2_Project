@@ -1,12 +1,13 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreatePostPage extends ParentPage{
-// @Find(xpath = ".//input[@name='title']" )
+public class CreatePostPage extends ParentPage {
+    // @Find(xpath = ".//input[@name='title']" )
     @FindBy(name = "title")
     private WebElement inputTitle;
     @FindBy(id = "post-body")
@@ -25,7 +26,7 @@ public class CreatePostPage extends ParentPage{
         return "/create-post";
     }
 
-    public CreatePostPage checkIsInputTitlePresent(){
+    public CreatePostPage checkIsInputTitlePresent() {
         Assert.assertTrue("Input title is not present", isElementPresent(inputTitle));
         return this;
     }
@@ -35,7 +36,7 @@ public class CreatePostPage extends ParentPage{
         return this;
     }
 
-    public CreatePostPage enterTextIntoInputBody(String body_text){
+    public CreatePostPage enterTextIntoInputBody(String body_text) {
         enterTextToElement(inputBody, body_text);
         return this;
     }
@@ -59,7 +60,15 @@ public class CreatePostPage extends ParentPage{
         Assert.assertEquals("Invalid page "
                 , baseUrl + getRelativeUrl()
                 , webDriver.getCurrentUrl()
-                );
+        );
+        return this;
+    }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+        dropDownSelectValue.click();
+        WebElement option = dropDownSelectValue.findElement(By.xpath(".//option[contains(text(), '%s']".format(text)));
+        option.click();
         return this;
     }
 }
+
