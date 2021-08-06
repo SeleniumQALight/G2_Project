@@ -2,13 +2,13 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 
-public class PostPage extends ParentPage{
-    public PostPage(WebDriver webDriver) {
+public class ProfilePage extends ParentPage{
+    public ProfilePage(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Override
     String getRelativeUrl() {
-        return "/post/";
+        return "/profile/";
     }
 }

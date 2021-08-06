@@ -1,10 +1,17 @@
 package pages;
 
 import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
@@ -40,8 +47,17 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[text() = 'Password must be at least 12 characters.']")
     private WebElement passwordValidationMsg;
 
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
     }
 
     public void openLoginPage() {
@@ -89,22 +105,6 @@ public class LoginPage extends ParentPage {
         return isElementPresent(alertMessage);
     }
 
-    public void enterUsernameInRegistrationForm(String username) {
-        enterTextToElement(inputRegistrationUsername, username);
-    }
-
-    public void enterEmailInRegistrationForm(String email) {
-        enterTextToElement(inputRegistrationEmail, email);
-    }
-
-    public void enterPasswordInRegistrationForm(String password) {
-        enterTextToElement(inputRegistrationPassword, password);
-    }
-
-    public void clickOnSignUpButton() {
-        clickOnElement(buttonSignUp);
-    }
-
     public boolean isUsernameValidationMessagePresent() {
         return isElementPresent(usernameValidationMsg);
     }
@@ -120,5 +120,44 @@ public class LoginPage extends ParentPage {
     public HomePage loginWithValidCredentials(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
+    }
+
+    public LoginPage enterUsernameInRegistrationForm(String username) {
+        enterTextToElement(inputRegistrationUsername, username);
+        return this;
+    }
+
+    public LoginPage enterEmailInRegistrationForm(String email) {
+        enterTextToElement(inputRegistrationEmail, email);
+        return this;
+    }
+
+    public LoginPage enterPasswordInRegistrationForm(String password) {
+        enterTextToElement(inputRegistrationPassword, password);
+        return this;
+    }
+
+    public void checkErrorsMessages(String expectedErrors) {
+        String[] errorsArray = expectedErrors.split(";");
+//        webDriverWait10.withMessage("Number of Errors ").
+//              until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
+//        TDU: will be uncommented after lesson 8;
+//        - check the exact number of elements, i.e. will fail if actualErrors.length > expectedErrors.length
+        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length); // is redundant if the previous row with WAIT is uncommented, does the same check
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement errorElement: actualListOfErrors) {
+            actualTextFromErrors.add(errorElement.getText());
+        }
+
+        for (int i = 0; i < errorsArray.length; i++) {
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
+        }
+        softAssertions.assertAll();
+    }
+
+    public LoginPage clickOnSignUpButton() {
+        clickOnElement(buttonSignUp);
+        return this;
     }
 }
