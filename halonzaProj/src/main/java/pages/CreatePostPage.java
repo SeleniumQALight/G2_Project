@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreatePostPage extends ParentPage{
+public class CreatePostPage extends ParentPage {
 
-//    @FindBy(xpath = ".//input[@name='title']")
+    //    @FindBy(xpath = ".//input[@name='title']")
     @FindBy(name = "title")
     private WebElement inputTitle;
 
@@ -24,7 +24,12 @@ public class CreatePostPage extends ParentPage{
         super(webDriver);
     }
 
-    public CreatePostPage checkIsInputTitlePresent(){
+    @Override
+    String getRelativeUrl() {
+        return "/create-post";
+    }
+
+    public CreatePostPage checkIsInputTitlePresent() {
         Assert.assertTrue("Input Title is not present", isElementPresent(inputTitle));
         return this;
     }
@@ -51,6 +56,14 @@ public class CreatePostPage extends ParentPage{
 
     public CreatePostPage selectValueInDropDownSelectValue(String value) {
         selectValueInDropDown(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        Assert.assertEquals("Invalid page"
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl()
+        );
         return this;
     }
 }
