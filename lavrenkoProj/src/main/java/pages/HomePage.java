@@ -1,9 +1,14 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class HomePage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign Out']")
@@ -15,8 +20,15 @@ public class HomePage extends ParentPage {
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
     private WebElement buttonProfile;
 
+
+
     public HomePage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
     }
 
     public boolean isButtonSignOutPresent() {
@@ -37,7 +49,7 @@ public class HomePage extends ParentPage {
     public HomePage openHomepage() {
         LoginPage loginPage = new LoginPage(webDriver);
         loginPage.openLoginPage();
-        if (!isButtonSignOutPresent()){
+        if (!isButtonSignOutPresent()) {
             loginPage.loginWithValidCred();
         }
 
@@ -48,4 +60,6 @@ public class HomePage extends ParentPage {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
+
+
 }

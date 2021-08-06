@@ -11,6 +11,11 @@ public class HomePage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
     // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private WebElement buttonSignOut;
