@@ -14,7 +14,7 @@ import libs.TestData;
 
 import java.util.ArrayList;
 
-public class LoginPage<SoftAssertions> extends ParentPage {
+public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private WebElement inputLogin;
 
@@ -117,16 +117,16 @@ public class LoginPage<SoftAssertions> extends ParentPage {
                 .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
     //    Assert.assertEquals(actualListOfErrors.size(), errorsArray.length);
 
-//        SoftAssertions softAssertions = new SoftAssertions();
-//        ArrayList<String> actualTextFromErrors = new ArrayList<>();
-//        for (WebElement element: actualListOfErrors) {
-//            actualTextFromErrors.add(element.getText());
-//        }
-//        for (int i = 0; i < errorsArray.length; i++) {
-//            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
-//        }
-//
-//        softAssertions.assertAll();
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element: actualListOfErrors) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < errorsArray.length; i++) {
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
+        }
+
+        softAssertions.assertAll();
 
     }
 }
