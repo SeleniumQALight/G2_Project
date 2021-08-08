@@ -24,7 +24,7 @@ public abstract class ParentPage {
 
     abstract String getRelativeUrl();
 
-    protected void enterTextToElement(WebElement webElement, String text){
+    protected void enterTextToElement(WebElement webElement, String text) {
         try {
             webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
             webElement.clear();
@@ -35,48 +35,58 @@ public abstract class ParentPage {
         }
     }
 
-    protected void clickOnElement(WebElement webElement){
+    protected void clickOnElement(WebElement webElement) {
         try {
             webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
             logger.info("Element was clicked");
-        }catch (Exception e){
+        } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
     }
 
-    protected boolean isElementPresent(WebElement webElement){
+    protected boolean isElementPresent(WebElement webElement) {
         try {
             boolean state = webElement.isDisplayed();
-            if(state){
+            if (state) {
                 logger.info("Element present");
-            }
-            else {
+            } else {
                 logger.info("Element is not present");
             }
             return state;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.info("Element is not present");
             return false;
         }
     }
 
-    protected void selectTextInDropDown(WebElement dropdown, String text){
+    protected void selectTextInDropDown(WebElement dropdown, String text) {
         try {
             Select select = new Select(dropdown);
             select.selectByVisibleText(text);
             logger.info("'" + text + "' was selected in DropDown");
-        }catch (Exception e){
+        } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
     }
 
-    protected void selectValueInDropDown(WebElement dropdown, String value){
+    protected void selectValueInDropDown(WebElement dropdown, String value) {
         try {
             Select select = new Select(dropdown);
             select.selectByValue(value);
             logger.info("'" + value + "' was selected in DropDown");
-        }catch (Exception e){
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void selectTextInDropDownByClickOnOption(WebElement dropdown, WebElement dropdownOptionToBeSelected, String text) {
+        try {
+            clickOnElement(dropdown);
+            webDriverWait10.until(ExpectedConditions.visibilityOf(dropdownOptionToBeSelected));
+            clickOnElement(dropdownOptionToBeSelected);
+            logger.info("'" + text + "' was selected in DropDown");
+        } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
     }

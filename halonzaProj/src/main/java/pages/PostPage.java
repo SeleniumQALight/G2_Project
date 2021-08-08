@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class PostPage extends ParentPage{
+public class PostPage extends ParentPage {
     @FindBy(xpath = ".//button[@data-original-title='Delete']")
     private WebElement buttonDelete;
 
@@ -14,6 +14,9 @@ public class PostPage extends ParentPage{
 
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
     private WebElement buttonProfile;
+
+    @FindBy(xpath = ".//div[@class='body-content']//u")
+    private WebElement postVisibilityElement;
 
     public PostPage(WebDriver webDriver) {
         super(webDriver);
@@ -24,23 +27,23 @@ public class PostPage extends ParentPage{
         return "/post/";
     }
 
-    public PostPage checkIsButtonDeletePresent(){
+    public PostPage checkIsButtonDeletePresent() {
         Assert.assertTrue("Button Delete is not Present", isElementPresent(buttonDelete));
         return this;
     }
 
-    public PostPage checkIsSuccessMessagePresent(){
+    public PostPage checkIsSuccessMessagePresent() {
         Assert.assertTrue("Success message is not present", isElementPresent(successMessageElement));
         return this;
     }
 
-    public PostPage checkTextInSuccessMessage(String text){
+    public PostPage checkTextInSuccessMessage(String text) {
         String actualText = successMessageElement.getText();
         Assert.assertEquals("Text in message", text, actualText);
         return this;
     }
 
-    public ProfilePage clickOnButtonProfile(){
+    public ProfilePage clickOnButtonProfile() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
@@ -48,5 +51,10 @@ public class PostPage extends ParentPage{
     public ProfilePage clickOnDeleteButton() {
         clickOnElement(buttonDelete);
         return new ProfilePage(webDriver);
+    }
+
+    public PostPage checkCreatedPostVisibility(String postVisibility) {
+        Assert.assertTrue("Post visibility is not as expected", postVisibilityElement.getText().contains(postVisibility));
+        return this;
     }
 }
