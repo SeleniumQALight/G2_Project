@@ -6,14 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-public class ParentPage {
+public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
+    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this); //initializing all elements described by FindBy
     }
+
+    abstract String getRelativeUrl();
 
     protected void enterTextToElement(WebElement webElement, String text) {
         try {
