@@ -37,5 +37,10 @@ public class BaseTest {
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
         Assert.assertThat(message, actualResult, is(expectedResult));
+//        Assert.assertEquals(message, expectedResult, actualResult);
+//        -> the same logical operation, but is() - is a method indicating HOW to compare AR and ER
+//        assertThat - more configurable;
+//        assertEquals - already contains the comparing method
+//        message - will be seen in reports
     }
 }
