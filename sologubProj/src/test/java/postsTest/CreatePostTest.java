@@ -18,7 +18,9 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterBodyIntoInputTitle("Body text")
           //      .selectTextInDDSelect_value("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
+                //.selectValueInDDSelectValue("One Person")
+                .selectTextInDropDownByClick("Частное сообщение")
+                .changeUniquePostState("check")
                 .clickOnSaveButton()
                 .checkIsButtonDeletePresent()
                 .checkIsSuccessMessagePresent()
@@ -27,11 +29,11 @@ public class CreatePostTest extends BaseTest {
                 .checkIsPostWasAdded(POST_TITLE)
         ;
     }
-    @After
-    public void deletePost() {
-        homePage.openHomePage()
-                .checkIsButtonSignOutVisible()
-                .clickOnButtonProfile()
-                .deletePostWithTitleWhilePresent(POST_TITLE);
-    }
+//    @After
+//    public void deletePost() {
+//        homePage.openHomePage()
+//                .checkIsButtonSignOutVisible()
+//                .clickOnButtonProfile()
+//                .deletePostWithTitleWhilePresent(POST_TITLE);
+//    }
 }
