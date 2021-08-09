@@ -13,6 +13,7 @@ public class CreatePostTest extends BaseTest {
                 .loginWithValidCred()
                 .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
+                .checkIsRedirectOnCreatePostPage()
                 .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterBodyIntoInputTitle("Body text")

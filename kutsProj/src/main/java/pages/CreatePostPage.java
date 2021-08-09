@@ -1,6 +1,7 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,9 +16,17 @@ public class CreatePostPage extends ParentPage{
     private WebElement buttonSave;
     @FindBy(xpath = ".//select[@id='select1']")
     private WebElement dropDownSelectValue;
+    String textInDropDownLocator = ".//*[text()='%s']";
+    @FindBy(xpath = ".//input[@type = 'checkbox']")
+    private WebElement checkBox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/create-post";
     }
 
     public CreatePostPage checkIsInputTitlePresent(){
@@ -47,6 +56,25 @@ public class CreatePostPage extends ParentPage{
 
     public CreatePostPage selectValueInDDSelectValue(String value) {
         selectValueInDD(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        Assert.assertEquals("Invalid page "
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl()
+                );
+        return this;
+    }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+        clickOnElement(dropDownSelectValue);
+        clickOnElement(webDriver.findElement(By.xpath(String.format(textInDropDownLocator, text))));
+        return this;
+    }
+
+    public CreatePostPage setCheckBox(String state) {
+        setCheckBoxValue(checkBox, state);
         return this;
     }
 }
