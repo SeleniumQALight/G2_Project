@@ -1,9 +1,15 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.TestData;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
     @Test
     public void validLogin() {
@@ -31,4 +37,19 @@ public class LoginTestWithPageObject extends BaseTest {
 
     }
 
+    @Test
+    @Parameters({
+            "lj, jg@#!",
+            "0, 123456qwerty",
+            "77, 09876param"
+    })
+    @TestCaseName("login = {0}, password ={1}")
+    public void notValidLoginS(String login, String password) {
+        loginPage.openLoginPage();
+        loginPage.enterLoginInSignInParam(login);
+        loginPage.enterPasswordInSignInS(password);
+        loginPage.clickOnButtonSignIn();
+
+
+    }
 }

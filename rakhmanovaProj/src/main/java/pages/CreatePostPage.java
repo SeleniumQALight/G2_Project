@@ -20,6 +20,14 @@ public class CreatePostPage extends ParentPage{
     @FindBy(xpath = ".//select[@id='select1']")
     private WebElement dropDownSelectValue;
 
+    String dropDownSelectValueAllUsers = ".//option[@value='All Users']";
+
+    @FindBy(xpath = ".//input[@type='hidden']")
+    private WebElement closedDropDown;
+
+    @FindBy(xpath = ".//input[@type='checkbox']")
+    private WebElement checkBoxState;
+
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -67,4 +75,23 @@ public class CreatePostPage extends ParentPage{
                 );
         return this;
     }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+
+        selectValueInDropDown(closedDropDown, text);
+        clickOnElement(closedDropDown);
+        selectValueInDropDown(dropDownSelectValue, text);
+        clickOnElement(dropDownSelectValue);
+        return this;
+    }
+
+    public CreatePostPage selectCheckBoxState(String stateOfCheckBox){
+          //String check;
+          //String uncheck;
+         clickOnElement(checkBoxState);
+        Assert.assertTrue("CheckBox is not checked", isElementPresent(checkBoxState));
+        logger.info("CheckBox was selected");
+        return this;
+    }
+
 }
