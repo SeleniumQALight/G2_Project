@@ -80,6 +80,20 @@ public abstract class ParentPage {
         }
     }
 
+    protected void setCheckBoxValue(WebElement checkBox, String value){
+        try {
+            boolean state = checkBox.isSelected();
+            if (value.equals("check") && !state || value.equals("uncheck") && state){
+                clickOnElement(checkBox);
+                logger.info(String.format("CheckBox was %sed", value));
+            } else {
+                logger.info(String.format("CheckBox is already %sed", value));
+            }
+        }catch (Exception e){
+            writeErrorAndStopTest(e);
+        }
+    }
+
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Can not work with element" + e);
         Assert.fail("Can not work with element" + e);
