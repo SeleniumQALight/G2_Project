@@ -23,7 +23,7 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        webDriver.manage().window().maximize();
+        //webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);
         homePage= new HomePage(webDriver);
@@ -38,5 +38,8 @@ public class BaseTest {
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
 //        assertThat - проверка соответствия одного результата (actualResult) другому is(expectedResult)
         Assert.assertThat(message, actualResult, is(expectedResult));
+//        то же что и следующая строка
+//        Assert.assertEquals(message, expectedResult, actualResult);
+
     }
 }
