@@ -76,7 +76,7 @@ public class LoginPage extends ParentPage{
     }
 
     public HomePage loginWithInvalidCred(){
-        fillLoginFormAndSubmit(TestData.INVALID_LOGIN, TestData.INVALID_PASSWORD);
+        fillLoginFormAndSubmit("billy", "123");
         return  new HomePage(webDriver);
     }
 
