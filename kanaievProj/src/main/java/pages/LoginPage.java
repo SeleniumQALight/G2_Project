@@ -2,10 +2,13 @@ package pages;
 
 import libs.TestData;
 import libs.Util;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +52,15 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> errorsList;
 
+    String actualErrorsListLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
     }
 
     public void openLoginPage(){
@@ -133,13 +143,21 @@ public class LoginPage extends ParentPage {
     }
 
     public void checkErrors(String errors) {
-        Util.waitABit(1);
         String[] expectedErrors = errors.split(";");
         List<String> actualErrorsList = new ArrayList<>();
+        webDriverWait10.withMessage("Number of messages ")
+                .until(ExpectedConditions
+                        .numberOfElementsToBe(By.xpath(actualErrorsListLocator), expectedErrors.length)
+                );
         for (WebElement error: errorsList) {
             actualErrorsList.add(error.getText());
         }
-        Assert.assertEquals("Number of errors - " + errorsList.size() + ", not as expected", errorsList.size(), expectedErrors.length);
-        Assert.assertThat("Error test is not as expected", actualErrorsList, hasItems(expectedErrors));
+//        Assert.assertEquals("Number of errors - " + errorsList.size() + ", not as expected", errorsList.size(), expectedErrors.length);
+//        Assert.assertThat("Error test is not as expected", actualErrorsList, hasItems(expectedErrors));
+        SoftAssertions softAssertions = new SoftAssertions();
+        for (int i = 0; i < expectedErrors.length; i++) {
+            softAssertions.assertThat(expectedErrors[i]).isIn(actualErrorsList);
+        }
+        softAssertions.assertAll();
     }
 }

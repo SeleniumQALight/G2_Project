@@ -9,10 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ParentPage {
+public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
+    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -20,6 +21,8 @@ public class ParentPage {
         webDriverWait10 = new WebDriverWait(webDriver, 10);
         webDriverWait15 = new WebDriverWait(webDriver, 15);
     }
+
+    abstract String getRelativeUrl();
 
     protected void enterTextToElement(WebElement webElement, String text){
         try {
@@ -72,6 +75,20 @@ public class ParentPage {
             Select select = new Select(dropDown);
             select.selectByValue(value);
             logger.info("'" + value + "' was selected in DropDown");
+        }catch (Exception e){
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void setCheckBoxValue(WebElement checkBox, String value){
+        try {
+            boolean state = checkBox.isSelected();
+            if (value.equals("check") && !state || value.equals("uncheck") && state){
+                clickOnElement(checkBox);
+                logger.info(String.format("CheckBox was %sed", value));
+            } else {
+                logger.info(String.format("CheckBox is already %sed", value));
+            }
         }catch (Exception e){
             writeErrorAndStopTest(e);
         }
