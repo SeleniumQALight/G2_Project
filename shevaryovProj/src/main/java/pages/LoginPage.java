@@ -39,7 +39,7 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
 
-    final String listErrorsLocator = "\".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']\"";
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
     //    конструктор
     public LoginPage(WebDriver webDriver) {
         super(webDriver);

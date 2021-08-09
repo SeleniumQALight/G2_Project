@@ -7,7 +7,7 @@ import junitparams.naming.TestCaseName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-//Запуск тестов с параметрами
+//Запуск тестов с параметрами (в pom.xml добавить JUnitParams)
 @RunWith(JUnitParamsRunner.class)
 public class RegistrationTest extends BaseTest {
     @Test
@@ -20,10 +20,10 @@ public class RegistrationTest extends BaseTest {
     @TestCaseName("registrationErrors: login = {0}, email={1}, passWord={2}")
     public void registrationErrors(String login, String email, String passWord, String errors){
         loginPage.openLoginPage();
-        loginPage.enterLoginInRegistration("12")
-                .enterEmailInRegistration("qqq")
-//                .enterPassWordRegistration("345")
-                .checkErrorsMessage("Username must be at least 3 characters.;You must provide a valid email address.")
+        loginPage.enterLoginInRegistration(login)
+                .enterEmailInRegistration(email)
+                .enterPassWordRegistration(passWord)
+                .checkErrorsMessage(errors)
         ;
     }
 }
