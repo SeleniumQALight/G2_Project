@@ -20,10 +20,10 @@ public class RegistrationTest extends BaseTest {
     @TestCaseName("registrationErrors: login = {0}, email={1}, passWord={2}")
     public void registrationErrors(String login, String email, String passWord, String errors){
         loginPage.openLoginPage();
-        loginPage.enterLoginInRegistration(login)
-                .enterEmailInRegistration(email)
-                .enterPassWordRegistration(passWord)
-                .checkErrorsMessage(errors)
+        loginPage.enterLoginInRegistration("12")
+                .enterEmailInRegistration("qqq")
+//                .enterPassWordRegistration("345")
+                .checkErrorsMessage("Username must be at least 3 characters.;You must provide a valid email address.")
         ;
     }
 }
