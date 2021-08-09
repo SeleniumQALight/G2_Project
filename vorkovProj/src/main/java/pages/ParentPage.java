@@ -58,6 +58,32 @@ public abstract class ParentPage {
         }
     }
 
+    protected void checkCheckBox(WebElement checkbox, String status) {
+        try {
+            if (status == "check") {
+                if (!checkbox.isSelected()) {
+                    clickOnElement(checkbox);
+                    System.out.println("Checkbox was checked");
+                    logger.info("Checkbox was checked");
+                } else {
+                    System.out.println("Not clicked, checkbox was checked already!");
+                    logger.info("Not clicked, checkbox was checked already!");
+                }
+            } else if (status == "uncheck") {
+                if (checkbox.isSelected()) {
+                    clickOnElement(checkbox);
+                    System.out.println("Not clicked, checkbox was unchecked");
+                    logger.info("Not clicked, checkbox was unchecked");
+                } else {
+                    System.out.println("Not clicked, checkbox was unchecked already!");
+                    logger.info("Not clicked, checkbox was unchecked already!");
+                }
+            }
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
     protected void selectValueInDD(WebElement dropdown, String value) {
         try {
             Select select = new Select(dropdown);
