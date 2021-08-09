@@ -12,10 +12,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class ParentPage {
+public abstract class ParentPage {
     Logger logger = Logger.getLogger(String.valueOf(getClass()));
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
+    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
 
 
     public ParentPage(WebDriver webDriver) {
@@ -25,6 +26,8 @@ public class ParentPage {
         webDriverWait15 = new WebDriverWait(webDriver, 15);
 
     }
+
+    abstract String getRelativeUrl();
 
     protected void enterTextToElement(WebElement webElement, String text){
         try{

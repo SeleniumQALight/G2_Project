@@ -32,6 +32,11 @@ public class LoginPage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public void openLoginPage() {
         try {
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
@@ -114,7 +119,8 @@ public class LoginPage extends ParentPage {
     public void checkErrors(String warnings) {
 //        String[] expectedWarnings = warnings.split(";");
         List<String> expectedWarnings = Arrays.asList(warnings.split(";"));
-        webDriverWait10.until(ExpectedConditions.numberOfElementsToBe(By.xpath(displayedWarningsXpath),expectedWarnings.size()));
+        webDriverWait10.withMessage("Number of Message")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(displayedWarningsXpath),expectedWarnings.size()));
         List<WebElement> displayedWarnings = webDriver.findElements(By.xpath(displayedWarningsXpath));
         Assert.assertEquals("Amount isn't matching", expectedWarnings.size(), displayedWarnings.size());
 

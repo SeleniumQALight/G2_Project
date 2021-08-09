@@ -35,6 +35,11 @@ public class CreatePostPage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/create-post";
+    }
+
     public CreatePostPage checkIsInputTitleIsPresent() {
         Assert.assertTrue("Input title isn't present", isElementPresent(inputTitle));
         return this;
@@ -84,6 +89,11 @@ public class CreatePostPage extends ParentPage {
 
     public CreatePostPage selectValueInDDSelectValue(String value) {
         selectValueInDD(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        Assert.assertEquals("Invalid page", baseURL + getRelativeURL(), webDriver.getCurrentUrl());
         return this;
     }
 }
