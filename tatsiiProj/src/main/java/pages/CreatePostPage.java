@@ -14,8 +14,11 @@ public class CreatePostPage extends ParentPage {
     private WebElement inputBody;
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private WebElement buttonSave;
+    // найти закрытый DropDown (его описать через FindBy)
     @FindBy(xpath = ".//select[@id='select1']")
     private WebElement dropDownSelectValue;
+    @FindBy(xpath = ".//input[@type='checkbox']")
+    private WebElement checkboxUniquePost;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -23,7 +26,7 @@ public class CreatePostPage extends ParentPage {
 
     @Override
     String getRelativeUrl() {
-        return "/create-post";
+        return "create-post";
     }
 
     public CreatePostPage checkIsInputTitlePresent() {
@@ -63,12 +66,23 @@ public class CreatePostPage extends ParentPage {
         );
         return this;
     }
-
     public CreatePostPage selectTextInDropDownByClick(String text) {
+        // найти закрытый DropDown, кликнуть по нему
         dropDownSelectValue.click();
-        WebElement option = dropDownSelectValue.findElement(By.xpath(".//option[contains(text(), '%s']".format(text)));
-        option.click();
+        // найти строку с указанным текстом (используя параметризированный локатор)
+        selectValueInDD(dropDownSelectValue, text);
+//        WebElement option = dropDownSelectValue.findElement(
+//                By.xpath(".//option[contains(text(), '%s']".format(text)));
+//        // кликнуть по данной строке
+//        option.click();
+        return this;
+    }
+    public CreatePostPage checkCheckBox(boolean value) {
+        if (checkboxUniquePost.isSelected() != value) {
+            checkboxUniquePost.click();
+        }
         return this;
     }
 }
+
 

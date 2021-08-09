@@ -15,7 +15,6 @@ public class ProfilePage extends ParentPage{
     @FindBy(xpath = ".//*[contains(text(), 'successfully deleted')]")
     private WebElement successPostDeleteElement;
 
-
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
     }

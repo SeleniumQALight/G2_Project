@@ -20,6 +20,8 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputBody("Body text")
 //                .selectTextInDDSelectValue("Частное сообщение")
                 .selectValueInDDSelectValue("One Person")
+                .selectTextInDropDownByClick("Group Message")
+                .checkCheckBox(true)
                 .clickOnSaveButton()
              .checkIsButtonDeletePresent()
                 .checkIsSuccessMessagePresent()
