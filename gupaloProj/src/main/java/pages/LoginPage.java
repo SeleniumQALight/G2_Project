@@ -61,6 +61,11 @@ public class LoginPage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
     }
@@ -124,16 +129,19 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
-    public void enterLoginInRegForm(String login) {
+    public LoginPage enterLoginInRegForm(String login) {
         enterTextToElement(inputLoginInForm, login);
+        return this;
     }
 
-    public void enterEmailInRegForm(String email) {
+    public LoginPage enterEmailInRegForm(String email) {
         enterTextToElement(inputEmail, email);
+        return this;
     }
 
-    public void enterPasswordInRegForm(String password) {
+    public LoginPage enterPasswordInRegForm(String password) {
         enterTextToElement(inputPasswordInForm, password);
+        return this;
     }
 
     public void clickOnButtonSignUp() {
@@ -154,11 +162,10 @@ public class LoginPage extends ParentPage {
     }
 
 
-    public void checkErrors(String errorsMessages) {
-        String[] arrErrorMessages = errorsMessages.split(";");
-       // List<WebElement> errorsListMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
+    public void checkErrors(String expectedErrors) {
+        String[] arrErrorMessages = expectedErrors.split(";");
         webDriverWait10.withMessage("Number of Message")
-                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"), arrErrorMessages.length));
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), arrErrorMessages.length));
 
 //        Assert.assertEquals("Numbers of messages are not equals", arrErrorMessages.length, errorsListMessage.size());
 //        for (int i = 0; i < arrErrorMessages.length; i++) {
@@ -167,13 +174,11 @@ public class LoginPage extends ParentPage {
 
         SoftAssertions softAssertions = new SoftAssertions();
         ArrayList<String> actualTextFromErrors = new ArrayList<>();
-        for (WebElement element: actualListOfErrors) {
+        for (WebElement element : actualListOfErrors) {
             actualTextFromErrors.add(element.getText());
-
         }
         for (int i = 0; i < arrErrorMessages.length; i++) {
             softAssertions.assertThat(arrErrorMessages[i]).isIn(actualTextFromErrors);
-
         }
 
         softAssertions.assertAll();
