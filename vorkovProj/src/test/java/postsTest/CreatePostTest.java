@@ -36,4 +36,19 @@ public class CreatePostTest extends BaseTest {
         homePage.openHomePage()
                 .checkIsButtonSignOutVisible().clickOnButtonProfile().deletePostWithTitleWhilePresent(POST_TITLE);
     }
+
+    @Test
+    public void testCheckBoxChecker() {
+        loginPage
+                .loginWithValidCred()
+                .clickOnButtonCreatePost();
+        Util.waitABit(1);
+        createPostPage.uniquePostCheckbox("check");
+        Util.waitABit(1);
+        createPostPage.uniquePostCheckbox("check");
+        Util.waitABit(1);
+        createPostPage.uniquePostCheckbox("uncheck");
+        Util.waitABit(1);
+        createPostPage.uniquePostCheckbox("uncheck");
+    }
 }

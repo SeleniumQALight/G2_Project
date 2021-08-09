@@ -30,6 +30,9 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//select[@id='select1']")
     private WebElement dropDownSelectValue;
 
+    @FindBy(id = "”UniquePost”")
+    private WebElement checkboxUniquePost;
+
     // --------------------------------------------------------------------------------------------------
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -94,6 +97,11 @@ public class CreatePostPage extends ParentPage {
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
         Assert.assertEquals("Invalid page", baseURL + getRelativeURL(), webDriver.getCurrentUrl());
+        return this;
+    }
+
+    public CreatePostPage uniquePostCheckbox(String status) {
+        checkCheckBox(checkboxUniquePost, status);
         return this;
     }
 }
