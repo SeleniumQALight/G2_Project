@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
@@ -25,6 +27,19 @@ public abstract class ParentPage {
 
     abstract String getRelativeUrl();
 
+    protected void checkUrl() {
+        Assert.assertEquals("Invalid page "
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl()
+        );
+    }
+
+    protected void checkUrlWithPattern() {
+        Assert.assertThat("Invalid page ",
+                webDriver.getCurrentUrl(),
+                containsString(baseUrl + getRelativeUrl()));
+    }
+
     protected void enterTextToElement(WebElement webElement, String text) {
         try {
             webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
@@ -40,7 +55,7 @@ public abstract class ParentPage {
         try {
             webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
-            logger.info("Element was cicked");
+            logger.info("Element was clicked");
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
