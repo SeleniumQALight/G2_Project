@@ -1,5 +1,7 @@
 package pages;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +26,18 @@ public abstract class ParentPage {
 
     abstract String getRelativeUrl();
 
+    protected void checkUrl(){
+        Assert.assertEquals("Invalid page "
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl()
+                           );
+    }
 
+    protected void checkUrlWithPattern(){
+        Assert.assertThat("Invalid page ",
+                webDriver.getCurrentUrl(),
+                containsString(baseUrl + getRelativeUrl()));
+    }
 
     protected void enterTextToElement(WebElement webElement, String text){
         try{
