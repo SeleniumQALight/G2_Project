@@ -20,6 +20,11 @@ public class PostPage extends ParentPage{
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/post/";
+    }
+
     public PostPage checkIsButtonDeletePresent(){
 //        наличие кнопки удалить
         Assert.assertTrue("Button Delete is not present", isElementPresent(buttonDelete));

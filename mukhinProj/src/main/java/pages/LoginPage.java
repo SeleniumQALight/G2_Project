@@ -130,4 +130,34 @@ public class LoginPage extends ParentPage{
 
         softAssertions.assertAll();
     }
+
+    public HomePage loginWithInvalidCred(){
+        fillLoginFormAndSubmit("billy", "123");
+        return  new HomePage(webDriver);
+    }
+
+
+    public void fillSignOutFormAndSubmit(String userName, String eMail, String passWord) {
+        openLoginPage();
+        enterUserNameInSignOut(userName);
+        enterEMailInSignOut(eMail);
+        enterPassWordInSignOut(passWord);
+        clickOnButtonSignOut();
+    }
+
+    private void clickOnButtonSignOut() {
+        clickOnElement(buttonSignOut);
+    }
+
+    private void enterPassWordInSignOut(String passWord) {
+        enterTextToElement(inputPassWord, passWord);
+    }
+
+    private void enterEMailInSignOut(String eMail) {
+        enterTextToElement(inputEMail, eMail);
+    }
+
+    private void enterUserNameInSignOut(String userName) {
+        enterTextToElement(inputUseName, userName);
+    }
 }

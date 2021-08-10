@@ -1,60 +1,60 @@
 package pages;
 
 import libs.TestData;
-import libs.Util;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
-public class LoginPage extends ParentPage {
-    //    xpath к инпуту с именем пользователя
+public class LoginPage extends ParentPage{
+//    xpath к инпуту с именем пользователя
     @FindBy(xpath = ".//input[@placeholder='Username']")
-
     private WebElement inputLogin;
-    //    xpath к инпуту с паролем
+//    xpath к инпуту с паролем
     @FindBy(xpath = ".//input[@placeholder='Password']")
     private WebElement inputPassWord;
-
-    //    xpath к кнопке Залогинится
+//    xpath к кнопке Залогинится
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
-    //    xpath к инпуту имени пользователя для регистрации
-    @FindBy(xpath = ".//input[@placeholder = 'Pick a username']")
-    private WebElement inputRegistrationUserName;
+    @FindBy(id = "username-register")
+    private WebElement inputLoginRegistration;
 
-    //    xpath регистрационная почта
-    @FindBy(xpath = ".//input[@placeholder = 'you@example.com']")
-    private WebElement inputRegistrationEMail;
+    @FindBy(id = "email-register")
+    private WebElement inputEmailRegistration;
 
-    //    xpath регистрационный пароль
-    @FindBy(xpath = ".//input[@placeholder = 'Create a password']")
-    private WebElement inputRegistrationPassWord;
+    @FindBy(id = "password-register")
+    private WebElement inputPassWordRegistration;
 
-    //    xpath сообщение о неверном имени пользователя
-    @FindBy(xpath = ".//div[contains(text(),'at least 3 characters')]")
-    private WebElement errorMessageWrongUserName;
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private WebElement buttonSignUp;
 
-    //    xpath сообщение о неверном формате e-mail
-    @FindBy(xpath = ".//div[contains(text(),'valid email address')]")
-    private WebElement errorMessageWrongEMail;
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
 
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
     //    конструктор
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public void openLoginPage() {
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    public void openLoginPage(){
         try {
             webDriver.get("https://qa-complex-app-for-testing.herokuapp.com");
             logger.info("Login page was opened");
-        } catch (Exception e) {
+        } catch (Exception e){
             logger.error("Can not work with LoginPage " + e);
             Assert.fail("Can not work with LoginPage");
         }
@@ -84,40 +84,54 @@ public class LoginPage extends ParentPage {
     }
 
     // схлопываем методы. открываем главную и логинимся на странице
-    public void fillLoginFormAndSubmit(String login, String passWord) {
+    public void fillLoginFormAndSubmit(String login, String passWord){
         openLoginPage();
         enterLoginInSignIn(login);
         enterPassWordInSignIn(passWord);
         clickOnButtonInSignIn();
     }
 
-    public HomePage loginWithValidCred() {
+    public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         // возвращаем новый объект HomePage
         return new HomePage(webDriver);
     }
 
 
-    public void enterRegistrationUserName(String invalidLogin) {
-        enterTextToElement(inputRegistrationUserName, invalidLogin);
+    public LoginPage enterLoginInRegistration(String login) {
+        enterTextToElement(inputLoginRegistration, login);
+        return this;
     }
 
-    public void enterRegistrationEMail(String invalidEmail) {
-        enterTextToElement(inputRegistrationEMail, invalidEmail);
+    public LoginPage enterEmailInRegistration(String email) {
+        enterTextToElement(inputEmailRegistration, email);
+        return this;
     }
 
-    public void enterRegistrationPassWord(String validPassword) {
-        enterTextToElement(inputRegistrationPassWord, validPassword);
+    public LoginPage enterPassWordRegistration(String passWord) {
+        enterTextToElement(inputPassWordRegistration, passWord);
+        return this;
     }
 
-    public void checkErrors(String errorMessage) {
-        List<String> errorList = new ArrayList<String>();
-        errorList = Arrays.asList(errorMessage.split(";"));
-        Util.waitABit(5);
+    public void checkErrorsMessage(String expectedErrors) {
+        String[] errorsArray = expectedErrors.split(";");
+        // ждём когда все элементы появятся
+        webDriverWait10.withMessage("Number of Messages ")
+        .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
 
-        //if (errorList.size() == 2) {
-            Assert.assertEquals("Error message is not present", errorList.get(0), errorMessageWrongUserName.getText());
-            Assert.assertEquals("Error message is not present", errorList.get(1), errorMessageWrongEMail.getText());
-        //}
+        // Soft Assertion
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+
+        for (WebElement element: actualListOfErrors ) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < errorsArray.length; i++) {
+            // проверки Soft Assertion
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
+        }
+        // срабатывают все проверки
+        softAssertions.assertAll();
+
     }
 }
