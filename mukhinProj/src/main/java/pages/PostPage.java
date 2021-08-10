@@ -25,6 +25,12 @@ public class PostPage extends ParentPage{
         return "/post/";
     }
 
+    public PostPage checkIsRedirectToPostPage(){
+        checkUrlWithPattern();
+        checkIsButtonDeletePresent();
+        return this;
+    }
+
     public PostPage checkIsButtonDeletePresent(){
         Assert.assertTrue("Button delete is not present", isElementPresent(buttonDelete));
         return  this;
