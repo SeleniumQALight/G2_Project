@@ -26,7 +26,7 @@ public class CreatePostPage extends ParentPage{
     private WebElement closedDropDown;
 
     @FindBy(xpath = ".//input[@type='checkbox']")
-    private WebElement checkBoxState;
+    private WebElement checkBox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -78,18 +78,30 @@ public class CreatePostPage extends ParentPage{
 
     public CreatePostPage selectTextInDropDownByClick(String text) {
 
-        selectValueInDropDown(closedDropDown, text);
-        clickOnElement(closedDropDown);
-        selectValueInDropDown(dropDownSelectValue, text);
-        clickOnElement(dropDownSelectValue);
+        //selectValueInDropDown(closedDropDown, text);
+        //clickOnElement(closedDropDown);
+        //selectValueInDropDown(dropDownSelectValue, text);
+        //clickOnElement(dropDownSelectValue);
         return this;
     }
 
-    public CreatePostPage selectCheckBoxState(String stateOfCheckBox){
-          //String check;
-          //String uncheck;
-         clickOnElement(checkBoxState);
-        Assert.assertTrue("CheckBox is not checked", isElementPresent(checkBoxState));
+    public CreatePostPage selectCheckBoxState(WebElement checkBox, String checkBoxStatus){
+          String check;
+          String uncheck;
+        try{
+            if(checkBoxStatus.equals("check")){
+                if(!checkBox.isSelected())
+                clickOnElement(checkBox);
+                logger.info("CheckBox is checked");
+            }else if(checkBoxStatus.equals("uncheck")){
+                if(checkBox.isSelected())
+                    clickOnElement(checkBox);
+              logger.info("CheckBox is not checked");
+                } 
+        } catch (Exception e){
+            logger.info("An error occurred");
+        }
+        Assert.assertTrue("CheckBox is not checked", isElementPresent(checkBox));
         logger.info("CheckBox was selected");
         return this;
     }
