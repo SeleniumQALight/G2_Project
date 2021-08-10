@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextBlock;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,37 +19,37 @@ import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassWord;
+    private TextInput inputPassWord;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
-    private WebElement alertSignIn;
+    private TextBlock alertSignIn;
 
     @FindBy(xpath = ".//input[@id='username-register']")
-    private WebElement inputLoginSignUpForm;
+    private TextInput inputLoginSignUpForm;
 
     @FindBy(xpath = ".//input[@id='email-register']")
-    private WebElement inputEmailSignUpForm;
+    private TextInput inputEmailSignUpForm;
 
     @FindBy(xpath = ".//input[@id='password-register']")
-    private WebElement inputPasswordSignUpForm;
+    private TextInput inputPasswordSignUpForm;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     @FindBy(xpath = ".//div[contains(text(), 'Username must be at least 3 characters')]")
-    private WebElement usernameSignUpAlert;
+    private TextBlock usernameSignUpAlert;
 
     @FindBy(xpath = ".//div[contains(text(), 'You must provide a valid email address')]")
-    private WebElement emailSignUpAlert;
+    private TextBlock emailSignUpAlert;
 
     @FindBy(xpath = ".//div[contains(text(), 'Password must be at least 12 characters')]")
-    private WebElement passwordSignUpAlert;
+    private TextBlock passwordSignUpAlert;
 
     final String signUpErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
