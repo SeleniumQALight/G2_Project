@@ -15,7 +15,6 @@ public class ProfilePage extends ParentPage{
     @FindBy(xpath = ".//*[contains(text(), 'successfully deleted')]")
     private WebElement successPostDeleteElement;
 
-
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -25,6 +24,10 @@ public class ProfilePage extends ParentPage{
         return "/profile/";
     }
 
+    public ProfilePage checkIsRedirectToProfilePage(){
+        checkUrlWithPattern();
+        return this;
+    }
 
     public ProfilePage checkIsPostWasAdded(String post_title) {
         List<WebElement> postsList = webDriver.findElements(
