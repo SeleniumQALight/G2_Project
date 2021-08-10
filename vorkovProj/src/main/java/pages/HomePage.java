@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage {
 
@@ -24,10 +25,10 @@ public class HomePage extends ParentPage {
 
     // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
+    private Button buttonSignOut;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[contains(text(),'Invalid username / password')]")
     private WebElement alertInvalidLogin;
