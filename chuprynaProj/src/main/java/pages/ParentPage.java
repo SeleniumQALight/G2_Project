@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -76,6 +77,17 @@ public abstract class ParentPage {
             select.selectByValue(value);
             logger.info("'" + value + "' was selected in DropDown");
         } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void selectTextInDropDownByClick(WebElement dropDown, String text){
+        try{
+            clickOnElement(dropDown);
+            WebElement selectOption = webDriver.findElement(By.xpath(String.format(".//option[text() = '%s']", text)));
+            clickOnElement(selectOption);
+        }
+        catch(Exception e){
             writeErrorAndStopTest(e);
         }
     }
