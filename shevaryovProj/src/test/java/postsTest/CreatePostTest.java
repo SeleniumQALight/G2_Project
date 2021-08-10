@@ -13,6 +13,7 @@ public class CreatePostTest extends BaseTest {
         // 1. логинимся на странице LoginPage,
         // 2. проверяем правильность логина,
         // 3. нажимаем кнопку создать пост,
+        // 3.1.
         // 4. проверяем что перешли на стрницу создния поста,
         // 5. вводим текст в заголовок сообщения,
         // 6. воодим текст в тело поста
@@ -26,6 +27,7 @@ public class CreatePostTest extends BaseTest {
                 .loginWithValidCred()
              .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
+                .checkIsRedirectOnCreatePostPage()
              .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Body text")

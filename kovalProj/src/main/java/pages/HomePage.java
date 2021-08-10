@@ -18,6 +18,12 @@ public class HomePage extends ParentPage {
     public HomePage(WebDriver webDriver){
         super(webDriver);
     }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }

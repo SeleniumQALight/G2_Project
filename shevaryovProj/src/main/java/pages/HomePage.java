@@ -22,7 +22,12 @@ public class HomePage extends ParentPage{
         super(webDriver);
     }
 
-//    наличие кнопки SignOut
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    //    наличие кнопки SignOut
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }
