@@ -14,4 +14,15 @@ public class LoginTestWithPageObject extends BaseTest {
 
         checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
     }
+
+    @Test
+    public void invalidLogin(){
+        loginPage.fillLoginFormAndSubmit(TestData.VALID_LOGIN, "123");
+        checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), false);
+        checkExpectedResult("Button SignIn is not visible", homePage.isButtonSignInPresent(), true);
+        checkExpectedResult("Message 'Invalid username / password' is not visible", homePage.isMessageFailCredentialPresent(), true);
+
+    }
+
 }
+
