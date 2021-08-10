@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -35,6 +36,16 @@ public class ParentPage {
     protected void clickOnElement(WebElement webElement){
         try{
             webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
+            webElement.click();
+            logger.info("Element was clicked");
+        }catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void clickOnElement(String locator){
+        try{
+            WebElement webElement = webDriverWait10.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
             webElement.click();
             logger.info("Element was clicked");
         }catch (Exception e) {
@@ -77,6 +88,10 @@ public class ParentPage {
         }
     }
 
+    protected void selectTextInDropDownByClick(WebElement dropdown, String text){
+        clickOnElement(dropdown);
+        clickOnElement(".//option[text() ='"+text+"']");
+    }
 
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Can not work with element " + e);

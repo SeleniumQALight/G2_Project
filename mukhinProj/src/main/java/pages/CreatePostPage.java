@@ -53,4 +53,9 @@ public class CreatePostPage extends ParentPage{
         selectValueInDD(dropDownSelectValue, value);
         return this;
     }
+
+    public CreatePostPage selectTextInDropdownByClick(String text){
+        selectTextInDropDownByClick(dropDownSelectValue, text);
+        return this;
+    }
 }
