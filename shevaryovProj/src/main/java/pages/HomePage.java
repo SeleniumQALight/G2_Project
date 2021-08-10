@@ -2,20 +2,20 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage{
 
 //    кнопка Sign Out
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
+    private Button buttonSignOut;
 //    кнопка Create Post
     @FindBy(xpath = ".//a[text()='Create Post']")
-    private WebElement buttonCreatePost;
+    private Button buttonCreatePost;
     //    кнопка профиля
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
-    private WebElement buttonProfile;
+    private Button buttonProfile;
 
     //    конструктор
     public HomePage(WebDriver webDriver) {

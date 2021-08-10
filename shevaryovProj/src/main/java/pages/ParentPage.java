@@ -8,6 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.element.TypifiedElement;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -20,20 +23,27 @@ public abstract class ParentPage {
     // конструктор
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-        //Инициализация элементов описанных с помощью анотации @FindBy
-        PageFactory.initElements(webDriver, this);
+        //Инициализация элементов описанных с помощью @FindBy. Работает только с WebElement
+//        PageFactory.initElements(webDriver, this);
+        // Инициализация WebElement и элементов Яндекса. То же что и строка выше, но с Яндексом
+        PageFactory.initElements(
+                new HtmlElementDecorator(
+                        new HtmlElementLocatorFactory(webDriver))
+                , this);
         webDriverWait10 = new WebDriverWait(webDriver, 10);
         webDriverWait15 = new WebDriverWait(webDriver, 15);
     }
-    // абстрактрый метод, возвращающий url
+
+    // абстрактный метод, возвращающий url
     abstract String getRelativeURL();
 
-    protected void checkURL(){
+    protected void checkURL() {
         Assert.assertEquals("Invalid page"
                 , baseURL + getRelativeURL()
-                , webDriver.getCurrentUrl() );
+                , webDriver.getCurrentUrl());
     }
-    protected void checkURLWithPattern(){
+
+    protected void checkURLWithPattern() {
         Assert.assertThat("Invalid page",
                 webDriver.getCurrentUrl(),
                 containsString(baseURL + getRelativeURL()));
@@ -46,20 +56,43 @@ public abstract class ParentPage {
             webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
             webElement.clear();
             webElement.sendKeys(text);
-            logger.info("'" + text + "' was inputted in element");
+            logger.info("'" + text + "' was inputted in element " + getElementName(webElement));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
     }
 
-    //    клин на элементе
+    private String getElementName(WebElement webElement) {
+        String elementName = "";
+        // проверка наследует ли элемент определённый класс
+        if (webElement instanceof TypifiedElement) {
+            // явное приведение типов, яндекса к webElement
+            elementName = " '" + ((TypifiedElement) webElement).getName() + "' ";
+        }
+        return elementName;
+    }
+
+    //    клик на элементе
     protected void clickOnElement(WebElement webElement) {
         try {
             // ожидание кликабельности элемента 10 сек
             webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             // клик по элементу
             webElement.click();
-            logger.info("Element was clicked");
+            logger.info(getElementName(webElement) + " Element was clicked");
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    //    клик на элементе с указанием имени элемента
+    protected void clickOnElement(WebElement webElement, String elementName) {
+        try {
+            // ожидание кликабельности элемента 10 сек
+            webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
+            // клик по элементу
+            webElement.click();
+            logger.info(elementName + " Element was clicked");
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
@@ -70,13 +103,13 @@ public abstract class ParentPage {
         try {
             boolean state = webElement.isDisplayed();
             if (state) {
-                logger.info("Element is present");
+                logger.info(getElementName(webElement) + " Element is present");
             } else {
-                logger.info("Element is not present");
+                logger.info(getElementName(webElement) + " Element is not present");
             }
             return state;
         } catch (Exception e) {
-            logger.info("Element is not present");
+            logger.info(getElementName(webElement) + "Element is not present");
             return false;
         }
     }
@@ -85,9 +118,9 @@ public abstract class ParentPage {
     protected void selectTextInDropDown(WebElement dropDown, String text) {
         try {
             // класс для работы с dropdown элементом. загружается все елементы
-            Select select =  new Select(dropDown);
+            Select select = new Select(dropDown);
             select.selectByVisibleText(text);
-            logger.info("'" + text+ "' was select in DropDown");
+            logger.info("'" + text + "' was select in DropDown " + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
@@ -97,9 +130,9 @@ public abstract class ParentPage {
     protected void selectValueInDropDown(WebElement dropDown, String value) {
         try {
             // класс для работы с dropdown элементом. загружается все елементы
-            Select select =  new Select(dropDown);
+            Select select = new Select(dropDown);
             select.selectByValue(value);
-            logger.info("'" + value+ "' was select in DropDown");
+            logger.info("'" + value + "' was select in DropDown " + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }

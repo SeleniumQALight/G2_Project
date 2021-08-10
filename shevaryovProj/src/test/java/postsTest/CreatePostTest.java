@@ -40,7 +40,7 @@ public class CreatePostTest extends BaseTest {
                 .checkSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
                 .clickOnButtonProfile()
-                .checkisRedirectToProfilePage()
+                .checkIsRedirectToProfilePage()
                 .checkIsPostWasAdded(POST_TITLE)
                 ;
 
@@ -51,7 +51,7 @@ public class CreatePostTest extends BaseTest {
                 .openHomePage()
             .chekIsRedirectOnHomePage()
                 .clickOnButtonProfile()
-            .checkisRedirectToProfilePage()
+            .checkIsRedirectToProfilePage()
                 .deletePostWithTitleWhilePresent(POST_TITLE)
 
                 ;
