@@ -56,7 +56,7 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("URLs are not equals ", baseUrl + getRelativeUrl(), webDriver.getCurrentUrl());
+        checkUrl();
         return this;
     }
 }
