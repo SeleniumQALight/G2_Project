@@ -98,6 +98,27 @@ public abstract class ParentPage {
         clickOnElement(".//option[text() ='"+text+"']");
     }
 
+    protected void settingStateInCheckBox(WebElement checkbox, String state){
+        if(state.equals("uncheck")){
+            if(checkbox.isSelected()){
+                clickOnElement(checkbox);
+                logger.info("'" + state + "'was selected'");
+            }else{
+                logger.info("Checkbox is not selected");
+            }
+        }if(state.equals("Check")){
+            if(!checkbox.isSelected()){
+                clickOnElement(checkbox);
+                logger.info("'" + state + "'Was DeSelected'");
+            }else{
+                logger.info("Checkbox is  selected");
+            }
+        }
+        else{
+            logger.info("The State can be only 'check' or 'uncheck'. You should provide a correct state " + state);
+        }
+    }
+
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Can not work with element " + e);
         Assert.fail("Can not work with element " + e);
