@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class ProfilePage extends PostPage {
+public class ProfilePage extends ParentPage {
     String postTitleLocator = ".//*[text()='%s']";
 
     @FindBy(xpath = ".//*[contains(text(), 'successfully deleted')]")
@@ -16,6 +16,11 @@ public class ProfilePage extends PostPage {
 
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/profile/";
     }
 
     public ProfilePage checkIsPostWasAdded(String post_title) {
