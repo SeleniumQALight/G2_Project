@@ -99,14 +99,14 @@ public abstract class ParentPage {
     }
 
     protected void settingStateInCheckBox(WebElement checkbox, String state){
-        if(state.equals("uncheck")){
+        if(state.equalsIgnoreCase("uncheck")){
             if(checkbox.isSelected()){
                 clickOnElement(checkbox);
                 logger.info("'" + state + "'was selected'");
             }else{
                 logger.info("Checkbox is not selected");
             }
-        }if(state.equals("Check")){
+        }if(state.equalsIgnoreCase("Check")){
             if(!checkbox.isSelected()){
                 clickOnElement(checkbox);
                 logger.info("'" + state + "'Was DeSelected'");
