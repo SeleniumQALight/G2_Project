@@ -22,18 +22,16 @@ public class LoginTestWithPageObject extends BaseTest {
 
     @Test
     @Parameters({
-            "12,qqq,Invalid username / password",
-            "auto,qqq,Invalid username / password",
-            "12,123456qwerty,Invalid username / password",
+            "12,qqq",
+            "auto,qqq",
+            "12,123456qwerty",
 
     })
 
-    @TestCaseName("loginErrors: login = {0}, password = {1}")
+    @TestCaseName("invalidLogin: login = {0}, password = {1}")
     public void invalidLogin(String login, String passWord){
         loginPage.fillLoginFormAndSubmit(login, passWord);
         checkExpectedResult("Message 'Invalid username / password' is not visible", homePage.isMessageFailCredentialPresent(), true);
-
-        ;
     }
     public void invalidLogin(){
         loginPage.fillLoginFormAndSubmit(TestData.VALID_LOGIN, "123");
