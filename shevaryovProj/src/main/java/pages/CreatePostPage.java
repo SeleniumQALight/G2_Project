@@ -63,9 +63,10 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page"
-                , baseURL + getRelativeURL()
-                , webDriver.getCurrentUrl() );
+//        Assert.assertEquals("Invalid page"
+//                , baseURL + getRelativeURL()
+//                , webDriver.getCurrentUrl() );
+        checkURL();
         return this;
     }
 }

@@ -23,6 +23,11 @@ public class ProfilePage extends ParentPage {
         return "/profile";
     }
 
+    public ProfilePage checkisRedirectToProfilePage(){
+        checkURLWithPattern();
+        return this;
+    }
+
     public ProfilePage checkIsPostWasAdded(String post_title) {
 //        список элементов с нашими постами
         List<WebElement> postList = webDriver.findElements(

@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
@@ -25,6 +27,17 @@ public abstract class ParentPage {
     }
     // абстрактрый метод, возвращающий url
     abstract String getRelativeURL();
+
+    protected void checkURL(){
+        Assert.assertEquals("Invalid page"
+                , baseURL + getRelativeURL()
+                , webDriver.getCurrentUrl() );
+    }
+    protected void checkURLWithPattern(){
+        Assert.assertThat("Invalid page",
+                webDriver.getCurrentUrl(),
+                containsString(baseURL + getRelativeURL()));
+    }
 
     // метод ввода текста в любое текстовое поле
     protected void enterTextToElement(WebElement webElement, String text) {
