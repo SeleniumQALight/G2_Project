@@ -35,7 +35,7 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private WebElement buttonSignOut;
 
-    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible'])")
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
