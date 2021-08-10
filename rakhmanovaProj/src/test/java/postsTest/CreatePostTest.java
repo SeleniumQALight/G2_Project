@@ -21,7 +21,7 @@ public class CreatePostTest extends BaseTest {
                 //.selectTextInDropDownSelectValue("Частное сообщение")
                 //.selectTextInDropDownByClick("One Person")
                 .selectValueInDropDownSelectValue("One Person")
-                .selectCheckBoxState("check")
+                //.selectCheckBoxState("check")---------------------------------HW - error
                 .clickOnSaveButton()
                 .checkIsButtonDeletePresent()
         .checkIsSuccessMessagePresent()
