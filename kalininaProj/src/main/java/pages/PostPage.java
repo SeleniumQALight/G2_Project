@@ -28,6 +28,11 @@ public class PostPage extends ParentPage{
         Assert.assertTrue("Button Delete is not present", isElementPresent(buttonDelete));
         return this;
     }
+    public PostPage checkIsRedirectToPostPage(){
+        checkUrlWithPattern();
+        checkIsButtonDeletePresent();
+        return this;
+    }
 
     public PostPage checkIsSuccessMessagePresent(){
         Assert.assertTrue("Success Message is not present", isElementPresent(successMessageElement));
