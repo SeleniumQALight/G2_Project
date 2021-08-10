@@ -4,12 +4,13 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage{
     @FindBy(name="title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
     @FindBy(id="post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private WebElement buttonSave;
     public CreatePostPage(WebDriver webDriver) {
