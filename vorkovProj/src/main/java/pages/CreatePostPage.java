@@ -104,4 +104,9 @@ public class CreatePostPage extends ParentPage {
         checkCheckBox(checkboxUniquePost, status);
         return this;
     }
+
+    public CreatePostPage selectTextInDDByClick (String textInDD) {
+        selectTextInDropdown(dropDownSelectValue, textInDD);
+        return this;
+    }
 }

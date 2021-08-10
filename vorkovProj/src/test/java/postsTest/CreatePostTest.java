@@ -28,7 +28,7 @@ public class CreatePostTest extends BaseTest {
                 .clickOnButtonMyProfile()
                 .checkIsFollowerPresent()
                 .checkIsPostWasAdded(POST_TITLE)
-                ;
+        ;
     }
 
     @After
@@ -50,5 +50,17 @@ public class CreatePostTest extends BaseTest {
         createPostPage.uniquePostCheckbox("uncheck");
         Util.waitABit(1);
         createPostPage.uniquePostCheckbox("uncheck");
+        Util.waitABit(1);
+        createPostPage.uniquePostCheckbox("REcheck");
+    }
+
+    @Test
+    public void testDDByClick() {
+        loginPage
+                .loginWithValidCred()
+                .clickOnButtonCreatePost();
+        Util.waitABit(1);
+        createPostPage.selectTextInDDByClick("Сообщение для группы");
     }
 }
+
