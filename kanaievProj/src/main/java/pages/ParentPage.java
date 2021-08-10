@@ -8,6 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.element.TypifiedElement;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -19,7 +22,12 @@ public abstract class ParentPage {
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-        PageFactory.initElements(this.webDriver, this);
+//        PageFactory.initElements(this.webDriver, this);       //work only with WebElements
+    //work with YandexHtmlElements and WebElements too
+        PageFactory.initElements(
+                new HtmlElementDecorator(
+                        new HtmlElementLocatorFactory(webDriver))
+                ,this);
         webDriverWait10 = new WebDriverWait(this.webDriver, 10);
         webDriverWait15 = new WebDriverWait(this.webDriver, 15);
     }
@@ -43,17 +51,35 @@ public abstract class ParentPage {
             webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
             webElement.clear();
             webElement.sendKeys(text);
-            logger.info("'" + text + "' was inputted in element ");
+            logger.info("'" + text + "' was inputted in element " + getElementName(webElement));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
+    }
+
+    private String getElementName(WebElement webElement) {
+        String elementName = "";
+        if (webElement instanceof TypifiedElement){
+            elementName = "'"+ ((TypifiedElement) webElement).getName() +"'";
+        }
+        return elementName;
     }
 
     protected void clickOnElement(WebElement webElement) {
         try {
             webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
-            logger.info("Element was clicked");
+            logger.info(getElementName(webElement) + " Element was clicked");
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void clickOnElement(WebElement webElement, String elementName) {
+        try {
+            webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
+            webElement.click();
+            logger.info(elementName + " Element was clicked");
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
@@ -63,13 +89,13 @@ public abstract class ParentPage {
         try {
             boolean state = webElement.isDisplayed();
             if (state) {
-                logger.info("Element present");
+                logger.info(getElementName(webElement) + " Element present");
             } else {
-                logger.info("Element is not present");
+                logger.info(getElementName(webElement) + " Element is not present");
             }
             return state;
         } catch (Exception e) {
-            logger.info("Element is not present");
+            logger.info(getElementName(webElement) + " Element is not present");
             return false;
         }
     }
@@ -78,7 +104,7 @@ public abstract class ParentPage {
         try {
             Select select = new Select(dropDown);
             select.selectByVisibleText(text);
-            logger.info("'" + text + "' was selected in DropDown");
+            logger.info("'" + text + "' was selected in DropDown " + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
@@ -88,7 +114,7 @@ public abstract class ParentPage {
         try {
             Select select = new Select(dropDown);
             select.selectByValue(value);
-            logger.info("'" + value + "' was selected in DropDown");
+            logger.info("'" + value + "' was selected in DropDown " + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
