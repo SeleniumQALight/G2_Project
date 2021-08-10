@@ -1,7 +1,9 @@
 package pages;
 
+import libs.Util;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -58,26 +60,38 @@ public abstract class ParentPage {
         }
     }
 
+    protected void selectTextInDropdown (WebElement dropdown, String text) {
+        try {
+            webDriverWait10.until(ExpectedConditions.elementToBeClickable(dropdown));
+            dropdown.click();
+            logger.info("Dropdown was clicked");
+            webDriverWait10.until(ExpectedConditions.elementToBeClickable(dropdown));
+            dropdown.findElement(By.xpath(".//*[contains(text(),'" + text + "')]")).click();
+            logger.info("Clicked on '" + text + "' in DD");
+            Util.waitABit(1);
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
     protected void checkCheckBox(WebElement checkbox, String status) {
         try {
-            if (status == "check") {
+            if (status.equals("check")) {
                 if (!checkbox.isSelected()) {
                     clickOnElement(checkbox);
-                    System.out.println("Checkbox was checked");
                     logger.info("Checkbox was checked");
                 } else {
-                    System.out.println("Not clicked, checkbox was checked already!");
                     logger.info("Not clicked, checkbox was checked already!");
                 }
-            } else if (status == "uncheck") {
+            } else if (status.equals("uncheck")) {
                 if (checkbox.isSelected()) {
                     clickOnElement(checkbox);
-                    System.out.println("Not clicked, checkbox was unchecked");
-                    logger.info("Not clicked, checkbox was unchecked");
+                    logger.info("Checkbox was unchecked");
                 } else {
-                    System.out.println("Not clicked, checkbox was unchecked already!");
                     logger.info("Not clicked, checkbox was unchecked already!");
                 }
+            } else {
+                logger.info("Wrong checkbox status! Status can be 'check' or 'uncheck'.");
             }
         } catch (Exception e) {
             writeErrorAndStopTest(e);
