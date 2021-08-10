@@ -73,13 +73,20 @@ public class CreatePostPage extends ParentPage {
         selectValueInDD(dropDownSelectValue, text);
 //        WebElement option = dropDownSelectValue.findElement(
 //                By.xpath(".//option[contains(text(), '%s']".format(text)));
-//        // кликнуть по данной строке
+        // кликнуть по данной строке
 //        option.click();
         return this;
     }
+//    public CreatePostPage selectTextInDropDownByClick(String text) {
+//        WebElement option = dropDownSelectValue.findElement(
+//                By.xpath(".//select[@id='select1']"));
+//        option.click();
+//        return this;
+//    }
     public CreatePostPage checkCheckBox(boolean value) {
         if (checkboxUniquePost.isSelected() != value) {
             checkboxUniquePost.click();
+            logger.info("CheckBox was clicked");
         }
         return this;
     }
