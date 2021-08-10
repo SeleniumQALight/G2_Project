@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 public abstract class ParentPage {
     protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
     Logger logger = Logger.getLogger(getClass());
@@ -23,6 +25,18 @@ public abstract class ParentPage {
     }
 
     abstract String getRelativeUrl();
+
+    protected void checkUrl() {
+        Assert.assertEquals("Invalid page ",
+                baseUrl + getRelativeUrl(),
+                webDriver.getCurrentUrl());
+    }
+
+    protected void checkUrlWithPattern() {
+        Assert.assertThat("Invalid page",
+                webDriver.getCurrentUrl(),
+                containsString(baseUrl + getRelativeUrl()));
+    }
 
     protected void enterTextToElement(WebElement webElement, String text) {
         try {

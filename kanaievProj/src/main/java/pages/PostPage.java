@@ -22,12 +22,17 @@ public class PostPage extends ParentPage {
         return "/post/";
     }
 
+    public PostPage checkIsRedirectOnPostPage(){
+        checkUrlWithPattern();
+        return this;
+    }
+
     public PostPage checkIsButtonDeletePresent() {
         Assert.assertTrue("Button Delete is not present", isElementPresent(buttonDelete));
         return this;
     }
 
-    public PostPage checkIsAlertElementPresent() {
+    public PostPage checkIsSuccessMessagePresent() {
         Assert.assertTrue("Success message is not present", isElementPresent(successMessageElement));
         return this;
     }

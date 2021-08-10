@@ -64,7 +64,8 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page ", baseUrl + getRelativeUrl(), webDriver.getCurrentUrl());
+        checkUrl();
+        checkIsInputTitlePresent();
         return this;
     }
 
