@@ -29,6 +29,9 @@ public class LoginPage extends ParentPage{
     private WebElement buttonSignUp;
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    WebElement invalidUsernameOrPassword;
+
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
@@ -118,5 +121,9 @@ public class LoginPage extends ParentPage{
         }
         softAssertions.assertAll();
 
+    }
+
+    public void checkErrorMessageForLoginOrPassword(){
+        Assert.assertTrue("Invalid username / password", isElementPresent(invalidUsernameOrPassword));
     }
 }

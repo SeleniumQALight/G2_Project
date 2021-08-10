@@ -1,43 +1,49 @@
-TC 1 - Sign Up test
-1. Open browser
-2. Go to url:  https://qa-complex-app-for-testing.herokuapp.com/
-3. Sign Up new user, fill fields: username - olegd337, email - olegd337@gmail.com, password - qwerty123456
-4. Press button Sign Up
-ER: User should be created and sign in automatically. You should see greeting message "Hello olegd337, your feed is empty"
-and in top right corner see sign out button, create post button, username word.
+TC 1 - Sign In for existing user:
+1. Open browser Google Chrome
+2. Go to:  https://qa-complex-app-for-testing.herokuapp.com/
+3. Sign In with credentials: username = "auto",  password = "123456qwerty"
+4. Press button SignIn
+ER: User logged In. Welcome message present "Hello "auto", ...". SignOutButton present
+UR: Sign Out button missing
 
-TC 2  - Sign In test
-1. Open browser
+TC 2  - Sign In for newly created user
+1. Open browser Google Chrome
 2. Go to url:  https://qa-complex-app-for-testing.herokuapp.com/
-3. Sign In with next credentials, fill field in upper right corner: username  - olegd337, password - qwerty123456
-4. Press Sign In button
-ER: Next buttons should appear after succesfully login: Sign Out, Create Post, Username
+3. Sign In with credentials: username =  "OlenaKalinina", email = "allayavna1@gmail.com", password = "123456qwerty"
+4. Press button SignIn
+ER: User logged In. Welcome message present "Hello "user", ...". SignOutButton present
+UR: SignOutButton missing
 
-TC 3 - Sign In - Negative test
-1. Open browser
+TC 3 - SignOut test
+1. Open browser Google Chrome
 2. Go to url:  https://qa-complex-app-for-testing.herokuapp.com/
-3. Sign In with next credentials, fill field in upper right corner: username  - olegd337, password - 1
-4. Press Sign In button
-ER: Should be warning message - "Invalid username / password", user should not be logged in
+3. Sign In with credentials: username = "auto", password = "123456qwerty"
+4. Press SignInButton. SignOutButton present
+5. Press SignOutButton. SignInButton present
+ER: User logged out, SignInButton present
+UR: SignInButton missing
 
-TC 4 - Sign Out test
+TC 4 Negative test - SignIn
 1. Open browser
 2. Go to url:  https://qa-complex-app-for-testing.herokuapp.com/
-3. Sign In with next credentials, fill field in upper right corner: username  - olegd337, password - qwerty123456
-4. Press Sign In button
-5. Press Sign Out button
-ER:User should log out, you should see fields for sign up and sign in
+3. Sign In with credentials: username = "auto",  password = "123456"
+4. Press SignInButton
+ER: Warning message "Invalid username / password" present. SignOutButton missing
+UR: SignOutButton present
 
-TC 5 - Create post
-1. Open browser
+
+TC 5 - CreatePost
+1. Open browser Google Chrome
 2. Go to url:  https://qa-complex-app-for-testing.herokuapp.com/
-3. Sign In with next credentials, fill field in upper right corner: username  - olegd337, password - qwerty123456
-4. Press Sign In button
-5. Press Create Post button
-6. Fill title: Post 1
-7. Fill body content: Some body text
-8. Press button - Save new post
-ER: You should see new post, and message "New post successfully created."
+3. Sign In with credentials: username = "auto", password = "123456qwerty"
+4. Press SignInButton
+5. Find  & Press CreatePostButton
+6. Fill title: Test Post # 1
+7. Fill body content: Test body # 1
+8. Press button - SaveNewPost
+ER: Message "New post successfully created." present
+UR: Message "New post successfully created." missing
+
 
 
 

@@ -1,24 +1,23 @@
-#Sign In page
+SignInPage
 SignUp block:
-Username - .//input[@id='username-register']
-Email - .//input[@id='email-register']
-Password - .//input[@id='password-register']
-SignUp button - .//button[text()='Sign up for OurApp']
+Username = ".//input[@id='username-register']"
+Email = ".//input[@id='email-register']"
+Password = ".//input[@id='password-register']"
+SignOutButton = ".//button[text()='Sign up for OurApp']"
 
+SignInBlock
+Username = ".//input[@placeholder='Username']"
+Password = ".//input[@placeholder='Password']"
+SigIn button = ".//button[text()='Sign In']"
+InvalidUsernameOrPassword = ".//div[text()='Invalid username / password']"
 
-SignInBlock:
-Username - .//input[@placeholder='Username']
-Password - .//input[@placeholder='Password']
-SigIn button - .//button[text()='Sign In']
-Wrong login\password block - .//div[text()='Invalid username / password']
+MainPage
+SignOutButton = ".//button[text()='Sign Out']"
+CreatePostButton = ".//a[@href='/create-post']"
+Greeting message - ".//div[@class='text-center']//h2"
 
-#MainPage
-SignOut button - .//button[text()='Sign Out']
-CreatePost button - .//a[@href='/create-post']
-Greeting message - .//div[@class='text-center']//h2
-
-#CreatePost Page
-Title - .//input[@id='post-title']
-Body - .//textarea[@id='post-body']
-Save new post button - .//button[text()='Save New Post']
-Message about new post - .//div[text()='New post successfully created.']
+CreatePostPage
+PostTitle = ".//input[@id='post-title']"
+PostBody = ".//textarea[@id='post-body']"
+SavePostButton = ".//button[text()='Save New Post']"
+PostMessage = ".//div[text()='New post successfully created.']"
