@@ -9,10 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ParentPage {
+public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
+    protected final String baseURL = "https://qa-complex-app-for-testing.herokuapp.com";
 
     // конструктор
     public ParentPage(WebDriver webDriver) {
@@ -22,6 +23,8 @@ public class ParentPage {
         webDriverWait10 = new WebDriverWait(webDriver, 10);
         webDriverWait15 = new WebDriverWait(webDriver, 15);
     }
+    // абстрактрый метод, возвращающий url
+    abstract String getRelativeURL();
 
     // метод ввода текста в любое текстовое поле
     protected void enterTextToElement(WebElement webElement, String text) {

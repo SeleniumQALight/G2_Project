@@ -10,10 +10,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class ParentPage {
+    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
-    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -75,6 +75,26 @@ public abstract class ParentPage {
             Select select = new Select(dropDown);
             select.selectByValue(value);
             logger.info("'" + value + "' was selected in DropDown");
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void setCheckBoxStateTo(WebElement webElement, String checkBoxState) {
+        boolean isSelectExpected = true;
+        if (checkBoxState.equalsIgnoreCase("check")) {
+            isSelectExpected = true;
+        } else if (checkBoxState.equalsIgnoreCase("uncheck")) {
+            isSelectExpected = false;
+        } else {
+            writeErrorAndStopTest(new Exception("Wrong string was set to method \"setCheckBoxStateTo\""));
+        }
+        try {
+            if (!(webElement.isSelected() == isSelectExpected)) {
+                clickOnElement(webElement);
+            } else {
+                logger.info("CheckBox already in expected state \"" + checkBoxState + "\"");
+            }
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
