@@ -37,11 +37,17 @@ public class CreatePostPage extends ParentPage {
 
     @Override
     String getRelativeURL() {
-        return "/create-post";
+        return "/post";
     }
 
     public CreatePostPage checkIsInputTitleIsPresent() {
         Assert.assertTrue("Input title isn't present", isElementPresent(inputTitle));
+        return this;
+    }
+
+    public CreatePostPage checkRedirectWithParam() {
+        checkURLWithPattern();
+        checkIsDeletePostButtonPresent();
         return this;
     }
 
@@ -93,7 +99,8 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page", baseURL + getRelativeURL(), webDriver.getCurrentUrl());
+//        checkURL();
+        checkIsInputTitleIsPresent();
         return this;
     }
 }

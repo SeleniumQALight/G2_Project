@@ -31,6 +31,11 @@ public class ProfilePage extends ParentPage {
     }
 
 
+    public ProfilePage checkIsRedirectionProfilePage() {
+        checkURLWithPattern();
+        return this;
+    }
+
     public ProfilePage clickOnButtonMyProfile() {
         clickOnElement(buttonMyProfile);
         return this;

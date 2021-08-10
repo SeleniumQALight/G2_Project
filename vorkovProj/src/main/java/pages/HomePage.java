@@ -16,6 +16,12 @@ public class HomePage extends ParentPage {
         return "/";
     }
 
+    public HomePage checkIsRedirectOnHomePage() {
+        checkURL();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
     // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private WebElement buttonSignOut;
