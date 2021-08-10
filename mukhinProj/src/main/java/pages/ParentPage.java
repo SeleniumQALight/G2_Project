@@ -102,16 +102,16 @@ public abstract class ParentPage {
         if(state.equalsIgnoreCase("uncheck")){
             if(checkbox.isSelected()){
                 clickOnElement(checkbox);
-                logger.info("'" + state + "'was selected'");
+                logger.info("'" + state + "'Was DeSelected'");
             }else{
                 logger.info("Checkbox is not selected");
             }
         }if(state.equalsIgnoreCase("Check")){
             if(!checkbox.isSelected()){
                 clickOnElement(checkbox);
-                logger.info("'" + state + "'Was DeSelected'");
+                logger.info("'" + state + "'Checkbox is  selected'");
             }else{
-                logger.info("Checkbox is  selected");
+                logger.info("Checkbox is already selected");
             }
         }
         else{
