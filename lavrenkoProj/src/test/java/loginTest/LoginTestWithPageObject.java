@@ -8,7 +8,7 @@ public class LoginTestWithPageObject extends BaseTest {
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
-        loginPage.enterLoginInSidnIn(TestData.VALID_LOGIN);
+        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
         loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
 

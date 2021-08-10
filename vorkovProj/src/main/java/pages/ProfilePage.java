@@ -25,6 +25,11 @@ public class ProfilePage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/profile";
+    }
+
 
     public ProfilePage clickOnButtonMyProfile() {
         clickOnElement(buttonMyProfile);

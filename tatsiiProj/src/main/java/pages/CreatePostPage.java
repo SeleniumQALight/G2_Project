@@ -1,24 +1,32 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class CreatePostPage extends ParentPage{
-// @Find(xpath = ".//input[@name='title']" )
+public class CreatePostPage extends ParentPage {
+    // @Find(xpath = ".//input[@name='title']" )
     @FindBy(name = "title")
     private WebElement inputTitle;
     @FindBy(id = "post-body")
     private WebElement inputBody;
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private WebElement buttonSave;
+    @FindBy(xpath = ".//select[@id='select1']")
+    private WebElement dropDownSelectValue;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public CreatePostPage checkIsInputTitlePresent(){
+    @Override
+    String getRelativeUrl() {
+        return "/create-post";
+    }
+
+    public CreatePostPage checkIsInputTitlePresent() {
         Assert.assertTrue("Input title is not present", isElementPresent(inputTitle));
         return this;
     }
@@ -28,7 +36,7 @@ public class CreatePostPage extends ParentPage{
         return this;
     }
 
-    public CreatePostPage enterTextIntoInputBody(String body_text){
+    public CreatePostPage enterTextIntoInputBody(String body_text) {
         enterTextToElement(inputBody, body_text);
         return this;
     }
@@ -37,4 +45,30 @@ public class CreatePostPage extends ParentPage{
         clickOnElement(buttonSave);
         return new PostPage(webDriver);
     }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTextInDD(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectValueInDDSelectValue(String value) {
+        selectValueInDD(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        Assert.assertEquals("Invalid page "
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl()
+        );
+        return this;
+    }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+        dropDownSelectValue.click();
+        WebElement option = dropDownSelectValue.findElement(By.xpath(".//option[contains(text(), '%s']".format(text)));
+        option.click();
+        return this;
+    }
 }
+

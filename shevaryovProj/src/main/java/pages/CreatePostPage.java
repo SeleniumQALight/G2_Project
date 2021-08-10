@@ -17,8 +17,17 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private WebElement buttonSave;
 
+    // элемент DropDown
+    @FindBy(xpath = ".//select[@id='select1']")
+    private WebElement dropDownSelectValue;
+
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeURL() {
+        return "/create-post";
     }
 
     public CreatePostPage checkIsInputTitlePresent(){
@@ -41,5 +50,22 @@ public class CreatePostPage extends ParentPage {
         clickOnElement(buttonSave);
         // передаем webDriver для того что бы все работало в одном окне
         return new PostPage(webDriver);
+    }
+
+    public CreatePostPage selectTextInDropDownSelectValue(String text) {
+        selectTextInDropDown(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectValueInDropDownSelectValue(String value) {
+        selectValueInDropDown(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        Assert.assertEquals("Invalid page"
+                , baseURL + getRelativeURL()
+                , webDriver.getCurrentUrl() );
+        return this;
     }
 }

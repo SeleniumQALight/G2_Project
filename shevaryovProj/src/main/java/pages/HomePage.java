@@ -13,13 +13,21 @@ public class HomePage extends ParentPage{
 //    кнопка Create Post
     @FindBy(xpath = ".//a[text()='Create Post']")
     private WebElement buttonCreatePost;
+    //    кнопка профиля
+    @FindBy(xpath = ".//img[@data-original-title='My Profile']")
+    private WebElement buttonProfile;
 
     //    конструктор
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
 
-//    наличие кнопки SignOut
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    //    наличие кнопки SignOut
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }
@@ -34,4 +42,20 @@ public class HomePage extends ParentPage{
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
     }
+
+    public HomePage openHomePage() {
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.openLoginPage();
+        if (!isButtonSignOutPresent()){
+            loginPage.loginWithValidCred();
+        }
+
+        return this;
+    }
+
+    public ProfilePage clickOnButtonProfile(){
+        clickOnElement(buttonProfile);
+        return new ProfilePage(webDriver);
+    }
+
 }

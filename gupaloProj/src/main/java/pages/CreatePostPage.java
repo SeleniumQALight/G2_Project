@@ -8,9 +8,8 @@ import org.openqa.selenium.support.FindBy;
 public class CreatePostPage extends ParentPage {
 
 
-
     //@FindBy (xpath = ".//input[@name='title']")
-    @FindBy (name = "title")
+    @FindBy(name = "title")
     private WebElement inputTitle;
 
     @FindBy(id = "post-body")
@@ -19,11 +18,19 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private WebElement buttonSave;
 
+    @FindBy(xpath = ".//select[@id='select1']")
+    private WebElement dropDownSelectValue;
+
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public CreatePostPage checkIsInputTitlePresent(){
+    @Override
+    String getRelativeUrl() {
+        return "/create-post";
+    }
+
+    public CreatePostPage checkIsInputTitlePresent() {
         Assert.assertTrue("Input title is not present", isElementPresent(inputTitle));
         return this;
     }
@@ -41,5 +48,23 @@ public class CreatePostPage extends ParentPage {
     public PostPage clickOnSaveButton() {
         clickOnElement(buttonSave);
         return new PostPage(webDriver);
+    }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTextInDD(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectValueInDDSelectValue(String value) {
+        selectValueInDD(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnPostPage() {
+        Assert.assertEquals("Invalid page"
+                , baseUrl + getRelativeUrl()
+                , webDriver.getCurrentUrl()
+        );
+        return this;
     }
 }

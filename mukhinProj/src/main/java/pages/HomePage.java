@@ -15,6 +15,22 @@ public class HomePage extends ParentPage{
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
     private WebElement buttonProfile;
 
+    @FindBy(xpath = ".//button[text()='Sign In']")
+    private WebElement buttonSignIn;
+
+    @FindBy(xpath = ".//*[text() ='Invalid username / password']")
+    private WebElement messageFailCredential;
+
+    @FindBy(xpath = ".//*[text() ='Username must be at least 3 characters.']")
+    private WebElement messageFailUserName;
+
+    @FindBy(xpath = ".//*[text() ='You must provide a valid email address.']")
+    private WebElement messageFailEmail;
+
+    @FindBy(xpath = ".//*[text() ='Password must be at least 12 characters.']")
+    private WebElement messageFailPassWord;
+
+
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -46,4 +62,25 @@ public class HomePage extends ParentPage{
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
+
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    public boolean isMessageFailCredentialPresent() {
+        return isElementPresent(messageFailCredential);
+    }
+
+    public  boolean isMessageFailUserNamePresent(){
+        return isElementPresent(messageFailUserName);
+    }
+
+    public boolean isMessageFailEmailPresent(){
+        return isElementPresent(messageFailEmail);
+    }
+
+    public  boolean isMessageFailPassWordPresent(){
+        return isElementPresent(messageFailPassWord);
+    }
+
 }
