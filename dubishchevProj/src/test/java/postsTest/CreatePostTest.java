@@ -1,10 +1,15 @@
 package postsTest;
 
 import baseTest.BaseTest;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.Util;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
 public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Dubishchev title " + Util.getDateAndTimeFormatted();
 
@@ -27,6 +32,19 @@ public class CreatePostTest extends BaseTest {
                 .clickOnProfileButton()
                 .checkIsPostWasAdded(POST_TITLE)
         ;
+    }
+
+    @Test
+    @Parameters({
+     "Частное сообщение",
+     "Some text"
+    })
+    @TestCaseName("Select text from dropdown and click : textToClick = {0}")
+    public void selectFromDropDown(String textToClick){
+        loginPage.
+                loginWithValidCred().
+                clickOnButtonCreatePost().
+                selectTextInDropDownByClick(textToClick);
     }
 
     @After

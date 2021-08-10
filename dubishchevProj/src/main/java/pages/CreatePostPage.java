@@ -1,6 +1,8 @@
 package pages;
 
+import libs.Util;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -57,6 +59,12 @@ public class CreatePostPage extends ParentPage {
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
         Assert.assertEquals("URLs are not equals ", baseUrl + getRelativeUrl(), webDriver.getCurrentUrl());
+        return this;
+    }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+        clickOnElement(dropDownSelectValue);
+        findElementByTextAndClick(text);
         return this;
     }
 }
