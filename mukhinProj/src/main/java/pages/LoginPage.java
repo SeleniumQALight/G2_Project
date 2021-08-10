@@ -150,14 +150,14 @@ public class LoginPage extends ParentPage{
     }
 
     private void enterPassWordInSignOut(String passWord) {
-        enterTextToElement(inputPassWord, passWord);
+        enterTextToElement(inputPassWordRegistration, passWord);
     }
 
     private void enterEMailInSignOut(String eMail) {
-        enterTextToElement(inputEMail, eMail);
+        enterTextToElement(inputEmailRegistration, eMail);
     }
 
     private void enterUserNameInSignOut(String userName) {
-        enterTextToElement(inputUseName, userName);
+        enterTextToElement(inputLoginRegistration, userName);
     }
 }
