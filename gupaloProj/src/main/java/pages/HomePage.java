@@ -24,6 +24,12 @@ public class HomePage extends ParentPage {
         return "/";
     }
 
+    public HomePage checkIsRedirectOnHonePage(){
+        checkURL();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }
