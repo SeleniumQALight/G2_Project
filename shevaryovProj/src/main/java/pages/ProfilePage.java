@@ -18,6 +18,11 @@ public class ProfilePage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/profile";
+    }
+
     public ProfilePage checkIsPostWasAdded(String post_title) {
 //        список элементов с нашими постами
         List<WebElement> postList = webDriver.findElements(
