@@ -29,11 +29,11 @@ public class CreatePostTest extends BaseTest {
                 .checkIsPostWasAdded(POST_TITLE)
         ;
     }
-//    @After
-//    public void deletePost() {
-//        homePage.openHomePage()
-//                .checkIsButtonSignOutVisible()
-//                .clickOnButtonProfile()
-//                .deletePostWithTitleWhilePresent(POST_TITLE);
-//    }
+    @After
+    public void deletePost() {
+        homePage.openHomePage()
+                .checkIsButtonSignOutVisible()
+                .clickOnButtonProfile()
+                .deletePostWithTitleWhilePresent(POST_TITLE);
+    }
 }
