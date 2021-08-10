@@ -24,6 +24,12 @@ public class HomePage extends ParentPage {
         return "/";
     }
 
+    public HomePage checkIsRedirectedOnHomePage() {
+        checkUrl();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
     }
@@ -47,7 +53,7 @@ public class HomePage extends ParentPage {
         return this;
     }
 
-    public ProfilePage clickOnButtonProfile(){
+    public ProfilePage clickOnButtonProfile() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }

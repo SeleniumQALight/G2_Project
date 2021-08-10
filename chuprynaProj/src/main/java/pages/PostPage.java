@@ -24,6 +24,12 @@ public class PostPage extends ParentPage {
         return "/post/";
     }
 
+    public PostPage checkIsRedirectedOnPostPage() {
+        checkUrlWithPattern();
+        checkIsButtonDeletePresent();
+        return this;
+    }
+
     public PostPage checkIsButtonDeletePresent() {
         Assert.assertTrue("Button 'Delete post' is not present", isElementPresent(buttonDeletePost));
         return this;
@@ -40,7 +46,7 @@ public class PostPage extends ParentPage {
         return this;
     }
 
-    public ProfilePage clickOnButtonProfile(){
+    public ProfilePage clickOnButtonProfile() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
