@@ -2,18 +2,19 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextBlock;
 
 public class PostPage extends ParentPage {
     @FindBy(xpath = ".//button[@data-original-title='Delete']")
-    private WebElement buttonDeletePost;
+    private Button buttonDeletePost;
 
     @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
-    private WebElement successMessageElement;
+    private TextBlock successMessageElement;
 
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
-    private WebElement buttonProfile;
+    private Button buttonProfile;
 
     public PostPage(WebDriver webDriver) {
         super(webDriver);
@@ -22,6 +23,12 @@ public class PostPage extends ParentPage {
     @Override
     String getRelativeUrl() {
         return "/post/";
+    }
+
+    public PostPage checkIsRedirectedOnPostPage() {
+        checkUrlWithPattern();
+        checkIsButtonDeletePresent();
+        return this;
     }
 
     public PostPage checkIsButtonDeletePresent() {
@@ -40,7 +47,7 @@ public class PostPage extends ParentPage {
         return this;
     }
 
-    public ProfilePage clickOnButtonProfile(){
+    public ProfilePage clickOnButtonProfile() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
