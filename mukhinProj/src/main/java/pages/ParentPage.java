@@ -2,6 +2,7 @@ package pages;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -47,6 +48,16 @@ public abstract class ParentPage {
         }
     }
 
+    protected void clickOnElement(String locator){
+        try{
+            WebElement webElement = webDriverWait10.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+            webElement.click();
+            logger.info("Element was clicked");
+        }catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
     protected  boolean isElementPresent(WebElement webElement){
         try{
             boolean state = webElement.isDisplayed();
@@ -82,6 +93,31 @@ public abstract class ParentPage {
         }
     }
 
+    protected void selectTextInDropDownByClick(WebElement dropdown, String text){
+        clickOnElement(dropdown);
+        clickOnElement(".//option[text() ='"+text+"']");
+    }
+
+    protected void settingStateInCheckBox(WebElement checkbox, String state){
+        if(state.equalsIgnoreCase("uncheck")){
+            if(checkbox.isSelected()){
+                clickOnElement(checkbox);
+                logger.info("'" + state + "'Was DeSelected'");
+            }else{
+                logger.info("Checkbox is not selected");
+            }
+        }if(state.equalsIgnoreCase("Check")){
+            if(!checkbox.isSelected()){
+                clickOnElement(checkbox);
+                logger.info("'" + state + "'Checkbox is  selected'");
+            }else{
+                logger.info("Checkbox is already selected");
+            }
+        }
+        else{
+            logger.info("The State can be only 'check' or 'uncheck'. You should provide a correct state " + state);
+        }
+    }
 
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Can not work with element " + e);
