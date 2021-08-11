@@ -64,9 +64,8 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
-    public CreatePostPage selectTextInDropDownByClick(String text) {
-        clickOnElement(dropDownSelectValue);
-        findElementByTextAndClick(text);
+    public CreatePostPage selectTextInDropDownByClick(String textToClick) {
+        selectTextInDropDownByClick(dropDownSelectValue, textToClick);
         return this;
     }
 }

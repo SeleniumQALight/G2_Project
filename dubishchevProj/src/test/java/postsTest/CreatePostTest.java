@@ -13,8 +13,14 @@ import org.junit.runner.RunWith;
 public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Dubishchev title " + Util.getDateAndTimeFormatted();
 
+    @Parameters({
+            "Общедоступное",
+            "Частное сообщение",
+            "Сообщение для группы"
+    })
+    @TestCaseName("Create post test : textToClickInDropDown = {0}")
     @Test
-    public void createPost() {
+    public void createPost(String textToClick) {
         loginPage
                 .loginWithValidCred()
                 .checkIsRedirectOnHomePage()
@@ -25,7 +31,8 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Some body text")
                 //.selectTextInDDSelectValue("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
+                //.selectValueInDDSelectValue("One Person")
+                .selectTextInDropDownByClick(textToClick)
                 .clickOnSaveButton()
                 .checkIsRedirectOnPostPage()
                 //.checkIsButtonDeletePresent() //moved to checkIsRedirectOnPostPage
@@ -35,19 +42,6 @@ public class CreatePostTest extends BaseTest {
                 .checkIsRedirectOnProfilePage()
                 .checkIsPostWasAdded(POST_TITLE)
         ;
-    }
-
-    @Test
-    @Parameters({
-     "Частное сообщение",
-     "Some text"
-    })
-    @TestCaseName("Select text from dropdown and click : textToClick = {0}")
-    public void selectFromDropDown(String textToClick){
-        loginPage.
-                loginWithValidCred().
-                clickOnButtonCreatePost().
-                selectTextInDropDownByClick(textToClick);
     }
 
     @After
