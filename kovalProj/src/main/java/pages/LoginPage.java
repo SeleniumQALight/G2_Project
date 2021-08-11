@@ -8,27 +8,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputlogin;
+    private TextInput inputlogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass")
+    private TextInput inputPassword;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
     private WebElement buttonSignIn;
+
     @FindBy(id = "username-register" )
-    private WebElement inputLoginRegistration;
+    private TextInput inputLoginRegistration;
 
     @FindBy(id = "email-register")
-    private WebElement inputEmailRegistration;
+    private TextInput inputEmailRegistration;
 
     @FindBy(id = "password-register")
-    private  WebElement inputPasswordRegistration;
+    private  TextInput inputPasswordRegistration;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private WebElement buttonSignUp;
