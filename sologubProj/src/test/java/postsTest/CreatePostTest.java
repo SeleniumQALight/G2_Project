@@ -10,28 +10,30 @@ public class CreatePostTest extends BaseTest {
     @Test
     public void createPost() {
         loginPage
-                .loginWithValidCred()
-                .checkIsButtonSignOutVisible()
-                .clickOnButtonCreatePost()
+                  .loginWithValidCred()
+                .checkIsRedirectOnHomePage()
+                  .clickOnButtonCreatePost()
                 .checkIsRedirectOnCreatePostPage()
-                .checkIsInputTitlePresent()
-                .enterTextIntoInputTitle(POST_TITLE)
-                .enterBodyIntoInputTitle("Body text")
+                  .checkIsInputTitlePresent()
+                  .enterTextIntoInputTitle(POST_TITLE)
+                  .enterBodyIntoInputTitle("Body text")
           //      .selectTextInDDSelect_value("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
-                .clickOnSaveButton()
-                .checkIsButtonDeletePresent()
-                .checkIsSuccessMessagePresent()
-                .checkTextInSuccessMessage("New post successfully created.")
-                .clickOnButtonProfile()
-                .checkIsPostWasAdded(POST_TITLE)
+                  .selectValueInDDSelectValue("One Person")
+                  .clickOnSaveButton()
+                .checkIsRedirectToPostPage()
+                  .checkIsSuccessMessagePresent()
+                  .checkTextInSuccessMessage("New post successfully created.")
+                  .clickOnButtonProfile()
+                .checkIsRedirectToProfilePage()
+                  .checkIsPostWasAdded(POST_TITLE)
         ;
     }
     @After
     public void deletePost() {
         homePage.openHomePage()
-                .checkIsButtonSignOutVisible()
-                .clickOnButtonProfile()
-                .deletePostWithTitleWhilePresent(POST_TITLE);
+                .checkIsRedirectOnHomePage()
+                  .clickOnButtonProfile()
+                .checkIsRedirectToProfilePage()
+                  .deletePostWithTitleWhilePresent(POST_TITLE);
     }
 }
