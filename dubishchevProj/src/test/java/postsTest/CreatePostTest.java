@@ -17,7 +17,8 @@ public class CreatePostTest extends BaseTest {
     public void createPost() {
         loginPage
                 .loginWithValidCred()
-                .checkIsButtonSignOutVisible()
+                .checkIsRedirectOnHomePage()
+//                .checkIsButtonSignOutVisible() //moved to checkIsRedirectOnHomePage
                 .clickOnButtonCreatePost()
                 .checkIsRedirectOnCreatePostPage()
                 .checkIsTitlePresent()
@@ -26,10 +27,12 @@ public class CreatePostTest extends BaseTest {
                 //.selectTextInDDSelectValue("Частное сообщение")
                 .selectValueInDDSelectValue("One Person")
                 .clickOnSaveButton()
-                .checkIsButtonDeletePresent()
+                .checkIsRedirectOnPostPage()
+                //.checkIsButtonDeletePresent() //moved to checkIsRedirectOnPostPage
                 .checkIsSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
                 .clickOnProfileButton()
+                .checkIsRedirectOnProfilePage()
                 .checkIsPostWasAdded(POST_TITLE)
         ;
     }
@@ -50,8 +53,9 @@ public class CreatePostTest extends BaseTest {
     @After
     public void postDelete() {
         homePage.openHomePage()
-                .checkIsButtonSignOutVisible()
+                .checkIsRedirectOnHomePage()
                 .clickOnProfileButton()
+                .checkIsRedirectOnProfilePage()
                 .deletePostWithTitleWhilePresent(POST_TITLE)
         ;
     }

@@ -1,11 +1,16 @@
 package pages;
 
 import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -14,13 +19,14 @@ import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass")
+    private TextInput inputPassword;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private WebElement buttonSignOut;
@@ -29,16 +35,16 @@ public class LoginPage extends ParentPage {
     private WebElement alertText;
 
     @FindBy(xpath = ".//input[@placeholder='Pick a username']")
-    private WebElement inputLoginInForm;
+    private TextInput inputLoginInForm;
 
     @FindBy(xpath = ".//input[@placeholder='you@example.com']")
-    private WebElement inputEmail;
+    private TextInput inputEmail;
 
     @FindBy(xpath = ".//input[@placeholder='Create a password']")
-    private WebElement inputPasswordInForm;
+    private TextInput inputPasswordInForm;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
     private WebElement loginValidMessageInForm;
@@ -49,9 +55,19 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
     private WebElement passwordValidMessageInForm;
 
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
+
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
     }
 
     public boolean isButtonSignOutPresent() {
@@ -117,16 +133,19 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
-    public void enterLoginInRegForm(String login) {
+    public LoginPage enterLoginInRegForm(String login) {
         enterTextToElement(inputLoginInForm, login);
+        return this;
     }
 
-    public void enterEmailInRegForm(String email) {
+    public LoginPage enterEmailInRegForm(String email) {
         enterTextToElement(inputEmail, email);
+        return this;
     }
 
-    public void enterPasswordInRegForm(String password) {
+    public LoginPage enterPasswordInRegForm(String password) {
         enterTextToElement(inputPasswordInForm, password);
+        return this;
     }
 
     public void clickOnButtonSignUp() {
@@ -147,13 +166,27 @@ public class LoginPage extends ParentPage {
     }
 
 
-    public void checkErrors(String errorsMessages) {
-        String[] arrErrorMessages = errorsMessages.split(";");
-        List<WebElement> errorsListMessage = webDriver.findElements(By.xpath(".//div[contains(@class,'liveValidateMessage--visible')]"));
-        Assert.assertEquals("Numbers of messages are not equals", arrErrorMessages.length, errorsListMessage.size());
-        for (int i = 0; i < arrErrorMessages.length; i++) {
-            Assert.assertEquals("Messages are not equals", arrErrorMessages[i], errorsListMessage.get(i).getText());
+    public void checkErrors(String expectedErrors) {
+        String[] arrErrorMessages = expectedErrors.split(";");
+        webDriverWait10.withMessage("Number of Message")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), arrErrorMessages.length));
+
+//        Assert.assertEquals("Numbers of messages are not equals", arrErrorMessages.length, errorsListMessage.size());
+//        for (int i = 0; i < arrErrorMessages.length; i++) {
+//            Assert.assertEquals("Messages are not equals", arrErrorMessages[i], errorsListMessage.get(i).getText());
+//        }
+
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element : actualListOfErrors) {
+            actualTextFromErrors.add(element.getText());
         }
+        for (int i = 0; i < arrErrorMessages.length; i++) {
+            softAssertions.assertThat(arrErrorMessages[i]).isIn(actualTextFromErrors);
+        }
+
+        softAssertions.assertAll();
+
     }
 }
 

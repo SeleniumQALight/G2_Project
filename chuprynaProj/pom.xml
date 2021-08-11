@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -53,6 +53,11 @@
       <artifactId>JUnitParams</artifactId>
       <version>1.0.5</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ru.yandex.qatools.htmlelements</groupId>
+      <artifactId>htmlelements-java</artifactId>
+      <version>1.20.0</version> <!-- 1.18+ is SELENIUM 3.5.1+ compatible -->
     </dependency>
   </dependencies>
 

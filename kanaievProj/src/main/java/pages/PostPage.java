@@ -2,16 +2,17 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 public class PostPage extends ParentPage {
     @FindBy(xpath = ".//button[@data-original-title='Delete']")
-    private WebElement buttonDelete;
+    private Button buttonDelete;
     @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
-    private WebElement successMessageElement;
+    private HtmlElement successMessageElement;
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
-    private WebElement buttonProfile;
+    private Button buttonProfile;
 
     public PostPage(WebDriver webDriver) {
         super(webDriver);
@@ -22,12 +23,18 @@ public class PostPage extends ParentPage {
         return "/post/";
     }
 
+    public PostPage checkIsRedirectOnPostPage(){
+        checkUrlWithPattern();
+        checkIsButtonDeletePresent();
+        return this;
+    }
+
     public PostPage checkIsButtonDeletePresent() {
         Assert.assertTrue("Button Delete is not present", isElementPresent(buttonDelete));
         return this;
     }
 
-    public PostPage checkIsAlertElementPresent() {
+    public PostPage checkIsSuccessMessagePresent() {
         Assert.assertTrue("Success message is not present", isElementPresent(successMessageElement));
         return this;
     }

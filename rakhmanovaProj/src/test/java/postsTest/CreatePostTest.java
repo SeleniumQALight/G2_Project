@@ -11,33 +11,38 @@ public class CreatePostTest extends BaseTest {
     @Test
     public void createPost() {
         loginPage
-                .loginWithValidCred()
-                .checkIsButtonSignOutVisible()
-                .clickOnButtonCreatePost()
+                    .loginWithValidCred()
+                .checkIsRedirectOnHomePage()
+                     //.checkIsButtonSignOutVisible()
+                    .clickOnButtonCreatePost()
                 .checkIsRedirectOnCreatePostPage()
-                .checkIsInputTitlePresent()
-                .enterTextIntoInputTitle(POST_TITLE)
-                .enterTextIntoInputBody("Post text")
-                //.selectTextInDropDownSelectValue("Частное сообщение")
-                .selectValueInDropDownSelectValue("One Person")
-                .clickOnSaveButton()
-                .checkIsButtonDeletePresent()
-        .checkIsSuccessMessagePresent()
-        .checkTextInSuccessMessage("New post successfully created.")
-        .clickOnButtonProfile()
-        .checkIsPostWasAdded(POST_TITLE)
+                    .checkIsInputTitlePresent()
+                    .enterTextIntoInputTitle(POST_TITLE)
+                    .enterTextIntoInputBody("Post text")
+                     //.selectTextInDropDownSelectValue("Частное сообщение")
+                    .selectValueInDropDownSelectValue("One Person")
+                    .clickOnSaveButton()
+                .checkIsRedirectToPostPage()
+                    //.checkIsButtonDeletePresent()
+                    .checkIsSuccessMessagePresent()
+                    .checkTextInSuccessMessage("New post successfully created.")
+                    .clickOnButtonProfile()
+                .checkIsRedirectToProfilePage()
+                    .checkIsPostWasAdded(POST_TITLE)
                 ;
     }
+
 
     @After
     public void deletePost(){
         homePage
-                .openHomePage()
-              .checkIsButtonSignOutVisible()
-              .clickOnButtonProfile()
-              .deletePostWithTitleWhilePresent(POST_TITLE)
-
-
+                 .openHomePage()
+              .checkIsRedirectOnHomePage()
+                 .clickOnButtonProfile()
+                 .checkIsRedirectToProfilePage()
+                 .deletePostWithTitleWhilePresent(POST_TITLE)
                 ;
     }
 }
+
+
