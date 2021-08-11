@@ -2,6 +2,7 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.Select;
@@ -24,7 +25,7 @@ public class CreatePostPage extends ParentPage{
     private Select dropDownSelectValue;
 
     @FindBy(xpath = ".//input[@id='”UniquePost”'")
-    private  WebElement checkbox;
+    private WebElement checkbox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
