@@ -4,25 +4,28 @@ import libs.Util;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.CheckBox;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//input[@name='title']")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy(id = "post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSaveNewPost;
+    private Button buttonSaveNewPost;
 
     @FindBy(id = "select1")
-    private WebElement dropDownSelectValue;
+    private Select dropDownSelectValue;
 
     @FindBy(id = "”UniquePost”")
-    private WebElement checkBoxUniquePost;
+    private CheckBox checkBoxUniquePost;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -64,7 +67,8 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page ", baseUrl + getRelativeUrl(), webDriver.getCurrentUrl());
+        checkUrl();
+        checkIsInputTitlePresent();
         return this;
     }
 

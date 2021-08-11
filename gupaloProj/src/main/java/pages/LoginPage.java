@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -16,13 +19,14 @@ import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass")
+    private TextInput inputPassword;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private WebElement buttonSignOut;
@@ -31,16 +35,16 @@ public class LoginPage extends ParentPage {
     private WebElement alertText;
 
     @FindBy(xpath = ".//input[@placeholder='Pick a username']")
-    private WebElement inputLoginInForm;
+    private TextInput inputLoginInForm;
 
     @FindBy(xpath = ".//input[@placeholder='you@example.com']")
-    private WebElement inputEmail;
+    private TextInput inputEmail;
 
     @FindBy(xpath = ".//input[@placeholder='Create a password']")
-    private WebElement inputPasswordInForm;
+    private TextInput inputPasswordInForm;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
     private WebElement loginValidMessageInForm;

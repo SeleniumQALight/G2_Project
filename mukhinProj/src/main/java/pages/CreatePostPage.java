@@ -2,24 +2,29 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage{
 
 
 //    @FindBy(xpath = ".//input[@name='title']")
     @FindBy(name = "title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy(id = "post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSave;
+    private Button buttonSave;
 
     @FindBy(xpath = ".//select[@id='select1']")
-    private WebElement dropDownSelectValue;
+    private Select dropDownSelectValue;
+
+    @FindBy(xpath = ".//input[@id='”UniquePost”'")
+    private  WebElement checkbox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -62,10 +67,17 @@ public class CreatePostPage extends ParentPage{
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page"
-                , baseUrl + getRelativeUrl()
-                , webDriver.getCurrentUrl()
-                );
+//        Кусок кода будет вынесен в отдельный метод checkUrl()
+//        Assert.assertEquals("Invalid page"
+//                , baseUrl + getRelativeUrl()
+//                , webDriver.getCurrentUrl()
+//                );
+        checkUrl();
+        return this;
+    }
+
+    public CreatePostPage selectTextInDropdownByClick(String text){
+        selectTextInDropDownByClick(dropDownSelectValue, text);
         return this;
     }
 }
