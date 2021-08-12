@@ -1,6 +1,5 @@
 package pages;
 
-import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -82,30 +81,38 @@ public abstract class ParentPage {
         }
     }
 
-    protected void selectTextInDropDownByClick(WebElement dropDown, String text){
-        try{
+    protected void selectTextInDropDownByClick(WebElement dropDown, String text) {
+        try {
             clickOnElement(dropDown);
             WebElement selectOption = webDriver.findElement(By.xpath(String.format(".//option[text() = '%s']", text)));
             clickOnElement(selectOption);
             logger.info("'" + text + "' was selected in DropDown by click");
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
     }
 
-    protected void selectOptionInCheckbox(WebElement checkBox, String state){
-        try{
-            boolean stateBoolean = (state.equals("check"))?true:false;
-            if (stateBoolean == checkBox.isSelected()){
-                logger.info("Checkbox is already in state:" + state);
+    protected void selectOptionInCheckbox(WebElement checkBox, String state) throws IllegalArgumentException {
+        try {
+            boolean stateBoolean = convertVerbalChBStateToBoolean(state);
+            if (stateBoolean == checkBox.isSelected()) {
+                logger.info("Checkbox is already in state: " + state);
             } else {
                 clickOnElement(checkBox);
-                logger.info("Checkbox was toggled to state:" + state);
+                logger.info("Checkbox was toggled to state: " + state);
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             writeErrorAndStopTest(e);
+        }
+    }
+
+    private boolean convertVerbalChBStateToBoolean(String state) throws IllegalArgumentException {
+        if (state.equalsIgnoreCase("check")) {
+            return true;
+        } else if (state.equalsIgnoreCase("uncheck")) {
+            return false;
+        } else {
+            throw new IllegalArgumentException("Incorrect state is entered for checkbox");
         }
     }
 
