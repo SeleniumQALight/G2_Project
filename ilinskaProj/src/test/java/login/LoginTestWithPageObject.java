@@ -1,10 +1,13 @@
 package login;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
 import libs.TestData;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LoginTestWithPageObject extends BaseTest {
+    @Category(SmokeTestFilter.class)
 @Test
     public void validLogin(){
         loginPage.openLoginPage();
@@ -14,6 +17,7 @@ public class LoginTestWithPageObject extends BaseTest {
         checkExpectedResult("Button SignOut is not visible ",homePage.isButtonSignOutPresent(),true);
 
     }
+
 
 
 }
