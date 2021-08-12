@@ -34,7 +34,7 @@ public abstract class ParentPage {
                 new HtmlElementDecorator(
                         new HtmlElementLocatorFactory(webDriver))
                 , this);
-        webDriverWait10 = new WebDriverWait(webDriver, configProperties.TIME_FOR_DFFAULT_WAIT());
+        webDriverWait10 = new WebDriverWait(webDriver, configProperties.TIME_FOR_DEFAULT_WAIT());
         webDriverWait15 = new WebDriverWait(webDriver, configProperties.TIME_FOR_EXPLICIT_WAIT_LOW());
     }
 
