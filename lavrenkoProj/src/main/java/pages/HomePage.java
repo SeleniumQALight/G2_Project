@@ -30,7 +30,11 @@ public class HomePage extends ParentPage {
     String getRelativeUrl() {
         return "/";
     }
-
+    public HomePage checkIsRedirectOnHomePage(){
+        checkUrl();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttSignOut);
     }
