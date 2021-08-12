@@ -16,6 +16,8 @@ public class CreatePostTest extends BaseTest{
                 .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTexttoBodyTitle("Body text")
+//                .selectTextInDDSelectValue("Частное сообщение")
+                .selectValueinDDSelectValue("One Person")
                 .clickOnSaveButton()
                 .checkIsButtonDeletePresent()
                 .checkIsSucessMessagePresent()
