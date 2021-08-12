@@ -1,13 +1,18 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.CreatePostPage;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.ProfilePage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,9 +22,16 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected CreatePostPage createPostPage;
+    protected ProfilePage myProfilePage;
+    protected Logger logger = Logger.getLogger(getClass());
+
+    @Rule
+    public TestName testName = new TestName();
 
     @Before
     public void setUp() {
+        logger.info("---------- " + testName.getMethodName() + " was started ----------");
         // Setup ChromeDriver
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
@@ -29,6 +41,7 @@ public class BaseTest {
 
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
+        createPostPage = new CreatePostPage(webDriver);
 
     }
 
@@ -38,6 +51,7 @@ public class BaseTest {
 
         // Close browser
         webDriver.quit();
+        logger.info("---------- " + testName.getMethodName() + " was finished ----------");
         System.out.println("Quit browser");
     }
 

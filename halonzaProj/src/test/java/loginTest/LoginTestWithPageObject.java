@@ -1,10 +1,15 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.TestData;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import pages.HomePage;
 
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
     @Test
     public void validLogin(){
@@ -16,8 +21,16 @@ public class LoginTestWithPageObject extends BaseTest {
     }
 
     @Test
-    public void invalidLogin(){
-        loginPage.fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+    @Parameters({
+            "auto,sdfgrt698524",
+            "112244,123456qwerty",
+            "tango1,sdfgrt698524",
+            "au to, 123456 qwerty",
+            ","
+    })
+    @TestCaseName("invalidLogin: login={0}, password={1}")
+    public void invalidLogin(String login, String password){
+        loginPage.fillLoginFormAndSubmit(login, password);
         checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(),false);
         checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(),true);
         checkExpectedResult("SignIn alert is not visible", loginPage.isSignInAlertPresent(),true);

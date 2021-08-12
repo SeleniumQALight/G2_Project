@@ -12,7 +12,6 @@ public class LoginTestWithPageObject extends BaseTest {
         loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
 
-
         checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
     }
 

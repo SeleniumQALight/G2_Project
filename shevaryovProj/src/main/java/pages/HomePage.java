@@ -2,24 +2,38 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage{
 
 //    кнопка Sign Out
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
+    private Button buttonSignOut;
 //    кнопка Create Post
     @FindBy(xpath = ".//a[text()='Create Post']")
-    private WebElement buttonCreatePost;
+    private Button buttonCreatePost;
+    //    кнопка профиля
+    @FindBy(xpath = ".//img[@data-original-title='My Profile']")
+    private Button buttonProfile;
 
     //    конструктор
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
 
-//    наличие кнопки SignOut
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    public HomePage chekIsRedirectOnHomePage(){
+        checkURL();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
+    //    наличие кнопки SignOut
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }
@@ -34,4 +48,20 @@ public class HomePage extends ParentPage{
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
     }
+
+    public HomePage openHomePage() {
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.openLoginPage();
+        if (!isButtonSignOutPresent()){
+            loginPage.loginWithValidCred();
+        }
+
+        return this;
+    }
+
+    public ProfilePage clickOnButtonProfile(){
+        clickOnElement(buttonProfile);
+        return new ProfilePage(webDriver);
+    }
+
 }
