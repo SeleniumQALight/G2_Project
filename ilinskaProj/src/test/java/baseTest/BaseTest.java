@@ -58,7 +58,6 @@ public class BaseTest {
         else if ("ie".equalsIgnoreCase(browser)) {
             //WebDriverManager.iedriver().setup();
 
-            // in most cases 32bit version is needed
             WebDriverManager.iedriver().arch32().setup();
             return new InternetExplorerDriver();
         }
