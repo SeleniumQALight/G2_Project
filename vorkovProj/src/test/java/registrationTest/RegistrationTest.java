@@ -1,16 +1,19 @@
 package registrationTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitParamsRunner.class)
 public class RegistrationTest extends BaseTest {
 
     @Test
+    @Category(SmokeTestFilter.class)
     public void errorMessagesInRegistrationForm() {
         loginPage.openLoginPage();
         loginPage.enterUsernameRegistration("tr");
