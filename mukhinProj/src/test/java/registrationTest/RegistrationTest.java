@@ -10,6 +10,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 
+
 @RunWith(JUnitParamsRunner.class)
 @Category(SmokeTestFilter.class)
 public class RegistrationTest extends BaseTest {
