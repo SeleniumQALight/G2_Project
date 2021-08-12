@@ -1,6 +1,8 @@
 package pages;
 
+import libs.ConfigProperties;
 import libs.Util;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -20,7 +22,9 @@ public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
-    protected final String baseURL = "https://qa-complex-app-for-testing.herokuapp.com";
+    private static ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
+
+    protected final String baseURL = configProperties.base_url();
 
 
     public ParentPage(WebDriver webDriver) {
@@ -29,8 +33,8 @@ public abstract class ParentPage {
 //        PageFactory.initElements(webDriver, this);
         // Для работы с элементами Яндекса
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(webDriver)),this);
-        webDriverWait10 = new WebDriverWait(webDriver, 10);
-        webDriverWait15 = new WebDriverWait(webDriver, 15);
+        webDriverWait10 = new WebDriverWait(webDriver, configProperties.TIME_FOR_DFFAULT_WAIT());
+        webDriverWait15 = new WebDriverWait(webDriver, configProperties.TIME_FOR_EXPLICIT_WAIT_LOW());
     }
 
     abstract String getRelativeURL();
