@@ -27,7 +27,7 @@ public class BaseTest {
 
     @Before
     public void setUp() {
-        logger.info("------" + testName.getMethodName() + "was started ------");
+        logger.info("------ " + testName.getMethodName() + " was started ------");
         // adding exe
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
@@ -41,7 +41,7 @@ public class BaseTest {
     @After
     public void tearDown() {
         webDriver.quit();
-        logger.info("------" + testName.getMethodName() + "was ended ------");
+        logger.info("------ " + testName.getMethodName() + " was ended ------");
     }
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
