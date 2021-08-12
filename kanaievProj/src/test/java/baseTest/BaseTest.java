@@ -1,6 +1,8 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import libs.ConfigProperties;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
@@ -21,6 +23,7 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected HomePage homePage;
     protected Logger logger = Logger.getLogger(getClass());
+    protected static ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
 
     @Rule
     public TestName testName = new TestName();
@@ -30,7 +33,7 @@ public class BaseTest {
         logger.info("------" + testName.getMethodName() + " was started ------");
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(configProperties.TIME_FOR_DEFAULT_WAIT(), TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);

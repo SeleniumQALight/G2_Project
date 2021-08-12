@@ -1,5 +1,7 @@
 package pages;
 
+import libs.ConfigProperties;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +17,8 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 import static org.hamcrest.CoreMatchers.containsString;
 
 public abstract class ParentPage {
-    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
+    public static ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
+    protected final String baseUrl = configProperties.base_url();
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
@@ -28,8 +31,8 @@ public abstract class ParentPage {
                 new HtmlElementDecorator(
                         new HtmlElementLocatorFactory(webDriver))
                 ,this);
-        webDriverWait10 = new WebDriverWait(this.webDriver, 10);
-        webDriverWait15 = new WebDriverWait(this.webDriver, 15);
+        webDriverWait10 = new WebDriverWait(this.webDriver, configProperties.TIME_FOR_DEFAULT_WAIT());
+        webDriverWait15 = new WebDriverWait(this.webDriver, configProperties.TIME_FOR_EXPLICIT_WAIT_LOW());
     }
 
     abstract String getRelativeUrl();
