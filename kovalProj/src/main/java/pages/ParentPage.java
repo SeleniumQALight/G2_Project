@@ -8,6 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.element.TypifiedElement;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
+
+import static org.hamcrest.CoreMatchers.containsString;
 
 public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
@@ -17,7 +22,11 @@ public abstract class ParentPage {
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
-        PageFactory.initElements(webDriver, this);
+      //  PageFactory.initElements(webDriver, this);
+        PageFactory.initElements(
+                new HtmlElementDecorator(
+                        new HtmlElementLocatorFactory(webDriver))
+                ,this);
         webDriverWait10 = new WebDriverWait(webDriver, 10);
         webDriverWait15 = new WebDriverWait(webDriver, 15);
     }
@@ -25,6 +34,14 @@ public abstract class ParentPage {
 
     abstract String getRelativeUrl();
 
+    protected void checkUrl(){
+        Assert.assertEquals("Invalid page ", baseUrl + getRelativeUrl(), webDriver.getCurrentUrl());
+    }
+
+
+    protected void checkUrlWithPattern(){
+        Assert.assertThat("Invalid page ", webDriver.getCurrentUrl(), containsString(baseUrl + getRelativeUrl()));
+    }
    
 
 //    @Override
@@ -37,17 +54,35 @@ public abstract class ParentPage {
             webDriverWait10.until(ExpectedConditions.visibilityOf(webElement));
             webElement.clear();
             webElement.sendKeys(text);
-            logger.info("'" + text + "' was inputted in element");
+            logger.info("'" + text + "' was inputted in element" + getElementName(webElement));
         } catch (Exception e){
             writeErrorAndStopTest(e);
         }
+    }
+
+    private String getElementName(WebElement webElement) {
+        String elementName = "";
+        if(webElement instanceof TypifiedElement){
+            elementName = "'" + ((TypifiedElement) webElement).getName() + "'";
+        }
+        return elementName;
     }
 
     public void clickOnElement(WebElement webElement){
         try {
             webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
-            logger.info("Element was clicked");
+            logger.info(getElementName(webElement) + " Element was clicked");
+        } catch (Exception e){
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    public void clickOnElement(WebElement webElement, String elementName){
+        try {
+            webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
+            webElement.click();
+            logger.info(elementName + " Element was clicked");
         } catch (Exception e){
             writeErrorAndStopTest(e);
         }

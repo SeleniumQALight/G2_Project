@@ -4,19 +4,20 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage{
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
+    private Button buttonSignOut;
 
     @FindBy(xpath = ".//a[text()='Create Post']")
-    private WebElement buttonCreatePost;
+    private Button buttonCreatePost;
 
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
-    private WebElement buttonProfile;
+    private Button buttonProfile;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//*[text() ='Invalid username / password']")
     private WebElement messageFailCredential;
@@ -38,6 +39,12 @@ public class HomePage extends ParentPage{
     @Override
     String getRelativeUrl() {
         return "/";
+    }
+
+    public HomePage checkIsRedirectOnHomePage(){
+        checkUrl();
+        checkIsButtonSignOutVisible();
+        return this;
     }
 
     public boolean isButtonSignOutPresent(){
