@@ -4,8 +4,10 @@ import libs.ConfigProperties;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -132,5 +134,27 @@ public abstract class ParentPage {
             writeErrorAndStopTest(e);
         }
     }
+
+    public void usersPressesKeyEnterTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.ENTER).build().perform();
+        }
+    }
+
+    public void usersPressesKeyTabTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.TAB).build().perform();
+
+        }
+    }
+
+//open and switch between tabs
+//    public void userOpensNewTab() {
+//        ((JavascriptExecutor)webDriver).executeScript("window.open()");
+//        ArrayList<String> tabs = new ArrayList<> (webDriver.getWindowHandles());
+//        webDriver.switchTo().window(tabs.get(1));
+//    }
 
 }
