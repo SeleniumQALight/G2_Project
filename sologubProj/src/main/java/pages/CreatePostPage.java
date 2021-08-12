@@ -2,6 +2,7 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
@@ -76,14 +77,6 @@ public class CreatePostPage extends ParentPage {
         ExpectedConditions.visibilityOf(dropDownSelectValue);
         clickOnElement(dropDownSelectValue);
         clickOnElement(webDriver.findElement(By.xpath((String.format(textInDropDownMenu, text)))));
-        return this;
-    }
-
-    public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page "
-                , baseUrl + getRelativeUrl()
-                , webDriver.getCurrentUrl()
-                );
         return this;
     }
 
