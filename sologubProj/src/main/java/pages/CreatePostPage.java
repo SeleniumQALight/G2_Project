@@ -3,23 +3,25 @@ package pages;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CreatePostPage extends ParentPage {
     //@FindBy (xpath = ".//input[@name='title']")
     @FindBy (name = "title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy (id = "post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy (xpath=".//button[text()='Save New Post']")
-    private WebElement buttonSave;
+    private Button buttonSave;
 
     @FindBy (xpath = ".//select[@id='select1']")
-    private WebElement dropDownSelectValue;
+    private Select dropDownSelectValue;
 
     @FindBy (xpath = ".//input[@id='”UniquePost”']")
     private WebElement checkBoxUniquePost;
@@ -33,6 +35,11 @@ public class CreatePostPage extends ParentPage {
     @Override
     String getRelativeUrl() {
         return "/create-post";
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        checkUrl();
+        return this;
     }
 
     public CreatePostPage checkIsInputTitlePresent() {

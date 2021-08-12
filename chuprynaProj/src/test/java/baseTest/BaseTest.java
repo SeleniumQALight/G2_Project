@@ -1,9 +1,12 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
@@ -17,9 +20,14 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected Logger logger = Logger.getLogger(getClass());
+
+    @Rule
+    public TestName testName = new TestName();
 
     @Before
-    public void setUp(){
+    public void setUp() {
+        logger.info("------" + testName.getMethodName() + "was started ------");
         // adding exe
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
@@ -31,11 +39,17 @@ public class BaseTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         webDriver.quit();
+        logger.info("------" + testName.getMethodName() + "was ended ------");
     }
 
-    protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
+    protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
         Assert.assertThat(message, actualResult, is(expectedResult));
+//        Assert.assertEquals(message, expectedResult, actualResult);
+//        -> the same logical operation, but is() - is a method indicating HOW to compare AR and ER
+//        assertThat - more configurable;
+//        assertEquals - already contains the comparing method
+//        message - will be seen in reports
     }
 }

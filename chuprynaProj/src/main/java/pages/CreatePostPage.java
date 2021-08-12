@@ -2,19 +2,24 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage {
     //    @FindBy(xpath = ".//input[@name='title']")
     @FindBy(name = "title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy(id = "post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSavePost;
+    private Button buttonSavePost;
+
+    @FindBy(xpath = ".//select[@id='select1']")
+    private Select dropDownSelectValue;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -46,10 +51,17 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectedOnCreatePostPage() {
-        Assert.assertEquals("Invalid page url",
-                baseUrl + getRelativeUrl(),
-                webDriver.getCurrentUrl()
-        );
+        checkUrl();
+        return this;
+    }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTextInDropDown(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectValueInDDSelectValue(String value) {
+        selectValueInDropDown(dropDownSelectValue, value);
         return this;
     }
 }

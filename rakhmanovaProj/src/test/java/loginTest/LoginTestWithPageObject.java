@@ -12,7 +12,6 @@ public class LoginTestWithPageObject extends BaseTest {
         loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
 
-
         checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
     }
 
@@ -25,7 +24,7 @@ public class LoginTestWithPageObject extends BaseTest {
 //        loginPage.enterPasswordInSignIn("123456qwerty");
 //        loginPage.clickOnButtonSignIn();
 
-        checkExpectedResult("Button SignOut is not visible as expected", homePage.isButtonSignOutPresent(), true);
+        checkExpectedResult("Button SignOut is not visible as expected", homePage.isButtonSignOutPresent(), false);
         checkExpectedResult("Button SignIn is present", loginPage.isButtonSignInPresent(), true);
         checkExpectedResult("Alert is present", loginPage.isSignInAlertPresent(),true);
 

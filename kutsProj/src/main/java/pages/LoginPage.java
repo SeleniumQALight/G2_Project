@@ -8,34 +8,38 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassWord;
+    @Name("Input Pass ")
+    private TextInput inputPassWord;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
     private WebElement alertInvalidUsernamePassword;
 
     @FindBy(id = "username-register")
-    private WebElement inputLoginRegistration;
+    private TextInput inputLoginRegistration;
 
     @FindBy(id = "email-register")
-    private WebElement inputEmailRegistration;
+    private TextInput inputEmailRegistration;
 
     @FindBy(id = "password-register")
-    private WebElement inputPassWordRegistration;
+    private TextInput inputPassWordRegistration;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
