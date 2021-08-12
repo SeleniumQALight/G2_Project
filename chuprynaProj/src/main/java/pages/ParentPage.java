@@ -128,21 +128,21 @@ public abstract class ParentPage {
         try {
             clickOnElement(dropDown);
             WebElement selectOption = webDriver.findElement(By.xpath(String.format(".//option[text() = '%s']", text)));
-            clickOnElement(selectOption);
-            logger.info("'" + text + "' was selected in DropDown by click");
+            clickOnElement(selectOption, "Option '" + text + "' in " + getElementName(dropDown));
+//            logger.info("'" + text + "' was selected in DropDown " +  + " by click");
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
     }
 
-    protected void selectOptionInCheckbox(WebElement checkBox, String state) throws IllegalArgumentException {
+    protected void selectStateInCheckbox(WebElement checkBox, String state) throws IllegalArgumentException {
         try {
             boolean stateBoolean = convertVerbalChBStateToBoolean(state);
             if (stateBoolean == checkBox.isSelected()) {
-                logger.info("Checkbox is already in state: " + state);
+                logger.info("Checkbox " + getElementName(checkBox) + " is already in state: " + state);
             } else {
                 clickOnElement(checkBox);
-                logger.info("Checkbox was toggled to state: " + state);
+                logger.info("Checkbox " + getElementName(checkBox) + " was toggled to state: " + state);
             }
         } catch (Exception e) {
             writeErrorAndStopTest(e);
