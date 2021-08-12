@@ -1,5 +1,6 @@
 package pages;
 
+import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -86,6 +87,22 @@ public abstract class ParentPage {
             clickOnElement(dropDown);
             WebElement selectOption = webDriver.findElement(By.xpath(String.format(".//option[text() = '%s']", text)));
             clickOnElement(selectOption);
+            logger.info("'" + text + "' was selected in DropDown by click");
+        }
+        catch(Exception e){
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void selectOptionInCheckbox(WebElement checkBox, String state){
+        try{
+            boolean stateBoolean = (state.equals("check"))?true:false;
+            if (stateBoolean == checkBox.isSelected()){
+                logger.info("Checkbox is already in state:" + state);
+            } else {
+                clickOnElement(checkBox);
+                logger.info("Checkbox was toggled to state:" + state);
+            }
         }
         catch(Exception e){
             writeErrorAndStopTest(e);

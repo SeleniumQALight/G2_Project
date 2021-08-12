@@ -21,6 +21,7 @@ public class CreatePost extends BaseTest {
 //                .selectTextInDDSelectValue("Частное сообщение")
 //                .selectValueInDDSelectValue("One Person")
                 .selectTextInDDByClickSelectValue("Частное сообщение")
+                .selectOptionInCheckboxUniquePost("check")
                 .clickOnButtonSavePost()
                 .checkIsButtonDeletePresent()
                 .checkIsSuccessMessagePresent()
