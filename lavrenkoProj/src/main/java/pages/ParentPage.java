@@ -4,8 +4,10 @@ import libs.ConfigProperties;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -125,6 +127,14 @@ public abstract class ParentPage {
             logger.info("'" + value + "' was selected in DropDown " + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
+        }
+    }
+
+    public void usersPressesKeyEnterTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.ENTER).build().perform();
+
         }
     }
 
