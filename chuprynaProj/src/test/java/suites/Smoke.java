@@ -1,7 +1,7 @@
 package suites;
 
 import loginTest.LoginTestWithPageObject;
-import loginTest.RegistrationTest;
+import registrationTest.RegistrationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
