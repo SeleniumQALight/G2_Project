@@ -1,9 +1,14 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.TestData;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
     @Test
     public void validLogin(){
@@ -15,8 +20,15 @@ public class LoginTestWithPageObject extends BaseTest {
     }
 
     @Test
-    public void invalidLogin(){
-        loginPage.fillLoginFormAndSubmit("auto", "123");
+    @Parameters({
+            "auto,123",
+            "au,123456qwerty",
+            ",123",
+            ","
+    })
+    @TestCaseName("Invalid Log In for: username = {0}, password = {1}")
+    public void invalidLogin(String userName, String passWord){
+        loginPage.fillLoginFormAndSubmit(userName, passWord);
         checkExpectedResult("Button SignOut is displayed", homePage.isButtonSignOutPresent(), false);
         checkExpectedResult("Button SingIn is not displayed", loginPage.isButtonSignInPresent(), true);
         checkExpectedResult("Alert message is not displayed", loginPage.isAlertMessagePresent(), true);
