@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +13,13 @@ import java.util.List;
 
 public class HomePage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttSignOut;
+    private Button buttSignOut;
 
     @FindBy(xpath = ".//a[text()='Create Post']")
-    private WebElement buttonCreatePost;
+    private Button buttonCreatePost;
 
     @FindBy(xpath = ".//img[@data-original-title='My Profile']")
-    private WebElement buttonProfile;
+    private Button buttonProfile;
 
 
 
@@ -30,7 +31,11 @@ public class HomePage extends ParentPage {
     String getRelativeUrl() {
         return "/";
     }
-
+    public HomePage checkIsRedirectOnHomePage(){
+        checkUrl();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttSignOut);
     }

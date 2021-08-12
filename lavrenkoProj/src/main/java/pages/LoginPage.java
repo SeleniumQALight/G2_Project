@@ -1,5 +1,6 @@
 package pages;
 
+import jdk.jfr.Name;
 import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -8,25 +9,34 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    WebElement inputLogin;
+    private TextInput inputLogin;
+
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass ")
+    private TextInput inputPassword;
+
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
+
     @FindBy(xpath = ".//input[@id='username-register']")
-    private WebElement inputLoginForReg;
+    private TextInput inputLoginForReg;
+
     @FindBy(xpath = ".//input[@id='email-register']")
-    private WebElement inputEmailForReg;
+    private TextInput inputEmailForReg;
+
     @FindBy(xpath = ".//input[@id='password-register']")
-    private WebElement inputPasswordForReg;
+    private TextInput inputPasswordForReg;
+
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
