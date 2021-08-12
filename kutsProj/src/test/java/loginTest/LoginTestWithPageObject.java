@@ -11,11 +11,10 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitParamsRunner.class)
-
+@Category(SmokeTestFilter.class)
 public class LoginTestWithPageObject extends BaseTest {
 
     @Test
-    @Category(SmokeTestFilter.class)
     public void validLogin(){
         loginPage.openLoginPage();
         loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
