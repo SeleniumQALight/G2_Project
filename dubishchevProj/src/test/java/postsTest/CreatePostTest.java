@@ -13,14 +13,15 @@ import org.junit.runner.RunWith;
 public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Dubishchev title " + Util.getDateAndTimeFormatted();
 
+
     @Parameters({
-            "Общедоступное",
-            "Частное сообщение",
-            "Сообщение для группы"
+            "Общедоступное, Check",
+            "Частное сообщение, Uncheck",
+            "Сообщение для группы, Check123"
     })
-    @TestCaseName("Create post test : textToClickInDropDown = {0}")
+    @TestCaseName("Create post test : textToClickInDropDown = {0}, actionWithCheckbox = {1}")
     @Test
-    public void createPost(String textToClick) {
+    public void createPost(String textToClick, String actionWithCheckbox) {
         loginPage
                 .loginWithValidCred()
                 .checkIsRedirectOnHomePage()
@@ -32,6 +33,7 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputBody("Some body text")
                 //.selectTextInDDSelectValue("Частное сообщение")
                 //.selectValueInDDSelectValue("One Person")
+                .setCheckbox(actionWithCheckbox)
                 .selectTextInDropDownByClick(textToClick)
                 .clickOnSaveButton()
                 .checkIsRedirectOnPostPage()

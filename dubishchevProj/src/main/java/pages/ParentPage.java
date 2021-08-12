@@ -138,4 +138,52 @@ public abstract class ParentPage {
             writeErrorAndStopTest(e);
         }
     }
+
+    protected void setCheckbox(WebElement webElement, boolean toCheck) {
+        try {
+            if (!webElement.isSelected() && toCheck) {
+                webElement.click();
+                logger.info(getElementName(webElement) + " was checked");
+            } else if (!webElement.isSelected() && !toCheck) {
+                logger.info(getElementName(webElement) + " don't need to check");
+            } else if (webElement.isSelected() && toCheck) {
+                logger.info(getElementName(webElement) + " already checked");
+            } else if (webElement.isSelected() && !toCheck) {
+                webElement.click();
+                logger.info(getElementName(webElement) + " was unchecked");
+            } else {
+                logger.info("Something unusual..Nothing ot do..");
+            }
+        } catch (
+                Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void setCheckbox(WebElement webElement, String actionWithCheckBox) {
+        if (actionWithCheckBox.equals("Check") || actionWithCheckBox.equals("Uncheck")) {
+            try {
+                if (!webElement.isSelected() && actionWithCheckBox.equals("Check")) {
+                    webElement.click();
+                    logger.info(getElementName(webElement) + " was checked");
+                } else if (!webElement.isSelected() && actionWithCheckBox.equals("Uncheck")) {
+                    logger.info(getElementName(webElement) + " don't need to check");
+                } else if (webElement.isSelected() && actionWithCheckBox.equals("Check")) {
+                    logger.info(getElementName(webElement) + " already checked");
+                } else if (webElement.isSelected() && actionWithCheckBox.equals("Uncheck")) {
+                    webElement.click();
+                    logger.info(getElementName(webElement) + " was unchecked");
+                } else {
+                    logger.info("Something unusual..Nothing to do..");
+                }
+            } catch (Exception e) {
+                writeErrorAndStopTest(e);
+            }
+        } else {
+            logger.info("You don't choose right action with checkbox");
+            Assert.fail();
+        }
+    }
+
+
 }

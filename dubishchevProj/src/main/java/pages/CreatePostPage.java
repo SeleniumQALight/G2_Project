@@ -1,11 +1,10 @@
 package pages;
 
-import libs.Util;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.CheckBox;
 import ru.yandex.qatools.htmlelements.element.Select;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
@@ -19,6 +18,8 @@ public class CreatePostPage extends ParentPage {
     private Button saveButton;
     @FindBy(id = "select1")
     private Select dropDownSelectValue;
+    @FindBy(id = "”UniquePost”")
+    private CheckBox checkBox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -66,6 +67,14 @@ public class CreatePostPage extends ParentPage {
 
     public CreatePostPage selectTextInDropDownByClick(String textToClick) {
         selectTextInDropDownByClick(dropDownSelectValue, textToClick);
+        return this;
+    }
+    public CreatePostPage setCheckbox(boolean toCheck){
+        setCheckbox(checkBox, toCheck);
+        return this;
+    }
+    public CreatePostPage setCheckbox(String actionWithCheckBox){
+        setCheckbox(checkBox, actionWithCheckBox);
         return this;
     }
 }
