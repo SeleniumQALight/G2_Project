@@ -1,10 +1,14 @@
 package pages;
 
+import libs.ConfigProperties;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -19,15 +23,18 @@ public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
-    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
+    public static ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
+
+    //    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
+    protected final String baseUrl = configProperties.base_url();  //base url from config properties
 
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
 //        PageFactory.initElements(webDriver, this);  work with web elements, but we need with yandex elements
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(webDriver)), this); //for use yandex elements
-        webDriverWait10 = new WebDriverWait(webDriver, 10);
-        webDriverWait15 = new WebDriverWait(webDriver, 15);
+        webDriverWait10 = new WebDriverWait(webDriver, configProperties.TIME_FOR_DFFAULT_WAIT());
+        webDriverWait15 = new WebDriverWait(webDriver, configProperties.TIME_FOR_EXPLICIT_WAIT_LOW());
     }
 
     abstract String getRelativeUrl();
@@ -185,5 +192,27 @@ public abstract class ParentPage {
         }
     }
 
+
+    public void usersPressesKeyEnterTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.ENTER).build().perform();
+        }
+    }
+
+    public void usersPressesKeyTabTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.TAB).build().perform();
+
+        }
+    }
+
+//open and switch between tabs
+//    public void userOpensNewTab() {
+//        ((JavascriptExecutor)webDriver).executeScript("window.open()");
+//        ArrayList<String> tabs = new ArrayList<> (webDriver.getWindowHandles());
+//        webDriver.switchTo().window(tabs.get(1));
+//    }
 
 }
