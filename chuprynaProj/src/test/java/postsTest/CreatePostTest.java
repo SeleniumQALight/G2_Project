@@ -5,7 +5,7 @@ import libs.Util;
 import org.junit.After;
 import org.junit.Test;
 
-public class CreatePost extends BaseTest {
+public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Chupryna title of post " + Util.getDateAndTimeFormatted();
 
     @Test
@@ -20,7 +20,9 @@ public class CreatePost extends BaseTest {
                 .enterTextIntoPostTitleInput(POST_TITLE)
                 .enterTextIntoPostBodyInput("Body text")
 //                .selectTextInDDSelectValue("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
+//                .selectValueInDDSelectValue("One Person")
+                .selectTextInDDByClickSelectValue("Частное сообщение")
+                .selectOptionInCheckboxUniquePost("check")
                 .clickOnButtonSavePost()
 //                .checkIsButtonDeletePresent()
                 .checkIsRedirectedOnPostPage()

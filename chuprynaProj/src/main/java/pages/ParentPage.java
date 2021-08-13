@@ -4,6 +4,7 @@ import libs.ConfigProperties;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -129,6 +130,41 @@ public abstract class ParentPage {
             logger.info("'" + value + "' was selected in DropDown" + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void selectTextInDropDownByClick(WebElement dropDown, String text) {
+        try {
+            clickOnElement(dropDown);
+            WebElement selectOption = webDriver.findElement(By.xpath(String.format(".//option[text() = '%s']", text)));
+            clickOnElement(selectOption, "Option '" + text + "' in " + getElementName(dropDown));
+//            logger.info("'" + text + "' was selected in DropDown " +  + " by click");
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void selectStateInCheckbox(WebElement checkBox, String state) throws IllegalArgumentException {
+        try {
+            boolean stateBoolean = convertVerbalChBStateToBoolean(state);
+            if (stateBoolean == checkBox.isSelected()) {
+                logger.info("Checkbox " + getElementName(checkBox) + " is already in state: " + state);
+            } else {
+                clickOnElement(checkBox);
+                logger.info("Checkbox " + getElementName(checkBox) + " was toggled to state: " + state);
+            }
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    private boolean convertVerbalChBStateToBoolean(String state) throws IllegalArgumentException {
+        if (state.equalsIgnoreCase("check")) {
+            return true;
+        } else if (state.equalsIgnoreCase("uncheck")) {
+            return false;
+        } else {
+            throw new IllegalArgumentException("Incorrect state is entered for checkbox");
         }
     }
 
