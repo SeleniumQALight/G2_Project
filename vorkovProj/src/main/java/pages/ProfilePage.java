@@ -60,7 +60,7 @@ public class ProfilePage extends ParentPage {
         int counter = 0;
         while (!listOfPosts.isEmpty() && counter < 100) {
             clickOnElement(webDriver.findElement(By.xpath(String.format(postTitleLocator, post_title))), "Post with title");
-            new CreatePostPage(webDriver).clickOnDeletePostButton()
+            new PostPage(webDriver).clickOnDeletePostButton()
                     .checkIsSuccessDeletePostMessagePresent();
             listOfPosts = webDriver.findElements(By.xpath(String.format(postTitleLocator, post_title)));
             counter++;
