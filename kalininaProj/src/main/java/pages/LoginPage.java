@@ -1,6 +1,5 @@
 package pages;
 
-import jdk.jfr.Name;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -9,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class LoginPage extends ParentPage{
 
     public void openLoginPage(){
         try{
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
             logger.info("Login page was opened");
         } catch (Exception e){
             logger.error("Can not work  with LoginPage" + e);

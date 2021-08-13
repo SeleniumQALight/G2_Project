@@ -3,7 +3,7 @@ package loginTest;
 import baseTest.BaseTest;
 import org.junit.Test;
 
-public class RegistrationTest extends BaseTest {
+public class RegistrationTestHW extends BaseTest {
     @Test
     public void fieldsValidation(){
         loginPage.openLoginPage();
