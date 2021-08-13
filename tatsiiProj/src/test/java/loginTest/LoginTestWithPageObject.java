@@ -8,7 +8,9 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebElement;
 
+
 public class LoginTestWithPageObject extends BaseTest {
+    public static final String[] invalidLoginData = {"auto:123", "auto2:123", "auto3:789"};
 
     @Test
     @Category(SmokeTestFilter.class)
@@ -24,9 +26,23 @@ public class LoginTestWithPageObject extends BaseTest {
     public void invalidLogin(){
         loginPage.fillLoginFormAndSubmit("auto", "123");
 
-        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(),false);
+//        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(),false);
         checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(),true);
         checkExpectedResult("label Invalid Login is not present", loginPage.isLabelMessageInvalidLoginPresent(),true);
+    }
+    @Test
+    public void paramInvalidLogin(){
+//        for (int i = 0; i < invalidLoginData.length ; i++) {
+//              String[] loginAndPassword = invalidLoginData[i].split(":");
+//
+//        } modern option is here:
+        for (String invalidLoginItem : invalidLoginData) {
+            String[] loginAndPassword = invalidLoginItem.split(":");
+            loginPage.fillLoginFormAndSubmit(loginAndPassword[0], loginAndPassword[1]);
+
+            checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
+            checkExpectedResult("label Invalid Login is not present", loginPage.isLabelMessageInvalidLoginPresent(), true);
+        }
     }
 //    @Test
 //    public void registrationValidationMessages(){
