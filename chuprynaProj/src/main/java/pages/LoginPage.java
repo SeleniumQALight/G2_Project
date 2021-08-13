@@ -1,6 +1,7 @@
 package pages;
 
 import libs.TestData;
+import libs.Util;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -9,45 +10,42 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextBlock;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Password Another") //specify in case when variable name is not enough
+    private TextInput inputPassword; //default name will automatically the same as variable name 'inputPassword'
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[text() = 'Invalid username / password']")
-    private WebElement alertMessage;
+    private TextBlock alertMessage;
 
     @FindBy(id = "username-register")
-    private WebElement inputRegistrationUsername;
+    private TextInput inputRegistrationUsername;
 
     @FindBy(id = "email-register")
-    private WebElement inputRegistrationEmail;
+    private TextInput inputRegistrationEmail;
 
     @FindBy(id = "password-register")
-    private WebElement inputRegistrationPassword;
+    private TextInput inputRegistrationPassword;
 
     @FindBy(xpath = ".//button[text() = 'Sign up for OurApp']")
-    private WebElement buttonSignUp;
-
-    @FindBy(xpath = ".//div[text() = 'Username must be at least 3 characters.']")
-    private WebElement usernameValidationMsg;
-
-    @FindBy(xpath = ".//div[text() = 'You must provide a valid email address.']")
-    private WebElement emailValidationMsg;
-
-    @FindBy(xpath = ".//div[text() = 'Password must be at least 12 characters.']")
-    private WebElement passwordValidationMsg;
+    private Button buttonSignUp;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
 
@@ -62,7 +60,7 @@ public class LoginPage extends ParentPage {
 
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
             logger.info("Login Page was opened");
         } catch (Exception e) {
             logger.error("Cannot work with Login Page:" + e); // writes into log file
@@ -90,7 +88,7 @@ public class LoginPage extends ParentPage {
         clickOnElement(buttonSignIn);
     }
 
-    public void fillLoginFormAndSubmit(String userName, String password){
+    public void fillLoginFormAndSubmit(String userName, String password) {
         openLoginPage();
         enterLoginInSignInForm(userName);
         enterPasswordInSignInForm(password);
@@ -105,20 +103,8 @@ public class LoginPage extends ParentPage {
         return isElementPresent(alertMessage);
     }
 
-    public boolean isUsernameValidationMessagePresent() {
-        return isElementPresent(usernameValidationMsg);
-    }
-
-    public boolean isEmailValidationMessagePresent() {
-        return isElementPresent(emailValidationMsg);
-    }
-
-    public boolean isPasswordValidationMessagePresent() {
-        return isElementPresent(passwordValidationMsg);
-    }
-
-    public HomePage loginWithValidCredentials(){
-        fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
+    public HomePage loginWithValidCredentials() {
+        fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
@@ -139,14 +125,14 @@ public class LoginPage extends ParentPage {
 
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
-//        webDriverWait10.withMessage("Number of Errors ").
-//              until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
+        webDriverWait10.withMessage("Number of Errors ").
+                until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
 //        TDU: will be uncommented after lesson 8;
 //        - check the exact number of elements, i.e. will fail if actualErrors.length > expectedErrors.length
-        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length); // is redundant if the previous row with WAIT is uncommented, does the same check
+//        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length); // is redundant if the previous row with WAIT is uncommented, does the same check
         SoftAssertions softAssertions = new SoftAssertions();
         ArrayList<String> actualTextFromErrors = new ArrayList<>();
-        for (WebElement errorElement: actualListOfErrors) {
+        for (WebElement errorElement : actualListOfErrors) {
             actualTextFromErrors.add(errorElement.getText());
         }
 
@@ -154,6 +140,21 @@ public class LoginPage extends ParentPage {
             softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
         softAssertions.assertAll();
+    }
+
+       /**
+     *  Method developed with delay for HomeWork#4 (29.07)
+     *  Without Soft Assertions
+     * @param expectedErrors - list of expected errors in one row, separated by ";"
+     */
+    public void checkErrors(String expectedErrors) {
+        String[] expectedErrorsList = expectedErrors.split(";");
+        Util.waitABit(1);
+        Assert.assertEquals("Number of messages", expectedErrorsList.length, actualListOfErrors.size());
+        for (int i = 0; i < actualListOfErrors.size(); i++) {
+            Assert.assertEquals("Incorrect validation message", expectedErrorsList[i], actualListOfErrors.get(i).getText());
+        }
+
     }
 
     public LoginPage clickOnSignUpButton() {

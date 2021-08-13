@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,25 +17,25 @@ import java.util.List;
 public class LoginPage extends ParentPage {
     // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    private TextInput inputPassword;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//input[@id='username-register' and @placeholder='Pick a username']")
-    private WebElement inputUsernameRegistration;
+    private TextInput inputUsernameRegistration;
 
     @FindBy(xpath = ".//input[@id='email-register' and @placeholder='you@example.com']")
-    private WebElement inputEmailRegistration;
+    private TextInput inputEmailRegistration;
 
     @FindBy(xpath = ".//input[@id='password-register' and @placeholder='Create a password']")
-    private WebElement inputPasswortRegistration;
+    private TextInput inputPasswordRegistration;
 
     @FindBy(xpath = ".//button[contains(text(),'Sign up for OurApp')]")
-    private WebElement buttonSignUpRegistration;
+    private Button buttonSignUpRegistration;
 
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
@@ -51,7 +53,7 @@ public class LoginPage extends ParentPage {
 
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseURL);
             logger.info("Login page was opened");
         } catch (Exception e) {
             logger.error("Can't work with LoginPage" + e);
@@ -80,7 +82,7 @@ public class LoginPage extends ParentPage {
     }
 
     public void enterPasswordRegistration(String passwordRegistration) {
-        enterTextToElement(inputPasswortRegistration, passwordRegistration);
+        enterTextToElement(inputPasswordRegistration, passwordRegistration);
     }
 
     public void clickOnButtonSignUpRegistration() {
