@@ -1,15 +1,27 @@
 package postsTest;
 
 import baseTest.BaseTest;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.Util;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
 public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Dubishchev title " + Util.getDateAndTimeFormatted();
 
+
+    @Parameters({
+            "Общедоступное, Check",
+            "Частное сообщение, Uncheck",
+            "Сообщение для группы, Check123"
+    })
+    @TestCaseName("Create post test : textToClickInDropDown = {0}, actionWithCheckbox = {1}")
     @Test
-    public void createPost() {
+    public void createPost(String textToClick, String actionWithCheckbox) {
         loginPage
                 .loginWithValidCred()
                 .checkIsRedirectOnHomePage()
@@ -20,7 +32,9 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Some body text")
                 //.selectTextInDDSelectValue("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
+                //.selectValueInDDSelectValue("One Person")
+                .setCheckbox(actionWithCheckbox)
+                .selectTextInDropDownByClick(textToClick)
                 .clickOnSaveButton()
                 .checkIsRedirectOnPostPage()
                 //.checkIsButtonDeletePresent() //moved to checkIsRedirectOnPostPage
