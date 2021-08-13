@@ -20,9 +20,9 @@ public class CreatePostTest extends BaseTest {
                     .enterTextIntoInputTitle(POST_TITLE)
                     .enterTextIntoInputBody("Post text")
                      //.selectTextInDropDownSelectValue("Частное сообщение")
-                    //.selectTextInDropDownByClick("One Person")
+                    .selectTextInDropDownByClick("Сообщение для группы")
                 .selectValueInDropDownSelectValue("One Person")
-                //.selectCheckBoxState("check")---------------------------------HW - error
+                .selectCheckBoxState("uncheck")
                     .clickOnSaveButton()
                 .checkIsRedirectToPostPage()
                     //.checkIsButtonDeletePresent()

@@ -1,6 +1,7 @@
 package pages;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,10 +24,9 @@ public class CreatePostPage extends ParentPage{
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
 
-    String dropDownSelectValueAllUsers = ".//option[@value='All Users']";
+    String dropDownOptionsLocator = ".//option[text() = '%s']";
 
-    @FindBy(xpath = ".//input[@type='hidden']")
-    private WebElement closedDropDown;
+    String dropDownSelectValueAllUsers = ".//option[@value='All Users']";
 
     @FindBy(xpath = ".//input[@type='checkbox']")
     private WebElement checkBox;
@@ -80,33 +80,27 @@ public class CreatePostPage extends ParentPage{
     }
 
     public CreatePostPage selectTextInDropDownByClick(String text) {
-
-        //selectValueInDropDown(closedDropDown, text);
-        //clickOnElement(closedDropDown);
-        //selectValueInDropDown(dropDownSelectValue, text);
-        //clickOnElement(dropDownSelectValue);
+        clickOnElement(dropDownSelectValue);
+        clickOnElement(webDriver.findElement(By.xpath(String.format(dropDownOptionsLocator, text))));
         return this;
     }
 
-    public CreatePostPage selectCheckBoxState(WebElement checkBox, String checkBoxStatus){
-          String check;
-          String uncheck;
-        try{
+    public CreatePostPage selectCheckBoxState(String checkBoxStatus){
             if(checkBoxStatus.equals("check")){
-                if(!checkBox.isSelected())
-                clickOnElement(checkBox);
-                logger.info("CheckBox is checked");
-            }else if(checkBoxStatus.equals("uncheck")){
-                if(checkBox.isSelected())
+                if(!checkBox.isSelected()){
                     clickOnElement(checkBox);
-              logger.info("CheckBox is not checked");
-                } 
-        } catch (Exception e){
-            logger.info("An error occurred");
-        }
-        Assert.assertTrue("CheckBox is not checked", isElementPresent(checkBox));
-        logger.info("CheckBox was selected");
+                    logger.info("CheckBox is checked");
+                }else {
+                    logger.info("CheckBox is already checked");
+                }
+            }else if(checkBoxStatus.equals("unchecked")) {
+                if (checkBox.isSelected()) {
+                    clickOnElement(checkBox);
+                    logger.info("CheckBox is not checked");
+                }else {
+                    logger.info("CheckBox is already not checked");
+                }
+            }
         return this;
     }
-
 }
