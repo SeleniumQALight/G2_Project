@@ -17,8 +17,11 @@ public class CreatePostPage extends ParentPage {
     private TextInput inputBody;
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private Button buttonSave;
+    // найти закрытый DropDown (его описать через FindBy)
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
+    @FindBy(xpath = ".//input[@type='checkbox']")
+    private WebElement checkboxUniquePost;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -69,10 +72,42 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage selectTextInDropDownByClick(String text) {
+        // найти закрытый DropDown, кликнуть по нему
         dropDownSelectValue.click();
-        WebElement option = dropDownSelectValue.findElement(By.xpath(".//option[contains(text(), '%s']".format(text)));
+        // найти строку с указанным текстом (используя параметризированный локатор)
+//        selectValueInDD(dropDownSelectValue, text);
+        WebElement option = dropDownSelectValue.findElement(
+                By.xpath(String.format(".//option[contains(text(), '%s')]", text)
+                ));
+//        ".//*[text()='Общедоступное']" Locator
+        // кликнуть по данной строке
         option.click();
         return this;
     }
-}
 
+    //    public CreatePostPage selectTextInDropDownByClick(String text) {
+//        WebElement option = dropDownSelectValue.findElement(
+//                By.xpath(".//select[@id='select1']"));
+//        option.click();
+//        return this;
+//    }
+    public CreatePostPage checkCheckBox(boolean value) {
+        if (checkboxUniquePost.isSelected() != value) {
+            checkboxUniquePost.click();
+            logger.info("CheckBox was clicked");
+        }
+        return this;
+    }
+
+    public CreatePostPage checkCheckBox(String state) {
+        boolean value = state.equalsIgnoreCase("check");
+        boolean stateUncheck = state.equalsIgnoreCase("uncheck");
+        if ((value && (checkboxUniquePost.isSelected() != value)) || (stateUncheck && (checkboxUniquePost.isSelected() == stateUncheck))){
+            checkboxUniquePost.click();
+            logger.info("CheckBox was clicked");
+        } else {
+            logger.info("CheckBox is already in state");
+        }
+        return this;
+    }
+}

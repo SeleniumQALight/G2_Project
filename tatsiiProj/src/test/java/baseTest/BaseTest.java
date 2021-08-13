@@ -33,8 +33,8 @@ public class BaseTest {
     public void setUp() {
         logger.info("-------" + testName.getMethodName() + " was started ---------");
         webDriver = initDriver();
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
+//        WebDriverManager.chromedriver().setup();
+//        webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
 
