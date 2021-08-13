@@ -9,15 +9,9 @@ public class RegistrationTestHW extends BaseTest {
         loginPage.openLoginPage();
         loginPage.enterUsernameInRegistrationForm("tr");
         loginPage.enterEmailInRegistrationForm("test.com");
-        loginPage.enterPasswordInRegistrationForm("123");
+        loginPage.enterPasswordInRegistrationForm("123456qwerty");
         loginPage.clickOnSignUpButton();
 
-        checkExpectedResult("Username validation message is not displayed",
-                loginPage.isUsernameValidationMessagePresent(), true);
-        checkExpectedResult("Email validation message is not displayed",
-                loginPage.isEmailValidationMessagePresent(), true);
-        checkExpectedResult("Password validation message is not displayed",
-                loginPage.isPasswordValidationMessagePresent(), true);
-
+        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
     }
 }
