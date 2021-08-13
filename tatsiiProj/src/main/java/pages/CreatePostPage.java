@@ -70,18 +70,22 @@ public class CreatePostPage extends ParentPage {
         checkUrl();
         return this;
     }
+
     public CreatePostPage selectTextInDropDownByClick(String text) {
         // найти закрытый DropDown, кликнуть по нему
         dropDownSelectValue.click();
         // найти строку с указанным текстом (используя параметризированный локатор)
-        selectValueInDD(dropDownSelectValue, text);
-//        WebElement option = dropDownSelectValue.findElement(
-//                By.xpath(".//option[contains(text(), '%s']".format(text)));
+//        selectValueInDD(dropDownSelectValue, text);
+        WebElement option = dropDownSelectValue.findElement(
+                By.xpath(String.format(".//option[contains(text(), '%s')]", text)
+                ));
+//        ".//*[text()='Общедоступное']" Locator
         // кликнуть по данной строке
-//        option.click();
+        option.click();
         return this;
     }
-//    public CreatePostPage selectTextInDropDownByClick(String text) {
+
+    //    public CreatePostPage selectTextInDropDownByClick(String text) {
 //        WebElement option = dropDownSelectValue.findElement(
 //                By.xpath(".//select[@id='select1']"));
 //        option.click();
@@ -94,5 +98,16 @@ public class CreatePostPage extends ParentPage {
         }
         return this;
     }
-}
 
+    public CreatePostPage checkCheckBox(String state) {
+        boolean value = state.equalsIgnoreCase("check");
+        boolean stateUncheck = state.equalsIgnoreCase("uncheck");
+        if ((value && (checkboxUniquePost.isSelected() != value)) || (stateUncheck && (checkboxUniquePost.isSelected() == stateUncheck))){
+            checkboxUniquePost.click();
+            logger.info("CheckBox was clicked");
+        } else {
+            logger.info("CheckBox is already in state");
+        }
+        return this;
+    }
+}
