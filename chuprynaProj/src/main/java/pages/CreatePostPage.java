@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.CheckBox;
 import ru.yandex.qatools.htmlelements.element.Select;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
@@ -20,6 +21,9 @@ public class CreatePostPage extends ParentPage {
 
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
+
+    @FindBy(xpath = ".//input[@type='checkbox']")
+    private CheckBox checkboxUniquePost;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -62,6 +66,16 @@ public class CreatePostPage extends ParentPage {
 
     public CreatePostPage selectValueInDDSelectValue(String value) {
         selectValueInDropDown(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage selectTextInDDByClickSelectValue(String text) {
+        selectTextInDropDownByClick(dropDownSelectValue, text);
+        return this;
+    }
+
+    public CreatePostPage selectOptionInCheckboxUniquePost(String state) {
+        selectStateInCheckbox(checkboxUniquePost, state);
         return this;
     }
 }

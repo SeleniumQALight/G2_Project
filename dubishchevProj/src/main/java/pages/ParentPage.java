@@ -4,6 +4,7 @@ import libs.ConfigProperties;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -134,6 +135,63 @@ public abstract class ParentPage {
             writeErrorAndStopTest(e);
         }
     }
+
+    protected void selectTextInDropDownByClick(WebElement dropDown, String textToClick) {
+        try {
+            dropDown.click();
+            logger.info(getElementName(dropDown) + " Element was clicked");
+            webDriver.findElement(By.xpath(String.format(".//option[text()='%s']", textToClick))).click();
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void setCheckbox(WebElement webElement, boolean toCheck) {
+        try {
+            if (!webElement.isSelected() && toCheck) {
+                webElement.click();
+                logger.info(getElementName(webElement) + " was checked");
+            } else if (!webElement.isSelected() && !toCheck) {
+                logger.info(getElementName(webElement) + " don't need to check");
+            } else if (webElement.isSelected() && toCheck) {
+                logger.info(getElementName(webElement) + " already checked");
+            } else if (webElement.isSelected() && !toCheck) {
+                webElement.click();
+                logger.info(getElementName(webElement) + " was unchecked");
+            } else {
+                logger.info("Something unusual..Nothing ot do..");
+            }
+        } catch (
+                Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void setCheckbox(WebElement webElement, String actionWithCheckBox) {
+        if (actionWithCheckBox.equals("Check") || actionWithCheckBox.equals("Uncheck")) {
+            try {
+                if (!webElement.isSelected() && actionWithCheckBox.equals("Check")) {
+                    webElement.click();
+                    logger.info(getElementName(webElement) + " was checked");
+                } else if (!webElement.isSelected() && actionWithCheckBox.equals("Uncheck")) {
+                    logger.info(getElementName(webElement) + " don't need to check");
+                } else if (webElement.isSelected() && actionWithCheckBox.equals("Check")) {
+                    logger.info(getElementName(webElement) + " already checked");
+                } else if (webElement.isSelected() && actionWithCheckBox.equals("Uncheck")) {
+                    webElement.click();
+                    logger.info(getElementName(webElement) + " was unchecked");
+                } else {
+                    logger.info("Something unusual..Nothing to do..");
+                }
+            } catch (Exception e) {
+                writeErrorAndStopTest(e);
+            }
+        } else {
+            logger.info("You don't choose right action with checkbox");
+            Assert.fail();
+        }
+    }
+
 
     public void usersPressesKeyEnterTime(int numberOfTimes) {
         Actions actions = new Actions(webDriver);

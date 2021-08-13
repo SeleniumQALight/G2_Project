@@ -1,10 +1,12 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 import static libs.TestData.VALID_LOGIN;
@@ -13,7 +15,7 @@ import static libs.TestData.VALID_PASSWORD;
 @RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
 
-
+    @Category(SmokeTestFilter.class)
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
