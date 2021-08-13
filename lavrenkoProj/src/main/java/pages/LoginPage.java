@@ -1,6 +1,6 @@
 package pages;
 
-import jdk.jfr.Name;
+
 import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
@@ -49,7 +50,7 @@ public class LoginPage extends ParentPage {
 
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
 
 
             logger.info("Login page was opened");
