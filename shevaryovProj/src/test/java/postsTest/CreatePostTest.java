@@ -13,6 +13,7 @@ public class CreatePostTest extends BaseTest {
         // 1. логинимся на странице LoginPage,
         // 2. проверяем правильность логина,
         // 3. нажимаем кнопку создать пост,
+        // 3.1.
         // 4. проверяем что перешли на стрницу создния поста,
         // 5. вводим текст в заголовок сообщения,
         // 6. воодим текст в тело поста
@@ -24,18 +25,22 @@ public class CreatePostTest extends BaseTest {
         // 12. проверка добавления поста по его названию
         loginPage
                 .loginWithValidCred()
-             .checkIsButtonSignOutVisible()
+                .chekIsRedirectOnHomePage()
+//             .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
+                .checkIsRedirectOnCreatePostPage()
              .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Body text")
 //                .selectTextInDropDownSelectValue("Частное сообщение")
                 .selectValueInDropDownSelectValue("One Person")
                 .clickOnSaveButton()
-             .checkIsButtonDeletePresent()
+//             .checkIsButtonDeletePresent()
+                .checkIsRedirectToPostPage()
                 .checkSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
                 .clickOnButtonProfile()
+                .checkIsRedirectToProfilePage()
                 .checkIsPostWasAdded(POST_TITLE)
                 ;
 
@@ -44,8 +49,9 @@ public class CreatePostTest extends BaseTest {
     public void deletePost(){
         homePage
                 .openHomePage()
-             .checkIsButtonSignOutVisible()
+            .chekIsRedirectOnHomePage()
                 .clickOnButtonProfile()
+            .checkIsRedirectToProfilePage()
                 .deletePostWithTitleWhilePresent(POST_TITLE)
 
                 ;
