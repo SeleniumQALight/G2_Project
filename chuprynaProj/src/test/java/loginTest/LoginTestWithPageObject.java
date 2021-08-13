@@ -4,12 +4,16 @@ import baseTest.BaseTest;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
+import categories.SmokeTestFilter;
 import libs.TestData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.experimental.categories.Category;
 
 @RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
+
+    @Category(SmokeTestFilter.class)
     @Test
     public void validLogin(){
         loginPage.openLoginPage();

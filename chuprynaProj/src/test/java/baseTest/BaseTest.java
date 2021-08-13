@@ -9,6 +9,8 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -27,11 +29,10 @@ public class BaseTest {
 
     @Before
     public void setUp() {
-        logger.info("------" + testName.getMethodName() + "was started ------");
+        logger.info("------ " + testName.getMethodName() + " was started ------");
         // adding exe
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        initDriver();
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);
@@ -41,7 +42,7 @@ public class BaseTest {
     @After
     public void tearDown() {
         webDriver.quit();
-        logger.info("------" + testName.getMethodName() + "was ended ------");
+        logger.info("------ " + testName.getMethodName() + " was ended ------");
     }
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
@@ -51,5 +52,22 @@ public class BaseTest {
 //        assertThat - more configurable;
 //        assertEquals - already contains the comparing method
 //        message - will be seen in reports
+    }
+
+    private void initDriver() {
+        String browser = System.getProperty("browser");
+        if ((browser == null) || browser.equalsIgnoreCase("chrome")) { //null ~ default browser
+            WebDriverManager.chromedriver().setup();
+            this.webDriver = new ChromeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")){
+            WebDriverManager.firefoxdriver().setup();
+            this.webDriver = new FirefoxDriver();
+        }else if ("ie".equalsIgnoreCase(browser)) {
+            //WebDriverManager.iedriver().setup();
+
+            // in most cases 32bit version is needed
+            WebDriverManager.iedriver().arch32().setup();
+            this.webDriver = new InternetExplorerDriver();
+        }
     }
 }

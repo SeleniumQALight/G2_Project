@@ -4,14 +4,18 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage{
     @FindBy(name="title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
     @FindBy(id="post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private WebElement buttonSave;
+    @FindBy(xpath =".//select[@id='select1']")
+    private WebElement dropDownSelectValue;
+
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -33,5 +37,15 @@ public class CreatePostPage extends ParentPage{
     public PostPage clickOnSaveButton(){
         clickOnElement(buttonSave);
         return new PostPage(webDriver);
+    }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTexttoInDD(dropDownSelectValue,text);
+        return this;
+    }
+
+    public CreatePostPage selectValueinDDSelectValue(String value) {
+        selectValuetoInDD(dropDownSelectValue,value);
+        return this;
     }
 }

@@ -5,14 +5,16 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    private TextInput inputPassword;
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
     @FindBy(xpath = ".//div[@class='alert alert-danger text-center' and text()='Invalid username / password']")
     private WebElement errorSignIN;
     @FindBy(xpath = ".//input[@placeholder='Pick a username']")
@@ -22,7 +24,7 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Create a password']")
     private WebElement inputPass;
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement OurApp;
+    private Button OurApp;
 
     @FindBy(xpath = ".//div[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible' and text()='Username must be at least 3 characters.']")
     private WebElement errorMessage;

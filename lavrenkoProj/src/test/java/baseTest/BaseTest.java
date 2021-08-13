@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -28,8 +30,7 @@ protected Logger logger = Logger.getLogger(getClass());
     public void setUp() {
         //exe
         logger.info("------"+ testName.getMethodName() + " was started ------");
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
+        webDriver = initDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         loginPage = new LoginPage(webDriver);
@@ -44,5 +45,17 @@ protected Logger logger = Logger.getLogger(getClass());
 
     protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
         Assert.assertThat(message,actualResult, is(expectedResult));
+    }
+    private WebDriver initDriver(){
+        String browser = System.getProperty("browser");
+        if ((browser == null)||browser.equalsIgnoreCase("chrome"))
+        {
+            WebDriverManager.chromedriver().setup();
+            webDriver = new ChromeDriver();
+        }else if (browser.equalsIgnoreCase("fireFox")){
+            WebDriverManager.firefoxdriver().setup();
+            webDriver = new FirefoxDriver();
+        }
+        return webDriver;
     }
 }
