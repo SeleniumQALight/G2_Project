@@ -10,10 +10,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.experimental.categories.Category;
 
+@Category(SmokeTestFilter.class)
 @RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
 
-    @Category(SmokeTestFilter.class)
     @Test
     public void validLogin(){
         loginPage.openLoginPage();
