@@ -2,15 +2,22 @@ package pages;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
+import java.util.ArrayList;
+
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import libs.ConfigProperties;
 import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
@@ -19,7 +26,10 @@ public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
-    protected final String baseUrl = "https://qa-complex-app-for-testing.herokuapp.com";
+    public static ConfigProperties configProperties =
+            ConfigFactory.create(ConfigProperties.class);
+
+    protected final String baseUrl = configProperties.base_url();
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -28,8 +38,8 @@ public abstract class ParentPage {
                 new HtmlElementDecorator(
                         new HtmlElementLocatorFactory(webDriver))
                 ,this);
-        webDriverWait10 = new WebDriverWait(webDriver, 10);
-        webDriverWait15 = new WebDriverWait(webDriver, 15);
+        webDriverWait10 = new WebDriverWait(webDriver, configProperties.TIME_FOR_DFFAULT_WAIT());
+        webDriverWait15 = new WebDriverWait(webDriver, configProperties.TIME_FOR_EXPLICIT_WAIT_LOW());
     }
 
     abstract String getRelativeUrl();
@@ -119,6 +129,26 @@ public abstract class ParentPage {
         }catch (Exception e){
             writeErrorAndStopTest(e);
         }
+    }
+
+    public void usersPressesKeyEnterTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.ENTER).build().perform();
+        }
+    }
+    public void usersPressesKeyTabTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.TAB).build().perform();
+        }
+
+    }
+
+    public void userOpensNewTab() {
+        ((JavascriptExecutor)webDriver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<> (webDriver.getWindowHandles());
+        webDriver.switchTo().window(tabs.get(1));
     }
 
     private void writeErrorAndStopTest(Exception e) {

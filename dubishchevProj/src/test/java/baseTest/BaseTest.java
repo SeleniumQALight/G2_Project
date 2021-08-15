@@ -9,6 +9,8 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -28,8 +30,7 @@ public class BaseTest {
     @Before
     public void setUp() {
         logger.info("-------------" + testName.getMethodName() + " was started ----------------");
-        WebDriverManager.chromedriver().setup(); //auto download chromedriver
-        webDriver = new ChromeDriver();
+        webDriver = initDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         loginPage = new LoginPage(webDriver);
@@ -50,5 +51,25 @@ public class BaseTest {
 
     protected void checkExpectedResult(String message, String expectedResult, String actualResult) {
         Assert.assertEquals(message, expectedResult, actualResult);
+    }
+
+    private WebDriver initDriver(){
+        String browser = System.getProperty("browser");
+        if((browser == null) || browser.equalsIgnoreCase("chrome")){
+          WebDriverManager.chromedriver().setup();
+          webDriver = new ChromeDriver();
+        }
+        else if(browser.equalsIgnoreCase("firefox")){
+            WebDriverManager.firefoxdriver().setup();
+            webDriver = new FirefoxDriver();
+        }
+        else if (browser.equalsIgnoreCase("ie")) {
+            //WebDriverManager.iedriver().setup();
+            // in most cases 32bit version is needed
+            WebDriverManager.iedriver().arch32().setup();
+            webDriver =  new InternetExplorerDriver();
+        }
+
+        return webDriver;
     }
 }

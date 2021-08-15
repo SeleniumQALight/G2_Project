@@ -21,15 +21,6 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private Button buttonSaveNewPost;
 
-    @FindBy(xpath = ".//div[text()='New post successfully created.']")
-    private WebElement alertPostSuccess;
-
-    @FindBy(xpath = ".//button[@data-original-title='Delete']")
-    private Button deletePostButton;
-
-    @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
-    private WebElement successMessage;
-
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
 
@@ -43,17 +34,11 @@ public class CreatePostPage extends ParentPage {
 
     @Override
     String getRelativeURL() {
-        return "/post";
+        return "/create-post";
     }
 
     public CreatePostPage checkIsInputTitleIsPresent() {
         Assert.assertTrue("Input title isn't present", isElementPresent(inputTitle));
-        return this;
-    }
-
-    public CreatePostPage checkRedirectWithParam() {
-        checkURLWithPattern();
-        checkIsDeletePostButtonPresent();
         return this;
     }
 
@@ -67,31 +52,9 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
-    public CreatePostPage clickOnSaveNewPost() {
+    public PostPage clickOnSaveNewPost() {
         clickOnElement(buttonSaveNewPost);
-        return this;
-    }
-
-    public ProfilePage checkIsDeletePostButtonPresent() {
-        Assert.assertTrue("Delete button isn't present", isElementPresent(deletePostButton));
-        return new ProfilePage(webDriver);
-    }
-
-    public CreatePostPage checkIsSuccessMessagePresent() {
-        Assert.assertTrue("Success message isn't present", isElementPresent(successMessage));
-        return this;
-    }
-
-
-    public CreatePostPage checkTextInSuccessMessage(String text) {
-        String actualText = successMessage.getText();
-        Assert.assertEquals("Text isn't equals", text, actualText);
-        return this;
-    }
-
-    public ProfilePage clickOnDeletePostButton() {
-        clickOnElement(deletePostButton);
-        return new ProfilePage(webDriver);
+        return new PostPage(webDriver);
     }
 
     public CreatePostPage selectTextInDDSelectValue(String text) {
@@ -105,8 +68,7 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-//        checkURL();
-        checkIsInputTitleIsPresent();
+        checkURL();
         return this;
     }
 
