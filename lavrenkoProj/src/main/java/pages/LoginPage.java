@@ -1,26 +1,56 @@
 package pages;
 
+
 import libs.TestData;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    WebElement inputLogin;
+    private TextInput inputLogin;
+
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass ")
+    private TextInput inputPassword;
+
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
+
+    @FindBy(xpath = ".//input[@id='username-register']")
+    private TextInput inputLoginForReg;
+
+    @FindBy(xpath = ".//input[@id='email-register']")
+    private TextInput inputEmailForReg;
+
+    @FindBy(xpath = ".//input[@id='password-register']")
+    private TextInput inputPasswordForReg;
+
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private Button buttonSignUp;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
 
 
             logger.info("Login page was opened");
@@ -30,18 +60,10 @@ public class LoginPage extends ParentPage {
         }
     }
 
-    public void enterLoginInSidnIn(String login) {
-//        try {
-////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
-//            inputLogin.clear();
-//            inputLogin.sendKeys(login);
-////            element.clear();
-////            element.sendKeys(login);
-//            logger.info(login + " was inputted in SingIn");
-//        } catch (Exception e) {
-//            logger.error("Cannot work with element" + e);
-//            Assert.fail("Cannot work with element");
-//        }
+    private String displayedWarningsXpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+//    WebDriverWait wait = new WebDriverWait(webDriver, 10);
+
+    public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
 
@@ -50,17 +72,71 @@ public class LoginPage extends ParentPage {
     }
 
     public void clickOnButtonSignIn() {
-    clickOnElement(buttonSignIn);
+        clickOnElement(buttonSignIn);
     }
-    public void fillLoginAndSubmit(String login, String password){
+
+    public void enterUsernameInSignUp(String regLogin) {
+        enterTextToElement(inputLoginForReg, regLogin);
+    }
+
+    public void enterEmailInSignUp(String regEmail) {
+        enterTextToElement(inputEmailForReg, regEmail);
+    }
+
+    public void enterPasswordInSignUp(String password) {
+        enterTextToElement(inputPassword, password);
+    }
+
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
+    }
+
+    public void clickonFieldUsernameSignUp() {
+        clickOnElement(inputLoginForReg);
+    }
+
+    public void clickOnPasswordFieldSignUp() {
+        clickOnElement(inputPasswordForReg);
+    }
+
+
+    public void fillLoginAndSubmit(String login, String password) {
         openLoginPage();
-        enterLoginInSidnIn(login);
+        enterLoginInSignIn(login);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
 
-    public HomePage loginWithValidCred(){
-        fillLoginAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
+    private void fillRegAndSubmit(String Login, String Email, String Password) {
+        openLoginPage();
+        enterUsernameInSignUp(Login);
+        enterEmailInSignUp(Email);
+        enterPasswordInSignUp(Password);
+
+    }
+
+
+    public HomePage loginWithValidCred() {
+        fillLoginAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
-}
+
+    public HomePage RegWithInvalidCred() {
+        fillRegAndSubmit(TestData.INVALID_LOGIN, TestData.INVALID_EMAIL, TestData.VALID_PASSWORD);
+        return new HomePage(webDriver);
+    }
+
+
+    public void checkErrors(String warnings) {
+//        String[] expectedWarnings = warnings.split(";");
+        List<String> expectedWarnings = Arrays.asList(warnings.split(";"));
+        webDriverWait10.withMessage("Number of Message")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(displayedWarningsXpath),expectedWarnings.size()));
+        List<WebElement> displayedWarnings = webDriver.findElements(By.xpath(displayedWarningsXpath));
+        Assert.assertEquals("Amount isn't matching", expectedWarnings.size(), displayedWarnings.size());
+
+        for (int i = 0; i < expectedWarnings.size(); i++) {
+            Assert.assertEquals("Messages are not matching",expectedWarnings.get(i), displayedWarnings.get(i).getText());
+        }
+
+}}

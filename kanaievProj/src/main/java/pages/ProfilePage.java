@@ -5,16 +5,27 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.HtmlElement;
 
 import java.util.List;
 
 public class ProfilePage extends ParentPage {
     String postTitleLocator = ".//*[text()='%s']";
     @FindBy(xpath = ".//*[contains(text(), 'successfully deleted')]")
-    private WebElement successPostDeleteElement;
+    private HtmlElement successPostDeleteElement;
 
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeUrl() {
+        return "/profile/";
+    }
+
+    public ProfilePage checkIsRedirectOnProfilePage(){
+        checkUrlWithPattern();
+        return this;
     }
 
     public ProfilePage checkIsPostWasAdded(String postTitle) {
@@ -27,7 +38,7 @@ public class ProfilePage extends ParentPage {
         List<WebElement> postsList = webDriver.findElements(By.xpath(String.format(postTitleLocator, postTitle)));
         int counter = 0;
         while (!postsList.isEmpty() && counter < 100) {
-            clickOnElement(webDriver.findElement(By.xpath(String.format(postTitleLocator, postTitle))));
+            clickOnElement(webDriver.findElement(By.xpath(String.format(postTitleLocator, postTitle))), "Post Title");
             new PostPage(webDriver)
                     .clickOnButtonDelete()
                     .checkIsSuccessDeletePostMessagePresent();

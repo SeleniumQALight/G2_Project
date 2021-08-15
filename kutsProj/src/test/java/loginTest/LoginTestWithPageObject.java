@@ -1,10 +1,19 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.TestData;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 
+@RunWith(JUnitParamsRunner.class)
+@Category(SmokeTestFilter.class)
 public class LoginTestWithPageObject extends BaseTest {
+
     @Test
     public void validLogin(){
         loginPage.openLoginPage();
@@ -15,9 +24,11 @@ public class LoginTestWithPageObject extends BaseTest {
     }
 
     @Test
-    public void invalidLogin(){
+    @Parameters({ "auto,123", "vs,123456qwerty", "vs,123" })
+    @TestCaseName("invalidLogin: login = {0}, password = {1}")
+    public void invalidLogin(String login, String password){
         loginPage.openLoginPage();
-        loginPage.fillLoginFormAndSubmit("auto", "123");
+        loginPage.fillLoginFormAndSubmit(login, password);
         checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(), false);
         checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
         checkExpectedResult("Alert Invalid Username / password is not displayed", loginPage.isAlertInvalidUsernamePasswordDisplayed(), true);

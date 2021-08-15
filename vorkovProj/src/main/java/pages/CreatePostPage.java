@@ -4,32 +4,37 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage {
 
     @FindBy(xpath = ".//input[@name='title']")
 //    or
 //    @FindBy(name = "title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy(xpath = ".//textarea[@id='post-body']")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSaveNewPost;
+    private Button buttonSaveNewPost;
 
-    @FindBy(xpath = ".//div[text()='New post successfully created.']")
-    private WebElement alertPostSuccess;
+    @FindBy(xpath = ".//select[@id='select1']")
+    private Select dropDownSelectValue;
 
-    @FindBy(xpath = ".//button[@data-original-title='Delete']")
-    private WebElement deletePostButton;
-
-    @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
-    private WebElement successMessage;
+    @FindBy(id = "”UniquePost”")
+    private WebElement checkboxUniquePost;
 
     // --------------------------------------------------------------------------------------------------
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
+    }
+
+    @Override
+    String getRelativeURL() {
+        return "/create-post";
     }
 
     public CreatePostPage checkIsInputTitleIsPresent() {
@@ -47,30 +52,33 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
-    public CreatePostPage clickOnSaveNewPost() {
+    public PostPage clickOnSaveNewPost() {
         clickOnElement(buttonSaveNewPost);
+        return new PostPage(webDriver);
+    }
+
+    public CreatePostPage selectTextInDDSelectValue(String text) {
+        selectTextInDD(dropDownSelectValue, text);
         return this;
     }
 
-    public ProfilePage checkIsDeletePostButtonPresent() {
-        Assert.assertTrue("Delete button isn't present", isElementPresent(deletePostButton));
-        return new ProfilePage(webDriver);
-    }
-
-    public CreatePostPage checkIsSuccessMessagePresent() {
-        Assert.assertTrue("Success message isn't present", isElementPresent(successMessage));
+    public CreatePostPage selectValueInDDSelectValue(String value) {
+        selectValueInDD(dropDownSelectValue, value);
         return this;
     }
 
-
-    public CreatePostPage checkTextInSuccessMessage(String text) {
-        String actualText = successMessage.getText();
-        Assert.assertEquals("Text isn't equals", text, actualText);
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+        checkURL();
         return this;
     }
 
-    public ProfilePage clickOnDeletePostButton() {
-        clickOnElement(deletePostButton);
-        return new ProfilePage(webDriver);
+    public CreatePostPage uniquePostCheckbox(String status) {
+        checkCheckBox(checkboxUniquePost, status);
+        return this;
+    }
+
+    public CreatePostPage selectTextInDDByClick (String textInDD) {
+        selectTextInDropdown(dropDownSelectValue, textInDD);
+        return this;
     }
 }
