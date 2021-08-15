@@ -24,28 +24,34 @@ public class PostPage extends ParentPage {
         return "/post/";
     }
 
+    public PostPage checkIsRedirectOnPostPage() {
+        checkUrlWithPattern();
+        chechIsButtonDeletePresent();
+        return this;
+    }
+
     public PostPage chechIsButtonDeletePresent() {
         Assert.assertTrue("Button Delete is not present", isElementPresent(buttonDelete));
         return this;
     }
 
-    public PostPage checkIsSuccessMessagePresent(){
+    public PostPage checkIsSuccessMessagePresent() {
         Assert.assertTrue("Success message is not present", isElementPresent(successMessageElement));
         return this;
     }
 
-    public PostPage checkTextInSuccessMessage(String text){
+    public PostPage checkTextInSuccessMessage(String text) {
         String actualText = successMessageElement.getText();
         Assert.assertEquals("Text in message", text, actualText);
         return this;
     }
 
-    public ProfilePage clickOnButtonProfile(){
+    public ProfilePage clickOnButtonProfile() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
 
-    public ProfilePage clickOnDeleteButton(){
+    public ProfilePage clickOnDeleteButton() {
         clickOnElement(buttonDelete);
         return new ProfilePage(webDriver);
     }
