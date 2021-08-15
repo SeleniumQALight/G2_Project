@@ -61,7 +61,9 @@ public class LoginPage extends ParentPage{
 
     public void openLoginPage(){
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com");
+            //get - перейти по указанному адресу
+            webDriver.get(baseURL);
+//            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com");
             logger.info("Login page was opened");
         } catch (Exception e){
             logger.error("Can not work with LoginPage " + e);
