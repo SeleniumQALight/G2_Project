@@ -15,6 +15,11 @@ public class ProfilePage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/profile";
+    }
+
     public ProfilePage checkisPostwasAdded(String post_title) {
         List<WebElement> postList = webDriver.findElements(
                 By.xpath(String.format(".//*[text()='%s']", post_title))
