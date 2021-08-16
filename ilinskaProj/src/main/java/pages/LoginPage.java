@@ -159,20 +159,21 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputPasswordRegistration, pasword);
         return this;
     }
-
-    public void checkErrorsMessage(String expectedErrors) {
+    public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
-        webDriverWait10.withMessage("Number of Messages")
-                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorLocators), errorsArray.length));
+        webDriverWait10.withMessage("Number Of Messages ")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorLocators), errorsArray.length ));
+//        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length);
+
         SoftAssertions softAssertions = new SoftAssertions();
         ArrayList<String> actualTextFromErrors = new ArrayList<>();
-        for (WebElement element : actuallistofErrors) {
+        for (WebElement element: actuallistofErrors) {
             actualTextFromErrors.add(element.getText());
-
         }
         for (int i = 0; i < errorsArray.length; i++) {
-            softAssertions.assertThat(errorsArray[i]).isIn(actuallistofErrors);
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
+
         softAssertions.assertAll();
 
     }
