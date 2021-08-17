@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-@RunWith(JUnitParamsRunner.class)
+@RunWith(Parameterized.class)
 @Category(SmokeTestFilter.class)
 public class RegistrationTest2WithExel extends BaseTest {
     private String login, email, passWord, errors;
@@ -31,7 +31,7 @@ public class RegistrationTest2WithExel extends BaseTest {
     @Parameterized.Parameters
     public static Collection testData() throws IOException {
         InputStream inputStream = new FileInputStream(ParentPage.configProperties.DATA_FILE_PATH() + "testDataSuit.xls");
-        return new SpreadsheetData(inputStream, "Invalid LogOn").getData();
+        return new SpreadsheetData(inputStream, "InvalidLogOn").getData();
     }
 
     @Test
