@@ -1,15 +1,20 @@
 package registrationTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
+@Category(SmokeTestFilter.class)
 //Запуск тестов с параметрами (в pom.xml добавить JUnitParams)
 @RunWith(JUnitParamsRunner.class)
 public class RegistrationTest extends BaseTest {
+    // в параметризированом тесте категории не работают
+    //@Category(SmokeTestFilter.class)
     @Test
 //    запуск теста с двумя наборами параметров по 4 параметра
     @Parameters({

@@ -87,7 +87,7 @@ public class LoginPage extends ParentPage {
 
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);                          //("https://qa-complex-app-for-testing.herokuapp.com/");
             logger.info("A Login page was opened.");
         } catch (Exception e) {
             logger.error("Cannot work with a login Page" + e);
@@ -212,6 +212,16 @@ public class LoginPage extends ParentPage {
 
         softAssertions.assertAll();
 
+    }
+
+    public LoginPage enterLoginInSignInParam(String login) {
+        enterTextToElement(inputLoginRegistration, login);
+        return this;
+    }
+
+    public LoginPage enterPasswordInSignInS(String password) {
+        enterTextToElement(inputPasswordRegistration, password);
+        return this;
     }
 }
 

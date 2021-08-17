@@ -21,6 +21,9 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputBody("Body text")
 //                .selectTextInDDSelectValue("Частное сообщение")
                 .selectValueInDDSelectValue("One Person")
+                .selectTextInDropDownByClick("Общедоступное")
+                .checkCheckBox("check")
+                .checkCheckBox("uncheck")
                 .clickOnSaveButton()
 
              .checkIsRedirectToPostPage()

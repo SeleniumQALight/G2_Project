@@ -20,7 +20,7 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputBody(POST_BODY)
                 .selectValueInDDSelectValue("One Person")
                 .clickOnSaveNewPost()
-                .checkRedirectWithParam()
+                .checkRedirectWithParamOnPostPage()
                 .checkIsSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
                 .checkIsDeletePostButtonPresent()

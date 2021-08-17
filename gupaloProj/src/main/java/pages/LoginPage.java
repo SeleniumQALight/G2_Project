@@ -94,9 +94,12 @@ public class LoginPage extends ParentPage {
         return isElementPresent(passwordValidMessageInForm);
     }
 
+    public boolean isWarningMessagePresent() { return isElementPresent(alertText); }
+
+
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
             logger.info("Login page was opened");
         } catch (Exception e) {
             logger.error("Cannot work with LoginPage" + e);

@@ -1,8 +1,12 @@
 package pages;
 
+import libs.Util;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.Select;
 import ru.yandex.qatools.htmlelements.element.TextInput;
@@ -22,6 +26,10 @@ public class CreatePostPage extends ParentPage {
 
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
+
+    @FindBy(xpath = ".//input[@id = '”UniquePost”']")
+    private WebElement checkBoxUniquePost;
+
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -70,4 +78,19 @@ public class CreatePostPage extends ParentPage {
         checkURL();
         return this;
     }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+        ExpectedConditions.visibilityOf(dropDownSelectValue);
+        clickOnElement(dropDownSelectValue);
+        clickOnElement(webDriver.findElement(By.xpath(".//select[@id = 'select1']//option[text()='" + text + "']")));
+        return this;
+    }
+
+    public CreatePostPage clickCheckBoxToSetState (String stateOfCheckBox){
+        setCheckboxStateTo(checkBoxUniquePost,stateOfCheckBox);
+        Util.waitABit(5);
+        return this;
+    }
 }
+
+
