@@ -4,31 +4,28 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage {
 
     @FindBy(xpath = ".//input[@name='title']")
 //    or
 //    @FindBy(name = "title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy(xpath = ".//textarea[@id='post-body']")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSaveNewPost;
-
-    @FindBy(xpath = ".//div[text()='New post successfully created.']")
-    private WebElement alertPostSuccess;
-
-    @FindBy(xpath = ".//button[@data-original-title='Delete']")
-    private WebElement deletePostButton;
-
-    @FindBy(xpath = ".//*[@class='alert alert-success text-center']")
-    private WebElement successMessage;
+    private Button buttonSaveNewPost;
 
     @FindBy(xpath = ".//select[@id='select1']")
-    private WebElement dropDownSelectValue;
+    private Select dropDownSelectValue;
+
+    @FindBy(id = "”UniquePost”")
+    private WebElement checkboxUniquePost;
 
     // --------------------------------------------------------------------------------------------------
     public CreatePostPage(WebDriver webDriver) {
@@ -55,31 +52,9 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
-    public CreatePostPage clickOnSaveNewPost() {
+    public PostPage clickOnSaveNewPost() {
         clickOnElement(buttonSaveNewPost);
-        return this;
-    }
-
-    public ProfilePage checkIsDeletePostButtonPresent() {
-        Assert.assertTrue("Delete button isn't present", isElementPresent(deletePostButton));
-        return new ProfilePage(webDriver);
-    }
-
-    public CreatePostPage checkIsSuccessMessagePresent() {
-        Assert.assertTrue("Success message isn't present", isElementPresent(successMessage));
-        return this;
-    }
-
-
-    public CreatePostPage checkTextInSuccessMessage(String text) {
-        String actualText = successMessage.getText();
-        Assert.assertEquals("Text isn't equals", text, actualText);
-        return this;
-    }
-
-    public ProfilePage clickOnDeletePostButton() {
-        clickOnElement(deletePostButton);
-        return new ProfilePage(webDriver);
+        return new PostPage(webDriver);
     }
 
     public CreatePostPage selectTextInDDSelectValue(String text) {
@@ -93,7 +68,17 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
-        Assert.assertEquals("Invalid page", baseURL + getRelativeURL(), webDriver.getCurrentUrl());
+        checkURL();
+        return this;
+    }
+
+    public CreatePostPage uniquePostCheckbox(String status) {
+        checkCheckBox(checkboxUniquePost, status);
+        return this;
+    }
+
+    public CreatePostPage selectTextInDDByClick (String textInDD) {
+        selectTextInDropdown(dropDownSelectValue, textInDD);
         return this;
     }
 }

@@ -5,26 +5,31 @@ import libs.Util;
 import org.junit.After;
 import org.junit.Test;
 
-public class CreatePost extends BaseTest {
+public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Chupryna title of post " + Util.getDateAndTimeFormatted();
 
     @Test
     public void createPost() {
         loginPage
                 .loginWithValidCredentials()
-                .checkIsButtonSignOutVisible()
+                .checkIsRedirectedOnHomePage()
+//                .checkIsButtonSignOutVisible() -> place this check in checkIsRedirectedOnHomePage()
                 .clickOnButtonCreatePost()
                 .checkIsRedirectedOnCreatePostPage()
                 .checkIsInputTitlePresent()
                 .enterTextIntoPostTitleInput(POST_TITLE)
                 .enterTextIntoPostBodyInput("Body text")
 //                .selectTextInDDSelectValue("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
+//                .selectValueInDDSelectValue("One Person")
+                .selectTextInDDByClickSelectValue("Частное сообщение")
+                .selectOptionInCheckboxUniquePost("check")
                 .clickOnButtonSavePost()
-                .checkIsButtonDeletePresent()
+//                .checkIsButtonDeletePresent()
+                .checkIsRedirectedOnPostPage()
                 .checkIsSuccessMessagePresent()
                 .checkTextInSuccessMessage("New post successfully created.")
-                .clickOnButtonProfile()
+                  .clickOnButtonProfile()
+                .checkIsRedirectedOnProfilePage()
                 .checkIsPostWasAdded(POST_TITLE)
         ;
     }
@@ -32,9 +37,10 @@ public class CreatePost extends BaseTest {
     @After
     public void deletePost() {
         homePage.openHomePage()
-                .checkIsButtonSignOutVisible()
-                .clickOnButtonProfile()
-                .deletePostWithTitleWhilePresent(POST_TITLE)
+                .checkIsRedirectedOnHomePage()
+                  .clickOnButtonProfile()
+                .checkIsRedirectedOnProfilePage()
+                  .deletePostWithTitleWhilePresent(POST_TITLE)
         ;
     }
 }

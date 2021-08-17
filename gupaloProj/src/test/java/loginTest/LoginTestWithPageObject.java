@@ -1,10 +1,17 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 
-
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
+
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
@@ -14,6 +21,7 @@ public class LoginTestWithPageObject extends BaseTest {
 
         checkExpectedResult("Button sign out is not visible", homePage.isButtonSignOutPresent(), true);
     }
+
 
     @Test
     public void invalidLogin() {
@@ -26,5 +34,18 @@ public class LoginTestWithPageObject extends BaseTest {
 
     }
 
+    @Test
+    @Parameters({
 
+            "auto,1", //invalid credentials
+            "au,123456qwerty", //invalid credentials
+            "aut,123456qwert" //invalid credentials
+    })
+    @TestCaseName("Invalid login test : login = {0}, password = {1}")
+    public void invalidLoginTestWithParameters(String login, String password) {
+        loginPage.fillLoginFormAndSubmit(login, password);
+        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(), false);
+        checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
+        checkExpectedResult("Warning message is not visible", loginPage.isWarningMessagePresent(), true);
+    }
 }

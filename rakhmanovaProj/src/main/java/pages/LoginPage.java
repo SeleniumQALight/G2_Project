@@ -1,7 +1,6 @@
 package pages;
 
 import libs.TestData;
-import libs.Util;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -9,7 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,52 +18,53 @@ import java.util.List;
 public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass")
+    private TextInput inputPassword;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[@class='alert alert-danger text-center']")
-    private WebElement signInAlert;
+    private TextInput signInAlert;
 
 
     @FindBy(xpath = ".//input[@id='username-register']")
-    private WebElement userNameInput;
+    private TextInput userNameInput;
 
     @FindBy(xpath = ".//input[@id='email-register']")
-    private WebElement emailInput;
+    private TextInput emailInput;
 
     @FindBy(xpath = ".//input[@id='password-register']")
-    private WebElement passwordInput;
+    private TextInput passwordInput;
 
     @FindBy(xpath = ".//button[@type='submit']")
-    private WebElement signUpButton;
+    private Button signUpButton;
 
     @FindBy(xpath = ".//*[text() ='Username must be at least 3 characters']")
-    private WebElement errorUserName;
+    private TextInput errorUserName;
 
     @FindBy(xpath = ".//*[text() = 'You must provide a valid email address']")
-    private WebElement errorEmail;
+    private TextInput errorEmail;
 
     @FindBy(xpath = ".//*[text() = 'Password must be at least 12 characters']")
-    private WebElement errorPassword;
+    private TextInput errorPassword;
 
     String errorUserNameLocator = ".//div[@class ='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
     @FindBy(id = "username-register")
-    private WebElement inputLoginRegistration;
+    private TextInput inputLoginRegistration;
 
     @FindBy(id = "email-register")
-    private WebElement inputEmailRegistration;
+    private TextInput inputEmailRegistration;
 
     @FindBy(id = "password-register")
-    private WebElement inputPasswordRegistration;
+    private TextInput inputPasswordRegistration;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
    private List<WebElement> actualListOfErrors;
@@ -85,7 +87,7 @@ public class LoginPage extends ParentPage {
 
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);                          //("https://qa-complex-app-for-testing.herokuapp.com/");
             logger.info("A Login page was opened.");
         } catch (Exception e) {
             logger.error("Cannot work with a login Page" + e);
@@ -210,6 +212,16 @@ public class LoginPage extends ParentPage {
 
         softAssertions.assertAll();
 
+    }
+
+    public LoginPage enterLoginInSignInParam(String login) {
+        enterTextToElement(inputLoginRegistration, login);
+        return this;
+    }
+
+    public LoginPage enterPasswordInSignInS(String password) {
+        enterTextToElement(inputPasswordRegistration, password);
+        return this;
     }
 }
 

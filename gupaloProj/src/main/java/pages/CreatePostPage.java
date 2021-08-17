@@ -1,25 +1,35 @@
 package pages;
 
+import libs.Util;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 public class CreatePostPage extends ParentPage {
 
 
     //@FindBy (xpath = ".//input[@name='title']")
     @FindBy(name = "title")
-    private WebElement inputTitle;
+    private TextInput inputTitle;
 
     @FindBy(id = "post-body")
-    private WebElement inputBody;
+    private TextInput inputBody;
 
     @FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSave;
+    private Button buttonSave;
 
     @FindBy(xpath = ".//select[@id='select1']")
-    private WebElement dropDownSelectValue;
+    private Select dropDownSelectValue;
+
+    @FindBy(xpath = ".//input[@id = '”UniquePost”']")
+    private WebElement checkBoxUniquePost;
+
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -61,10 +71,26 @@ public class CreatePostPage extends ParentPage {
     }
 
     public CreatePostPage checkIsRedirectOnPostPage() {
-        Assert.assertEquals("Invalid page"
-                , baseUrl + getRelativeUrl()
-                , webDriver.getCurrentUrl()
-        );
+//        Assert.assertEquals("Invalid page"
+//                , baseUrl + getRelativeUrl()
+//                , webDriver.getCurrentUrl()
+//        );
+        checkURL();
+        return this;
+    }
+
+    public CreatePostPage selectTextInDropDownByClick(String text) {
+        ExpectedConditions.visibilityOf(dropDownSelectValue);
+        clickOnElement(dropDownSelectValue);
+        clickOnElement(webDriver.findElement(By.xpath(".//select[@id = 'select1']//option[text()='" + text + "']")));
+        return this;
+    }
+
+    public CreatePostPage clickCheckBoxToSetState (String stateOfCheckBox){
+        setCheckboxStateTo(checkBoxUniquePost,stateOfCheckBox);
+        Util.waitABit(5);
         return this;
     }
 }
+
+
