@@ -32,4 +32,4 @@ public class RegistrationPage extends BaseTest {
     }
 }
 
-//You must provide a valid email address.; Password must be at least 12 characters.
+
