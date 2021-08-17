@@ -132,6 +132,29 @@ public abstract class ParentPage {
         }
     }
 
+
+    protected void setCheckboxStateTo(WebElement webElement, String checkBoxState) {
+        boolean isSelectExpected = true;
+        if (checkBoxState.equalsIgnoreCase("check")){
+            isSelectExpected = true;
+                    logger.info("'This is unique post' checkbox is already marked");
+                } else if (checkBoxState.equalsIgnoreCase("uncheck")){
+                    isSelectExpected = false;
+            logger.info("'This is unique post' checkbox has been unmarked");
+                } else {
+            writeErrorAndStopTest(new Exception ("Wrong string was set to method \"setCheckBoxStateTo\""));
+        }
+        try {
+            if (!(webElement.isSelected() == isSelectExpected)) {
+                clickOnElement(webElement);
+            } else {
+                logger.info("CheckBox already in expected state \"" + checkBoxState + "\"");
+            }
+        }catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
     public void usersPressesKeyEnterTime(int numberOfTimes) {
         Actions actions = new Actions(webDriver);
         for (int i = 0; i < numberOfTimes; i++) {
