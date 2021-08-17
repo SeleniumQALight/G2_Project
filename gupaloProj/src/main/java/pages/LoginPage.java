@@ -94,6 +94,9 @@ public class LoginPage extends ParentPage {
         return isElementPresent(passwordValidMessageInForm);
     }
 
+    public boolean isWarningMessagePresent() { return isElementPresent(alertText); }
+
+
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);

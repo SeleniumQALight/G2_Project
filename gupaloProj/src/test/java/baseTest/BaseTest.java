@@ -31,7 +31,7 @@ public class BaseTest {
     public void setUp() {
         logger.info("-------" + testName.getMethodName() + "was started --------");
         webDriver = initDriver();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);
