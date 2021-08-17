@@ -1,9 +1,14 @@
 package pages;
 
+import libs.ConfigProperties;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -12,13 +17,21 @@ import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+import javax.swing.*;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.CoreMatchers.containsString;
 
 public abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10, webDriverWait15;
-    protected final String baseURL = "https://qa-complex-app-for-testing.herokuapp.com";
+    // подключаем конфигурационный файл
+    public static ConfigProperties configProperties = ConfigFactory.create(ConfigProperties.class);
+    // получаем значение baseURL из конфига
+    protected final String baseURL = configProperties.base_url();
+//    protected final String baseURL = "https://qa-complex-app-for-testing.herokuapp.com";
 
     // конструктор
     public ParentPage(WebDriver webDriver) {
@@ -30,8 +43,8 @@ public abstract class ParentPage {
                 new HtmlElementDecorator(
                         new HtmlElementLocatorFactory(webDriver))
                 , this);
-        webDriverWait10 = new WebDriverWait(webDriver, 10);
-        webDriverWait15 = new WebDriverWait(webDriver, 15);
+        webDriverWait10 = new WebDriverWait(webDriver, configProperties.TIME_FOR_DFFAULT_WAIT());
+        webDriverWait15 = new WebDriverWait(webDriver, configProperties.TIME_FOR_EXPLICIT_WAIT_LOW());
     }
 
     // абстрактный метод, возвращающий url
@@ -136,6 +149,30 @@ public abstract class ParentPage {
         } catch (Exception e) {
             writeErrorAndStopTest(e);
         }
+    }
+    // обработка нажатия клавиши enter. в actions.sendKeys можно передавать разные клавиши
+    public void usersPressesKeyEnterTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.ENTER).build().perform();
+        }
+    }
+
+    // javascript executer.переключить на новую вкладку
+    public void userOpensNewTab() {
+        ((JavascriptExecutor)webDriver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<> (webDriver.getWindowHandles());
+        webDriver.switchTo().window(tabs.get(1));
+    }
+
+    // нажатие кнопки TAB
+    public void usersPressesKeyTabTime(int numberOfTimes) {
+        Actions actions = new Actions(webDriver);
+        for (int i = 0; i < numberOfTimes; i++) {
+            actions.sendKeys(Keys.TAB).build().perform();
+
+        }
+
     }
 
     // отображение ошибки
