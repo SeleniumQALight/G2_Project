@@ -7,6 +7,12 @@ import junitparams.naming.TestCaseName;
 import libs.TestData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pages.ParentPage;
+
+import java.io.IOException;
+import java.util.Map;
+
+import static libs.ExcelDriver.getData;
 
 @RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
@@ -19,6 +25,8 @@ public class LoginTestWithPageObject extends BaseTest {
 
         checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
     }
+
+
 
     @Test
     @Parameters({
@@ -33,5 +41,16 @@ public class LoginTestWithPageObject extends BaseTest {
         loginPage.enterPasswordInSignIn(passWord);
         loginPage.clickOnbuttonSignIn();
         loginPage.checkErrorMessageForLoginOrPassword();
+    }
+
+    @Test
+    public void validLoginWithExcel() throws IOException {
+        Map<String, String> dataForValidLogin = getData(ParentPage.configProperties.DATA_FILE(), "validLogOn");
+        loginPage.openLoginPage();
+        loginPage.enterLoginInSignIn(dataForValidLogin.get("login"));
+        loginPage.enterPasswordInSignIn(dataForValidLogin.get("pass"));
+        loginPage.clickOnbuttonSignIn();
+
+        checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
     }
 }
