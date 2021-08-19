@@ -1,6 +1,7 @@
 package baseTest;
 
 
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -14,6 +15,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.opera.OperaOptions;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -35,7 +37,7 @@ public class BaseTest {
         logger.info("-----" + testName.getMethodName() + " was started ----------");
         webDriver = initDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        webDriver.manage().window().maximize();
+//        webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
@@ -64,8 +66,10 @@ public class BaseTest {
             WebDriverManager.operadriver().setup();
             webDriver = new OperaDriver();
         }else if(browser.equalsIgnoreCase("edge")){
-            WebDriverManager.edgedriver().setup();
-            webDriver = new EdgeDriver();
+            System.setProperty("webdriver.opera.driver", "D:\\Education\\G2Project\\G2_Project\\mukhinProj\\src\\drivers\\msedgedriver.exe");
+
+//            WebDriverManager.edgedriver().setup();
+            EdgeDriver driver = new EdgeDriver();
         }else if ("ie".equalsIgnoreCase(browser)) {
             //WebDriverManager.iedriver().setup();
 
