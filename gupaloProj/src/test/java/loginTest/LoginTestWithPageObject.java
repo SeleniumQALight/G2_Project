@@ -1,10 +1,24 @@
 package loginTest;
 
 import baseTest.BaseTest;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
+import libs.ExcelDriver;
 import org.junit.Test;
 
+import org.junit.runner.RunWith;
 
+
+import java.io.IOException;
+import java.util.Map;
+
+import static pages.ParentPage.configProperties;
+
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
+
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
@@ -14,6 +28,18 @@ public class LoginTestWithPageObject extends BaseTest {
 
         checkExpectedResult("Button sign out is not visible", homePage.isButtonSignOutPresent(), true);
     }
+
+    @Test
+    public void validLoginWithExcel() throws IOException {
+        Map<String, String >dataForValidLogin = ExcelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
+        loginPage.openLoginPage();
+        loginPage.enterLoginInSignIn(dataForValidLogin.get("login"));
+        loginPage.enterPasswordInSignIn(dataForValidLogin.get("pass"));
+        loginPage.clickOnButtonSignIn();
+
+        checkExpectedResult("Button sign out is not visible", homePage.isButtonSignOutPresent(), true);
+    }
+
 
     @Test
     public void invalidLogin() {
@@ -27,12 +53,17 @@ public class LoginTestWithPageObject extends BaseTest {
     }
 
     @Test
-    public void checkValidMessagesInRegForm() {
-        loginPage.openLoginPage();
-        loginPage.fillRegFormAndSubmit("tr", "test.com", "123");
+    @Parameters({
 
-        checkExpectedResult("Message  'Username must be at least 3 characters.' is not visible", loginPage.isLoginValidMessageInFormPresent(), true);
-        checkExpectedResult("Message  'You must provide a valid email address.' is not visible", loginPage.isEmailValidMessageInFormPresent(), true);
-        checkExpectedResult("Message  'Password must be at least 12 characters.' is not visible", loginPage.isPasswordValidMessageInFormPresent(), true);
+            "auto,1", //invalid credentials
+            "au,123456qwerty", //invalid credentials
+            "aut,123456qwert" //invalid credentials
+    })
+    @TestCaseName("Invalid login test : login = {0}, password = {1}")
+    public void invalidLoginTestWithParameters(String login, String password) {
+        loginPage.fillLoginFormAndSubmit(login, password);
+        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(), false);
+        checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
+        checkExpectedResult("Warning message is not visible", loginPage.isWarningMessagePresent(), true);
     }
 }
