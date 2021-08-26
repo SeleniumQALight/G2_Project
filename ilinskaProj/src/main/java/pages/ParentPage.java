@@ -15,6 +15,8 @@ import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+import java.util.ArrayList;
+
 public  abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
@@ -30,7 +32,7 @@ public  abstract class ParentPage {
                         new HtmlElementLocatorFactory(webDriver))
                 ,this);// иметь возможность чтобі работать с елементами яндексс
     }
-    protected final String baseUrl="https://qa-complex-app-for-testing.herokuapp.com/";
+    protected final String baseUrl="https://qa-complex-app-for-testing.herokuapp.com";
     abstract String getRelativeUrl();
     protected void enterTextToElement(WebElement webElement, String text) {
         try {
