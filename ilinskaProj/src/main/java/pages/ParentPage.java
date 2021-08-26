@@ -8,25 +8,30 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
-import java.util.ArrayList;
-
-public class ParentPage {
+public  abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
+    WebDriverWait webDriverWait10,webDriverWait15;
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
 //        PageFactory.initElements(webDriver, this);
+        webDriverWait10=new WebDriverWait(webDriver,10);
+        webDriverWait15=new WebDriverWait(webDriver,15);
         PageFactory.initElements(
                 new HtmlElementDecorator(
                         new HtmlElementLocatorFactory(webDriver))
-                , this);// иметь возможность чтобі работать с елементами яндексс
+                ,this);// иметь возможность чтобі работать с елементами яндексс
     }
-
+    protected final String baseUrl="https://qa-complex-app-for-testing.herokuapp.com/";
+    abstract String getRelativeUrl();
     protected void enterTextToElement(WebElement webElement, String text) {
         try {
 
@@ -49,6 +54,7 @@ public class ParentPage {
 
     public void clickOnElement(WebElement webElement) {
         try {
+            webDriverWait10.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.click();
             logger.info(getElementName(webElement) + " Element was clicked");
         } catch (Exception e) {
@@ -80,6 +86,28 @@ public class ParentPage {
             logger.info("Element is not present");
             return false;
         }
+    }
+    protected void selectTexttoInDD(WebElement dropDown,String text){
+        try{
+            Select select =new Select(dropDown);
+            select.selectByVisibleText(text);
+            logger.info(" "+text+"' was selected in Drop down menu");
+
+        }catch (Exception e){
+            writeErrorAndStopTest(e);
+        }
+
+    }
+    protected void selectValuetoInDD(WebElement dropDown,String value){
+        try{
+            Select select =new Select(dropDown);
+            select.selectByValue(value);
+            logger.info(" "+value+"' was selected in Drop down menu");
+
+        }catch (Exception e){
+            writeErrorAndStopTest(e);
+        }
+
     }
 
     public void usersPressesKeyEnterTime(int numberOfTimes) {

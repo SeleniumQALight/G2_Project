@@ -22,7 +22,6 @@ public class BaseTest {
     protected Logger logger = Logger.getLogger(getClass());
     @Rule
     public TestName testName = new TestName();
-
     @Before
     public void setUp() {
         logger.info("------" + testName.getMethodName() + "was started ---------------------");

@@ -1,12 +1,24 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
+import libs.ExcelDriver;
 import libs.TestData;
 import org.junit.Test;
-import pages.HomePage;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import java.io.IOException;
+import java.util.Map;
 
+import static pages.ParentPage.configProperties;
+
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
     @Test
+    @Category(SmokeTestFilter.class)
     public void validLogin(){
         loginPage.openLoginPage();
         loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
@@ -16,8 +28,27 @@ public class LoginTestWithPageObject extends BaseTest {
     }
 
     @Test
-    public void invalidLogin(){
-        loginPage.fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
+    @Category(SmokeTestFilter.class)
+    public void validLoginWithExcel() throws IOException {
+        Map<String, String> dataForValidLogin = ExcelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
+        loginPage.openLoginPage();
+        loginPage.enterLoginInSignIn(dataForValidLogin.get("login"));
+        loginPage.enterPassWordInSignIn(dataForValidLogin.get("pass"));
+        loginPage.clickOnButtonSignIn();
+        checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(),true);
+    }
+
+    @Test
+    @Parameters({
+            "auto,sdfgrt698524",
+            "112244,123456qwerty",
+            "tango1,sdfgrt698524",
+            "au to, 123456 qwerty",
+            ","
+    })
+    @TestCaseName("invalidLogin: login={0}, password={1}")
+    public void invalidLogin(String login, String password){
+        loginPage.fillLoginFormAndSubmit(login, password);
         checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(),false);
         checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(),true);
         checkExpectedResult("SignIn alert is not visible", loginPage.isSignInAlertPresent(),true);

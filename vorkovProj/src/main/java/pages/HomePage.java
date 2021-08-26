@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage {
 
@@ -11,12 +12,23 @@ public class HomePage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    public HomePage checkIsRedirectOnHomePage() {
+        checkURL();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
     // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
+    private Button buttonSignOut;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[contains(text(),'Invalid username / password')]")
     private WebElement alertInvalidLogin;
@@ -32,6 +44,9 @@ public class HomePage extends ParentPage {
 
     @FindBy(xpath = ".//a[text()='Create Post']")
     WebElement buttonCreatePost;
+
+    @FindBy(xpath = ".//img[@data-original-title='My Profile']")
+    private WebElement buttonProfile;
 
     // --------------------------------------------------------------------------------------------------
     public boolean isButtonSignOutPresent() {
@@ -59,12 +74,26 @@ public class HomePage extends ParentPage {
     }
 
     public HomePage checkIsButtonSignOutVisible() {
-        Assert.assertTrue("Button sign out is not displayed",isButtonSignOutPresent());
+        Assert.assertTrue("Button sign out is not displayed", isButtonSignOutPresent());
         return this;
     }
 
     public CreatePostPage clickOnButtonCreatePost() {
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
+    }
+
+    public HomePage openHomePage() {
+        LoginPage loginPage = new LoginPage(webDriver);
+        loginPage.openLoginPage();
+        if (!isButtonSignOutPresent()) {
+            loginPage.loginWithValidCred();
+        }
+        return this;
+    }
+
+    public ProfilePage clickOnButtonProfile(){
+        clickOnElement(buttonProfile);
+        return new ProfilePage(webDriver);
     }
 }

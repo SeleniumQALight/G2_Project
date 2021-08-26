@@ -2,6 +2,7 @@ package postsTest;
 
 import baseTest.BaseTest;
 import libs.Util;
+import org.junit.After;
 import org.junit.Test;
 
 public class CreatePostTest extends BaseTest {
@@ -12,12 +13,34 @@ public class CreatePostTest extends BaseTest {
     public void createPost() {
         loginPage
                 .loginWithValidCred()
-                .checkIsButtonSignOutVisible()
+                .checkIsRedirectOnHomePage()
+//                .checkIsButtonSignOutVisible()
                 .clickOnButtonCreatePost()
+                .checkIsRedirectOnCreatePostPage()
                 .checkIsInputTitlePresent()
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody(POST_BODY)
+//                .selectTextInDDSelectValue("Частное сообщение")
+                .selectValueInDDSelectValue("One Person")
                 .clickOnSaveButton()
+                .checkIsRedirectOnPostPage()
+//                .chechIsButtonDeletePresent()
+                .checkIsSuccessMessagePresent()
+                .checkTextInSuccessMessage("New post successfully created.")
+                .clickOnButtonProfile()
+                .checkIsRedirectToProfilePage()
+                .checkIsPostWasAdded(POST_TITLE)
+        ;
+    }
+
+    @After
+    public void deletePost() {
+        homePage.openHomePage()
+                .checkIsRedirectOnHomePage()
+//                .checkIsButtonSignOutVisible()
+                .clickOnButtonProfile()
+                .checkIsRedirectToProfilePage()
+                .deletePostWithTitleWhilePresent(POST_TITLE)
         ;
     }
 }
