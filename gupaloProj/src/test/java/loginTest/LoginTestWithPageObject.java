@@ -1,18 +1,40 @@
 package loginTest;
 
 import baseTest.BaseTest;
-import categories.SmokeTestFilter;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
+import libs.ExcelDriver;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+
+import org.junit.runner.RunWith;
 
 
+import java.io.IOException;
+import java.util.Map;
+
+import static pages.ParentPage.configProperties;
+
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
-    @Category(SmokeTestFilter.class)
+
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
         loginPage.enterLoginInSignIn("auto");
         loginPage.enterPasswordInSignIn("123456qwerty");
+        loginPage.clickOnButtonSignIn();
+
+        checkExpectedResult("Button sign out is not visible", homePage.isButtonSignOutPresent(), true);
+    }
+
+    @Test
+    public void validLoginWithExcel() throws IOException {
+        Map<String, String >dataForValidLogin = ExcelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
+        loginPage.openLoginPage();
+        loginPage.enterLoginInSignIn(dataForValidLogin.get("login"));
+        loginPage.enterPasswordInSignIn(dataForValidLogin.get("pass"));
         loginPage.clickOnButtonSignIn();
 
         checkExpectedResult("Button sign out is not visible", homePage.isButtonSignOutPresent(), true);
@@ -30,5 +52,18 @@ public class LoginTestWithPageObject extends BaseTest {
 
     }
 
+    @Test
+    @Parameters({
 
+            "auto,1", //invalid credentials
+            "au,123456qwerty", //invalid credentials
+            "aut,123456qwert" //invalid credentials
+    })
+    @TestCaseName("Invalid login test : login = {0}, password = {1}")
+    public void invalidLoginTestWithParameters(String login, String password) {
+        loginPage.fillLoginFormAndSubmit(login, password);
+        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(), false);
+        checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
+        checkExpectedResult("Warning message is not visible", loginPage.isWarningMessagePresent(), true);
+    }
 }

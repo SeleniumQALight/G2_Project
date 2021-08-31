@@ -124,7 +124,8 @@ public abstract class ParentPage {
             writeErrorAndStopTest(e);
         }
     }
-        
+
+
     protected void selectTextInDropDown(WebElement dropDown, String text){
          try{
              Select select = new Select(dropDown);
@@ -154,6 +155,13 @@ public abstract class ParentPage {
         ArrayList<String> tabs = new ArrayList<> (webDriver.getWindowHandles());
         webDriver.switchTo().window(tabs.get(1));
     }
+
+//    protected void selectCheckBoxValue(WebElement square, String text){
+//        try{
+//            Select select1 = new Select(square);
+//            select1.select
+//        }
+//    }
 
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Cannot work with an element " + e);

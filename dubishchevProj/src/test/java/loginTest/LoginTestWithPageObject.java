@@ -5,10 +5,15 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
 import categories.SmokeTestFilter;
+import libs.ExcelDriver;
 import libs.TestData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.experimental.categories.Category;
+
+import java.io.IOException;
+import java.util.Map;
+import static pages.ParentPage.configProperties;
 
 @RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
@@ -45,4 +50,20 @@ public class LoginTestWithPageObject extends BaseTest {
         checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
         checkExpectedResult("Warning message is not visible", loginPage.isWarningMessagePresent(), true);
     }
+
+    @Category(SmokeTestFilter.class)
+    @Test
+    public void validLoginWithExcel() throws IOException {
+        Map<String, String> dataForValidLogin = ExcelDriver.getData(configProperties.DATA_FILE(),"validLogOn");
+        loginPage.openLoginPage();
+        loginPage.enterLoginInSignIn(dataForValidLogin.get("login"));
+        loginPage.enterPasswordInSignIn(dataForValidLogin.get("pass"));
+        loginPage.clickOnButtonSignIn();
+        checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
+    }
+
+
+
+
+
 }

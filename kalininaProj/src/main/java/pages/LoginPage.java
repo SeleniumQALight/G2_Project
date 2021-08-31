@@ -1,6 +1,7 @@
 package pages;
 
 import libs.TestData;
+import libs.Util;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -33,7 +34,9 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private TextInput buttonSignUp;
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
-    private List<TextInput> actualListOfErrors;
+    private List<WebElement> actualListOfErrors;
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    WebElement invalidUsernameOrPassword;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
@@ -112,7 +115,7 @@ public class LoginPage extends ParentPage{
         webDriverWait10.withMessage("Number of  Messages ")
             .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
 //        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length);
-
+        Util.waitABit(1);
         SoftAssertions softAssertions = new SoftAssertions();
         ArrayList<String> actualTextFromErrors = new ArrayList<>();
         for (WebElement element: actualListOfErrors){
@@ -123,5 +126,9 @@ public class LoginPage extends ParentPage{
         }
         softAssertions.assertAll();
 
+    }
+
+    public void checkErrorMessageForLoginOrPassword(){
+        Assert.assertTrue("Invalid username / password", isElementPresent(invalidUsernameOrPassword));
     }
 }

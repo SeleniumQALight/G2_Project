@@ -19,7 +19,7 @@ public class InvalidLoginTest {
         webDriver = new ChromeDriver();
 
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
         System.out.println("Site was opened");

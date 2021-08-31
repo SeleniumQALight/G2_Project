@@ -1,6 +1,8 @@
 package postTest;
 
 import baseTest.BaseTest;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.Util;
 import org.junit.After;
 import org.junit.Test;
@@ -8,6 +10,13 @@ import org.junit.Test;
 public class CreatePostTest extends BaseTest {
     final String POST_TITLE = "Hanna title of Post" + Util.getDateAndTimeFormatted();
 
+
+    @Parameters({
+            "Общедоступное, Check",
+            "Частное сообщение, Uncheck",
+            "Сообщение для группы, Check123"
+    })
+    @TestCaseName("Create post test : textToClickInDropDown = {0}, actionWithCheckbox = {1}")
     @Test
     public void createPost() {
         loginPage
@@ -19,7 +28,9 @@ public class CreatePostTest extends BaseTest {
                 .enterTextIntoInputTitle(POST_TITLE)
                 .enterTextIntoInputBody("Body text")
 //                .selectTextInDDSelectValue ("Частное сообщение")
-                .selectValueInDDSelectValue("One Person")
+           //     .selectValueInDDSelectValue("One Person")
+                .selectTextInDropDownByClick("Частное сообщение")
+                .clickCheckBoxToSetState("check")
                 .clickOnSaveButton()
 
                 .checkIsRedirectToPostPage()
