@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -30,10 +31,12 @@ public class HomePage extends ParentPage{
         return this;
     }
 
+    @Step
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
     }
 
+    @Step
     public HomePage checkIsButtonSignOutVisible() {
         Assert.assertTrue("Button SignOut is not displayed", isButtonSignOutPresent());
         return this; //new HomePage(webDriver);
