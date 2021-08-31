@@ -15,6 +15,11 @@ private Button buttonCreatePost;
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
 
