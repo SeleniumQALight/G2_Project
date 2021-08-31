@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -52,6 +53,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -62,6 +64,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try {
 //            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -77,14 +80,17 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -92,26 +98,31 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
 
+    @Step
     public LoginPage enterPassWordInRegistration(String password) {
         enterTextToElement(inputPassWordRegistration, password);
         return this;
     }
 
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number Of Messages ")

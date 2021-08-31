@@ -2,6 +2,7 @@ package loginTest;
 
 import baseTest.BaseTest;
 import categories.SmokeTestFilter;
+import io.qameta.allure.*;
 import libs.ExcelDriver;
 import libs.TestData;
 import org.junit.Test;
@@ -11,9 +12,17 @@ import pages.ParentPage;
 import java.io.IOException;
 import java.util.Map;
 
+@Epic("Allure examples")
+@Feature("Junit 4 support")
 public class LoginTestWithPageObject extends BaseTest {
-
+    @Description("Some detailed test description")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("123")
+    @Issue("432")
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Base support for bdd annotations")
     @Category(SmokeTestFilter.class)
     public void validLogin() {
         loginPage.openLoginPage();
