@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -65,6 +66,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -75,6 +77,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 ////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -88,16 +91,17 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
 
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
-
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -105,31 +109,37 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
-
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isSignInAlertPresent() {
         return isElementPresent(alertSignIn);
     }
 
+    @Step
     public void enterLoginInSignUp(String login) {
         enterTextToElement(inputLoginSignUpForm, login);
     }
 
+    @Step
     public void enterEmailInSignUp(String email) {
         enterTextToElement(inputEmailSignUpForm, email);
     }
 
+    @Step
     public void enterPassWordInSignUp(String passWord) {
         enterTextToElement(inputPasswordSignUpForm, passWord);
     }
 
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
     }
 
+    @Step
     public void fillSignUpFormAndSubmit(String login, String email, String passWord) {
         openLoginPage();
         enterLoginInSignUp(login);
@@ -138,40 +148,46 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignUp();
     }
 
+    @Step
     public LoginPage enterLoginRegistration (String username){
         enterTextToElement(inputLoginSignUpForm, username);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailRegistration(String email) {
         enterTextToElement(inputEmailSignUpForm, email);
         return this;
     }
 
+    @Step
     public LoginPage enterPasswordRegistration(String password) {
         enterTextToElement(inputPasswordSignUpForm, password);
         return this;
     }
 
+    @Step
     public boolean isUsernameSignUpAlertPresent() {
         return isElementPresent(usernameSignUpAlert);
     }
 
+    @Step
     public boolean isEmailSignUpAlertPresent() {
         return isElementPresent(emailSignUpAlert);
     }
 
+    @Step
     public boolean isPasswordSignUpAlertPresent() {
         return isElementPresent(passwordSignUpAlert);
     }
 
-
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
-
+    @Step
     public void checkErrors(String s) {
         List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpErrorsLocator));
         List<String> alertListExpectedText = Arrays.asList(s.split(";"));
@@ -208,6 +224,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number of Messages")
