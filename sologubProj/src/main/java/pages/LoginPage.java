@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import libs.Util;
 import org.assertj.core.api.SoftAssertions;
@@ -67,6 +68,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage(){
         try {
             webDriver.get(baseUrl);
@@ -77,6 +79,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 //          //  WebElement element = webdriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -91,14 +94,17 @@ public class LoginPage extends ParentPage {
 
     }
 
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -106,27 +112,33 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isInvalidCredentialsAlertPresent() {
         return isElementPresent(invalidCredentialsAlert);
     }
 
+    @Step
     public void enterRegistrationName(String username) {
         enterTextToElement(inputRegisterUsername, username);
     }
 
+    @Step
     public void enterRegistrationEmail(String email) {
         enterTextToElement(inputRegisterEmail, email);
     }
 
+    @Step
     public void enterRegistrationPassword(String password) {
         enterTextToElement(inputRegisterPassword, password);
     }
