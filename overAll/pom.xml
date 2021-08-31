@@ -109,6 +109,8 @@
                             <argLine>-Xmx512m</argLine>
                             <argLine>-XX:MaxPermSize=256m</argLine>
                             <threadCount>2</threadCount>
+<!--                            <parallel>methods</parallel>-->
+                            <parallel>classes</parallel>
                             <testFailureIgnore>true</testFailureIgnore>
                             <rerunFailingTestsCount>1</rerunFailingTestsCount>
                             <argLine>
