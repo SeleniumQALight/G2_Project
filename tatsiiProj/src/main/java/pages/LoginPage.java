@@ -2,6 +2,7 @@ package pages;
 
 import java.util.List;
 
+import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -57,6 +58,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -67,19 +69,22 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
 
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -87,34 +92,41 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isLabelMessageInvalidLoginPresent() {
         return isElementPresent(labelMessageInvalidLogin);
     }
+
 
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
 
+    @Step
     public LoginPage enterPassWordRegistration(String passWord) {
         enterTextToElement(inputPassWordRegistration, passWord);
         return this;
     }
 
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number of Messages")
