@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import libs.Util;
 import org.assertj.core.api.SoftAssertions;
@@ -67,6 +68,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -77,6 +79,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -84,12 +87,14 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
 
+    @Step
     public void fillSignUpFormAndSubmit(String username, String email, String password) {
         openLoginPage();
         enterUsernameInSignUp(username);
@@ -99,58 +104,71 @@ public class LoginPage extends ParentPage {
     }
 
 
+    @Step
     public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isWarningMessagePresent() {
         return isElementPresent(invalidUsernamePasswordMessage);
     }
 
+    @Step
     public LoginPage enterUsernameInSignUp(String username) {
         enterTextToElement(signUpUsername, username);
         return this;
     }
 
+    @Step
     public LoginPage enterPasswordInSignUp(String password) {
         enterTextToElement(signUpPassword, password);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailInSignUp(String email) {
         enterTextToElement(signUpEmail, email);
         return this;
     }
 
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(signUpButton);
     }
 
+    @Step
     public String getSignUpUsernameWarningText() {
         return getElementText(invalidSignUpUsernameMessage);
     }
 
+    @Step
     public String getSignUpEmailWarningText() {
         return getElementText(invalidSignUpEmailMessage);
     }
 
+    @Step
     public String getSignUpPasswordWarningText() {
         return getElementText(invalidSignUpPasswordMessage);
     }
 
 
+    @Step
     public void checkErrors(String stringOfErrorMessages) {
         String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
         Util.waitABit(1); //Use waiter because sometimes not  find text in warning messages
@@ -161,6 +179,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void checkErrorMessages(String stringOfErrorMessages) {
         String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
         webDriverWait10.withMessage("Number of messages ").until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), arrayOfErrorMessages.length));
