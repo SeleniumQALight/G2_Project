@@ -2,6 +2,7 @@ package loginTest;
 
 import baseTest.BaseTest;
 import categories.SmokeTestFilter;
+import io.qameta.allure.*;
 import libs.ExcelDriver;
 import libs.TestData;
 import org.junit.Test;
@@ -12,10 +13,22 @@ import java.util.Map;
 
 import static pages.ParentPage.configProperties;
 
+@Epic("Allure examples")
+@Feature("Junit 4 support")
 public class LoginTestWithPageObject extends BaseTest {
+    // аннотации отчета Allure
+    @Description("Some detailed test description")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("123")
+    @Issue("432")
+    @Test
+    // аннотации отчета Allure
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Base support for bdd annotations")
     //указываем категорию в которой будет запускаться тест
     @Category(SmokeTestFilter.class)
-    @Test
+    @Step
     public void validLogin() {
         loginPage.openLoginPage();
         loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
@@ -27,7 +40,9 @@ public class LoginTestWithPageObject extends BaseTest {
 
     // тест с использованием данных для теста из Excel
     @Test
+    //@Ignore //Пропуск теста
     @Category(SmokeTestFilter.class)
+    @Step
     public void validLoginWithExcel() throws IOException {
         // подключаем excel файл и загружаем его в Map
         Map<String, String> dataForValidLogin = ExcelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
