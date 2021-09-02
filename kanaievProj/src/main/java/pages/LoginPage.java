@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -65,6 +66,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage(){
         try{
             webDriver.get(baseUrl);
@@ -74,7 +76,7 @@ public class LoginPage extends ParentPage {
             Assert.fail("Can not work with LoginPage");
         }
     }
-
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 ////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -87,63 +89,63 @@ public class LoginPage extends ParentPage {
 //        }
         enterTextToElement(inputLogin, login);
     }
-
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
-
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
-
+    @Step
     public boolean isAlertInvalidSingInPresent() {
         return isElementPresent(alertInvalidSignIn);
     }
-
+    @Step
     public void enterLoginInRegLogin(String login) {
         enterTextToElement(regLogin, login);
     }
-
+    @Step
     public void enterEmailInRegEmail(String email) {
         enterTextToElement(regEmail, email);
     }
-
+    @Step
     public void enterPasswordInRegPassword(String password) {
         enterTextToElement(regPassword, password);
     }
-
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
     }
-
+    @Step
     public boolean isAlertInvalidSingUpLoginPresent() {
         return isElementPresent(alertValidateSignUpLogin);
     }
-
+    @Step
     public boolean isAlertInvalidSingUpEmailPresent() {
         return isElementPresent(alertValidateSignUpEmail);
     }
-
+    @Step
     public boolean isAlertInvalidSingUpPasswordPresent() {
         return isElementPresent(alertValidateSignUpPassword);
     }
-
+    @Step
     public void fillLoginFormAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
-
+    @Step
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
-
+    @Step
     public void checkErrors(String errors) {
         String[] expectedErrors = errors.split(";");
         List<String> actualErrorsList = new ArrayList<>();

@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -64,6 +65,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage(){
         try {
             webDriver.get(baseUrl);
@@ -74,6 +76,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 ////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -88,14 +91,17 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -103,50 +109,61 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isAlertInvalidUsernamePasswordDisplayed() {
         return isElementPresent(alertInvalidUsernamePassword);
     }
 
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
 
+    @Step
     public LoginPage enterPassWordInRegistration(String passWord) {
         enterTextToElement(inputPassWordRegistration, passWord);
         return this;
     }
 
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
     }
 
+    @Step
     public boolean isAlertInvalidUsernameRegistrationDisplayed() {
         return isElementPresent(alertInvalidUsernameRegistration);
     }
 
+    @Step
     public boolean isAlertInvalidEmailRegistrationDisplayed() {
         return isElementPresent(alertInvalidEmailRegistration);
     }
 
+    @Step
     public boolean isAlertInvalidPasswordRegistrationDisplayed() {
         return isElementPresent(alertInvalidPasswordRegistration);
     }
 
+    @Step
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
+    @Step
     public boolean isErrorExpected(String [] errorsExpectedArray, WebElement errorOnPage){
         for (int i = 0; i < errorsExpectedArray.length; i++){
             if (errorOnPage.getText().equals(errorsExpectedArray[i])){
@@ -156,6 +173,7 @@ public class LoginPage extends ParentPage {
         return false;
     }
 
+    @Step
     public boolean checkErrors(String errors) {
         String[] errorsExpectedList = errors.split(";");
         List<WebElement> errorsOnPageList = webDriver.findElements(By.xpath(".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']"));
@@ -170,6 +188,7 @@ public class LoginPage extends ParentPage {
         return false;
     }
 
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number Of Messages ")

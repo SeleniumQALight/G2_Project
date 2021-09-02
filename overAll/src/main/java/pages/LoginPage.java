@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
@@ -54,6 +55,7 @@ public class LoginPage extends ParentPage{
         return "/";
     }
 
+    @Step
     public void openLoginPage(){
         try{
             webDriver.get(baseUrl);
@@ -63,7 +65,7 @@ public class LoginPage extends ParentPage{
             Assert.fail("Can not work with LoginPage");
         }
     }
-
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 ////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -77,42 +79,42 @@ public class LoginPage extends ParentPage{
 //        }
         enterTextToElement(inputLogin, login);
     }
-
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
-
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord){
         openLoginPage();
         enterLoginInSignIn(login);
         enterPassWordInSignIn(passWord);
         clickOnButtonSignIn();
     }
-
+    @Step
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
-
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
-
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
-
+    @Step
     public LoginPage enterPassWordRegistration(String passWord) {
         enterTextToElement(inputPassWordRegistration, passWord);
         return this;
     }
-
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number Of Messages ")

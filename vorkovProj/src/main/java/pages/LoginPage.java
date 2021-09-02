@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -51,6 +52,7 @@ public class LoginPage extends ParentPage {
         return "";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseURL);
@@ -61,34 +63,42 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public void enterUsernameRegistration(String usernameRegistration) {
         enterTextToElement(inputUsernameRegistration, usernameRegistration);
     }
 
+    @Step
     public void enterEmailRegistration(String emailRegistration) {
         enterTextToElement(inputEmailRegistration, emailRegistration);
     }
 
+    @Step
     public void enterPasswordRegistration(String passwordRegistration) {
         enterTextToElement(inputPasswordRegistration, passwordRegistration);
     }
 
+    @Step
     public void clickOnButtonSignUpRegistration() {
         clickOnElement(buttonSignUpRegistration);
     }
 
+    @Step
     public void fillLoginAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -96,12 +106,14 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
 
         return new HomePage(webDriver);
     }
 
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number of messages ")
