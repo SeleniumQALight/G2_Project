@@ -22,7 +22,7 @@ import libs.ExcelDriver;
 import libs.TestData;
 
 @Epic("Allure examples")
-@Feature("Junit 4 support")
+@Feature("Junit 4 support") //
 public class LoginTestWithPageObject extends BaseTest {
     @Description("Some detailed test description")
     @Link("https://example.org")
