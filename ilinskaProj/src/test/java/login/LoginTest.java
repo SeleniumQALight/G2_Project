@@ -1,12 +1,16 @@
 package login;
+import baseTest.BaseTest;
+import categories.SmokeTestFilter;
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
-public class LoginTest {
+public class LoginTest  extends BaseTest {
+    @Category(SmokeTestFilter.class)
     WebDriver webDriver;
 @Test
     public void validLogin() {

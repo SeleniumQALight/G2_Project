@@ -71,7 +71,7 @@ public abstract class ParentPage {
     private String getElementName(WebElement webElement) {
         String elementName = "";
         if (webElement instanceof TypifiedElement){
-            elementName = " '" + ((TypifiedElement) webElement).getName() + "' ";
+            elementName = " '" + ((TypifiedElement)webElement).getName() + "' ";
         }
         return elementName;
     }

@@ -164,4 +164,27 @@ public abstract class ParentPage {
         logger.error("Can not work with element " + e);
         Assert.fail("Can not work with element " + e);
     }
+    protected void checkCheckBox(WebElement checkbox, String status) {
+        try {
+            if (status.equals("check")) {
+                if (!checkbox.isSelected()) {
+                    clickOnElement(checkbox);
+                    logger.info("Checkbox was checked");
+                } else {
+                    logger.info("Not clicked, checkbox was checked already!");
+                }
+            } else if (status.equals("uncheck")) {
+                if (checkbox.isSelected()) {
+                    clickOnElement(checkbox);
+                    logger.info("Checkbox was unchecked");
+                } else {
+                    logger.info("Not clicked, checkbox was unchecked already!");
+                }
+            } else {
+                logger.info("Wrong checkbox status! Status can be 'check' or 'uncheck'.");
+            }
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
 }
