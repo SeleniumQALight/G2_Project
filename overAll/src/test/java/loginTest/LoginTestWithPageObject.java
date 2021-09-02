@@ -34,7 +34,7 @@ public class LoginTestWithPageObject extends BaseTest {
     @Story("Base support for bdd annotations")
     @Category(SmokeTestFilter.class)
     public void validLogin(){
-        loginPage.openLoginPage();
+        loginPage.openLoginPage()
         loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
         loginPage.enterPassWordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
