@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
+import io.qameta.allure.Step;
 import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage{
@@ -30,21 +31,21 @@ public class HomePage extends ParentPage{
         checkIsButtonSignOutVisible();
         return this;
     }
-
+    @Step
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }
-
+    @Step
     public HomePage checkIsButtonSignOutVisible() {
         Assert.assertTrue("Button Sign Out is not displayed", isButtonSignOutPresent());
         return this;
     }
-
+    @Step
     public CreatePostPage clickOnButtonCreatePost() {
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
     }
-
+    @Step
     public HomePage openHomePage() {
         LoginPage loginPage = new LoginPage(webDriver);
         loginPage.openLoginPage();
@@ -53,7 +54,7 @@ public class HomePage extends ParentPage{
         }
         return this;
     }
-
+    @Step
     public ProfilePage clickOnButtonProfile(){
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);

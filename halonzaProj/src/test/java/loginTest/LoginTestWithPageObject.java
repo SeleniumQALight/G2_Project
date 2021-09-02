@@ -2,6 +2,7 @@ package loginTest;
 
 import baseTest.BaseTest;
 import categories.SmokeTestFilter;
+import io.qameta.allure.*;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
@@ -15,11 +16,21 @@ import java.util.Map;
 
 import static pages.ParentPage.configProperties;
 
+@Epic("Allure examples")
+@Feature("Junit 4 support")
 @RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
     @Test
     @Category(SmokeTestFilter.class)
+    @Description("Some detailed test description")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("123")
+    @Issue("432")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Base support for bdd annotations")
     public void validLogin(){
+
         loginPage.openLoginPage();
         loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
         loginPage.enterPassWordInSignIn(TestData.VALID_PASSWORD);
