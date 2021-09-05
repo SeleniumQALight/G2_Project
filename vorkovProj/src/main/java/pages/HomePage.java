@@ -1,9 +1,11 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.Button;
 
 public class HomePage extends ParentPage {
 
@@ -11,12 +13,23 @@ public class HomePage extends ParentPage {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    public HomePage checkIsRedirectOnHomePage() {
+        checkURL();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
     // --------------------------------------------------------------------------------------------------
     @FindBy(xpath = ".//button[text()='Sign Out']")
-    private WebElement buttonSignOut;
+    private Button buttonSignOut;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[contains(text(),'Invalid username / password')]")
     private WebElement alertInvalidLogin;
@@ -37,40 +50,49 @@ public class HomePage extends ParentPage {
     private WebElement buttonProfile;
 
     // --------------------------------------------------------------------------------------------------
+    @Step
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isAlertPresent() {
         return isElementPresent(alertInvalidLogin);
     }
 
+    @Step
     public boolean isValidationMessageUsernameRegistrationPresent() {
         return isElementPresent(validationMessageUsernameRegistration);
     }
 
+    @Step
     public boolean isValidationMessageEmailRegistrationPresent() {
         return isElementPresent(validationMessageEmailRegistration);
     }
 
+    @Step
     public boolean isValidationMessagePasswordRegistrationPresent() {
         return isElementPresent(validationMessagePasswordRegistration);
     }
 
+    @Step
     public HomePage checkIsButtonSignOutVisible() {
         Assert.assertTrue("Button sign out is not displayed", isButtonSignOutPresent());
         return this;
     }
 
+    @Step
     public CreatePostPage clickOnButtonCreatePost() {
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
     }
 
+    @Step
     public HomePage openHomePage() {
         LoginPage loginPage = new LoginPage(webDriver);
         loginPage.openLoginPage();
@@ -80,6 +102,7 @@ public class HomePage extends ParentPage {
         return this;
     }
 
+    @Step
     public ProfilePage clickOnButtonProfile(){
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);

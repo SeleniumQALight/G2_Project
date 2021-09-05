@@ -1,11 +1,22 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -17,13 +28,17 @@ public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected Logger logger = Logger.getLogger(getClass());
+
+    @Rule
+    public TestName testName = new TestName();
 
     @Before
-    public void setUp(){
+    public void setUp() {
+        logger.info("------ " + testName.getMethodName() + " was started ------");
         // adding exe
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        initDriver();
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
 
         loginPage = new LoginPage(webDriver);
@@ -31,11 +46,64 @@ public class BaseTest {
     }
 
     @After
-    public void tearDown(){
-        webDriver.quit();
+    public void tearDown() {
+//        webDriver.quit(); -> to make a screenshot
+        logger.info("------ " + testName.getMethodName() + " was ended ------");
     }
 
-    protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult){
+    @Step
+    protected void checkExpectedResult(String message, boolean actualResult, boolean expectedResult) {
         Assert.assertThat(message, actualResult, is(expectedResult));
+//        Assert.assertEquals(message, expectedResult, actualResult);
+//        -> the same logical operation, but is() - is a method indicating HOW to compare AR and ER
+//        assertThat - more configurable;
+//        assertEquals - already contains the comparing method
+//        message - will be seen in reports
     }
+
+    private void initDriver() {
+        String browser = System.getProperty("browser");
+        if ((browser == null) || browser.equalsIgnoreCase("chrome")) { //null ~ default browser
+            WebDriverManager.chromedriver().setup();
+            this.webDriver = new ChromeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")){
+            WebDriverManager.firefoxdriver().setup();
+            this.webDriver = new FirefoxDriver();
+        }else if ("ie".equalsIgnoreCase(browser)) {
+            //WebDriverManager.iedriver().setup();
+
+            // in most cases 32bit version is needed
+            WebDriverManager.iedriver().arch32().setup();
+            this.webDriver = new InternetExplorerDriver();
+        }
+    }
+
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            screenshot();
+        }
+        @Attachment(value = "Page screenshot", type = "image/png")
+        public byte[] saveScreenshot(byte[] screenShot) {
+            return screenShot;
+        }
+        public void screenshot() {
+            if (webDriver == null) {
+                logger.info("Driver for screenshot not found");
+                return;
+            }
+            saveScreenshot(((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES));
+        }
+        @Override
+        protected void finished(Description description) {
+            logger.info(String.format("Finished test: %s::%s", description.getClassName(), description.getMethodName()));
+            try {
+                webDriver.quit();
+                logger.info("Browser was closed");
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
+    };
 }

@@ -1,39 +1,48 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import libs.Util;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
+    //private WebElement inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass ") //alternative way to name elements then textinput
+    private TextInput inputPassword;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
     private WebElement invalidUsernamePasswordMessage;
 
     @FindBy(xpath = ".//input[@id='username-register']")
-    private WebElement signUpUsername;
+    private TextInput signUpUsername;
 
     @FindBy(xpath = ".//input[@id='email-register']")
-    private WebElement signUpEmail;
+    private TextInput signUpEmail;
 
     @FindBy(xpath = ".//input[@id='password-register']")
-    private WebElement signUpPassword;
+    private TextInput signUpPassword;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement signUpButton;
+    private Button signUpButton;
 
     @FindBy(xpath = ".//input[@id='username-register']/../div")
     private WebElement invalidSignUpUsernameMessage;
@@ -44,14 +53,25 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@id='password-register']/../div")
     private WebElement invalidSignUpPasswordMessage;
 
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> listOfSignUpErrorMessage;
+
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
+    @Step
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
             logger.info("Login page was opened");
         } catch (Exception e) {
             logger.error("Can not work with LoginPage " + e);
@@ -59,6 +79,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -66,12 +87,14 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
 
+    @Step
     public void fillSignUpFormAndSubmit(String username, String email, String password) {
         openLoginPage();
         enterUsernameInSignUp(username);
@@ -81,55 +104,71 @@ public class LoginPage extends ParentPage {
     }
 
 
+    @Step
     public void enterLoginInSignIn(String login) {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isWarningMessagePresent() {
         return isElementPresent(invalidUsernamePasswordMessage);
     }
 
-    public void enterUsernameInSignUp(String username) {
+    @Step
+    public LoginPage enterUsernameInSignUp(String username) {
         enterTextToElement(signUpUsername, username);
+        return this;
     }
 
-    public void enterPasswordInSignUp(String password) {
+    @Step
+    public LoginPage enterPasswordInSignUp(String password) {
         enterTextToElement(signUpPassword, password);
+        return this;
     }
 
-    public void enterEmailInSignUp(String email) {
+    @Step
+    public LoginPage enterEmailInSignUp(String email) {
         enterTextToElement(signUpEmail, email);
+        return this;
     }
 
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(signUpButton);
     }
 
+    @Step
     public String getSignUpUsernameWarningText() {
         return getElementText(invalidSignUpUsernameMessage);
     }
 
+    @Step
     public String getSignUpEmailWarningText() {
         return getElementText(invalidSignUpEmailMessage);
     }
 
+    @Step
     public String getSignUpPasswordWarningText() {
         return getElementText(invalidSignUpPasswordMessage);
     }
 
 
+    @Step
     public void checkErrors(String stringOfErrorMessages) {
         String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
         Util.waitABit(1); //Use waiter because sometimes not  find text in warning messages
@@ -138,7 +177,21 @@ public class LoginPage extends ParentPage {
         for (int i = 0; i < arrayOfErrorMessages.length; i++) {
             Assert.assertEquals(i+1 +" pair of error messages not equal", arrayOfErrorMessages[i], listOfSignUpErrorMessage.get(i).getText());
         }
-
-
     }
+
+    @Step
+    public void checkErrorMessages(String stringOfErrorMessages) {
+        String[] arrayOfErrorMessages = stringOfErrorMessages.split(";");
+        webDriverWait10.withMessage("Number of messages ").until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), arrayOfErrorMessages.length));
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element:listOfSignUpErrorMessage) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < arrayOfErrorMessages.length; i++) {
+            softAssertions.assertThat(arrayOfErrorMessages[i]).isIn(actualTextFromErrors);
+        }
+        softAssertions.assertAll();
+    }
+
 }

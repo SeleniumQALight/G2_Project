@@ -4,23 +4,33 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.w3c.dom.Text;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Select;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
-public class CreatePostPage extends ParentPage{
-@FindBy(xpath = ".//input[@name='title']")
-    private WebElement inputTitle;
-@FindBy(id = "post-body")
-    private WebElement inputBody;
-@FindBy(xpath = ".//button[text()='Save New Post']")
-    private WebElement buttonSave;
-@FindBy(xpath = ".//select[@id='select1']")
-    private WebElement dropDownSelectValue;
+public class CreatePostPage extends ParentPage {
+    @FindBy(xpath = ".//input[@name='title']")
+    private TextInput inputTitle;
+    @FindBy(id = "post-body")
+    private TextInput inputBody;
+    @FindBy(xpath = ".//button[text()='Save New Post']")
+    private Button buttonSave;
+    @FindBy(xpath = ".//select[@id='select1']")
+    private Select dropDownSelectValue;
 //@FindBy
 
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
     }
-    public CreatePostPage checkIsInputTitlePresent(){
+
+    @Override
+    String getRelativeUrl() {
+        return "/create-post";
+    }
+
+    public CreatePostPage checkIsInputTitlePresent() {
         Assert.assertTrue("Input title is not present", isElementPresent(inputTitle));
         return this;
     }
@@ -49,6 +59,12 @@ public class CreatePostPage extends ParentPage{
 
     public CreatePostPage selectValueInDDSelectValue(String value) {
         selectValueInDD(dropDownSelectValue, value);
+        return this;
+    }
+
+    public CreatePostPage checkIsRedirectOnCreatePostPage() {
+//        Assert.assertEquals("Invalid page ", baseUrl + getRelativeUrl(), webDriver.getCurrentUrl());
+        checkUrl();
         return this;
     }
 }

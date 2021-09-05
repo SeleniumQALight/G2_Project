@@ -18,6 +18,18 @@ public class HomePage extends ParentPage {
     public HomePage(WebDriver webDriver){
         super(webDriver);
     }
+
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
+    public HomePage checkIsRedirectOnHomePage(){
+        checkUrl();
+        checkIsButtonSignOutVisible();
+        return this;
+    }
+
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }

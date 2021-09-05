@@ -1,5 +1,6 @@
 package pages;
 
+
 import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -8,33 +9,48 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    WebElement inputLogin;
+    private TextInput inputLogin;
+
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassword;
+    @Name("Input Pass ")
+    private TextInput inputPassword;
+
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
+
     @FindBy(xpath = ".//input[@id='username-register']")
-    private WebElement inputLoginForReg;
+    private TextInput inputLoginForReg;
+
     @FindBy(xpath = ".//input[@id='email-register']")
-    private WebElement inputEmailForReg;
+    private TextInput inputEmailForReg;
+
     @FindBy(xpath = ".//input[@id='password-register']")
-    private WebElement inputPasswordForReg;
+    private TextInput inputPasswordForReg;
+
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
 
 
             logger.info("Login page was opened");
@@ -114,7 +130,8 @@ public class LoginPage extends ParentPage {
     public void checkErrors(String warnings) {
 //        String[] expectedWarnings = warnings.split(";");
         List<String> expectedWarnings = Arrays.asList(warnings.split(";"));
-        webDriverWait10.until(ExpectedConditions.numberOfElementsToBe(By.xpath(displayedWarningsXpath),expectedWarnings.size()));
+        webDriverWait10.withMessage("Number of Message")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(displayedWarningsXpath),expectedWarnings.size()));
         List<WebElement> displayedWarnings = webDriver.findElements(By.xpath(displayedWarningsXpath));
         Assert.assertEquals("Amount isn't matching", expectedWarnings.size(), displayedWarnings.size());
 

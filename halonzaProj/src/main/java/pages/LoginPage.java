@@ -1,11 +1,17 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextBlock;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,47 +20,56 @@ import java.util.List;
 
 public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
 
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassWord;
+    private TextInput inputPassWord;
 
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
-    private WebElement alertSignIn;
+    private TextBlock alertSignIn;
 
     @FindBy(xpath = ".//input[@id='username-register']")
-    private WebElement inputLoginSignUpForm;
+    private TextInput inputLoginSignUpForm;
 
     @FindBy(xpath = ".//input[@id='email-register']")
-    private WebElement inputEmailSignUpForm;
+    private TextInput inputEmailSignUpForm;
 
     @FindBy(xpath = ".//input[@id='password-register']")
-    private WebElement inputPasswordSignUpForm;
+    private TextInput inputPasswordSignUpForm;
 
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private WebElement buttonSignUp;
+    private Button buttonSignUp;
 
     @FindBy(xpath = ".//div[contains(text(), 'Username must be at least 3 characters')]")
-    private WebElement usernameSignUpAlert;
+    private TextBlock usernameSignUpAlert;
 
     @FindBy(xpath = ".//div[contains(text(), 'You must provide a valid email address')]")
-    private WebElement emailSignUpAlert;
+    private TextBlock emailSignUpAlert;
 
     @FindBy(xpath = ".//div[contains(text(), 'Password must be at least 12 characters')]")
-    private WebElement passwordSignUpAlert;
+    private TextBlock passwordSignUpAlert;
 
-    private String signUpAlertsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+    final String signUpErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeUrl() {
+        return "/";
+    }
+
+    @Step
     public void openLoginPage() {
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com/");
+            webDriver.get(baseUrl);
             logger.info("Login page was opened");
         } catch (Exception e) {
             logger.error("Can not work with LoginPage" + e);
@@ -62,6 +77,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 ////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -75,16 +91,17 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
 
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
-
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -92,31 +109,37 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
-
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isSignInAlertPresent() {
         return isElementPresent(alertSignIn);
     }
 
+    @Step
     public void enterLoginInSignUp(String login) {
         enterTextToElement(inputLoginSignUpForm, login);
     }
 
+    @Step
     public void enterEmailInSignUp(String email) {
         enterTextToElement(inputEmailSignUpForm, email);
     }
 
+    @Step
     public void enterPassWordInSignUp(String passWord) {
         enterTextToElement(inputPasswordSignUpForm, passWord);
     }
 
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
     }
 
+    @Step
     public void fillSignUpFormAndSubmit(String login, String email, String passWord) {
         openLoginPage();
         enterLoginInSignUp(login);
@@ -125,27 +148,48 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignUp();
     }
 
+    @Step
+    public LoginPage enterLoginRegistration (String username){
+        enterTextToElement(inputLoginSignUpForm, username);
+        return this;
+    }
+
+    @Step
+    public LoginPage enterEmailRegistration(String email) {
+        enterTextToElement(inputEmailSignUpForm, email);
+        return this;
+    }
+
+    @Step
+    public LoginPage enterPasswordRegistration(String password) {
+        enterTextToElement(inputPasswordSignUpForm, password);
+        return this;
+    }
+
+    @Step
     public boolean isUsernameSignUpAlertPresent() {
         return isElementPresent(usernameSignUpAlert);
     }
 
+    @Step
     public boolean isEmailSignUpAlertPresent() {
         return isElementPresent(emailSignUpAlert);
     }
 
+    @Step
     public boolean isPasswordSignUpAlertPresent() {
         return isElementPresent(passwordSignUpAlert);
     }
 
-
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
-
+    @Step
     public void checkErrors(String s) {
-        List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpAlertsLocator));
+        List<WebElement> alertsListActual = webDriver.findElements(By.xpath(signUpErrorsLocator));
         List<String> alertListExpectedText = Arrays.asList(s.split(";"));
         Assert.assertEquals("The actual number of alerts (" + alertsListActual.size() + ")" +
                 "is not as expected (" + alertListExpectedText.size() + ")", alertListExpectedText.size(), alertsListActual.size());
@@ -180,5 +224,21 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
+    public void checkErrorsMessages(String expectedErrors) {
+        String[] errorsArray = expectedErrors.split(";");
+        webDriverWait10.withMessage("Number of Messages")
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(signUpErrorsLocator), errorsArray.length));
+//        Assert.assertEquals(actualListOfErrors.size(), errorsArray.length);
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+        for (WebElement element : actualListOfErrors) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < errorsArray.length; i++) {
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
+        }
+        softAssertions.assertAll();
 
+    }
 }

@@ -1,38 +1,79 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import ru.yandex.qatools.htmlelements.annotations.Name;
+import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.TextInput;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LoginPage extends ParentPage{
 //    xpath к инпуту с именем пользователя
     @FindBy(xpath = ".//input[@placeholder='Username']")
-    private WebElement inputLogin;
+    private TextInput inputLogin;
+
 //    xpath к инпуту с паролем
     @FindBy(xpath = ".//input[@placeholder='Password']")
-    private WebElement inputPassWord;
+    //можно назначать имя элемента
+    @Name("Input PassWord")
+    private TextInput inputPassWord;
+
 //    xpath к кнопке Залогинится
     @FindBy(xpath = ".//button[text()='Sign In']")
-    private WebElement buttonSignIn;
+    private Button buttonSignIn;
 
-//    конструктор
+    @FindBy(id = "username-register")
+    private TextInput inputLoginRegistration;
+
+    @FindBy(id = "email-register")
+    private TextInput inputEmailRegistration;
+
+    @FindBy(id = "password-register")
+    private TextInput inputPassWordRegistration;
+
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private Button buttonSignUp;
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrors;
+
+    final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+
+
+    //    конструктор
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    @Override
+    String getRelativeURL() {
+        return "/";
+    }
+
+    // отображение в allure как шаг тестирования
+    @Step
     public void openLoginPage(){
         try {
-            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com");
+            //get - перейти по указанному адресу
+            webDriver.get(baseURL);
+//            webDriver.get("https://qa-complex-app-for-testing.herokuapp.com");
             logger.info("Login page was opened");
         } catch (Exception e){
             logger.error("Can not work with LoginPage " + e);
             Assert.fail("Can not work with LoginPage");
         }
     }
-
+    @Step
     public void enterLoginInSignIn(String login) {
 //        Находим поле логина и заполняем логином
 //        try {
@@ -48,14 +89,17 @@ public class LoginPage extends ParentPage{
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
 
+    @Step
     public void clickOnButtonInSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     // схлопываем методы. открываем главную и логинимся на странице
     public void fillLoginFormAndSubmit(String login, String passWord){
         openLoginPage();
@@ -64,9 +108,51 @@ public class LoginPage extends ParentPage{
         clickOnButtonInSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         // возвращаем новый объект HomePage
         return new HomePage(webDriver);
+    }
+
+    @Step
+    public LoginPage enterLoginInRegistration(String login) {
+        enterTextToElement(inputLoginRegistration, login);
+        return this;
+    }
+
+    @Step
+    public LoginPage enterEmailInRegistration(String email) {
+        enterTextToElement(inputEmailRegistration, email);
+        return this;
+    }
+
+    @Step
+    public LoginPage enterPassWordRegistration(String passWord) {
+        enterTextToElement(inputPassWordRegistration, passWord);
+        return this;
+    }
+
+    @Step
+    public void checkErrorsMessage(String expectedErrors) {
+        String[] errorsArray = expectedErrors.split(";");
+        // ждём когда все элементы появятся
+        webDriverWait10.withMessage("Number of Messages ")
+        .until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErrorsLocator), errorsArray.length));
+
+        // Soft Assertion
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<String> actualTextFromErrors = new ArrayList<>();
+
+        for (WebElement element: actualListOfErrors ) {
+            actualTextFromErrors.add(element.getText());
+        }
+        for (int i = 0; i < errorsArray.length; i++) {
+            // проверки Soft Assertion
+            softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
+        }
+        // срабатывают все проверки
+        softAssertions.assertAll();
+
     }
 }

@@ -1,7 +1,16 @@
 package registrationTest;
 
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+
+@RunWith(JUnitParamsRunner.class)
+@Category(SmokeTestFilter.class)
 
 public class RegistrationTest extends BaseTest {
     @Test
@@ -14,9 +23,21 @@ public class RegistrationTest extends BaseTest {
         checkExpectedResult("Message  'Password must be at least 12 characters.' is not visible", loginPage.isPasswordValidMessageInFormPresent(), true);
     }
 
+
     @Test
-    public void checkErrorsMessages() {
-        loginPage.fillRegFormAndSubmit("tr", "test.com", "123456qwerty");
-        loginPage.checkErrors("Username must be at least 3 characters.;You must provide a valid email address.");
+    @Parameters({
+            "12,qqq,345,Username must be at least 3 characters.;You must provide a valid email address.;Password must be at least 12 characters.;",
+            "12,qqq,123456qwerty,Username must be at least 3 characters.;You must provide a valid email address."
+
+    })
+    @TestCaseName("registrationErrors : login = {0}, email = {1}, password = {2}")
+    public void checkErrorsMessages(String login, String email, String password, String errors) {
+        loginPage.openLoginPage();
+        loginPage
+                .enterLoginInRegForm(login)
+                .enterEmailInRegForm(email)
+                .enterPasswordInRegForm(password)
+                .checkErrors(errors);
+
     }
 }
