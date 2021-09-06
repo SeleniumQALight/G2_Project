@@ -28,7 +28,7 @@ public class LoginTestWithPageObject extends BaseTest {
     @Story("Base support for bdd annotations")
     public void validLogin() {
         loginPage.openLoginPage();
-        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN+"123");
+        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
         loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
 
