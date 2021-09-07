@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,16 +20,17 @@ private Button buttonCreatePost;
     String getRelativeUrl() {
         return "/";
     }
-
+@Step
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
 
     }
-
+    @Step
     public HomePage checkIsButtonSignOutVisible() {
         Assert.assertTrue("Button Sign Out is not displayed ", isButtonSignOutPresent());
         return this;
     }
+    @Step
     public CreatePostPage clickonButtonCreatePost(){
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);

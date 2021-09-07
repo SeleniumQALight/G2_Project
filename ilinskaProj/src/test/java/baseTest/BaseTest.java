@@ -1,12 +1,16 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,6 +18,8 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import pages.HomePage;
 import pages.LoginPage;
 import java.util.concurrent.TimeUnit;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 
 public class BaseTest {
     WebDriver webDriver;
@@ -22,10 +28,11 @@ public class BaseTest {
     protected Logger logger = Logger.getLogger(getClass());
     @Rule
     public TestName testName = new TestName();
+
     @Before
     public void setUp() {
         logger.info("------" + testName.getMethodName() + "was started ---------------------");
-        webDriver=initDriver();
+        webDriver = initDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         loginPage = new LoginPage(webDriver);
@@ -50,11 +57,10 @@ public class BaseTest {
         if ((browser == null) || browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             webDriver = new ChromeDriver();
-        } else if (browser.equalsIgnoreCase("firefox")){
-          WebDriverManager.firefoxdriver().setup();
-          webDriver= new FirefoxDriver();
-        }
-        else if ("ie".equalsIgnoreCase(browser)) {
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            WebDriverManager.firefoxdriver().setup();
+            webDriver = new FirefoxDriver();
+        } else if ("ie".equalsIgnoreCase(browser)) {
             //WebDriverManager.iedriver().setup();
 
             WebDriverManager.iedriver().arch32().setup();
@@ -63,6 +69,35 @@ public class BaseTest {
 
         return webDriver;
     }
+
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        protected void failed(Throwable e, Description description) {
+            screenshot();
+        }
+
+        @Attachment(value = "Page screenshot", type = "image/png")
+        public byte[] saveScreenshot(byte[] screenShot) {
+            return screenShot;
+        }
+
+        public void screenshot() {
+            if (webDriver == null) {
+                logger.info("Driver for screenshot not found");
+                return;
+            }
+            saveScreenshot(((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES));
+        };
+        protected void finished(Description description) {
+            logger.info(String.format("Finished test: %s::%s", description.getClass(), description.getClass()));
+            try {
+                webDriver.quit();
+                logger.info("Browser was closed");
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
+    };
 }
 
 
