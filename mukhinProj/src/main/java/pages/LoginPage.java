@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -55,6 +56,7 @@ public class LoginPage extends ParentPage{
         return "/";
     }
 
+    @Step
     public void openLoginPage(){
         try{
             webDriver.get(baseUrl);
@@ -64,7 +66,7 @@ public class LoginPage extends ParentPage{
             Assert.fail("Can not work with LoginPage");
         }
     }
-
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 ////            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder = 'Username']"));
@@ -78,14 +80,15 @@ public class LoginPage extends ParentPage{
         enterTextToElement(inputLogin, login);
 
     }
-
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord){
         openLoginPage();
         enterLoginInSignIn(login);
@@ -93,28 +96,28 @@ public class LoginPage extends ParentPage{
         clickOnButtonSignIn();
 
     }
-
+    @Step
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return  new HomePage(webDriver);
 
     }
-
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
-
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
-
+    @Step
     public LoginPage enterPassWordRegistration(String passWord) {
         enterTextToElement(inputPassWordRegistration, passWord);
         return this;
     }
-
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait5.withMessage("Number Of Messages")
@@ -140,7 +143,7 @@ public class LoginPage extends ParentPage{
         return  new HomePage(webDriver);
     }
 
-
+    @Step
     public void fillSignOutFormAndSubmit(String userName, String eMail, String passWord) {
         openLoginPage();
         enterUserNameInSignOut(userName);
@@ -148,19 +151,20 @@ public class LoginPage extends ParentPage{
         enterPassWordInSignOut(passWord);
         clickOnButtonSignOut();
     }
-
+    @Step
     private void clickOnButtonSignOut() {
         clickOnElement(buttonSignOut);
     }
 
+    @Step
     private void enterPassWordInSignOut(String passWord) {
         enterTextToElement(inputPassWordRegistration, passWord);
     }
-
+    @Step
     private void enterEMailInSignOut(String eMail) {
         enterTextToElement(inputEmailRegistration, eMail);
     }
-
+    @Step
     private void enterUserNameInSignOut(String userName) {
         enterTextToElement(inputLoginRegistration, userName);
     }

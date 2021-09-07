@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -96,7 +97,7 @@ public class LoginPage extends ParentPage {
 
     public boolean isWarningMessagePresent() { return isElementPresent(alertText); }
 
-
+@Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -107,6 +108,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try{
 //         //   WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -120,41 +122,41 @@ public class LoginPage extends ParentPage {
 //        }
         enterTextToElement(inputLogin, login);
     }
-
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
-
+    @Step
     public void fillLoginFormAndSubmit(String login, String password) {
         openLoginPage();
         enterLoginInSignIn(login);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
-
+    @Step
     public LoginPage enterLoginInRegForm(String login) {
         enterTextToElement(inputLoginInForm, login);
         return this;
     }
-
+    @Step
     public LoginPage enterEmailInRegForm(String email) {
         enterTextToElement(inputEmail, email);
         return this;
     }
-
+    @Step
     public LoginPage enterPasswordInRegForm(String password) {
         enterTextToElement(inputPasswordInForm, password);
         return this;
     }
-
+    @Step
     public void clickOnButtonSignUp() {
         clickOnElement(buttonSignUp);
     }
-
+    @Step
     public void fillRegFormAndSubmit(String login, String email, String password) {
         openLoginPage();
         enterTextToElement(inputLoginInForm, login);
@@ -162,13 +164,13 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputPasswordInForm, password);
         clickOnButtonSignUp();
     }
-
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
-
+    @Step
     public void checkErrors(String expectedErrors) {
         String[] arrErrorMessages = expectedErrors.split(";");
         webDriverWait10.withMessage("Number of Message")
