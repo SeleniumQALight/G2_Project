@@ -32,6 +32,7 @@
     <module>halonzaProj</module>
     <module>vorkovProj</module>
       <module>tonkovydProj</module>
+    <module>tuzProj</module>
   </modules>
 
   <name>G2Project</name>
