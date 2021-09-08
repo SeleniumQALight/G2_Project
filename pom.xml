@@ -33,6 +33,7 @@
     <module>vorkovProj</module>
       <module>tonkovydProj</module>
     <module>tuzProj</module>
+    <module>velykorodProj</module>
   </modules>
 
   <name>G2Project</name>
