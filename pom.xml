@@ -34,6 +34,7 @@
       <module>tonkovydProj</module>
     <module>tuzProj</module>
     <module>velykorodProj</module>
+    <module>lazarevaProj</module>
   </modules>
 
   <name>G2Project</name>
