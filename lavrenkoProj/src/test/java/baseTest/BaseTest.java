@@ -1,12 +1,17 @@
 package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -39,7 +44,7 @@ protected Logger logger = Logger.getLogger(getClass());
 
     @After
     public void tearDown() {
-        webDriver.quit();
+//        webDriver.quit();
         logger.info("------"+ testName.getMethodName() + " was ended ------");
     }
 
@@ -58,4 +63,32 @@ protected Logger logger = Logger.getLogger(getClass());
         }
         return webDriver;
     }
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            screenshot();
+        }
+        @Attachment(value = "Page screenshot", type = "image/png")
+        public byte[] saveScreenshot(byte[] screenShot) {
+            return screenShot;
+        }
+        public void screenshot() {
+            if (webDriver == null) {
+                logger.info("Driver for screenshot not found");
+                return;
+            }
+            saveScreenshot(((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES));
+        }
+        @Override
+        protected void finished(Description description) {
+            logger.info(String.format("Finished test: %s::%s", description.getClassName(), description.getMethodName()));
+            try {
+                webDriver.quit();
+                logger.info("Browser was closed");
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
+    };
 }
