@@ -4,7 +4,7 @@ import baseTest.BaseTest;
 import org.junit.Test;
 public class Error_PopUp_SignUp extends BaseTest {
     @Test
-    public void Sign__Up() {
+    public void sign__Up() {
         loginPage.openLoginPage();
         loginPage.enterLoginSignUp("tr");
         loginPage.enterEmail("test.com");

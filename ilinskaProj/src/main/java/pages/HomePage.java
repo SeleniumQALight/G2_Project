@@ -10,8 +10,8 @@ import ru.yandex.qatools.htmlelements.element.Button;
 public class HomePage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private Button buttonSignOut;
-@FindBy(xpath = ".//a[text()='Create Post']")
-private Button buttonCreatePost;
+    @FindBy(xpath = ".//a[text()='Create Post']")
+    private Button buttonCreatePost;
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -20,7 +20,7 @@ private Button buttonCreatePost;
     String getRelativeUrl() {
         return "/";
     }
-@Step
+    @Step
     public boolean isButtonSignOutPresent() {
         return isElementPresent(buttonSignOut);
 

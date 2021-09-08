@@ -11,7 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextInput;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,6 @@ public class LoginPage extends ParentPage {
     private WebElement inputPass;
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private Button OurApp;
-
     @FindBy(xpath = ".//div[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible' and text()='Username must be at least 3 characters.']")
     private WebElement errorMessage;
     @FindBy(xpath = ".//div[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible' and text()='You must provide a valid email address.']")
@@ -103,7 +101,6 @@ public class LoginPage extends ParentPage {
 
     }
     @Step
-
     public void fillinLoginFormandSubmit(String login, String password) {
         openLoginPage();
         enterLoginIn(login);
@@ -111,17 +108,15 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
     @Step
-
     public HomePage loginWithValidCred() {
         fillinLoginFormandSubmit(TestData.VALIG_LOGin, TestData.VALID_PASSWORd);
         return new HomePage(webDriver);
     }
     @Step
-
     public void clickOnOurApp() {
         clickOnElement(OurApp);
     }
-
+    @Step
     public boolean isPopupDisplay() {
         return isElementPresent(buttonSignIn);
 

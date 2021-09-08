@@ -39,7 +39,7 @@ public class LoginTest  extends BaseTest {
         }
     }
     @Test
-     public void InvalidLOg() {
+     public void invalidLOg() {
             File fileFF = new File("./src/drivers/91/91-1/chromedriver (2).exe");
             System.setProperty("webdriver.chrome.driver", fileFF.getAbsolutePath());
             webDriver = new ChromeDriver();

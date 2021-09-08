@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
     <aspectj.version>1.9.6</aspectj.version>
     <compiler.version>1.8</compiler.version>
     <tag>@R001</tag>
@@ -31,7 +31,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>3.141.59</version>
+      <version>3.14.0</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
     <dependency>
@@ -45,6 +45,18 @@
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.13.2</version>
+    </dependency>
+    <dependency>
+      <groupId>pl.pragmatists</groupId>
+      <artifactId>JUnitParams</artifactId>
+      <version>1.0.5</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>pl.pragmatists</groupId>
       <artifactId>JUnitParams</artifactId>
@@ -56,6 +68,18 @@
       <artifactId>htmlelements-java</artifactId>
       <version>1.20.0</version> <!-- 1.18+ is SELENIUM 3.5.1+ compatible -->
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
+    <dependency>
+      <groupId>org.aeonbits.owner</groupId>
+      <artifactId>owner</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.14</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
     <dependency>
       <groupId>mysql</groupId>
@@ -63,22 +87,12 @@
       <version>5.1.18</version>
     </dependency>
     <dependency>
-      <groupId>org.aeonbits.owner</groupId>
-      <artifactId>owner</artifactId>
-      <version>1.0.4</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.20.2</version>
-    </dependency>
-    <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-junit4</artifactId>
       <version>2.8.1</version>
     </dependency>
   </dependencies>
+
   <profiles>
     <profile>
       <id>regularTests</id>
@@ -103,7 +117,7 @@
               <!--                            <parallel>methods</parallel>-->
               <parallel>classes</parallel>
               <testFailureIgnore>true</testFailureIgnore>
-              <rerunFailingTestsCount>1</rerunFailingTestsCount>
+              <rerunFailingTestsCount>0</rerunFailingTestsCount>
               <argLine>
                 -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
               </argLine>
@@ -136,7 +150,8 @@
       </build>
     </profile>
   </profiles>
-<build>
+
+  <build>
     <plugins>
       <plugin>
         <groupId>io.qameta.allure</groupId>
