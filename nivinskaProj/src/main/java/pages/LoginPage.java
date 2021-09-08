@@ -42,6 +42,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
 
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    private WebElement alertLoginPasswordMessage;
+
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
     public LoginPage(WebDriver webDriver) {
@@ -78,6 +81,16 @@ public class LoginPage extends ParentPage {
 //            ;
 //        }
         enterTextToElement(inputLogin, login);
+    }
+
+    @Step
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    @Step
+    public boolean isAlertMessagePresent() {
+        return isElementPresent(alertLoginPasswordMessage);
     }
 
     @Step
