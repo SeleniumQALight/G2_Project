@@ -8,9 +8,21 @@ import junitparams.naming.TestCaseName;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
+import pages.LoginPage;
 
 @RunWith(JUnitParamsRunner.class)
 public class RegistrationTest extends BaseTest {
+    @Test
+    public void checkAlertMassageOnRegistrationForm() {
+        loginPage.fillRegistrarionFormAndSubmit("tr", "test.com", "123");
+
+        checkExpectedResult("Login live validate message is not visible", loginPage.checkLoginLiveValidateMessage(), true);
+        checkExpectedResult("Email live validate message is not visible", loginPage.checkEmailLiveValidateMessage(), true);
+        checkExpectedResult("Password live validate message is not visible", loginPage.checkPasswordLiveValidateMessage(), true);
+
+    }
+
+
     @Category(SmokeTestFilter.class)
     @Test
     @Parameters({
