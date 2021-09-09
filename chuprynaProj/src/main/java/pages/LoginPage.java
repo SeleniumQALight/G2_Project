@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import libs.Util;
 import org.assertj.core.api.SoftAssertions;
@@ -58,6 +59,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -68,6 +70,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignInForm(String userName) {
 //        try {
 //            inputLogin.clear();
@@ -80,14 +83,17 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLogin, userName);
     }
 
+    @Step
     public void enterPasswordInSignInForm(String password) {
         enterTextToElement(inputPassword, password);
     }
 
+    @Step
     public void clickOnSignInButton() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     public void fillLoginFormAndSubmit(String userName, String password) {
         openLoginPage();
         enterLoginInSignInForm(userName);
@@ -95,10 +101,12 @@ public class LoginPage extends ParentPage {
         clickOnSignInButton();
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isAlertMessagePresent() {
         return isElementPresent(alertMessage);
     }

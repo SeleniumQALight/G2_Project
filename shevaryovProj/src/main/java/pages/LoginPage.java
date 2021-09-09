@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -59,6 +60,8 @@ public class LoginPage extends ParentPage{
         return "/";
     }
 
+    // отображение в allure как шаг тестирования
+    @Step
     public void openLoginPage(){
         try {
             //get - перейти по указанному адресу
@@ -70,7 +73,7 @@ public class LoginPage extends ParentPage{
             Assert.fail("Can not work with LoginPage");
         }
     }
-
+    @Step
     public void enterLoginInSignIn(String login) {
 //        Находим поле логина и заполняем логином
 //        try {
@@ -86,14 +89,17 @@ public class LoginPage extends ParentPage{
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
     public void enterPassWordInSignIn(String passWord) {
         enterTextToElement(inputPassWord, passWord);
     }
 
+    @Step
     public void clickOnButtonInSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
     // схлопываем методы. открываем главную и логинимся на странице
     public void fillLoginFormAndSubmit(String login, String passWord){
         openLoginPage();
@@ -102,28 +108,32 @@ public class LoginPage extends ParentPage{
         clickOnButtonInSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         // возвращаем новый объект HomePage
         return new HomePage(webDriver);
     }
 
-
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
 
+    @Step
     public LoginPage enterPassWordRegistration(String passWord) {
         enterTextToElement(inputPassWordRegistration, passWord);
         return this;
     }
 
+    @Step
     public void checkErrorsMessage(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         // ждём когда все элементы появятся

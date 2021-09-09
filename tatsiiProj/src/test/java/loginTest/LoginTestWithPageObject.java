@@ -3,30 +3,35 @@ package loginTest;
 import baseTest.BaseTest;
 
 import categories.SmokeTestFilter;
-import junitparams.JUnitParamsRunner;
+import io.qameta.allure.*;
 import junitparams.Parameters;
 import libs.ExcelDriver;
 import libs.TestData;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.WebElement;
-import pages.ParentPage;
 
 import java.io.IOException;
 import java.util.Map;
 
 import static pages.ParentPage.configProperties;
 
-@RunWith(JUnitParamsRunner.class)
+//@RunWith(JUnitParamsRunner.class)
+@Epic("Allure examples")
+@Feature("Junit 4 support")
 public class LoginTestWithPageObject extends BaseTest {
-    public static final String[] invalidLoginData = {"auto:123", "auto2:123", "auto3:789"};
-
-    @Test
+    @Description("Some detailed test description")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("123")
+    @Issue("432")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Base support for bdd annotations")
     @Category(SmokeTestFilter.class)
+    @Test
     public void validLogin(){
         loginPage.openLoginPage();
-        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
+        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN+"333");
         loginPage.enterPassWordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
 
@@ -34,6 +39,7 @@ public class LoginTestWithPageObject extends BaseTest {
     }
 
     @Test
+    @Ignore
     @Category(SmokeTestFilter.class)
     public void validLoginWithExel() throws IOException {
         Map<String, String> dataForValidLogin = ExcelDriver.getData(configProperties.DATA_FILE(), "validLogOn");

@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,12 +42,13 @@ public class HomePage extends ParentPage{
         return "/";
     }
 
+    @Step
     public HomePage checkIsRedirectOnHomePage(){
         checkUrl();
         checkIsButtonSignOutVisible();
         return this;
     }
-
+    @Step
     public boolean isButtonSignOutPresent(){
         return isElementPresent(buttonSignOut);
     }
@@ -56,11 +58,13 @@ public class HomePage extends ParentPage{
         return  this;
     }
 
+    @Step
     public CreatePostPage clickOnButtonCreatePost() {
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
     }
 
+    @Step
     public HomePage openHomePage() {
         LoginPage loginPage = new LoginPage(webDriver);
         loginPage.openLoginPage();
@@ -70,27 +74,33 @@ public class HomePage extends ParentPage{
         return this;
     }
 
+    @Step
     public ProfilePage clickOnButtonProfile(){
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
     }
 
+    @Step
     public boolean isButtonSignInPresent() {
         return isElementPresent(buttonSignIn);
     }
 
+    @Step
     public boolean isMessageFailCredentialPresent() {
         return isElementPresent(messageFailCredential);
     }
 
+    @Step
     public  boolean isMessageFailUserNamePresent(){
         return isElementPresent(messageFailUserName);
     }
 
+    @Step
     public boolean isMessageFailEmailPresent(){
         return isElementPresent(messageFailEmail);
     }
 
+    @Step
     public  boolean isMessageFailPassWordPresent(){
         return isElementPresent(messageFailPassWord);
     }

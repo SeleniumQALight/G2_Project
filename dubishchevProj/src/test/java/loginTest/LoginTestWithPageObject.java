@@ -1,6 +1,7 @@
 package loginTest;
 
 import baseTest.BaseTest;
+import io.qameta.allure.*;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import junitparams.naming.TestCaseName;
@@ -16,17 +17,25 @@ import java.util.Map;
 import static pages.ParentPage.configProperties;
 
 @RunWith(JUnitParamsRunner.class)
+@Epic("Allure examples")
+@Feature("Junit 4 support")
 public class LoginTestWithPageObject extends BaseTest {
+    @Description("Some detailed test description")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("123")
+    @Issue("432")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Base support for bdd annotations")
     @Category(SmokeTestFilter.class)
     @Test
     public void validLogin() {
         loginPage.openLoginPage();
-        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
+        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN+1);
         loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
         loginPage.clickOnButtonSignIn();
         checkExpectedResult("Button SignOut is not visible", homePage.isButtonSignOutPresent(), true);
     }
-
 
     @Test
     public void invalidLoginTest() {
@@ -38,10 +47,10 @@ public class LoginTestWithPageObject extends BaseTest {
 
     @Test
     @Parameters({
-            "auto,123456qwerty", //valid credentials
+            //"auto,123456qwerty", //valid credentials
             "auto,1", //invalid credentials
             "au,123456qwerty", //invalid credentials
-            "auto,123456qwert" //invalid credentials
+            //"auto,123456qwert" //invalid credentials
     })
     @TestCaseName("Invalid login test : login = {0}, password = {1}")
     public void invalidLoginTestWithParameters(String login, String password) {

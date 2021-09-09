@@ -1,6 +1,7 @@
 package pages;
 
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -47,7 +48,7 @@ public class LoginPage extends ParentPage {
     String getRelativeUrl() {
         return "/";
     }
-
+//    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
