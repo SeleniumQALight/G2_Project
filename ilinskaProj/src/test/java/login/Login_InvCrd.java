@@ -1,7 +1,11 @@
 package login;
 import baseTest.BaseTest;
+import categories.SmokeTestFilter;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
 public class Login_InvCrd  extends BaseTest {
+    @Category(SmokeTestFilter.class)
 @Test
     public void invalidLogin() {
 
