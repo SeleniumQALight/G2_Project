@@ -2,6 +2,7 @@ package pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Button;
@@ -24,11 +25,13 @@ private Button buttonCreatePost;
         return isElementPresent(buttonSignOut);
 
     }
+    @Step
 
     public HomePage checkIsButtonSignOutVisible() {
         Assert.assertTrue("Button Sign Out is not displayed ", isButtonSignOutPresent());
         return this;
     }
+    @Step
     public CreatePostPage clickonButtonCreatePost(){
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
