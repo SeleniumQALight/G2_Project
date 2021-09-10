@@ -2,6 +2,7 @@ package pages;
 
 import io.qameta.allure.Step;
 import libs.TestData;
+import libs.Util;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -41,6 +42,9 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrorsList;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
@@ -137,5 +141,16 @@ public class LoginPage extends ParentPage {
             softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
         softAssertions.assertAll();
+    }
+
+    @Step
+    //Without SoftAssertions
+    public void checkErrors(String expectedListOfErrors) {
+        String[] expectedListOfErrorsList = expectedListOfErrors.split(";");
+        Util.waitABit(1);
+        Assert.assertEquals("Number of messages", expectedListOfErrorsList.length, actualListOfErrorsList.size());
+        for (int i = 0; i < actualListOfErrorsList.size(); i++) {
+            Assert.assertEquals("Error message does not exist or incorrect", expectedListOfErrorsList[i], actualListOfErrorsList.get(i).getText());
+        }
     }
 }
