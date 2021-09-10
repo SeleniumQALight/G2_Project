@@ -62,6 +62,13 @@ public class CreatePostPage extends ParentPage {
         return this;
     }
 
+    public CreatePostPage selectTextInDDByClickSelectValue(String value) {
+        {
+            selectTextInDropDownByClick(dropDownSelectValue, value);
+        }
+        return this;
+    }
+
     public CreatePostPage checkIsRedirectOnCreatePostPage() {
 //        Assert.assertEquals("Invalid page "
 //                , baseUrl + getRelativeUrl()
