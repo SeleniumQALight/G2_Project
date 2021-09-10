@@ -141,6 +141,31 @@ public abstract class ParentPage {
         }
     }
 
+    protected void setValueInCheckBox(WebElement checkBox, String stateValue) {
+        try {
+            boolean currentState = checkBox.isSelected();
+            boolean expectedState = changeCheckUncheckStateToBoolean(stateValue);
+            if (currentState == expectedState) {
+                logger.info(String.format("Checkbox has already changed to" + stateValue + " state"));
+            } else {
+                clickOnElement(checkBox);
+                logger.info(String.format("CheckBox has changed to" + stateValue));
+            }
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected boolean changeCheckUncheckStateToBoolean(String value) {
+        if (value.equalsIgnoreCase("check")) {
+            return true;
+        } else if (value.equalsIgnoreCase("uncheck")) {
+            return false;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public void usersPressesKeyEnterTime(int numberOfTimes) {
         Actions actions = new Actions(webDriver);
         for (int i = 0; i < numberOfTimes; i++) {
