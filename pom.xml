@@ -37,6 +37,7 @@
     <module>lazarevaProj</module>
     <module>kuzubProj</module>
     <module>nahlenkoProj</module>
+      <module>bychovyiProj</module>
   </modules>
 
   <name>G2Project</name>
