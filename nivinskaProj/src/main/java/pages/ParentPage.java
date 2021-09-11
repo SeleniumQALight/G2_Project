@@ -4,10 +4,7 @@ import libs.ConfigProperties;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -131,6 +128,41 @@ public abstract class ParentPage {
             logger.info("'" + value + "' was selected in DropDown" + getElementName(dropDown));
         } catch (Exception e) {
             writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void selectTextInDropDownByClick(WebElement dropDown, String text) {
+        try {
+            clickOnElement(dropDown);
+            WebElement elementOption = webDriver.findElement(By.xpath(String.format(".//option[text() = '%s']", text)));
+            clickOnElement(elementOption);
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected void setValueInCheckBox(WebElement checkBox, String stateValue) {
+        try {
+            boolean currentState = checkBox.isSelected();
+            boolean expectedState = changeCheckUncheckStateToBoolean(stateValue);
+            if (currentState == expectedState) {
+                logger.info(String.format("Checkbox has already changed to" + stateValue + " state"));
+            } else {
+                clickOnElement(checkBox);
+                logger.info(String.format("CheckBox has changed to" + stateValue));
+            }
+        } catch (Exception e) {
+            writeErrorAndStopTest(e);
+        }
+    }
+
+    protected boolean changeCheckUncheckStateToBoolean(String value) {
+        if (value.equalsIgnoreCase("check")) {
+            return true;
+        } else if (value.equalsIgnoreCase("uncheck")) {
+            return false;
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
