@@ -151,17 +151,33 @@ public abstract class ParentPage {
     }
 
     public void userOpensNewTab() {
-        ((JavascriptExecutor)webDriver).executeScript("window.open()");
+        ((JavascriptExecutor)webDriver).executeScript("window.open()");        // put a javascript command into the brackets
         ArrayList<String> tabs = new ArrayList<> (webDriver.getWindowHandles());
         webDriver.switchTo().window(tabs.get(1));
     }
 
-//    protected void selectCheckBoxValue(WebElement square, String text){
-//        try{
-//            Select select1 = new Select(square);
-//            select1.select
-//        }
-//    }
+    // WebElement element = driver.findElement(By.id("gbqfd"));
+//    JavascriptExecutor executor = (JavascriptExecutor)driver;
+//    executor.executeScript("arguments[0].click();", element);
+//    JavascriptExecutor jse = (JavascriptExecutor)driver;
+//    jse.executeScript("document.getElementById('gbqfb').click();");
+
+
+    // String downloadFilepath = "/path/to/download";
+//HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+//chromePrefs.put("profile.default_content_settings.popups", 0);
+//chromePrefs.put("download.default_directory", downloadFilepath);
+//ChromeOptions options = new ChromeOptions();
+//options.setExperimentalOption("prefs", chromePrefs);
+//DesiredCapabilities cap = DesiredCapabilities.chrome();
+//cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//cap.setCapability(ChromeOptions.CAPABILITY, options);
+//WebDriver driver = new ChromeDriver(cap);
+
+    // new Actions(driver).moveToElement(element).perform();
+
+  //  JavascriptExecutor jse = (JavascriptExecutor) driver;
+  // jse.executeScript("document.getElementById('elementid').focus();");
 
     private void writeErrorAndStopTest(Exception e) {
         logger.error("Cannot work with an element " + e);
