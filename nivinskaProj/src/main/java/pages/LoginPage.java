@@ -28,6 +28,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private Button buttonSignIn;
 
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private Button buttonSignUp;
+
     @FindBy(id = "username-register")
     private TextInput inputLoginRegistration;
 
@@ -37,14 +40,23 @@ public class LoginPage extends ParentPage {
     @FindBy(id = "password-register")
     private TextInput inputPassWordRegistration;
 
-    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private Button buttonSignUp;
-
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
 
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrorsList;
+
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    private WebElement alertLoginPasswordMessage;
+
+    @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
+    private WebElement loginLiveValidateMessage;
+
+    @FindBy(xpath = ".//div[text()='You must provide a valid email address.']")
+    private WebElement emailLiveValidateMessage;
+
+    @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
+    private WebElement passwordLiveValidateMessage;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
@@ -85,6 +97,31 @@ public class LoginPage extends ParentPage {
     }
 
     @Step
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    @Step
+    public boolean isAlertMessagePresent() {
+        return isElementPresent(alertLoginPasswordMessage);
+    }
+
+    @Step
+    public boolean checkLoginLiveValidateMessage() {
+        return isElementPresent(loginLiveValidateMessage);
+    }
+
+    @Step
+    public boolean checkEmailLiveValidateMessage() {
+        return isElementPresent(emailLiveValidateMessage);
+    }
+
+    @Step
+    public boolean checkPasswordLiveValidateMessage() {
+        return isElementPresent(passwordLiveValidateMessage);
+    }
+
+    @Step
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
@@ -92,6 +129,11 @@ public class LoginPage extends ParentPage {
     @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
+    }
+
+    @Step
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
     }
 
     @Step
@@ -152,5 +194,13 @@ public class LoginPage extends ParentPage {
         for (int i = 0; i < actualListOfErrorsList.size(); i++) {
             Assert.assertEquals("Error message does not exist or incorrect", expectedListOfErrorsList[i], actualListOfErrorsList.get(i).getText());
         }
+    }
+
+    public void fillRegistrarionFormAndSubmit(String login, String email, String password) {
+        openLoginPage();
+        enterLoginInRegistration(login);
+        enterEmailInRegistration(email);
+        enterPassWordInRegistration(password);
+        clickOnButtonSignUp();
     }
 }
