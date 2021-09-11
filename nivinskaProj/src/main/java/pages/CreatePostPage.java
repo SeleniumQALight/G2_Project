@@ -22,8 +22,8 @@ public class CreatePostPage extends ParentPage {
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
 
-    @FindBy(xpath = ".//input[@type='checkbox']]")
-    private Select createPostCheckBox;
+    @FindBy(xpath = ".//input[@type='checkbox']")
+    private WebElement createPostCheckBox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
