@@ -1,6 +1,8 @@
 package login;
+import categories.SmokeTestFilter;
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +10,7 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 public class LoginTest {
     WebDriver webDriver;
+    @Category(SmokeTestFilter.class)
 @Test
     public void validLogin() {
         File fileFF = new File("./src/drivers/91/91-1/chromedriver (2).exe");

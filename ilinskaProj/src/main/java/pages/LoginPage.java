@@ -1,6 +1,7 @@
 package pages;
 
 import libs.TestData;
+import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -69,79 +70,82 @@ public class LoginPage extends ParentPage {
             Assert.fail("Сannot work with LoginPage");
         }
     }
+    @Step
 
     public void enterLoginIn(String login) {
 
         enterTextToElement(inputLogin, login);
 
     }
-
+    @Step
     public boolean isSignINPresent() {
         return isElementPresent(buttonSignIn);
     }
-
+    @Step
 
     public void enterLoginSignUp(String login) {
         enterTextToElement(inputLOgin, login);
     }
-
+    @Step
     public void enterEmail(String email) {
         enterTextToElement(inputEmail, email);
 
     }
-
+    @Step
     public void enterPasswwordInSign(String password) {
         enterTextToElement(inputPassword, password);
 
 
     }
+    @Step
 
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
 
     }
-
+    @Step
     public void fillinLoginFormandSubmit(String login, String password) {
         openLoginPage();
         enterLoginIn(login);
         enterPasswwordInSign(password);
         clickOnButtonSignIn();
     }
-
+    @Step
     public HomePage loginWithValidCred() {
         fillinLoginFormandSubmit(TestData.VALIG_LOGin, TestData.VALID_PASSWORd);
         return new HomePage(webDriver);
     }
 
-
+    @Step
     public void clickOnOurApp() {
         clickOnElement(OurApp);
     }
-
+    @Step
     public boolean isPopupDisplay() {
         return isElementPresent(buttonSignIn);
 
     }
+    @Step
 
     public void enterPassSignUp(String password) {
         enterTextToElement(inputPass, password);
     }
-
+    @Step
     public boolean isErrorPopUpUserNamePresent() {
         return isElementPresent(errorMessage);
 
     }
-
+    @Step
     public boolean isErrorPopupEmailPresent() {
         return isElementPresent(errorEmailMessage);
 
     }
-
+    @Step
     public boolean isErrorPopupPassPresent() {
 
         return isElementPresent(errorPassword);
     }
-
+    @Step
     public void fillinandsubmit(String login, String password) {
         openLoginPage();
         enterLoginIn("auto");
@@ -149,21 +153,22 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
 
     }
-
+    @Step
     public LoginPage enterLoginRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
-
+    @Step
     public LoginPage enterEmailRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
-
+    @Step
     public LoginPage enterPasswordRegistration(String pasword) {
         enterTextToElement(inputPasswordRegistration, pasword);
         return this;
     }
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number Of Messages ")
