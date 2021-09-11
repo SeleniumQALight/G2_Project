@@ -12,12 +12,18 @@ public class CreatePostPage extends ParentPage {
     //    @FindBy(xpath = ".//input[@name='title']")
     @FindBy(name = "title")
     private TextInput inputTitle;
+
     @FindBy(id = "post-body")
     private TextInput inputBody;
+
     @FindBy(xpath = ".//button[text()='Save New Post']")
     private Button buttonSave;
+
     @FindBy(xpath = ".//select[@id='select1']")
     private Select dropDownSelectValue;
+
+    @FindBy(xpath = ".//input[@type='checkbox']")
+    private WebElement createPostCheckBox;
 
     public CreatePostPage(WebDriver webDriver) {
         super(webDriver);
@@ -58,6 +64,20 @@ public class CreatePostPage extends ParentPage {
     public CreatePostPage selectValueInDDSelectValue(String value) {
         {
             selectValueInDD(dropDownSelectValue, value);
+        }
+        return this;
+    }
+
+    public CreatePostPage selectTextInDDByClickSelectValue(String value) {
+        {
+            selectTextInDropDownByClick(dropDownSelectValue, value);
+        }
+        return this;
+    }
+
+    public CreatePostPage setValueInCreatePostCheckBox(String value) {
+        {
+            setValueInCheckBox(createPostCheckBox, value);
         }
         return this;
     }
