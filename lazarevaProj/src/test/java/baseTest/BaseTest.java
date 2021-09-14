@@ -1,9 +1,8 @@
 package baseTest;
 
-import static org.hamcrest.CoreMatchers.is;
-
-import java.util.concurrent.TimeUnit;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,12 +17,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
-import io.qameta.allure.Attachment;
-import io.qameta.allure.Step;
 import pages.HomePage;
 import pages.LoginPage;
+
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     WebDriver webDriver;
