@@ -58,7 +58,7 @@ public class ApiTests {
 
     @Test
     public void getAllPostByUserNegative(){
-        String responsBody =
+        String responseBody =
                 given()
                         .contentType(ContentType.JSON)
                         .log().all()
@@ -68,9 +68,9 @@ public class ApiTests {
                         .statusCode(200)
                         .log().all()
                         .extract().response().getBody().asString();
-        Assert.assertEquals("Message in respons", "\"Sorry, invalid user requested.undefined\"", responsBody);
+        Assert.assertEquals("Message in response", "\"Sorry, invalid user requested.undefined\"", responseBody);
 
-//        Assert.assertEquals("Message in respons", "Sorry, invalid user requested.undefined", responsBody.replaceAll("\'",""));
+        Assert.assertEquals("Message in response", "Sorry, invalid user requested.undefined", responseBody.replaceAll("\"",""));
     }
 
     @Test
