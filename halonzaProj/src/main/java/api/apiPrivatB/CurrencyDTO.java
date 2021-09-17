@@ -15,6 +15,11 @@ public class CurrencyDTO {
     @SerializedName("sale")
     String sale;
 
+    public CurrencyDTO(String ccy, String base_ccy) {
+        this.ccy = ccy;
+        this.base_ccy = base_ccy;
+    }
+
     public CurrencyDTO() {
     }
 
