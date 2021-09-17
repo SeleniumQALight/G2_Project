@@ -5,4 +5,5 @@ public interface EndPoints {
     String POST_BY_USER = baseUrl + "/api/postsByAuthor/{0}";
 
 
+    String LOGIN = baseUrl + "/api/login";
 }
