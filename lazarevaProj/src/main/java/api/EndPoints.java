@@ -7,4 +7,8 @@ public interface EndPoints {
 
     String LOGIN = baseUrl + "/api/login";
 
+    String getPB24Url ="https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=";
+
+
+
 }
