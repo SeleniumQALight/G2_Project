@@ -5,9 +5,8 @@ import io.restassured.http.ContentType;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.junit.Test;
-import javax.ws.rs.core.UriBuilder;
+import static api.EndPoints.*;
 import static io.restassured.RestAssured.given;
-import static api.EndPoints.privatBankUrl;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class currencyApiTest {
@@ -16,9 +15,11 @@ public class currencyApiTest {
         CurrencyDTO[] responseBody = given()
                         .contentType(ContentType.JSON)
                         .log().all()
+                        .queryParam("json")
+                        .queryParam("exchange")
+                        .queryParam("coursid", "5")
                 .when()
-                        .get((UriBuilder.fromUri(privatBankUrl).queryParam("coursid", "5")
-                                .build()).toString())
+                        .get(PRIVATE_BANK_CURRENCY_URL)
                 .then()
                         .statusCode(200)
                         .log().all()
@@ -53,9 +54,11 @@ public class currencyApiTest {
         given()
                 .contentType(ContentType.JSON)
                 .log().all()
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
         .when()
-                .get((UriBuilder.fromUri(privatBankUrl).queryParam("coursid", "5")
-                        .build()).toString())
+                .get(PRIVATE_BANK_CURRENCY_URL)
        .then()
                 .statusCode(200)
                 .log().all()
