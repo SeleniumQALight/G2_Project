@@ -8,10 +8,11 @@ import org.junit.Test;
 import javax.ws.rs.core.UriBuilder;
 import static io.restassured.RestAssured.given;
 import static api.EndPoints.privatBankUrl;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class currencyApiTest {
     @Test
-    public void CurrencyApiTest() {
+    public void getCurrencyData() {
         CurrencyDTO[] responseBody = given()
                         .contentType(ContentType.JSON)
                         .log().all()
@@ -45,5 +46,19 @@ public class currencyApiTest {
             System.out.println("Курс " + responseBody[i].getCcy() + " к " + responseBody[i].getBase_ccy()
             + " покупки " + responseBody[i].getBuy() + " и продажи " + responseBody[i].getSale());
         }
+    }
+
+    @Test
+    public void getCurrencyDataByScheme() {
+        given()
+                .contentType(ContentType.JSON)
+                .log().all()
+        .when()
+                .get((UriBuilder.fromUri(privatBankUrl).queryParam("coursid", "5")
+                        .build()).toString())
+       .then()
+                .statusCode(200)
+                .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("privatbank_response.json"));
     }
 }
