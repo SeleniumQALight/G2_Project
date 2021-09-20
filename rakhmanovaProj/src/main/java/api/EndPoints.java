@@ -9,6 +9,6 @@ public interface EndPoints {
     String LOGIN = baseUrl + "/api/login";
 
     String privatBankUrl = "https://api.privatbank.ua/";
-    String CURRENCY_LIST = privatBankUrl + "/p24api/pubinfo?json&exchange&coursid=5";
+    String CURRENCY_LIST = privatBankUrl + "/p24api/pubinfo"; //?json&exchange&coursid=5
 
 }

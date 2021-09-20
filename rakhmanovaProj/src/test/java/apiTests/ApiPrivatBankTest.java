@@ -18,6 +18,9 @@ public class ApiPrivatBankTest {
     public void getAllCurrencies(){
         CurrenciesDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
                 .log().all()
         .when()
                .get(CURRENCY_LIST)
@@ -28,7 +31,6 @@ public class ApiPrivatBankTest {
                 .response().as(CurrenciesDTO[].class)
                 ;
         logger.info(responseBody.length);
-        logger.info(responseBody[0].getCcy());
 
         CurrenciesDTO[] expectedCurrenciesDTO = {
                 new CurrenciesDTO("USD", "UAH"),
@@ -39,6 +41,7 @@ public class ApiPrivatBankTest {
 
         Assert.assertEquals(responseBody.length, expectedCurrenciesDTO.length);
         SoftAssertions softAssertions = new SoftAssertions();
+
         for (int i = 0; i < expectedCurrenciesDTO.length; i++) {
             softAssertions.assertThat(expectedCurrenciesDTO[i])
                     .isEqualToIgnoringGivenFields(responseBody[i], "buy", "sale");
