@@ -6,7 +6,7 @@
       "type": "object",
       "properties": {
         "_id": {
-          "type": "integer"
+          "type": "string"
         },
         "title": {
           "type": "string"
