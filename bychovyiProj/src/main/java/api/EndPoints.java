@@ -7,4 +7,6 @@ public interface EndPoints {
 
     String basuUrlBrivatBank = "https://api.privatbank.ua";
     String CASH_RATE = basuUrlBrivatBank + "/p24api/pubinfo";
+    String CREATE_POST = baseUrl + "/api/create-post";
+    String DELETE_POSTS = baseUrl + "/api/post/{0}";
 }
