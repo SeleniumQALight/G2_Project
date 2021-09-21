@@ -1,7 +1,6 @@
 package apiTests;
 
 import api.AuthorDTO;
-import api.PostDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;

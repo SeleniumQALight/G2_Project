@@ -70,7 +70,7 @@ public class ApiHelper {
 
         given()
                 .spec(requestSpecification)
-                .body(bodyRequest)
+                .body(bodyRequest.toMap())
                 .when()
                 .delete(EndPoints.DELETE_POST, id)
                 .then()
