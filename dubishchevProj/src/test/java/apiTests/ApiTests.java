@@ -109,7 +109,7 @@ public class ApiTests {
                 .log().all()
         .when()
                 .get(POST_BY_USER, USER_NAME)
-                .then()
+        .then()
                 .assertThat().body(matchesJsonSchemaInClasspath("response.json"));
     }
 
