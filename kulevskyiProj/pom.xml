@@ -132,7 +132,6 @@
       <artifactId>json-schema-validator</artifactId>
       <version>3.3.0</version>
     </dependency>
-
   </dependencies>
 
   <profiles>
