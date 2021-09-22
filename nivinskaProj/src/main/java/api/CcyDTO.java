@@ -12,12 +12,13 @@ public class CcyDTO {
     @SerializedName("sale")
     String sale;
 
-    public CcyDTO(String ccy, String base_ccy, String buy, String sale) {
+    public CcyDTO(String ccy, String base_ccy) {
         this.ccy = ccy;
         this.base_ccy = base_ccy;
     }
 
     public CcyDTO() {
+
     }
 
     public String getCcy() {

@@ -1,7 +1,9 @@
 package apiTests;
 
+import api.AuthorDTO;
 import api.CcyDTO;
 import api.EndPoints;
+import api.PostDTO;
 import io.restassured.http.ContentType;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -36,12 +38,23 @@ public class pbApiTests {
                             + " покупки " + responseBody[i].getBuy()
                             + " продажи " + responseBody[i].getSale());
         }
+
+        CcyDTO[] expectedCcyDTO = {
+                new CcyDTO("USD", "UAH"),
+                new CcyDTO("EUR", "UAH"),
+                new CcyDTO("RUR", "UAH"),
+                new CcyDTO("BTC", "USD")
+        };
+        Assert.assertEquals(responseBody.length, expectedCcyDTO.length);
     }
 
     @Test
     public void getCcyExchangeByPbSchema() {
         given()
                 .contentType(ContentType.JSON)
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
                 .log().all()
                 .when()
                 .get(EndPoints.CCY_EXCHANGE)
