@@ -15,7 +15,7 @@ public class CurrencyAPI {
     @Test
     public void getCurrency() {
         CurrencyDTO[] response = given()
-                .contentType(ContentType.JSON)
+                .contentType(ContentType.JSON).queryParam("json").queryParam("exchange").queryParam("coursid", 5)
                 .log().all()
         .when()
                 .get(Currency)
