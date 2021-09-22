@@ -17,6 +17,9 @@ public class pbApiTests {
     public void getCcyExchangeByPb() {
         CcyDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
                 .log().all()
                 .when()
                 .get(EndPoints.CCY_EXCHANGE)
