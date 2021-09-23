@@ -5,6 +5,7 @@ import api.EndPoints;
 import api.PostDTO;
 import io.restassured.http.ContentType;
 import org.apache.log4j.Logger;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -48,12 +49,12 @@ public class ApiTests {
 
         for (int i = 0; i < expectedPostDTO.length; i++) {
             softAssertion.assertThat(expectedPostDTO[i])
-                    .isEqualToIgnoringGivenFields(responseBody[i], "id", "createdDate", "author");
+                    .isEqualToIgnoringGivenFields(responseBody[i], "_id", "createdDate", "author");
             softAssertion.assertThat(expectedPostDTO[i].getAuthor())
                     .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(), "avatar");
 
         }
-        softAssertions.assertAll();
+        softAssertion.assertAll();
 
     }
 }
