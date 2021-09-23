@@ -1,6 +1,7 @@
 package apiTest;
 
 import api.AuthorDTO;
+import api.EndPoints;
 import api.PostDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -116,5 +117,21 @@ public class ApiTest {
                 .assertThat().body(matchesJsonSchemaInClasspath("response.json"))
                 .statusCode(200)
                 .log().all();
+    }
+
+    @Test
+    public void getCurrencyExchangePrivatBankSchema(){
+        given()
+                .contentType(ContentType.JSON)
+                .log().all()
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
+                .when()
+                .get(EndPoints.GET_CURRENCY_COURSE_PRIVAT)
+                .then()
+                .statusCode(200)
+                .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("privatCurrencyCourse.json")) ;
     }
 }
