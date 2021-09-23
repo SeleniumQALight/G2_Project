@@ -2,6 +2,7 @@ package apiTest;
 
 import api.AuthorDTO;
 import api.PostDTO;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -24,10 +25,11 @@ public class ApiTest {
     public void getAllPostsByUser() {
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .filter(new AllureRestAssured())
                 .log().all()
-                .when()
+        .when()
                 .get(POST_BY_USER, USER_NAME)
-                .then()
+        .then()
                 .statusCode(200)
                 .log().all()
                 .extract()
@@ -117,10 +119,3 @@ public class ApiTest {
                 .assertThat().body(matchesJsonSchemaInClasspath("response.json"));
     }
 }
-
-
-
-
-
-
-
