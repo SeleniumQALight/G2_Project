@@ -103,9 +103,7 @@ public class ApiTests {
             softAssertions.assertThat(authorList.get(i).get("username"))
                     .as("Item number " + i).isEqualTo(USER_NAME);
         }
-
         softAssertions.assertAll();
-
     }
 
     @Test
