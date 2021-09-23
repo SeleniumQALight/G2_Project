@@ -63,7 +63,7 @@ public class ApiTests {
 
 
     @Test
-    public void gerAllPostByUserNegative(){
+    public void getAllPostByUserNegative(){
         String responsBody =
                 given()
                        .contentType(ContentType.JSON)
