@@ -3,6 +3,7 @@ package apiTests;
 import api.ApiHelper;
 import api.AuthorDTO;
 import api.EndPoints;
+import api.PostDTO;
 import io.restassured.http.ContentType;
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONObject;
