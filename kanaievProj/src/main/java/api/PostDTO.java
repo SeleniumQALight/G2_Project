@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class PostDTO {
     @SerializedName("_id")
-    String _id;
+    private String _id;
     @SerializedName("title")
-    String title;
+    private String title;
     @SerializedName("body")
-    String body;
+    private String body;
     @SerializedName("select1")
-    String select1;
+    private String select1;
     @SerializedName("createdDate")
-    String createdDate;
+    private String createdDate;
     @SerializedName("author")
-    AuthorDTO author;
+    private AuthorDTO author;
     @SerializedName("isVisitorOwner")
-    Boolean isVisitorOwner;
+    private Boolean isVisitorOwner;
 
     public PostDTO(String title, String body, String select1, AuthorDTO author, Boolean isVisitorOwner) {
         this.title = title;
