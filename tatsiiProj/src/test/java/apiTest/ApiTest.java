@@ -17,7 +17,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ApiTest {
-    final String USER_NAME = "autoapi";
+    final String USER_NAME = "Lana230208";
     Logger logger = Logger.getLogger(getClass());
 
     @Test
@@ -37,7 +37,7 @@ public class ApiTest {
         logger.info(responseBody[0].getTitle());
         logger.info(responseBody[0].getAuthor().getUsername());
         for (int i = 0; i < responseBody.length; i++) {
-            Assert.assertEquals("Username", "autoapi", responseBody[i].getAuthor().getUsername());
+            Assert.assertEquals("Username", "Lana230208", responseBody[i].getAuthor().getUsername());
         }
 
         PostDTO[] expectedPostDTO = {

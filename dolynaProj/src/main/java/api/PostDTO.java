@@ -81,7 +81,7 @@ public class PostDTO {
         return isVisitorOwner;
     }
 
-    public void setIsVisitorOwner(Boolean visitorOwner) {
+    public void setIsVisitorOwner(Boolean isVisitorOwner) {
         this.isVisitorOwner = isVisitorOwner;
     }
 
