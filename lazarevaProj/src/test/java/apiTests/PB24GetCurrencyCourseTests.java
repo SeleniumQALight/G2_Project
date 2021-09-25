@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.junit.Test;
-
 import static api.EndPoints.getPB24Url;
 import static io.restassured.RestAssured.*;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class PB24GetCurrencyCourseTests {
 
@@ -18,34 +18,15 @@ public class PB24GetCurrencyCourseTests {
     @Test
     public void sendGetAndValidateStatusCode(){
                 given()
+                       .queryParam("coursid","5")
                        .contentType(ContentType.JSON)
-                        .log().all()
+                       .log().all()
                 .when()
-                        .get(getPB24Url+"5")
+                        .get(getPB24Url)
                 .then()
                         .statusCode(200)
                         .log().all();
 
-    }
-
-         // Map currency DTO, print data from response
-    @Test
-   public void allCurrenciesCourseDTO() {
-        PrivatGetResponseDTO[] responseBody =
-        given()
-                .contentType(ContentType.JSON)
-                .log().all()
-        .when()
-                .get(getPB24Url + "5")
-        .then()
-                .statusCode(200)
-                .log().all()
-                .extract().as(PrivatGetResponseDTO[].class);
-        logger.info(responseBody.length);
-        logger.info(responseBody[0]);
-        logger.info(responseBody[1]);
-        logger.info(responseBody[2]);
-        logger.info(responseBody[3]);
     }
 
          // 5 Validation of the ccy & ccy и base_ccy (fields buy и sale are ignoring )
@@ -53,10 +34,11 @@ public class PB24GetCurrencyCourseTests {
          public void validationOfTheCcyAndBaseCcy() {
              PrivatGetResponseDTO[] responseBody =
                      given()
+                             .queryParam("coursid","5")
                              .contentType(ContentType.JSON)
                              .log().all()
                      .when()
-                             .get(getPB24Url + "5")
+                             .get(getPB24Url)
                      .then()
                              .statusCode(200)
                              .log().all()
@@ -80,11 +62,28 @@ public class PB24GetCurrencyCourseTests {
              }
              softAssertions.assertAll();
              logger.info(responseBody.length);
-             logger.info(responseBody[0]);
-             logger.info(responseBody[1]);
-             logger.info(responseBody[2]);
-             logger.info(responseBody[3]);
+             for (int i = 0; i < responseBody.length; i++){
+                 logger.info(responseBody[i]);
+             }
          }
+
+    @Test
+    public void validationGETResponseSchema() {
+        given()
+                .queryParam("coursid","5")
+                .contentType(ContentType.JSON)
+                .log().all()
+                .when()
+                .get(getPB24Url)
+                .then()
+                .statusCode(200).log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("getCurrencyCourse.json"));
+
+    }
+
+
+
+
 
     //Current tests does not relate to HW1
     @Test
@@ -92,9 +91,10 @@ public class PB24GetCurrencyCourseTests {
         PrivatGetResponseDTO[] responseBody =
                 given()
                         .contentType(ContentType.JSON)
+                        .queryParam("coursid","5")
                         .log().all()
                         .when()
-                        .get(getPB24Url + "5")
+                        .get(getPB24Url)
                         .then()
                         .statusCode(200)
                         .log().all()
@@ -122,10 +122,9 @@ public class PB24GetCurrencyCourseTests {
 
         Assert.assertEquals(TestData.EUR_UAH_BUY, responseBody[1].getBuy());
         logger.info(responseBody.length);
-        logger.info(responseBody[0]);
-        logger.info(responseBody[1]);
-        logger.info(responseBody[2]);
-        logger.info(responseBody[3]);
+        for (int i = 0; i < responseBody.length; i++){
+            logger.info(responseBody[i]);
+        }
     }
 
 
