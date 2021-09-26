@@ -8,4 +8,7 @@ public interface EndPoints {
     String LOGIN = baseUrl + "/api/login";
     String CREATE_POST = baseUrl + "/api/create-post";
     String DELETE_POST = baseUrl + "/api/post/{0}";
+
+    String baseUrlPrivatBank = "https://api.privatbank.ua";
+    String POST_BY_PRIVAT_BANK = baseUrlPrivatBank + "/p24api/pubinfo?json&exchange&";
 }

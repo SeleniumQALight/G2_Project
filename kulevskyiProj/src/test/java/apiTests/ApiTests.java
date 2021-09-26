@@ -1,9 +1,8 @@
 package apiTests;
 
 import api.AuthorDTO;
-import api.EndPoints;
+import api.CurrencyDTO;
 import api.PostDTO;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -12,10 +11,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-import java.rmi.MarshalledObject;
+
 import java.util.List;
 import java.util.Map;
 
+import static api.EndPoints.POST_BY_PRIVAT_BANK;
 import static api.EndPoints.POST_BY_USER;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -28,13 +28,12 @@ public class ApiTests {
     public void getAllPostsByUser() {
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
-                .when()
-                     .get(POST_BY_USER, USER_NAME)
-                .then()
+        .when()
+                .get(POST_BY_USER, USER_NAME)
+        .then()
                 .statusCode(200)
                 .log().all()
-                .extract()
-                .response().as(PostDTO[].class);
+                .extract().response().as(PostDTO[].class);
 
         logger.info(responseBody.length);
         logger.info(responseBody[0].getTitle());
@@ -44,7 +43,7 @@ public class ApiTests {
         }
 
         PostDTO[] expectedPostDTO = {
-          new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
+                new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
                 new PostDTO("test", "test body", "All Users", new AuthorDTO(USER_NAME), false)
         };
 
@@ -54,7 +53,7 @@ public class ApiTests {
             softAssertions.assertThat(expectedPostDTO[i])
                     .isEqualToIgnoringGivenFields(responseBody[i], "_id", "createdDate", "author");
             softAssertions.assertThat(expectedPostDTO[i].getAuthor())
-                    .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(),"avatar");
+                    .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(), "avatar");
 
         }
 
@@ -63,34 +62,32 @@ public class ApiTests {
 
 
     @Test
-    public void getAllPostByUserNegative(){
-        String responsBody =
-                given()
-                       .contentType(ContentType.JSON)
-                       .log().all()
+    public void getAllPostByUserNegative() {
+        String responsBody = given()
+                        .contentType(ContentType.JSON)
+                        .log().all()
                 .when()
-                       .get(POST_BY_USER,"notValidUser")
+                        .get(POST_BY_USER, "notValidUser")
                 .then()
-                       .statusCode(200)
-                       .log().all()
-                       .extract().response().getBody().asString();
-        Assert.assertEquals("Message in response","\"Sorry, invalid user requested.undefined\"",responsBody);
+                        .statusCode(200)
+                        .log().all()
+                        .extract().response().getBody().asString();
+        Assert.assertEquals("Message in response", "\"Sorry, invalid user requested.undefined\"", responsBody);
 //        Assert.assertEquals("Message in response","\"Sorry, invalid user requested.undefined\"",responsBody.replace("\"",""));
     }
 
     @Test
-    public void getAllPostsByUserPath(){
-        Response responseBody =
-                given()
+    public void getAllPostsByUserPath() {
+        Response responseBody = given()
                         .contentType(ContentType.JSON)
                         .log().all()
                 .when()
-                        .get(POST_BY_USER,USER_NAME)
+                        .get(POST_BY_USER, USER_NAME)
                 .then()
                         .statusCode(200)
                         .log().all()
                         .extract().response();
-        List<String> titleList = responseBody.jsonPath().getList("title",String.class);
+        List<String> titleList = responseBody.jsonPath().getList("title", String.class);
         List<Map> autoList = responseBody.jsonPath().getList("author", Map.class);
 
         SoftAssertions softAssertions = new SoftAssertions();
@@ -98,7 +95,7 @@ public class ApiTests {
         for (int i = 0; i < titleList.size(); i++) {
             softAssertions.assertThat(titleList.get(i)).as("Item number " + i).contains("test");
             softAssertions.assertThat(autoList.get(i).get("username"))
-                                   .as("Item number " + i).isEqualTo(USER_NAME);
+                    .as("Item number " + i).isEqualTo(USER_NAME);
         }
 
 
@@ -107,14 +104,64 @@ public class ApiTests {
 
 
     @Test
-    public void getAllPostsByUserSchema(){
+    public void getAllPostsByUserSchema() {
         given()
                 .contentType(ContentType.JSON)
                 .log().all()
         .when()
-                .get(POST_BY_USER,USER_NAME)
-                .then()
+                .get(POST_BY_USER, USER_NAME)
+        .then()
                 .statusCode(200).log().all()
-                       .assertThat().body(matchesJsonSchemaInClasspath("respons.json"));
+                .assertThat().body(matchesJsonSchemaInClasspath("respons.json"));
+    }
+
+    @Test
+    public void getAllCurrencyByPrivatBank() {
+        CurrencyDTO[] responseBody = given()
+                .contentType(ContentType.JSON)
+                .queryParam("coursid","5")
+        .when()
+                .get(POST_BY_PRIVAT_BANK)
+        .then()
+                .statusCode(200)
+                .log().all()
+                .extract().response().as(CurrencyDTO[].class);
+
+        for (CurrencyDTO currencyDTO : responseBody) {
+            logger.info(String.format("Курс %s к %s покупки %s и продажи %s",
+                    currencyDTO.getCcy(),
+                    currencyDTO.getBase_ccy(),
+                    currencyDTO.getBuy(),
+                    currencyDTO.getSale()));
+        }
+
+        CurrencyDTO[] expectedCurrencyDTOList = {
+                new CurrencyDTO("USD", "UAH"),
+                new CurrencyDTO("EUR", "UAH"),
+                new CurrencyDTO("RUR", "UAH"),
+                new CurrencyDTO("BTC", "USD"),
+        };
+
+        Assert.assertEquals("Number of currencies",
+                expectedCurrencyDTOList.length, responseBody.length);
+
+        SoftAssertions softAssertions = new SoftAssertions();
+        for (int i = 0; i < expectedCurrencyDTOList.length; i++) {
+            softAssertions.assertThat(expectedCurrencyDTOList[i])
+                    .isEqualToIgnoringGivenFields(responseBody[i], "buy", "sale");
+        }
+        softAssertions.assertAll();
+    }
+
+    @Test
+    public void getAllCurrencyByUserSchema() {
+        given()
+                .contentType(ContentType.JSON)
+                .log().all()
+        .when()
+                .get(POST_BY_PRIVAT_BANK)
+        .then()
+                .statusCode(200).log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("responsePrivatBank.json"));
     }
 }
