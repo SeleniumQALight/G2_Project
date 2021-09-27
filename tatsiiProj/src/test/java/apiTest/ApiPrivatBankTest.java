@@ -16,6 +16,8 @@ public class ApiPrivatBankTest {
         CurrencyDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
                 .log().all()
+                .queryParam("json", "")
+                .queryParam("exchange", "")
                 .queryParam("courseId", "5")
                 .when()
                 .get(GET_API_CURRENCY)
