@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -52,6 +53,7 @@ public class LoginPage extends ParentPage{
         return "/";
     }
 
+    @Step
     public void openLoginPage(){
         try{
             webDriver.get(baseUrl);
@@ -62,7 +64,7 @@ public class LoginPage extends ParentPage{
             Assert.fail("Can not work with LoginPage");
         }
     }
-
+    @Step
     public void enterLoginInSignIn(String login) {
      //   try{
        //     WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -75,42 +77,42 @@ public class LoginPage extends ParentPage{
       //  }
         enterTextToElement(inputlogin, login);
     }
-
+    @Step
     public void enterPasswordInSignIn(String password) {
         enterTextToElement(inputPassword, password);
     }
-
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
-
+    @Step
     public void fillingLoginFormAndSubmit(String login, String password){
         openLoginPage();
         enterLoginInSignIn(login);
         enterPasswordInSignIn(password);
         clickOnButtonSignIn();
     }
-
+    @Step
     public HomePage loginWithValidCred(){
         fillingLoginFormAndSubmit(TestData.VALID_LOGIN,TestData.VALID_PASS);
         return new HomePage(webDriver);
     }
-
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
-
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
-
+    @Step
     public LoginPage enterPassWordRegistration(String passWord) {
         enterTextToElement(inputPasswordRegistration, passWord);
         return this;
     }
-
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number of Messages").until(ExpectedConditions.numberOfElementsToBe(By.xpath(listErroorsLocator), errorsArray.length));

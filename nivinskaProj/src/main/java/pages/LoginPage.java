@@ -1,6 +1,8 @@
 package pages;
 
+import io.qameta.allure.Step;
 import libs.TestData;
+import libs.Util;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -26,6 +28,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign In']")
     private Button buttonSignIn;
 
+    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
+    private Button buttonSignUp;
+
     @FindBy(id = "username-register")
     private TextInput inputLoginRegistration;
 
@@ -35,11 +40,23 @@ public class LoginPage extends ParentPage {
     @FindBy(id = "password-register")
     private TextInput inputPassWordRegistration;
 
-    @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
-    private Button buttonSignUp;
-
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
+
+    @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
+    private List<WebElement> actualListOfErrorsList;
+
+    @FindBy(xpath = ".//div[text()='Invalid username / password']")
+    private WebElement alertLoginPasswordMessage;
+
+    @FindBy(xpath = ".//div[text()='Username must be at least 3 characters.']")
+    private WebElement loginLiveValidateMessage;
+
+    @FindBy(xpath = ".//div[text()='You must provide a valid email address.']")
+    private WebElement emailLiveValidateMessage;
+
+    @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
+    private WebElement passwordLiveValidateMessage;
 
     final String listErrorsLocator = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
@@ -52,6 +69,7 @@ public class LoginPage extends ParentPage {
         return "/";
     }
 
+    @Step
     public void openLoginPage() {
         try {
             webDriver.get(baseUrl);
@@ -62,6 +80,7 @@ public class LoginPage extends ParentPage {
         }
     }
 
+    @Step
     public void enterLoginInSignIn(String login) {
 //        try {
 //            WebElement element = webDriver.findElement(By.xpath(".//input[@placeholder='Username']"));
@@ -77,14 +96,47 @@ public class LoginPage extends ParentPage {
         enterTextToElement(inputLogin, login);
     }
 
+    @Step
+    public boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
+    }
+
+    @Step
+    public boolean isAlertMessagePresent() {
+        return isElementPresent(alertLoginPasswordMessage);
+    }
+
+    @Step
+    public boolean checkLoginLiveValidateMessage() {
+        return isElementPresent(loginLiveValidateMessage);
+    }
+
+    @Step
+    public boolean checkEmailLiveValidateMessage() {
+        return isElementPresent(emailLiveValidateMessage);
+    }
+
+    @Step
+    public boolean checkPasswordLiveValidateMessage() {
+        return isElementPresent(passwordLiveValidateMessage);
+    }
+
+    @Step
     public void enterPassWordInSignIn(String password) {
         enterTextToElement(inputPassWord, password);
     }
 
+    @Step
     public void clickOnButtonSignIn() {
         clickOnElement(buttonSignIn);
     }
 
+    @Step
+    public void clickOnButtonSignUp() {
+        clickOnElement(buttonSignUp);
+    }
+
+    @Step
     public void fillLoginFormAndSubmit(String login, String passWord) {
         openLoginPage();
         enterLoginInSignIn(login);
@@ -92,26 +144,31 @@ public class LoginPage extends ParentPage {
         clickOnButtonSignIn();
     }
 
+    @Step
     public HomePage loginWithValidCred() {
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
+    @Step
     public LoginPage enterLoginInRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
     }
 
+    @Step
     public LoginPage enterEmailInRegistration(String email) {
         enterTextToElement(inputEmailRegistration, email);
         return this;
     }
 
+    @Step
     public LoginPage enterPassWordInRegistration(String password) {
         enterTextToElement(inputPassWordRegistration, password);
         return this;
     }
 
+    @Step
     public void checkErrorsMessages(String expectedErrors) {
         String[] errorsArray = expectedErrors.split(";");
         webDriverWait10.withMessage("Number Of Messages ")
@@ -126,5 +183,24 @@ public class LoginPage extends ParentPage {
             softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
         softAssertions.assertAll();
+    }
+
+    @Step
+    //Without SoftAssertions
+    public void checkErrors(String expectedListOfErrors) {
+        String[] expectedListOfErrorsList = expectedListOfErrors.split(";");
+        Util.waitABit(1);
+        Assert.assertEquals("Number of messages", expectedListOfErrorsList.length, actualListOfErrorsList.size());
+        for (int i = 0; i < actualListOfErrorsList.size(); i++) {
+            Assert.assertEquals("Error message does not exist or incorrect", expectedListOfErrorsList[i], actualListOfErrorsList.get(i).getText());
+        }
+    }
+
+    public void fillRegistrarionFormAndSubmit(String login, String email, String password) {
+        openLoginPage();
+        enterLoginInRegistration(login);
+        enterEmailInRegistration(email);
+        enterPassWordInRegistration(password);
+        clickOnButtonSignUp();
     }
 }

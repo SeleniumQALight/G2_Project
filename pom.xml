@@ -32,6 +32,12 @@
     <module>halonzaProj</module>
     <module>vorkovProj</module>
       <module>tonkovydProj</module>
+    <module>tuzProj</module>
+    <module>velykorodProj</module>
+    <module>lazarevaProj</module>
+    <module>kuzubProj</module>
+    <module>nahlenkoProj</module>
+      <module>bychovyiProj</module>
   </modules>
 
   <name>G2Project</name>

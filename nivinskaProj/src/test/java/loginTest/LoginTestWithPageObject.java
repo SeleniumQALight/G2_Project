@@ -2,18 +2,32 @@ package loginTest;
 
 import baseTest.BaseTest;
 import categories.SmokeTestFilter;
+import io.qameta.allure.*;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import libs.ExcelDriver;
 import libs.TestData;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 import pages.ParentPage;
 
 import java.io.IOException;
 import java.util.Map;
 
+@Epic("Allure examples")
+@Feature("Junit 4 support")
+@RunWith(JUnitParamsRunner.class)
 public class LoginTestWithPageObject extends BaseTest {
-
+    @Description("Some detailed test description")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @Issue("123")
+    @Issue("432")
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Base support for bdd annotations")
     @Category(SmokeTestFilter.class)
     public void validLogin() {
         loginPage.openLoginPage();
@@ -34,5 +48,34 @@ public class LoginTestWithPageObject extends BaseTest {
         loginPage.clickOnButtonSignIn();
 
         checkExpectedResult("Button SingOut is not visible", homePage.isButtonSignOutPresent(), true);
+    }
+
+    @Test
+    public void invalidLogin() {
+        loginPage.openLoginPage();
+//        loginPage.enterLoginInSignIn("invalid_login");
+//        loginPage.enterPassWordInSignIn("invalid_password");
+        loginPage.fillLoginFormAndSubmit("invalid_login", "invalid_password");
+        loginPage.clickOnButtonSignIn();
+
+        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(), false);
+        checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
+        checkExpectedResult("Alert message is not visible", loginPage.isAlertMessagePresent(), true);
+    }
+
+    @Test
+    @Parameters({
+            "invalid_login,invalid_password",
+            "123,345",
+            "ab,cd",
+            "!@#$%^&*(,@#$%^&*("
+    })
+    @TestCaseName("invalidLoginWithParameters : login = {0}, password = {1}")
+    public void invalidLoginWithParameters(String login, String password) {
+        loginPage.fillLoginFormAndSubmit(login, password);
+
+        checkExpectedResult("Button SignOut is visible", homePage.isButtonSignOutPresent(), false);
+        checkExpectedResult("Button SignIn is not visible", loginPage.isButtonSignInPresent(), true);
+        checkExpectedResult("Alert message is not visible", loginPage.isAlertMessagePresent(), true);
     }
 }
