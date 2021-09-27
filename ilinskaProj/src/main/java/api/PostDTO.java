@@ -18,7 +18,7 @@ public class PostDTO {
     @SerializedName("isVisitorOwner")
     Boolean isVisitorOwner;
 
-    public PostDTO( String title, String body, String select1, AuthorDTO author, Boolean isVisitorOwner) {
+    public PostDTO(String title, String body, String select1, AuthorDTO author, Boolean isVisitorOwner) {
         this.title = title;
         this.body = body;
         this.select1 = select1;
@@ -28,7 +28,6 @@ public class PostDTO {
     public PostDTO(){
 
     }
-
 
     public String get_id() {
         return _id;
@@ -82,8 +81,8 @@ public class PostDTO {
         return isVisitorOwner;
     }
 
-    public void setVisitorOwner(Boolean isvisitorOwner) {
-       this.isVisitorOwner = isvisitorOwner;
+    public void setIsVisitorOwner(Boolean isVisitorOwner) {
+        this.isVisitorOwner = isVisitorOwner;
     }
 
     @Override

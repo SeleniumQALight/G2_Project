@@ -5,10 +5,11 @@ public class AuthorDTO {
     String avatar;
 
     public AuthorDTO(String username) {
+
         this.username = username;
     }
-    public AuthorDTO(){
 
+    public AuthorDTO(){
     }
 
     public String getUsername() {
