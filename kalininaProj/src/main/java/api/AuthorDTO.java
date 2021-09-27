@@ -9,13 +9,21 @@ public class AuthorDTO {
     }
 
     public AuthorDTO(){
-
-
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return username;
     }
-    public void setUsername(String avatar){
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
