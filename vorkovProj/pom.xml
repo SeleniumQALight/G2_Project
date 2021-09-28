@@ -300,7 +300,7 @@
                             <goal>generateRunners</goal>
                         </goals>
                         <configuration>
-                            <glue>stepDefinitions</glue>
+                            <glue>StepDefinitions</glue>
                             <featuresDirectory>
                                 src/test/resources
                             </featuresDirectory>
