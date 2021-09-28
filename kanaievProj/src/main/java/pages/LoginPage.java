@@ -31,6 +31,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[text()='Invalid username / password']")
     private HtmlElement alertInvalidSignIn;
 
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private HtmlElement messageInvalidSignIn;
+
     @FindBy(id = "username-register")
     private TextInput regLogin;
 
@@ -163,5 +166,9 @@ public class LoginPage extends ParentPage {
             softAssertions.assertThat(expectedErrors[i]).isIn(actualErrorsList);
         }
         softAssertions.assertAll();
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center ", messageText, messageInvalidSignIn.getText());
     }
 }
