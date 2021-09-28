@@ -4,6 +4,8 @@ import static api.EndPoints.POST_BY_USER;
 import static api.EndPoints.CURRENCY_EXCHANGE;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
+import io.qameta.allure.restassured.AllureRestAssured;
 import org.assertj.core.api.SoftAssertions;
 import io.restassured.response.Response;
 import io.restassured.http.ContentType;
@@ -22,6 +24,7 @@ public class ApiTest {
     public void getAllPostsByUser(){
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .filter(new AllureRestAssured())
                 .log().all()
                 .when()
                 .get(POST_BY_USER, USER_NAME)

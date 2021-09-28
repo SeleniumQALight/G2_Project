@@ -3,6 +3,8 @@ package apiTests;
 import api.AuthorDTO;
 import api.CurrencyDTO;
 import api.PostDTO;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -28,12 +30,14 @@ public class ApiTests {
     public void getAllPostsByUser() {
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
-        .when()
-                .get(POST_BY_USER, USER_NAME)
-        .then()
+                .filter(new AllureRestAssured())
+                .when()
+                     .get(POST_BY_USER, USER_NAME)
+                .then()
                 .statusCode(200)
                 .log().all()
-                .extract().response().as(PostDTO[].class);
+                .extract()
+                .response().as(PostDTO[].class);
 
         logger.info(responseBody.length);
         logger.info(responseBody[0].getTitle());
@@ -43,7 +47,7 @@ public class ApiTests {
         }
 
         PostDTO[] expectedPostDTO = {
-                new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
+          new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
                 new PostDTO("test", "test body", "All Users", new AuthorDTO(USER_NAME), false)
         };
 
@@ -53,7 +57,7 @@ public class ApiTests {
             softAssertions.assertThat(expectedPostDTO[i])
                     .isEqualToIgnoringGivenFields(responseBody[i], "_id", "createdDate", "author");
             softAssertions.assertThat(expectedPostDTO[i].getAuthor())
-                    .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(), "avatar");
+                    .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(),"avatar");
 
         }
 
