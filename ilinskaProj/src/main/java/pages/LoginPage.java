@@ -112,7 +112,7 @@ public class LoginPage extends ParentPage {
     }
     @Step
     public HomePage loginWithValidCred() {
-        fillinLoginFormandSubmit(TestData.VALIG_LOGin, TestData.VALID_PASSWORd);
+        fillinLoginFormandSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 

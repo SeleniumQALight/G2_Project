@@ -1,5 +1,7 @@
 package pages;
 
+import libs.ConfigProperties;
+import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,6 +23,10 @@ public  abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
     WebDriverWait webDriverWait10,webDriverWait15;
+    public static ConfigProperties configProperties =
+            ConfigFactory.create(ConfigProperties.class);
+
+    protected final String baseUrl = configProperties.base_url();
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -32,7 +38,6 @@ public  abstract class ParentPage {
                         new HtmlElementLocatorFactory(webDriver))
                 ,this);// иметь возможность чтобі работать с елементами яндексс
     }
-    protected final String baseUrl="https://qa-complex-app-for-testing.herokuapp.com";
     abstract String getRelativeUrl();
     protected void enterTextToElement(WebElement webElement, String text) {
         try {
