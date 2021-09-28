@@ -1,8 +1,8 @@
 package api;
 
 public class AuthorDTO {
-    String username;
-    String avatar;
+    private String username;
+    private String avatar;
 
     public AuthorDTO(String username) {
         this.username = username;

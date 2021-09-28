@@ -2,6 +2,7 @@ package apiTest;
 
 import api.AuthorDTO;
 import api.PostDTO;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -17,17 +18,18 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ApiTest {
-    final String USER_NAME = "autoapi";
+    final String USER_NAME = "Lana230208";
     Logger logger = Logger.getLogger(getClass());
 
     @Test
     public void getAllPostsByUser() {
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .filter(new AllureRestAssured())
                 .log().all()
-                .when()
+        .when()
                 .get(POST_BY_USER, USER_NAME)
-                .then()
+        .then()
                 .statusCode(200)
                 .log().all()
                 .extract()
@@ -37,7 +39,7 @@ public class ApiTest {
         logger.info(responseBody[0].getTitle());
         logger.info(responseBody[0].getAuthor().getUsername());
         for (int i = 0; i < responseBody.length; i++) {
-            Assert.assertEquals("Username", "autoapi", responseBody[i].getAuthor().getUsername());
+            Assert.assertEquals("Username", "Lana230208", responseBody[i].getAuthor().getUsername());
         }
 
         PostDTO[] expectedPostDTO = {
@@ -117,10 +119,3 @@ public class ApiTest {
                 .assertThat().body(matchesJsonSchemaInClasspath("response.json"));
     }
 }
-
-
-
-
-
-
-

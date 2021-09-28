@@ -1,18 +1,20 @@
 package api;
 
 import static api.EndPoints.POST_BY_USER;
+import static api.EndPoints.CURRENCY_EXCHANGE;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-import io.restassured.response.Response;
-import org.apache.log4j.Logger;
+import io.qameta.allure.restassured.AllureRestAssured;
 import org.assertj.core.api.SoftAssertions;
+import io.restassured.response.Response;
+import io.restassured.http.ContentType;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-import io.restassured.http.ContentType;
 
 public class ApiTest {
     final String USER_NAME = "autoapi";
@@ -22,6 +24,7 @@ public class ApiTest {
     public void getAllPostsByUser(){
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .filter(new AllureRestAssured())
                 .log().all()
                 .when()
                 .get(POST_BY_USER, USER_NAME)
@@ -29,8 +32,8 @@ public class ApiTest {
                 .statusCode(200)
                 .log().all()
                 .extract()
-                .response().as(PostDTO[].class)
-                ;
+                .response().as(PostDTO[].class);
+
         logger.info(responseBody.length);
         logger.info(responseBody[0].getTitle());
         logger.info(responseBody[0].getAuthor().getUsername());
@@ -109,6 +112,54 @@ public class ApiTest {
                 .assertThat().body(matchesJsonSchemaInClasspath("response.json"));
 
 
+    }
+
+    @Test
+    public void getPrivatExchangeCoursId(){
+        CurrencyDTO[] responseBody = given()
+                .contentType(ContentType.JSON)
+                .queryParam("coursid", "5")
+                .log().all()
+                .when()
+                .get(CURRENCY_EXCHANGE)
+                .then()
+                .statusCode(200)
+                .log().all()
+                .extract()
+                .response().as(CurrencyDTO[].class);
+
+        logger.info(responseBody.length);
+        logger.info(responseBody[0].getCcy());
+        logger.info(responseBody[0].getBase_ccy());
+
+        CurrencyDTO[] expectedCurrencyDTO = {
+                new CurrencyDTO("USD","UAH"),
+                new CurrencyDTO("EUR","UAH"),
+                new CurrencyDTO("RUR","UAH"),
+                new CurrencyDTO("BTC","USD")
+        };
+
+        Assert.assertEquals(responseBody.length, expectedCurrencyDTO.length);
+
+        SoftAssertions softAssertions = new SoftAssertions();
+
+        for(int i = 0; i< expectedCurrencyDTO.length; i++){
+            softAssertions.assertThat(expectedCurrencyDTO[i])
+                    .isEqualToIgnoringGivenFields(responseBody[i],"buy", "sale");
+        }
+        softAssertions.assertAll();
+    }
+
+    @Test
+    public void getPrivatExchangeCoursIdScheme(){
+        given()
+                .contentType(ContentType.JSON)
+                .log().all()
+                .when()
+                .get(CURRENCY_EXCHANGE)
+                .then()
+                .statusCode(200).log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("privatResponse.json"));
     }
 
 
