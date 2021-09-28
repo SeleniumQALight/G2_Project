@@ -3,10 +3,12 @@ package apiTest;
 import api.CurrencyDTO;
 import io.restassured.http.ContentType;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static api.EndPointPrivatBank.GET_API_CURRENCY;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ApiPrivatBankTest {
     Logger logger = Logger.getLogger(getClass());
@@ -16,8 +18,8 @@ public class ApiPrivatBankTest {
         CurrencyDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
                 .log().all()
-                .queryParam("json", "")
-                .queryParam("exchange", "")
+                .queryParam("json")
+                .queryParam("exchange")
                 .queryParam("courseId", "5")
                 .when()
                 .get(GET_API_CURRENCY)
@@ -26,5 +28,5 @@ public class ApiPrivatBankTest {
                 .log().all()
                 .extract()
                 .response().as(CurrencyDTO[].class);
+        }
     }
-}
