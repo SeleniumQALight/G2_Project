@@ -170,6 +170,24 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.5</version>
     </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>3.14.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>3.141.59</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>3.14.0</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <profiles>
     <profile>
@@ -284,31 +302,31 @@
   </profiles>
   <build>
     <plugins>
-      <!--      <plugin>-->
-      <!--        <groupId>com.github.temyers</groupId>-->
-      <!--        <artifactId>cucumber-jvm-parallel-plugin</artifactId>-->
-      <!--        <version>2.2.0</version>-->
-      <!--        <executions>-->
-      <!--          <execution>-->
-      <!--            <id>generateRunners</id>-->
-      <!--            <phase>generate-resources</phase>-->
-      <!--            <goals>-->
-      <!--              <goal>generateRunners</goal>-->
-      <!--            </goals>-->
-      <!--            <configuration>-->
-      <!--              <glue>stepDefinitions</glue>-->
-      <!--              <featuresDirectory>-->
-      <!--                src/test/resources-->
-      <!--              </featuresDirectory>-->
-      <!--              <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>-->
-      <!--              <format>json,html</format>-->
-      <!--              <tags>"${tag}"</tags>-->
-      <!--              &lt;!&ndash;<parallelScheme>SCENARIO</parallelScheme>&ndash;&gt;-->
-      <!--              <parallelScheme>FEATURE</parallelScheme>-->
-      <!--            </configuration>-->
-      <!--          </execution>-->
-      <!--        </executions>-->
-      <!--      </plugin>-->
+            <plugin>
+              <groupId>com.github.temyers</groupId>
+              <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+              <version>2.2.0</version>
+              <executions>
+                <execution>
+                  <id>generateRunners</id>
+                  <phase>generate-resources</phase>
+                  <goals>
+                    <goal>generateRunners</goal>
+                  </goals>
+                  <configuration>
+                    <glue>StepDefinitions</glue>
+                    <featuresDirectory>
+                      src/test/resources
+                    </featuresDirectory>
+                    <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+                    <format>json,html</format>
+                    <tags>"${tag}"</tags>
+                    <!--<parallelScheme>SCENARIO</parallelScheme>-->
+                    <parallelScheme>FEATURE</parallelScheme>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
       <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
