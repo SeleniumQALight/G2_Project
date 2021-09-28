@@ -1,8 +1,8 @@
 package apiTests;
 
 import api.AuthorDTO;
+import api.EndPoints;
 import api.PostDTO;
-import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -22,49 +22,53 @@ public class ApiTests {
     Logger logger = Logger.getLogger(getClass());
 
     @Test
-    public void getAllPostsByUser() {
+    public void getAllPostsByUser(){
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
-                 .filter(new AllureRestAssured())
                 .log().all()
-                .when()
+        .when()
                 .get(POST_BY_USER, USER_NAME)
-                .then()
+        .then()
                 .statusCode(200)
                 .log().all()
                 .extract()
-                .response().as(PostDTO[].class);
+                .response().as(PostDTO[].class)
+                    ;
         logger.info(responseBody.length);
-        logger.info(responseBody[0].getTitle());
-        logger.info(responseBody[0].getAuthor().getUsername());
-        for (int i = 0; i < responseBody.length; i++)
-            Assert.assertEquals("Username", "autoapi", responseBody[1].getAuthor().getUsername());
-
+        logger.info(responseBody[1].getTitle());
+        logger.info(responseBody[1].getAuthor().getUsername());
+        for (int i = 0; i < responseBody.length; i++) {
+            Assert.assertEquals("Username", "autoapi", responseBody[i].getAuthor().getUsername());
+        }
 
         PostDTO[] expectedPostDTO = {
-                new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
-                new PostDTO("test", "test body", "All Users", new AuthorDTO(USER_NAME), false)
+             new PostDTO("test2", "test body", "All Users", new AuthorDTO(USER_NAME), false),
+             new PostDTO("test", "test body", "All Users", new AuthorDTO(USER_NAME), false)
         };
-        Assert.assertEquals(responseBody.length,expectedPostDTO.length);
+
+        Assert.assertEquals(responseBody.length, expectedPostDTO.length);
         SoftAssertions softAssertions = new SoftAssertions();
-        for(int i=0;i<expectedPostDTO.length;i++){
+
+        for (int i = 0; i < expectedPostDTO.length; i++) {
             softAssertions.assertThat(expectedPostDTO[i])
                     .isEqualToIgnoringGivenFields(responseBody[i], "_id", "createdDate", "author");
             softAssertions.assertThat(expectedPostDTO[i].getAuthor())
                     .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(), "avatar");
         }
-
         softAssertions.assertAll();
+
     }
+
+
     @Test
     public void getAllPostByUserNegative(){
         String responseBody =
                 given()
                         .contentType(ContentType.JSON)
                         .log().all()
-                        .when()
+                .when()
                         .get(POST_BY_USER, "notValidUser")
-                        .then()
+                .then()
                         .statusCode(200)
                         .log().all()
                         .extract().response().getBody().asString();
@@ -79,9 +83,9 @@ public class ApiTests {
                 given()
                         .contentType(ContentType.JSON)
                         .log().all()
-                        .when()
+                .when()
                         .get(POST_BY_USER, USER_NAME)
-                        .then()
+                .then()
                         .statusCode(200)
                         .log().all()
                         .extract().response();
@@ -104,12 +108,26 @@ public class ApiTests {
         given()
                 .contentType(ContentType.JSON)
                 .log().all()
-                .when()
+        .when()
                 .get(POST_BY_USER, USER_NAME)
                 .then()
                 .statusCode(200).log().all()
                 .assertThat().body(matchesJsonSchemaInClasspath("respons.json"));
     }
+    @Test
+    public void getCurrencyExchangePrivatBankSchema(){
+        given()
+                .contentType(ContentType.JSON)
+                .log().all()
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
+                .when()
+                .get(EndPoints.GET_CURRENCY_COURSE_PRIVAT)
+                .then()
+                .statusCode(200)
+                .log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("privatCurrencyCourse.json")) ;
+    }
 }
-
 
