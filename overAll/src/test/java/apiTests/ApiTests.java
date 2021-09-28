@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import api.AuthorDTO;
 import api.PostDTO;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -25,6 +26,7 @@ public class ApiTests {
     public void getAllPostsByUser(){
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .filter(new AllureRestAssured())
                 .log().all()
         .when()
                 .get(POST_BY_USER, USER_NAME)
@@ -42,7 +44,7 @@ public class ApiTests {
         }
 
         PostDTO[] expectedPostDTO = {
-             new PostDTO("test2", "test body", "All Users", new AuthorDTO(USER_NAME), false),
+             new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
              new PostDTO("test", "test body", "All Users", new AuthorDTO(USER_NAME), false)
         };
 
