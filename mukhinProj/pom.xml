@@ -45,7 +45,6 @@
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
     <dependency>
       <groupId>org.assertj</groupId>
@@ -57,35 +56,6 @@
       <artifactId>JUnitParams</artifactId>
       <version>1.0.5</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>ru.yandex.qatools.htmlelements</groupId>
-      <artifactId>htmlelements-java</artifactId>
-      <version>1.20.0</version> <!-- 1.18+ is SELENIUM 3.5.1+ compatible -->
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
-    <dependency>
-      <groupId>org.aeonbits.owner</groupId>
-      <artifactId>owner</artifactId>
-      <version>1.0.4</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi</artifactId>
-      <version>3.14</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.18</version>
-    </dependency>
-    <dependency>
-      <groupId>io.qameta.allure</groupId>
-      <artifactId>allure-junit4</artifactId>
-      <version>2.8.1</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
     <dependency>
@@ -123,6 +93,34 @@
       <artifactId>json-schema-validator</artifactId>
       <version>3.3.0</version>
     </dependency>
+    <dependency>
+      <groupId>ru.yandex.qatools.htmlelements</groupId>
+      <artifactId>htmlelements-java</artifactId>
+      <version>1.20.0</version> <!-- 1.18+ is SELENIUM 3.5.1+ compatible -->
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
+    <dependency>
+      <groupId>org.aeonbits.owner</groupId>
+      <artifactId>owner</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.14</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.18</version>
+    </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-junit4</artifactId>
+      <version>2.8.1</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
     <dependency>
       <groupId>io.qameta.allure</groupId>
@@ -131,6 +129,9 @@
     </dependency>
 
   </dependencies>
+
+
+
   <profiles>
     <profile>
       <id>regularTests</id>
@@ -153,9 +154,9 @@
               <argLine>-XX:MaxPermSize=256m</argLine>
               <threadCount>2</threadCount>
               <!--                            <parallel>methods</parallel>-->
-<!--              <parallel>classes</parallel>-->
+              <parallel>classes</parallel>
               <testFailureIgnore>true</testFailureIgnore>
-              <rerunFailingTestsCount>1</rerunFailingTestsCount>
+              <rerunFailingTestsCount>0</rerunFailingTestsCount>
               <argLine>
                 -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
               </argLine>
@@ -178,165 +179,18 @@
             </configuration>
             <dependencies>
               <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
               </dependency>
-              <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-              <dependency>
-                <groupId>org.seleniumhq.selenium</groupId>
-                <artifactId>selenium-java</artifactId>
-                <version>3.14.0</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-              <dependency>
-                <groupId>io.github.bonigarcia</groupId>
-                <artifactId>webdrivermanager</artifactId>
-                <version>3.7.1</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/log4j/log4j -->
-              <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
-              </dependency>
-
-              <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
-              <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.13.2</version>
-              </dependency>
-              <dependency>
-                <groupId>pl.pragmatists</groupId>
-                <artifactId>JUnitParams</artifactId>
-                <version>1.0.5</version>
-                <scope>runtime</scope>
-
-              </dependency>
-              <dependency>
-                <groupId>ru.yandex.qatools.htmlelements</groupId>
-                <artifactId>htmlelements-java</artifactId>
-                <version>1.20.0</version> <!-- 1.18+ is SELENIUM 3.5.1+ compatible -->
-              </dependency>
-
-              <!-- https://mvnrepository.com/artifact/org.aeonbits.owner/owner -->
-              <dependency>
-                <groupId>org.aeonbits.owner</groupId>
-                <artifactId>owner</artifactId>
-                <version>1.0.4</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-              <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>3.14</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-              <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.18</version>
-              </dependency>
-              <dependency>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-junit4</artifactId>
-                <version>2.8.1</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-              <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>rest-assured</artifactId>
-                <version>4.3.3</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/org.json/json -->
-              <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>20201115</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-              <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.8.6</version>
-              </dependency>
-
-              <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-              <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>2.12.1</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-              <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.12.1</version>
-              </dependency>
-              <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>json-schema-validator</artifactId>
-                <version>3.3.0</version>
-              </dependency>
-              <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
-              <dependency>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-rest-assured</artifactId>
-                <version>2.13.8</version>
-              </dependency>
-
             </dependencies>
           </plugin>
         </plugins>
       </build>
     </profile>
   </profiles>
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
 
+  <build>
     <plugins>
       <plugin>
         <groupId>io.qameta.allure</groupId>
