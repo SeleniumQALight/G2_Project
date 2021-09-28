@@ -2,13 +2,17 @@ package apiTests;
 
 import apiForHomeWork.CurrencyDTO;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static apiForHomeWork.EndPointsForHomeWork.*;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ApiTestForHomeWork1 {
     Logger logger = Logger.getLogger(getClass());
@@ -16,7 +20,7 @@ public class ApiTestForHomeWork1 {
 
     @Test
     public void getCurrencyRate(){
-        CurrencyDTO[] responseBody = given()
+         Response response = given()
                 .contentType(ContentType.JSON)
                 .log().all().queryParam("json").queryParam("exchange").queryParam("coursid","5")
         .when()
@@ -26,7 +30,9 @@ public class ApiTestForHomeWork1 {
                 .statusCode(200)
                 .log().all()
                 .extract()
-                .response().as(CurrencyDTO[].class);
+                .response();
+        CurrencyDTO[] responseBody = response
+                .as(CurrencyDTO[].class);
 
 
         logger.info(responseBody.length);
@@ -34,20 +40,20 @@ public class ApiTestForHomeWork1 {
         logger.info(responseBody[2].getBase_ccy());
         logger.info(responseBody[2].getBuy());
         logger.info(responseBody[2].toString());
-        for (int i = 0; i < responseBody.length; i++) {
-            Assert.assertEquals("Exchange", "EUR", responseBody[i].getCcy());
-            Assert.assertEquals("Exchange", "UAH", responseBody[i].getBase_ccy());
 
-        }
+            Assert.assertEquals("Exchange", "RUR", responseBody[2].getCcy());
+            Assert.assertEquals("Exchange", "UAH", responseBody[2].getBase_ccy());
+
+
 
         CurrencyDTO[] expectedCurrencyDTO = {
-                new CurrencyDTO("USD", "UAH", "26.34000", "26.80000"),
-                new CurrencyDTO("EUR", "UAH", "30.90000", "31.50000"),
-                new CurrencyDTO("RUR", "UAH", "0.35000", "0.38000"),
-                new CurrencyDTO("BTC", "USD", "41788.8249", "46187.6485")
+                new CurrencyDTO("USD", "UAH"),
+                new CurrencyDTO("EUR", "UAH"),
+                new CurrencyDTO("RUR", "UAH"),
+                new CurrencyDTO("BTC", "USD")
         };
 
-        Assert.assertEquals(responseBody.length, expectedCurrencyDTO);
+        Assert.assertEquals(responseBody.length, expectedCurrencyDTO.length);
         SoftAssertions softAssertions = new SoftAssertions();
 
         for (int i = 0; i < expectedCurrencyDTO.length; i++) {
@@ -55,10 +61,31 @@ public class ApiTestForHomeWork1 {
                     .isEqualToIgnoringGivenFields(responseBody[i], "buy", "sale");
 
         }
-
+        softAssertions.assertThat(response.getTime()).isLessThan(2000);
         softAssertions.assertAll();
+
+        logger.info(response.getTime());
+        logger.info(response.getTimeIn(TimeUnit.SECONDS));
+        logger.info(response.time());
+        logger.info(response.timeIn(TimeUnit.MILLISECONDS));
+
+
+
 
     }
 
-
+    @Test
+    public void getALLPostByUserSchema(){
+        given()
+                .contentType(ContentType.JSON)
+                .log().all().queryParam("json").queryParam("exchange").queryParam("coursid","5")
+                .when()
+                .get(baseUrlPrivatBank)
+                .then()
+                .statusCode(200).log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("responseHW.json"));
+    }
 }
+
+
+
