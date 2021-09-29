@@ -9,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
@@ -49,6 +48,9 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
+
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private TextBlock alertInCenter;
 
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
@@ -168,5 +170,9 @@ public class LoginPage extends ParentPage {
     public LoginPage clickOnSignUpButton() {
         clickOnElement(buttonSignUp);
         return this;
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Alert message in center:", messageText, alertInCenter.getText());
     }
 }
