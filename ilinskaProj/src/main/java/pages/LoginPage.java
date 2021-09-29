@@ -191,6 +191,6 @@ public class LoginPage extends ParentPage {
     }
 
     public void checkAlertMessageText(String message) {
-        Assert.assertEquals("Message in Center",message,alertinCenter);
+        Assert.assertEquals("Message in Center",message,alertinCenter.getText());
     }
 }
