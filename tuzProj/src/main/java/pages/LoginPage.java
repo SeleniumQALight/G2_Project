@@ -22,6 +22,9 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//input[@placeholder='Username']")
     private TextInput inputLogin;
 
+    @FindBy(xpath = ".//*[@class='alert alert-danger text-center']")
+    private WebElement alertOnTheTopOfThePage;
+
     @FindBy(xpath = ".//input[@placeholder='Password']")
     @Name("Input Pass ")
     private TextInput inputPassWord;
@@ -131,6 +134,11 @@ public class LoginPage extends ParentPage{
         }
 
         softAssertions.assertAll();
+
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message on the top of the page",messageText,alertOnTheTopOfThePage.getText());
 
     }
 }
