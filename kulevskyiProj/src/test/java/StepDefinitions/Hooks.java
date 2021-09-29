@@ -8,7 +8,7 @@ public class Hooks {
     private DriverHelper driverHelper = new DriverHelper();
     @Before
     public void serUp(){
-        driverHelper.closeDriver();
+        driverHelper.createDriver();
 
     }
 
