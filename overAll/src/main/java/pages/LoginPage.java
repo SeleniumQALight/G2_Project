@@ -41,6 +41,9 @@ public class LoginPage extends ParentPage{
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private Button buttonSignUp;
 
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private WebElement alertInCenter;
+
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
 
@@ -132,5 +135,9 @@ public class LoginPage extends ParentPage{
 
         softAssertions.assertAll();
 
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText, alertInCenter.getText());
     }
 }

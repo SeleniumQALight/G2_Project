@@ -291,33 +291,33 @@
   </profiles>
   <build>
     <plugins>
-<!--      <plugin>-->
-<!--        <groupId>com.github.temyers</groupId>-->
-<!--        <artifactId>cucumber-jvm-parallel-plugin</artifactId>-->
-<!--        <version>2.2.0</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>generateRunners</id>-->
-<!--            <phase>generate-resources</phase>-->
-<!--            <goals>-->
-<!--              <goal>generateRunners</goal>-->
+      <plugin>
+        <groupId>com.github.temyers</groupId>
+        <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+        <version>2.2.0</version>
+        <executions>
+          <execution>
+            <id>generateRunners</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>generateRunners</goal>
 
-<!--            </goals>-->
+            </goals>
 
-<!--            <configuration>-->
-<!--              <glue>stepDefinitions</glue>-->
-<!--              <featuresDirectory>-->
-<!--                src/test/resources-->
-<!--              </featuresDirectory>-->
-<!--              <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>-->
-<!--              <format>json,html</format>-->
-<!--              <tags>"${tag}"</tags>-->
-<!--              &lt;!&ndash;<parallelScheme>SCENARIO</parallelScheme>&ndash;&gt;-->
-<!--              <parallelScheme>FEATURE</parallelScheme>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
+            <configuration>
+              <glue>StepDefinitions</glue>
+              <featuresDirectory>
+                src/test/resources
+              </featuresDirectory>
+              <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+              <format>json,html</format>
+              <tags>"${tag}"</tags>
+              <!--<parallelScheme>SCENARIO</parallelScheme>-->
+              <parallelScheme>FEATURE</parallelScheme>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>io.qameta.allure</groupId>

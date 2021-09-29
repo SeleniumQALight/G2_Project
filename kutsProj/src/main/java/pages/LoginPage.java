@@ -56,6 +56,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//div[text()='Password must be at least 12 characters.']")
     private WebElement alertInvalidPasswordRegistration;
 
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private WebElement alertInCenter;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -204,5 +207,9 @@ public class LoginPage extends ParentPage {
             softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
         softAssertions.assertAll();
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText, alertInCenter.getText());
     }
 }

@@ -50,6 +50,8 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actuallistofErrors;
     final String listErrorLocators = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+    @FindBy(xpath = ".//*[@class='alert alert-danger text-center']")
+    private WebElement alertinCenter;
 
 
     public LoginPage(WebDriver webDriver) {
@@ -186,5 +188,9 @@ public class LoginPage extends ParentPage {
 
         softAssertions.assertAll();
 
+    }
+
+    public void checkAlertMessageText(String message) {
+        Assert.assertEquals("Message in Center",message,alertinCenter.getText());
     }
 }
