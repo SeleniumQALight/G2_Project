@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextInput;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,6 +55,9 @@ public class LoginPage extends ParentPage {
 
     @FindBy(xpath=".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actualListOfErrors;
+
+    @FindBy (xpath=".//*[contains(@class,'danger text-center')]")
+    private WebElement alertInCenter;
 
     final String listErrorsLocators = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
 
@@ -210,5 +212,9 @@ public class LoginPage extends ParentPage {
             softAssertions.assertThat(errorsArray[i]).isIn(actualTextFromErrors);
         }
         softAssertions.assertAll();
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText, alertInCenter.getText());
     }
 }
