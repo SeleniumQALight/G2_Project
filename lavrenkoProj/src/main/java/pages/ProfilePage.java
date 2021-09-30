@@ -19,6 +19,9 @@ public class ProfilePage extends ParentPage {
         super(webDriver);
     }
 
+    @FindBy(xpath = ".//*[@class='list-group']/a")
+    private List<WebElement> postList;
+
     @Override
     String getRelativeUrl() {
         return "/profile";
@@ -57,5 +60,9 @@ public class ProfilePage extends ParentPage {
     public ProfilePage checkIsSuccessDeletePostMessagePresent() {
         Assert.assertTrue("Element is not present", isElementPresent(successPostDeleteElement));
         return this;
+    }
+
+    public void checkNumberOfPosts(int expectedNumberOfPosts) {
+        Assert.assertEquals("Number of posts ", expectedNumberOfPosts, postList.size());
     }
 }
