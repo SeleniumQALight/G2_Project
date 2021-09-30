@@ -40,6 +40,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign up for OurApp']")
     private Button buttonSignUp;
 
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private WebElement alertInCenter;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -140,4 +143,10 @@ public class LoginPage extends ParentPage {
             Assert.assertEquals("Messages are not matching",expectedWarnings.get(i), displayedWarnings.get(i).getText());
         }
 
-}}
+}
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText, alertInCenter.getText());
+
+    }
+}
