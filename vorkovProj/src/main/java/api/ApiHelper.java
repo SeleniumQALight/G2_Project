@@ -76,4 +76,23 @@ public class ApiHelper {
                 .statusCode(200)
                 .log().all();
     }
+
+    public void createPosts(String title, String username, String password) {
+        String token = getToken(username, password);
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("title", title);
+        requestParams.put("body", "Post body from API by YN 2");
+        requestParams.put("select1", "One Person");
+        requestParams.put("token", token);
+
+                given()
+                        .contentType(ContentType.JSON)
+                        .body(requestParams.toMap())
+                        .log().all()
+                        .when()
+                        .post(EndPoints.CREATE_POST)
+                        .then()
+                        .statusCode(200);
+    }
 }
