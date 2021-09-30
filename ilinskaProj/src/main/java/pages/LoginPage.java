@@ -154,6 +154,10 @@ public class LoginPage extends ParentPage {
 
     }
     @Step
+    public boolean isAlertInvalidSingInPresent() {
+        return isElementPresent(errorSignIN);
+    }
+    @Step
     public LoginPage enterLoginRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
