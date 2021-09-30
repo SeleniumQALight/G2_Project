@@ -24,7 +24,7 @@ public class CreatePostTest extends BaseTest{
                 .checkIsSucessMessagePresent()
                 .checkTextinSuccessMessage("New post successfully created.")
                 .clickonProfile()
-                 .checkisPostwasAdded(POST_TITLE)
+                .checkIsPostWasAdded(POST_TITLE)
                 ;
 
     }

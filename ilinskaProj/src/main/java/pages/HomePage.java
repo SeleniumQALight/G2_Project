@@ -12,6 +12,9 @@ public class HomePage extends ParentPage {
     private Button buttonSignOut;
 @FindBy(xpath = ".//a[text()='Create Post']")
 private Button buttonCreatePost;
+    @FindBy(xpath = ".//img[@data-original-title='My Profile']")
+    private Button buttonProfile;
+
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -35,6 +38,10 @@ private Button buttonCreatePost;
     public CreatePostPage clickonButtonCreatePost(){
         clickOnElement(buttonCreatePost);
         return new CreatePostPage(webDriver);
+    }
+    public ProfilePage clickOnProfileButton() {
+        clickOnElement(buttonProfile);
+        return new ProfilePage(webDriver);
     }
 }
 
