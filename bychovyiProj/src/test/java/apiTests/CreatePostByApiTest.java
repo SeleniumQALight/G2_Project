@@ -19,7 +19,7 @@ public class CreatePostByApiTest {
     ApiHelper apiHelper = new ApiHelper();
 
     @Before
-    public void deieteAllPosts(){
+    public void deleteAllPosts(){
         apiHelper.deletePostsTillPresent(userName, passWord);
     }
 
