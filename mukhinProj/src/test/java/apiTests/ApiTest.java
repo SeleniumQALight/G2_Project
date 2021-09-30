@@ -2,6 +2,7 @@ package apiTests;
 
 import api.AuthorDTO;
 import api.PostDTO;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static api.EndPoints.POST_BY_USER;
 import static io.restassured.RestAssured.given;
@@ -25,6 +27,7 @@ public class ApiTest {
     public void getAllPostByUser(){
         PostDTO[] responseBody = given()
                 .contentType(ContentType.JSON)
+                .filter(new AllureRestAssured())
                 .log().all()
         .when()
                 .get(POST_BY_USER, USER_NAME)
@@ -103,6 +106,11 @@ public class ApiTest {
         }
 
         softAssertions.assertAll();
+
+        logger.info(responseBody.getTime());
+        logger.info(responseBody.getTimeIn(TimeUnit.SECONDS));
+        logger.info(responseBody.time());
+        logger.info(responseBody.timeIn(TimeUnit.MILLISECONDS));
     }
 
 
@@ -115,6 +123,6 @@ public class ApiTest {
                 .get(POST_BY_USER, USER_NAME)
                 .then()
                 .statusCode(200).log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("response.json"));
+                .assertThat().body(matchesJsonSchemaInClasspath("resources/responseHW.json"));
     }
 }

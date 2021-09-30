@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginPage extends ParentPage{
+
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private WebElement alertInCenter;
+
     @FindBy(xpath = ".//input[@placeholder = 'Username']")
     private TextInput inputLogin;
 
@@ -167,5 +171,9 @@ public class LoginPage extends ParentPage{
     @Step
     private void enterUserNameInSignOut(String userName) {
         enterTextToElement(inputLoginRegistration, userName);
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText, alertInCenter.getText());
     }
 }

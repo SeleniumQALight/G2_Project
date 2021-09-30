@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import static api.EndPoints.CURRENCY_LIST;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ApiPrivatBankTest {
     Logger logger = Logger.getLogger(getClass());
@@ -52,6 +53,22 @@ public class ApiPrivatBankTest {
             System.out.println("Rate of " + responseBody[i].getCcy() + " to " + responseBody[i].getBase_ccy()
             + " buy " + responseBody[i].getBuy() + " and sell " + responseBody[i].getSale());
         }
+    }
+
+    @Test
+    public void getAllCurrenciesBySchema(){
+        given()
+                .contentType(ContentType.JSON)
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
+                .log().all()
+        .when()
+                .get(CURRENCY_LIST)
+        .then()
+                .statusCode(200).log().all()
+                .assertThat().body(matchesJsonSchemaInClasspath("responsePrivat.json"));
+
     }
 
 }
