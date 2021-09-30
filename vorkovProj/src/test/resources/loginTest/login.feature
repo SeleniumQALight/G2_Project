@@ -14,4 +14,16 @@ Feature: User Login
     Examples:
       | login       | passWord     |
       | Wrong login | Wrong pass   |
-#      |             | 123456qwerty |
+      |             | 123456qwerty |
+
+    @R002
+    Scenario Outline: R002 Login with valid Credentials
+      Given User opens 'Login' page
+      When User enters '<login>' login into 'Login' input on 'Login' page
+      And User enters '<passWord>' passWord into 'PassWord' input on 'Login' page
+      And User click on 'SingIn' button on 'Login' page
+      Then User lands on 'homePage'
+
+      Examples:
+        | login       | passWord     |
+        | auto        | 123456qwerty |
