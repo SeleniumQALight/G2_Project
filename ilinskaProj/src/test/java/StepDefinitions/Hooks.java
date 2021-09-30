@@ -19,13 +19,13 @@ Logger logger =Logger.getLogger(getClass());
     logger.info(scenario.getName()+"was started");
     driverHelper.createDriver();
     }
-    @After
+    @After(order=0)
     public  void tearDown(Scenario scenario){
-        driverHelper.createDriver();
+        driverHelper.closeDriver();
         logger.info(scenario.getName()+"was ended with status"+scenario.getStatus());
     }
     @Before (value ="@BeforeDeletingAllPostsForDefaultUser",order=100)
-    @After (value ="AfterDeletingAllPostsForDefaultUser",order=50)
+    @After (value ="@AfterDeletingAllPostsForDefaultUser",order=50)
 
     public void deletingAllPostsForDefaultUser(){
         apiHelper.deletePostsTillPresent(TestData.VALID_LOGIN,TestData.VALID_PASSWORD);
