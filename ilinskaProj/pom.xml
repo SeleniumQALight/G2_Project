@@ -7,12 +7,6 @@
   <groupId>G2Project</groupId>
   <artifactId>ilinskaProj</artifactId>
   <version>1.0-SNAPSHOT</version>
-
-  <name>ilinskaProj</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
-
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -150,6 +144,12 @@
       <artifactId>cucumber-core</artifactId>
       <version>1.2.2</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-rest-assured</artifactId>
+      <version>2.13.8</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber2-jvm -->
     <dependency>
       <groupId>io.qameta.allure</groupId>
@@ -170,12 +170,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.5</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi</artifactId>
-      <version>3.14</version>
     </dependency>
   </dependencies>
   <profiles>
@@ -292,36 +286,33 @@
   </profiles>
   <build>
     <plugins>
-            <plugin>
-              <groupId>com.github.temyers</groupId>
-              <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-              <version>2.2.0</version>
-              <executions>
-                <execution>
-                  <id>generateRunners</id>
-                  <phase>generate-resources</phase>
-                  <goals>
-                    <goal>generateRunners</goal>
+      <plugin>
+        <groupId>com.github.temyers</groupId>
+        <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+        <version>2.2.0</version>
+        <executions>
+          <execution>
+            <id>generateRunners</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>generateRunners</goal>
 
-                  </goals>
-                  <configuration>
-                    <glue>stepDefinitions</glue>
+            </goals>
 
-                  </goals>
-                  <configuration>
-                    <glue>StepDefinitions</glue>
-                    <featuresDirectory>
-                      src/test/resources
-                    </featuresDirectory>
-                    <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
-                    <format>json,html</format>
-                    <tags>"${tag}"</tags>
-                    <!--<parallelScheme>SCENARIO</parallelScheme>-->
-                    <parallelScheme>FEATURE</parallelScheme>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
+            <configuration>
+              <glue>StepDefinitions</glue>
+              <featuresDirectory>
+                src/test/resources
+              </featuresDirectory>
+              <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+              <format>json,html</format>
+              <tags>"${tag}"</tags>
+              <!--<parallelScheme>SCENARIO</parallelScheme>-->
+              <parallelScheme>FEATURE</parallelScheme>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>io.qameta.allure</groupId>
