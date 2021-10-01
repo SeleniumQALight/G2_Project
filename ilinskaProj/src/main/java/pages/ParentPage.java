@@ -19,6 +19,8 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 
 import java.util.ArrayList;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 public  abstract class ParentPage {
     Logger logger = Logger.getLogger(getClass());
     WebDriver webDriver;
@@ -37,6 +39,11 @@ public  abstract class ParentPage {
                 new HtmlElementDecorator(
                         new HtmlElementLocatorFactory(webDriver))
                 ,this);// иметь возможность чтобі работать с елементами яндексс
+    }
+    protected void checkUrlWithPattern() {
+        Assert.assertThat("Invalid page",
+                webDriver.getCurrentUrl(),
+                containsString(baseUrl + getRelativeUrl()));
     }
     abstract String getRelativeUrl();
     protected void enterTextToElement(WebElement webElement, String text) {
