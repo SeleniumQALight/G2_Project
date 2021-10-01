@@ -26,7 +26,7 @@ public class HomePage extends ParentPage {
         return "/";
     }
 
-    public HomePage checkIsRedirectOnHonePage(){
+    public HomePage checkIsRedirectOnHomePage(){
         checkURL();
         checkIsButtonSignOutVisible();
         return this;
