@@ -46,7 +46,7 @@ public class CreatePostTest extends BaseTest {
     public void deletePost() {
         homePage
                 .openHomePage()
-                .checkIsRedirectOnHonePage()
+                .checkIsRedirectOnHomePage()
                 .clickOnButtonProfile()
                 .checkIsRedirectToProfilePage()
                 .deletePostWithTitleWhilePresent(POST_TITLE)

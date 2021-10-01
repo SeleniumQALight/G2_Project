@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.TextInput;
-
 import java.util.List;
 
 public class ProfilePage extends ParentPage {
@@ -14,6 +13,9 @@ public class ProfilePage extends ParentPage {
 
     @FindBy(xpath = ".//*[contains(text(), 'successfully deleted')]")
     private TextInput successPostDeleteElement;
+
+    @FindBy (xpath=".//*[@class='list-group']/a")
+    private List<WebElement> postsList;
 
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
@@ -62,5 +64,10 @@ public class ProfilePage extends ParentPage {
     public ProfilePage checkIsSuccessDeletePostMessagePresent() {
         Assert.assertTrue("Element is not present", isElementPresent(successPostDeleteElement));
         return this;
+    }
+
+    public void checkNumberOfPosts(int expectedNumberOfPosts) {
+        Assert.assertEquals("Number of posts", expectedNumberOfPosts
+                , postsList.size());
     }
 }
