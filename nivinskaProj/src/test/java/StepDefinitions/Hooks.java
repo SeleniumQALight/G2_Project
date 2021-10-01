@@ -2,8 +2,9 @@ package StepDefinitions;
 
 import api.ApiHelper;
 import cucumber.api.Scenario;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import libs.DriverHelper;
 import libs.TestData;
 import org.apache.log4j.Logger;
