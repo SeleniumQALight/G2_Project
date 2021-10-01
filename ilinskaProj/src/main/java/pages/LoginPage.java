@@ -114,7 +114,7 @@ public class LoginPage extends ParentPage {
     }
     @Step
     public HomePage loginWithValidCred() {
-        fillinLoginFormandSubmit(TestData.VALIG_LOGin, TestData.VALID_PASSWORd);
+        fillinLoginFormandSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
@@ -154,6 +154,10 @@ public class LoginPage extends ParentPage {
         enterPasswwordInSign("123");
         clickOnButtonSignIn();
 
+    }
+    @Step
+    public boolean isAlertInvalidSingInPresent() {
+        return isElementPresent(errorSignIN);
     }
     @Step
     public LoginPage enterLoginRegistration(String login) {

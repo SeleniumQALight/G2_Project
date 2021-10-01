@@ -4,12 +4,14 @@ package StepDefinitions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pages.HomePage;
 import pages.LoginPage;
 
 import static libs.DriverHelper.getWebDriver;
 
 public class LoginPage_StepDefinition {
     private LoginPage loginPage = new LoginPage(getWebDriver());
+    private HomePage homePage = new HomePage(getWebDriver());
 
     @Given("^User opens 'Login' page$")
     public void userOpensLoginPage() {
@@ -36,4 +38,8 @@ public class LoginPage_StepDefinition {
         loginPage.checkAlertMessageText(message);
     }
 
+    @Then("^User lands on 'homePage'$")
+    public void user_lands_on_homePage() {
+        homePage.checkIsRedirectOnHomePage();
+    }
 }
