@@ -25,7 +25,7 @@ public class CreatePostByApiTest {
     }
 
     @Test
-    public void createNewPostBuApi (){
+    public void createNewPostByApi (){
         String token = apiHelper.getToken(userName, password);
         JSONObject requestParams = new JSONObject();
         requestParams.put("title", "New post from API by Anna");
