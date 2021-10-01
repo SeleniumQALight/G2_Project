@@ -85,9 +85,9 @@ public class ApiHelper {
                         .queryParam("json")
                         .queryParam("exchange")
                         .queryParam("coursid", "5")
-                .when()
+                        .when()
                         .get(EndPoints.GET_CURRENCY_COURSE_PRIVAT)
-                .then()
+                        .then()
                         .statusCode(200)
                         .log().all()
                         .extract().response().as(CurrencyDTO[].class);
@@ -116,5 +116,25 @@ public class ApiHelper {
                     .isEqualToIgnoringGivenFields(actualCurrencyDTOlist[i], "buy", "sale");
         }
         softAssertions.assertAll();
+    }
+
+    public void createPost(String title, String userName, String password) {
+        String token = getToken(userName, password);
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("title", title);
+        requestParams.put("body", "Body of post ... ... ...");
+        requestParams.put("select1", "All Users");
+        requestParams.put("token", token);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(requestParams.toMap())
+                .log().all()
+                .when()
+                .post(EndPoints.CREATE_POST)
+                .then()
+                .statusCode(200)
+                .log().all();
     }
 }
