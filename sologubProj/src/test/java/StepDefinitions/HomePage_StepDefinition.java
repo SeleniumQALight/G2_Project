@@ -1,6 +1,7 @@
 package StepDefinitions;
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import libs.DriverHelper;
 import pages.HomePage;
@@ -20,5 +21,10 @@ public class HomePage_StepDefinition {
     @When("^User clicks on 'Profile' button on 'Home' page$")
     public void userClicksOnProfileButtonOnHomePage() {
         homePage.clickOnButtonProfile();
+    }
+
+    @Then("^User sees 'Sign out' button$")
+    public void userSeesSignOutButton() {
+        homePage.isButtonSignOutPresent();
     }
 }
