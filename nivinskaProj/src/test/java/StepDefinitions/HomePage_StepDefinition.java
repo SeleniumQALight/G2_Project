@@ -21,4 +21,19 @@ public class HomePage_StepDefinition {
     public void userClicksOnProfileButtonOnHomePage() {
         homePage.clickOnButtonProfile();
     }
+
+    @And("^User sees 'SingOut' button on 'Home' page$")
+    public void userSeesSingOutButtonOnHomePage() {
+        homePage.checkIsButtonSignOutVisible();
+    }
+
+    @And("^User sees 'CreatePost' button on 'Home' page$")
+    public void userSeesCreatePostButtonOnHomePage() {
+        homePage.checkIsButtonCreatePostVisible();
+    }
+
+    @Then("^User does not see 'SingIn' button on 'Home' page$")
+    public void userDoesNotSeeSingInButtonOnHomePage() {
+        homePage.checkButtonSignInIsNotVisible();
+    }
 }

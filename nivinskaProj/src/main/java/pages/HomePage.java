@@ -10,6 +10,9 @@ public class HomePage extends ParentPage {
     @FindBy(xpath = ".//button[text()='Sign Out']")
     private Button buttonSignOut;
 
+    @FindBy(xpath = ".//button[text()='Sign In']")
+    private Button buttonSignIn;
+
     @FindBy(xpath = ".//a[text()='Create Post']")
     private Button buttonCreatePost;
 
@@ -26,7 +29,7 @@ public class HomePage extends ParentPage {
     }
 
     @Step
-    public HomePage checkIsRedirectOnHomePage(){
+    public HomePage checkIsRedirectOnHomePage() {
         checkUrl();
         checkIsButtonSignOutVisible();
         return this;
@@ -63,5 +66,27 @@ public class HomePage extends ParentPage {
     public ProfilePage clickOnButtonProfile() {
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
+    }
+
+    @Step
+    public HomePage checkIsButtonCreatePostVisible() {
+        Assert.assertTrue("Button Create Post is not displayed", isButtonCreatePostPresent());
+        return this;
+    }
+
+    @Step
+    public boolean isButtonCreatePostPresent() {
+        return isElementPresent(buttonCreatePost);
+    }
+
+    @Step
+    public HomePage checkButtonSignInIsNotVisible() {
+        Assert.assertFalse("Button Sing In is not displayed", isButtonSignInPresent());
+        return this;
+    }
+
+    @Step
+    private boolean isButtonSignInPresent() {
+        return isElementPresent(buttonSignIn);
     }
 }
