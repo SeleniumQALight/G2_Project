@@ -20,7 +20,7 @@ public class ApiPrivatBankTest {
                 .log().all()
                 .queryParam("json")
                 .queryParam("exchange")
-                .queryParam("courseId", "5")
+                .queryParam("coursid", "5")
                 .when()
                 .get(GET_API_CURRENCY)
                 .then()
@@ -28,5 +28,19 @@ public class ApiPrivatBankTest {
                 .log().all()
                 .extract()
                 .response().as(CurrencyDTO[].class);
+
+        logger.info(responseBody.length);
+        logger.info(responseBody[0].getCcy());
+        boolean hasCourse = false;
+        for (CurrencyDTO currencyDTO : responseBody) {
+            logger.info(currencyDTO.getCcy());
+            if ((currencyDTO.getCcy().equals("RUR")) & (currencyDTO.getBase_ccy().equals("UAH"))) {
+                hasCourse = true;
+                logger.info("currency exchange course: ");
+                logger.info(String.format("buy: %s", currencyDTO.getBuy()));
+                logger.info(String.format("sale: %s", currencyDTO.getSale()));
+            }
         }
+        Assert.assertTrue("Course UAH/RUR not found", hasCourse);
     }
+}
