@@ -21,7 +21,7 @@ public class ApiHelper {
             .log(LogDetail.ALL)
             .build();
 
-    public String getToken(String userName, String passWord){
+    public String getToken(String userName, String passWord) {
         JSONObject requestParams = new JSONObject();
         requestParams.put("username", userName);
         requestParams.put("password", passWord);
@@ -30,9 +30,9 @@ public class ApiHelper {
                 given()
                         .spec(requestSpecification)
                         .body(requestParams.toMap())
-                .when()
+                        .when()
                         .post(LOGIN)
-                .then()
+                        .then()
                         .statusCode(200)
                         .log().all()
                         .extract().response().getBody();
@@ -43,9 +43,9 @@ public class ApiHelper {
     public PostDTO[] getAllPostsByUser(String userName) {
         return given()
                 .spec(requestSpecification)
-             .when()
+                .when()
                 .get(POST_BY_USER, userName)
-             .then()
+                .then()
                 .statusCode(200)
                 .log().all()
                 .extract()
@@ -58,8 +58,8 @@ public class ApiHelper {
         for (int i = 0; i < listOfPosts.length; i++) {
             deletePostById(userName, passWord, listOfPosts[i].get_id());
             logger.info(String.format("Post with id %s and title %s was deleted"
-                                      ,listOfPosts[i].get_id()
-                                      ,listOfPosts[i].getTitle()));
+                    , listOfPosts[i].get_id()
+                    , listOfPosts[i].getTitle()));
         }
         Assert.assertEquals("Number Of Posts ", 0, getAllPostsByUser(userName).length);
     }
@@ -73,9 +73,28 @@ public class ApiHelper {
         given()
                 .spec(requestSpecification)
                 .body(bodyRequest.toMap())
-        .when()
+                .when()
                 .delete(EndPoints.DELETE_POST, id)
-        .then()
+                .then()
                 .statusCode(200).log().all();
     }
+
+    public void createPost(String title, String userName, String passWord) {
+    String token = getToken(userName, passWord);
+
+    JSONObject requestParams = new JSONObject();
+        requestParams.put("title", title);
+        requestParams.put("body", "post body");
+        requestParams.put("select1", "OnePerson");
+        requestParams.put("token", token);
+
+            given()
+                    .contentType(ContentType.JSON)
+                    .body(requestParams.toMap())
+                    .log().all()
+                    .when()
+                    .post(EndPoints.CREATE_POST)
+                    .then()
+                    .statusCode(200);
+      }
 }

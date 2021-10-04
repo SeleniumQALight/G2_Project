@@ -153,12 +153,6 @@
       <artifactId>cucumber-core</artifactId>
       <version>1.2.2</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-rest-assured -->
-    <dependency>
-      <groupId>io.qameta.allure</groupId>
-      <artifactId>allure-rest-assured</artifactId>
-      <version>2.13.8</version>
-    </dependency>
     <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-cucumber2-jvm -->
     <dependency>
       <groupId>io.qameta.allure</groupId>
@@ -313,14 +307,14 @@
             </goals>
 
             <configuration>
-              <glue>stepDefinitions</glue>
+              <glue>StepDefinitions</glue>
               <featuresDirectory>
                 src/test/resources
               </featuresDirectory>
               <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
               <format>json,html</format>
               <tags>"${tag}"</tags>
-              <!--                            <parallelScheme>SCENARIO</parallelScheme>-->
+              <!--<parallelScheme>SCENARIO</parallelScheme>-->
               <parallelScheme>FEATURE</parallelScheme>
             </configuration>
           </execution>

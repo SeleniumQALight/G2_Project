@@ -50,6 +50,8 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']")
     private List<WebElement> actuallistofErrors;
     final String listErrorLocators = ".//*[@class='alert alert-danger small liveValidateMessage liveValidateMessage--visible']";
+    @FindBy(xpath = ".//*[@class='alert alert-danger text-center']")
+    private WebElement alertinCenter;
 
 
     public LoginPage(WebDriver webDriver) {
@@ -112,7 +114,7 @@ public class LoginPage extends ParentPage {
     }
     @Step
     public HomePage loginWithValidCred() {
-        fillinLoginFormandSubmit(TestData.VALIG_LOGin, TestData.VALID_PASSWORd);
+        fillinLoginFormandSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
     }
 
@@ -154,6 +156,10 @@ public class LoginPage extends ParentPage {
 
     }
     @Step
+    public boolean isAlertInvalidSingInPresent() {
+        return isElementPresent(errorSignIN);
+    }
+    @Step
     public LoginPage enterLoginRegistration(String login) {
         enterTextToElement(inputLoginRegistration, login);
         return this;
@@ -186,5 +192,9 @@ public class LoginPage extends ParentPage {
 
         softAssertions.assertAll();
 
+    }
+
+    public void checkAlertMessageText(String message) {
+        Assert.assertEquals("Message in Center",message,alertinCenter.getText());
     }
 }

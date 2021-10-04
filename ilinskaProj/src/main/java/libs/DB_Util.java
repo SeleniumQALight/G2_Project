@@ -1,8 +1,8 @@
 package libs;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
 
 public class DB_Util {
     private Database mySQL_DataBase;

@@ -24,6 +24,9 @@ public class LoginPage extends ParentPage {
     @Name("Input Pass")
     private TextInput inputPassWord;
 
+    @FindBy(xpath = ".//*[contains(@class,'danger text-center')]")
+    private WebElement alertInCenter;
+
     @FindBy(xpath = ".//button[text()='Sign In']")
     private Button buttonSignIn;
 
@@ -128,5 +131,9 @@ public class LoginPage extends ParentPage {
         }
         softAssertions.assertAll();
 
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText,alertInCenter.getText() );
     }
 }
