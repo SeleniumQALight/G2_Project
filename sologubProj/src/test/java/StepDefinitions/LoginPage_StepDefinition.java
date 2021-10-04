@@ -4,6 +4,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import libs.DriverHelper;
+import libs.TestData;
 import pages.LoginPage;
 
 public class LoginPage_StepDefinition {
@@ -35,6 +36,13 @@ public class LoginPage_StepDefinition {
     }
 
 
+    @When("^User enters default login into 'Login' input on 'Login' page$")
+    public void userEntersDefaultLoginIntoLoginInputOnLoginPage() {
+        loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
+    }
 
-
+    @When("^User enters default passWord into 'PassWord' input on 'Login' page$")
+    public void userEntersDefaultPassWordIntoPassWordInputOnLoginPage() {
+        loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
+    }
 }
