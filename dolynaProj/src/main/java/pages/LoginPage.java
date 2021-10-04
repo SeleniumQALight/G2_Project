@@ -19,6 +19,9 @@ public class LoginPage extends ParentPage {
     @FindBy(xpath =" .//button[text()='Sign In']")
     private WebElement buttonSignIn;
 
+    @FindBy(xpath = ".//*[@class='alert alert-danger text-center']")
+    private WebElement alertInCenter;
+
     public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
@@ -67,5 +70,9 @@ public class LoginPage extends ParentPage {
     public HomePage loginWithValidCread(){
         fillLoginFormAndSubmit(TestData.VALID_LOGIN, TestData.VALID_PASSWORD);
         return new HomePage(webDriver);
+    }
+
+    public void checkAlertMessageText(String messageText) {
+        Assert.assertEquals("Message in Center", messageText, alertInCenter.getText() );
     }
 }
