@@ -28,3 +28,13 @@ Feature: User Login
     Examples:
       | login       | passWord     |
       | auto        | 123456qwerty |
+
+
+  @R002_2
+  Scenario: R002_2 Login with valid credentials
+    Given User opens 'Login' page
+    When User enters 'defaultUserWithValidCred' Login into 'Login' input on 'Login' page
+    And User enters 'defaultUserWithValidCred' Password into 'PassWord' input on 'Login' page
+    And User click on 'SingIn' button on 'Login' page
+    Then User is redirected to 'Home' page
+
