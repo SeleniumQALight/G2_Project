@@ -13,6 +13,7 @@ import static libs.DriverHelper.getWebDriver;
 public class LoginPage_StepDefinition {
     public  LoginPage loginPage = new LoginPage(getWebDriver());
     public  HomePage homePage = new HomePage(getWebDriver());
+    final String DEFFAULT = "default";
 
 
     @Given("^User opens 'Login' page$")
@@ -22,12 +23,20 @@ public class LoginPage_StepDefinition {
 
     @When("^User enters '(.*)' login into 'Login' input on 'Login' page$")
     public void user_enters_Wrong_login_login_into_Login_input_on_Login_page(String userName) {
-            loginPage.enterLoginInSignIn(TestData.VALID_LOGIN);
+        if (DEFFAULT.equalsIgnoreCase(userName)){
+            userName = TestData.VALID_LOGIN;
+            loginPage.enterLoginInSignIn(userName);
+        }
+
     }
 
     @When("^User enters '(.*)' passWord into 'PassWord' input on 'Login' page$")
     public void user_enters_Wrong_pass_passWord_into_PassWord_input_on_Login_page(String passWord) {
-            loginPage.enterPasswordInSignIn(TestData.VALID_PASSWORD);
+        if (DEFFAULT.equalsIgnoreCase(passWord)){
+            passWord = TestData.VALID_PASSWORD;
+            loginPage.enterPasswordInSignIn(passWord);
+        }
+
     }
 
     @When("^User click on 'SingIn' button on 'Login' page$")
