@@ -1,5 +1,6 @@
 package pages;
 
+import apiForHomeWork.EndPointsForHomeWork;
 import io.qameta.allure.Step;
 import libs.TestData;
 import org.assertj.core.api.SoftAssertions;
@@ -70,6 +71,18 @@ public class LoginPage extends ParentPage{
             Assert.fail("Can not work with LoginPage");
         }
     }
+
+    @Step
+    public void openPrivatPage(){
+        try{
+            webDriver.get(EndPointsForHomeWork.privatBankUrl);
+            logger.info("Privat Main page was opened");
+        }catch (Exception e){
+            logger.error("Can not work with PrivatPage" + e);
+            Assert.fail("Can not work with PrivatPage");
+        }
+    }
+
     @Step
     public void enterLoginInSignIn(String login) {
 //        try{
