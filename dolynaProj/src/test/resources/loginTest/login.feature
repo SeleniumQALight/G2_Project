@@ -14,4 +14,4 @@ Feature: User Login
     Examples:
       | login       | passWord     |
       | Wrong login | Wrong pass   |
-      |             | |
+      |             | 123456qwerty |

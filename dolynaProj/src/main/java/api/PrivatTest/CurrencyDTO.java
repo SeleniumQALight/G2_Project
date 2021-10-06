@@ -45,11 +45,5 @@ public class CurrencyDTO {
     }
 
 
-
-
-
-
-    public Object printCurrency() {
-        return null;
     }
-}
+
