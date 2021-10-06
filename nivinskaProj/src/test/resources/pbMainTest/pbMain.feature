@@ -12,4 +12,3 @@ Feature: Pb currency exchange feature
       | currency |
       | USD      |
       | EUR      |
-      | RUR      |

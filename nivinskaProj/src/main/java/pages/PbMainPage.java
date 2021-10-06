@@ -9,9 +9,14 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import weka.core.Utils;
+
+import java.text.DecimalFormat;
+
 import static io.restassured.RestAssured.given;
 
 public class PbMainPage extends ParentPage {
+    DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
     public PbMainPage(WebDriver webDriver) {
         super(webDriver);
@@ -88,6 +93,7 @@ public class PbMainPage extends ParentPage {
         WebElement currency_buy_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_buy']"));
         Util.waitABit(3);
         Double currency_buy = Double.parseDouble(currency_buy_element.getText());
+        currency_buy = Utils.roundDouble(currency_buy, 1);
         return currency_buy;
     }
 
@@ -96,6 +102,7 @@ public class PbMainPage extends ParentPage {
         WebElement currency_sell_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_sell']"));
         Util.waitABit(3);
         Double currency_sell = Double.parseDouble(currency_sell_element.getText());
+        currency_sell = Utils.roundDouble(currency_sell, 1);
         return currency_sell;
     }
 }
