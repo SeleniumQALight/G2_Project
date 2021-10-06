@@ -13,4 +13,3 @@ Feature: Pb currency exchange feature
       | USD      |
       | EUR      |
       | RUB      |
-      | BTC      |

@@ -132,7 +132,6 @@ public class ApiHelper {
                     TestData.setCurrency_sell_api(Utils.roundDouble(Double.parseDouble(responseBody[i].getSale()), 1));
                     logger.info("Currency " + currency + " sell exchange via API is " + TestData.getCurrency_sell_api());
                 }
-                break;
             }
         } catch (Exception e) {
             logger.error("Currency " + currency + " exchange does not return" + e);
