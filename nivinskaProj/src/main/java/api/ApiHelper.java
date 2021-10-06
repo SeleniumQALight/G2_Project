@@ -115,6 +115,15 @@ public class ApiHelper {
                 .extract()
                 .response().as(CcyDTO[].class);
 
+        //Temporary hardcode. It is necessary to fix the bug with RUB name.
+        if (currency.equalsIgnoreCase("RUB")) {
+            currency = "RUR";
+            logger.info("Currency was changed to RUR");
+        } else {
+            logger.info("Currency is correct to continue");
+        }
+        //Temporary hardcode. It is necessary to fix the bug with RUB name.
+
         try {
             for (int i = 0; i < responseBody.length; i++) {
                 if (responseBody[i].getCcy().equalsIgnoreCase(currency)) {
