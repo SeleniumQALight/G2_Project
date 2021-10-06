@@ -4,37 +4,19 @@ import api.CcyDTO;
 import api.EndPoints;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
+import libs.Util;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
 import static io.restassured.RestAssured.given;
 
 public class PbMainPage extends ParentPage {
-    @FindBy(xpath = ".//*[@id='EUR_buy']")
-    private WebElement EUR_buy;
-
-    @FindBy(xpath = ".//*[@id='EUR_sell']")
-    private WebElement EUR_sell;
-
-    @FindBy(xpath = ".//*[@id='USD_buy']")
-    private WebElement USD_buy;
-
-    @FindBy(xpath = ".//*[@id='USD_sell']")
-    private WebElement USD_sell;
-
-    @FindBy(xpath = ".//*[@id='RUB_buy']")
-    private WebElement RUB_buy;
-
-    @FindBy(xpath = ".//*[@id='RUB_sell']")
-    private WebElement RUB_sell;
 
     public PbMainPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    //???
     @Override
     String getRelativeUrl() {
         return "/";
@@ -43,7 +25,8 @@ public class PbMainPage extends ParentPage {
     @Step
     public void openPbMainPage() {
         try {
-            webDriver.get("https://privatbank.ua/");
+            webDriver.get("https://privatbank.ua");
+            Util.waitABit(3);
             logger.info("PbMain page was opened");
         } catch (Exception e) {
             logger.error("Can not work with PbMainPage" + e);
@@ -98,6 +81,21 @@ public class PbMainPage extends ParentPage {
             }
             break;
         }
+        return currency_sell;
+    }
+
+    public Double getCurrencyCurrentBuyExchangeFromWebsiteAndSave(String currency) {
+        WebElement currency_buy_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_buy']"));
+        Util.waitABit(3);
+        Double currency_buy = Double.parseDouble(currency_buy_element.getText());
+        return currency_buy;
+    }
+
+
+    public Double getCurrencyCurrentSellExchangeFromWebsiteAndSave(String currency) {
+        WebElement currency_sell_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_sell']"));
+        Util.waitABit(3);
+        Double currency_sell = Double.parseDouble(currency_sell_element.getText());
         return currency_sell;
     }
 }
