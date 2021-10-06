@@ -6,9 +6,11 @@ Feature: Pb currency exchange feature
     Given Get '<currency>' current exchange via API
     When User opens 'PbMain' page
     And Get '<currency>' current exchange from website
-    Then Compare current currency exchange via API and from website
+    Then Compare current '<currency>' exchange via API and from website
 
     Examples:
       | currency |
       | USD      |
       | EUR      |
+      | RUB      |
+      | BTC      |

@@ -5,9 +5,11 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
+import libs.TestData;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.junit.Assert;
+import weka.core.Utils;
 
 import static io.restassured.RestAssured.given;
 
@@ -95,5 +97,37 @@ public class ApiHelper {
                 .statusCode(200)
                 .log().all();
 
+    }
+
+    public void getCurrencyCurrentExchangeViaAPI(String currency) {
+
+        CcyDTO[] responseBody = given()
+                .contentType(ContentType.JSON)
+                .queryParam("json")
+                .queryParam("exchange")
+                .queryParam("coursid", "5")
+                .log().all()
+                .when()
+                .get(EndPoints.CCY_EXCHANGE)
+                .then()
+                .statusCode(200)
+                .log().all()
+                .extract()
+                .response().as(CcyDTO[].class);
+
+        try {
+            for (int i = 0; i < responseBody.length; i++) {
+                if (responseBody[i].getCcy().equalsIgnoreCase(currency)) {
+                    TestData.setCurrency_buy_api(Utils.roundDouble(Double.parseDouble(responseBody[i].getBuy()), 1));
+                    logger.info("Currency " + currency + " buy exchange via API is " + TestData.getCurrency_buy_api());
+                    TestData.setCurrency_sell_api(Utils.roundDouble(Double.parseDouble(responseBody[i].getSale()), 1));
+                    logger.info("Currency " + currency + " sell exchange via API is " + TestData.getCurrency_sell_api());
+                }
+                break;
+            }
+        } catch (Exception e) {
+            logger.error("Currency " + currency + " exchange does not return" + e);
+            Assert.fail("Currency " + currency + " exchange does not return" + e);
+        }
     }
 }

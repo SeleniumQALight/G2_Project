@@ -4,6 +4,7 @@ import api.CcyDTO;
 import api.EndPoints;
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
+import libs.TestData;
 import libs.Util;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -39,70 +40,31 @@ public class PbMainPage extends ParentPage {
         }
     }
 
-    public Double getCurrencyCurrentBuyExchangeViaAPIAndSave(String currency) {
-        CcyDTO[] responseBody = given()
-                .contentType(ContentType.JSON)
-                .queryParam("json")
-                .queryParam("exchange")
-                .queryParam("coursid", "5")
-                .log().all()
-                .when()
-                .get(EndPoints.CCY_EXCHANGE)
-                .then()
-                .statusCode(200)
-                .log().all()
-                .extract()
-                .response().as(CcyDTO[].class);
-
-        Double currency_buy = null;
-        for (int i = 0; i < responseBody.length; i++) {
-            if (responseBody[i].getCcy() == currency) {
-                currency_buy = Double.parseDouble(responseBody[i].getBuy());
-            }
-            break;
-        }
-        return currency_buy;
-    }
-
-    public Double getCurrencyCurrentSellExchangeViaAPIAndSave(String currency) {
-        CcyDTO[] responseBody = given()
-                .contentType(ContentType.JSON)
-                .queryParam("json")
-                .queryParam("exchange")
-                .queryParam("coursid", "5")
-                .log().all()
-                .when()
-                .get(EndPoints.CCY_EXCHANGE)
-                .then()
-                .statusCode(200)
-                .log().all()
-                .extract()
-                .response().as(CcyDTO[].class);
-
-        Double currency_sell = null;
-        for (int i = 0; i < responseBody.length; i++) {
-            if (responseBody[i].getCcy() == currency) {
-                currency_sell = Double.parseDouble(responseBody[i].getSale());
-            }
-            break;
-        }
-        return currency_sell;
-    }
-
-    public Double getCurrencyCurrentBuyExchangeFromWebsiteAndSave(String currency) {
+    public void getCurrencyCurrentExchangeFromWebsite(String currency) {
         WebElement currency_buy_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_buy']"));
+        WebElement currency_sell_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_sell']"));
+
         Util.waitABit(3);
-        Double currency_buy = Double.parseDouble(currency_buy_element.getText());
-        currency_buy = Utils.roundDouble(currency_buy, 1);
-        return currency_buy;
+
+        try {
+            TestData.setCurrency_buy_web(Utils.roundDouble(Double.parseDouble(currency_buy_element.getText()), 1));
+            logger.info("Currency " + currency + " buy exchange on website is " + TestData.getCurrency_buy_api());
+            TestData.setCurrency_sell_web(Utils.roundDouble(Double.parseDouble(currency_sell_element.getText()), 1));
+            logger.info("Currency " + currency + " sell exchange on website is " + TestData.getCurrency_sell_api());
+        } catch (Exception e) {
+            logger.error("Elements was not found on website Main page" + e);
+            Assert.fail("Elements was not found on website Main page" + e);
+        }
+
     }
 
-
-    public Double getCurrencyCurrentSellExchangeFromWebsiteAndSave(String currency) {
-        WebElement currency_sell_element = webDriver.findElement(By.xpath(".//*[@id='" + currency + "_sell']"));
-        Util.waitABit(3);
-        Double currency_sell = Double.parseDouble(currency_sell_element.getText());
-        currency_sell = Utils.roundDouble(currency_sell, 1);
-        return currency_sell;
+    public void compareCurrentCurrencyExchangeViaAPIAndFromWebsite(String currency) {
+        try {
+            Assert.assertEquals("Currency buy exchange is not correct", TestData.getCurrency_buy_api(), TestData.getCurrency_buy_web(), 0);
+            Assert.assertEquals("Currency sell exchange is not correct", TestData.getCurrency_sell_api(), TestData.getCurrency_sell_web(), 0);
+        } catch (Exception e) {
+            logger.error("Is not possible to compare values" + e);
+            Assert.fail("Is not possible to compare values" + e);
+        }
     }
 }
