@@ -34,8 +34,8 @@ public class PbMainPage_StepDefinition {
         pbMainPage.getCurrencyCurrentExchangeFromWebsite(currency);
     }
 
-    @Then("^Compare current '(.*)' exchange via API and from website$")
-    public void compareCurrentCurrencyExchangeViaAPIAndFromWebsite(String currency) {
-        pbMainPage.compareCurrentCurrencyExchangeViaAPIAndFromWebsite(currency);
+    @Then("^Compare current currency exchange via API and from website$")
+    public void compareCurrentCurrencyExchangeViaAPIAndFromWebsite() {
+        pbMainPage.compareCurrentCurrencyExchangeViaAPIAndFromWebsite();
     }
 }

@@ -58,7 +58,7 @@ public class PbMainPage extends ParentPage {
 
     }
 
-    public void compareCurrentCurrencyExchangeViaAPIAndFromWebsite(String currency) {
+    public void compareCurrentCurrencyExchangeViaAPIAndFromWebsite() {
         try {
             Assert.assertEquals("Currency buy exchange is not correct", TestData.getCurrency_buy_api(), TestData.getCurrency_buy_web(), 0);
             Assert.assertEquals("Currency sell exchange is not correct", TestData.getCurrency_sell_api(), TestData.getCurrency_sell_web(), 0);
