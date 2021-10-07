@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Test;
 
 import static api.EndPoints.LOGIN;
 import static api.EndPoints.POST_BY_USER;
@@ -77,8 +76,7 @@ public class ApiHelper {
                 .statusCode(200).log().all();
     }
 
-    @Test
-    public void getCurrencyExchangePrivatBank() {
+    public CurrencyDTO[] getCurrencyExchangePrivatBank() {
         CurrencyDTO[] actualCurrencyDTOlist =
                 given()
                         .spec(requestSpecification)
@@ -116,6 +114,7 @@ public class ApiHelper {
                     .isEqualToIgnoringGivenFields(actualCurrencyDTOlist[i], "buy", "sale");
         }
         softAssertions.assertAll();
+        return actualCurrencyDTOlist;
     }
 
     public void createPost(String title, String userName, String password) {
