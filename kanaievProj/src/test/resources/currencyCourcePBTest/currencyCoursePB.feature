@@ -13,3 +13,4 @@ Feature: Currency Course PrivatBank
       | Currency |
       | USD      |
       | EUR      |
+      | RUR      |

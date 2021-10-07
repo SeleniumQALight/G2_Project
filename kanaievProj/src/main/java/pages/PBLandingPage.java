@@ -39,10 +39,12 @@ public class PBLandingPage {
 
     public void getCurrencyCourseFromLendingPageAndCompareItWithAPIData(String currencyCode) {
         Assert.assertEquals("Invalid page ", baseUrlPB, webDriver.getCurrentUrl());
+        // little trick for RUB/RUR =)
+        String ccyCodeLocator = currencyCode.equalsIgnoreCase("RUR") ? "RUB" : currencyCode;
         CurrencyDTO actualCurrencyDTO = new CurrencyDTO(
                 currencyCode,
-                wait.until(visibilityOfElementLocated(By.id(currencyCode + "_buy"))).getText().trim(),
-                wait.until(visibilityOfElementLocated(By.id(currencyCode + "_sell"))).getText().trim()
+                wait.until(visibilityOfElementLocated(By.id(ccyCodeLocator + "_buy"))).getText().trim(),
+                wait.until(visibilityOfElementLocated(By.id(ccyCodeLocator + "_sell"))).getText().trim()
         );
 
         assertThat(actualCurrencyDTO).isEqualToIgnoringGivenFields(currencyDTOFromAPI, "base_ccy");
