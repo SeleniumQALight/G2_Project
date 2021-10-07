@@ -30,6 +30,7 @@ public class PrivatExchange {
         }
         CurrencyDTO[] expectedResponseBody = {
                 new CurrencyDTO("USD", "UAH"),
+
                 new CurrencyDTO("EUR","UAH"),
 
         };

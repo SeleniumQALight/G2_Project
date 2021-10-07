@@ -33,6 +33,12 @@ public class CurrencyDTO {
     public String getSale(){
         return sale;
     }
+
+    public String printCurrency(){
+        return "Exchange rate" + ccy + "to" + base_ccy + ": \n" +
+                "* buy = " + buy + "\n" +
+                "* sale = " + "\n";
+    }
     @Override
     public String toString(){
         return "CurrencyDTO{" +
