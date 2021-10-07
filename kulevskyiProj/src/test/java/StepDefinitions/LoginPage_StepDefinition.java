@@ -9,6 +9,8 @@ import pages.HomePage;
 import pages.LoginPage;
 
 import static libs.DriverHelper.getWebDriver;
+import static libs.TestData.VALID_LOGIN;
+import static libs.TestData.VALID_PASSWORD;
 
 public class LoginPage_StepDefinition {
     public  LoginPage loginPage = new LoginPage(getWebDriver());
@@ -23,8 +25,9 @@ public class LoginPage_StepDefinition {
 
     @When("^User enters '(.*)' login into 'Login' input on 'Login' page$")
     public void user_enters_Wrong_login_login_into_Login_input_on_Login_page(String userName) {
-        if (DEFFAULT.equalsIgnoreCase(userName)){
-            userName = TestData.VALID_LOGIN;
+        if (DEFFAULT.equalsIgnoreCase(userName)) {
+            loginPage.enterLoginInSignIn(VALID_LOGIN);
+        }else {
             loginPage.enterLoginInSignIn(userName);
         }
 
@@ -33,7 +36,8 @@ public class LoginPage_StepDefinition {
     @When("^User enters '(.*)' passWord into 'PassWord' input on 'Login' page$")
     public void user_enters_Wrong_pass_passWord_into_PassWord_input_on_Login_page(String passWord) {
         if (DEFFAULT.equalsIgnoreCase(passWord)){
-            passWord = TestData.VALID_PASSWORD;
+            loginPage.enterPasswordInSignIn(VALID_PASSWORD);
+        }else {
             loginPage.enterPasswordInSignIn(passWord);
         }
 
