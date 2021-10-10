@@ -2,6 +2,7 @@ package StepDefinitions;
 
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.HomePage;
 import pages.LoginPage;
@@ -14,14 +15,17 @@ public class HomePage_StepDefinition {
 
     @Given("^User opens 'Home' page$")
     public void givenUserOpensHomePage() {
-      loginPage.loginWithValidCred()
-              .checkIsRedirectOnHomePage();
+        loginPage.loginWithValidCred()
+                .checkIsRedirectOnHomePage();
     }
 
     @When("^User clicks on 'Profile' button on 'Home' page$")
     public void userClicksOnProfileButtonOnHomePage() {
         homePage.clickOnButtonProfile();
+    }
 
+    @Then("^User is redirected to 'Home' page$")
+    public void userIsRedirectedToHomePage() {
+        homePage.checkIsRedirectOnHomePage();
     }
 }
-

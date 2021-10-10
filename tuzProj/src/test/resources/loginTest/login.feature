@@ -14,7 +14,9 @@ Feature: User Login
     Examples:
       | login       | passWord     |
       | Wrong login | Wrong pass   |
-      |             | 123456qwerty |
+
+
+
 
   @R002
   Scenario Outline: R002 Login with valid Login
@@ -22,11 +24,17 @@ Feature: User Login
     When User enters '<login>' login into 'Login' input on 'Login' page
     And User enters '<passWord>' passWord into 'PassWord' input on 'Login' page
     And User click on 'SingIn' button on 'Login' page
-    Then User does not see 'SingIn' button on 'Home' page
-    And User sees 'SingOut' button on 'Home' page
-    And User sees 'CreatePost' button on 'Home' page
-
+    Then User is redirected to 'Home' page
 
     Examples:
-      | login     | passWord     |
-      | nivinskao | caramacara12 |
+      | login       | passWord     |
+      | etuz        | Temp1234%@#$ |
+
+
+  @R002_1
+  Scenario: R002 Login with valid Login (Default Login)
+    Given User opens 'Login' page
+    When User enters 'default' Login into 'Login' input on 'Login' page
+    And User enters 'default' PassWord into 'PassWord' input on 'Login' page
+    And User click on 'SingIn' button on 'Login' page
+    Then User is redirected to 'Home' page

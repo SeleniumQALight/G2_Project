@@ -7,15 +7,13 @@ import libs.DriverHelper;
 import pages.HomePage;
 import pages.LoginPage;
 
-public class HomePage_StepDefinition {
+public class HomePage_StepDefinitions {
     private LoginPage loginPage = new LoginPage(DriverHelper.getWebDriver());
     private HomePage homePage = new HomePage(DriverHelper.getWebDriver());
 
     @Given("^User opens 'Home' page$")
-    public void givenUserOpensHomePage() {
-        loginPage.loginWithValidCred()
-                .checkIsRedirectOnHomePage();
-
+    public void givenUserOpensHomePage(){
+        loginPage.loginWithValidCred().checkIsRedirectOnHomePage();
     }
 
     @When("^User clicks on 'Profile' button on 'Home' page$")
@@ -23,8 +21,8 @@ public class HomePage_StepDefinition {
         homePage.clickOnButtonProfile();
     }
 
-    @Then("^User sees 'Sign out' button$")
-    public void userSeesSignOutButton() {
-        homePage.isButtonSignOutPresent();
+    @Then("^User is redirected to 'Home' page$")
+    public void user_is_redirected_to_Home_page(){
+        homePage.checkIsRedirectOnHomePage();
     }
 }
