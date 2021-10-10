@@ -2,6 +2,7 @@ package stepDefinitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import pages.HomePage;
 import pages.LoginPage;
 
@@ -17,8 +18,14 @@ public class HomePage_StepDefinition {
                 .checkIsRedirectedOnHomePage();
     }
 
-    @And("User click on 'Profile' button on 'Home' page")
+    @And("^User click on 'Profile' button on 'Home' page$")
     public void userClickOnProfileButtonOnHomePage() {
         homePage.clickOnButtonProfile();
     }
+
+    @Then("^User is redirected to 'Home' page$")
+    public void user_is_redirected_to_Home_page() {
+        homePage.checkIsRedirectedOnHomePage();
+    }
+
 }
