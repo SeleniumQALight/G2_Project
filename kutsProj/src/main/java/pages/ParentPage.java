@@ -30,6 +30,7 @@ public abstract class ParentPage {
             ConfigFactory.create(ConfigProperties.class);
 
     protected final String baseUrl = configProperties.base_url();
+    protected final String baseUrlPrivatBank = configProperties.base_url_privatbank();
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;
