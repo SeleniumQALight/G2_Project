@@ -32,7 +32,7 @@ public class PrivatApiHelper {
         for (CurrencyDTO cdto : actualCurrencyListFromAPI) {
             if (cdto.getCcy().equalsIgnoreCase(currencyCode)) {
                 requiredCurrencyDTO = cdto;
-                logger.info("Required currency DTO: " + requiredCurrencyDTO);
+                logger.info("Required currency DTO from API: " + requiredCurrencyDTO);
                 break;
             }
         }

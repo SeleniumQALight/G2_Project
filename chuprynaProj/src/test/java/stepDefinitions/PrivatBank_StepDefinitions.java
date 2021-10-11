@@ -12,6 +12,7 @@ import static libs.DriverHelper.getWebDriver;
 public class PrivatBank_StepDefinitions {
     private PrivatApiHelper privatApiHelper = new PrivatApiHelper();
     private CurrencyDTO actualCurrencyFromAPI;
+    private CurrencyDTO actualCurrencyFromSite;
     private PrivatBankMainPage privatBankMainPage = new PrivatBankMainPage(getWebDriver());
 
     @Given("^User gets '(.*)' exchange rate from API$")
@@ -25,10 +26,12 @@ public class PrivatBank_StepDefinitions {
     }
 
     @When("^User gets '(.*)' exchange rate from 'PrivatBank' website$")
-    public void user_gets_exchange_rate_from_PrivatBank_website(){
+    public void user_gets_exchange_rate_from_PrivatBank_website(String currencyCode){
+        actualCurrencyFromSite = privatBankMainPage.getCurrencyFromPBPageByCode(currencyCode);
     }
 
     @When("^User checks values on 'PrivatBank' website are equal to those received from API$")
     public void user_checks_values_on_PrivatBank_website_are_equal_to_those_received_from_API() {
+        privatBankMainPage.compareCurrenciesFromApiAndSite(actualCurrencyFromAPI,actualCurrencyFromSite);
     }
 }

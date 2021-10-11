@@ -12,9 +12,9 @@ Feature: PrivatBank currency exchange rate
 
     Examples:
       | currency |
-#      | USD      |
+      | USD      |
       | EUR      |
       | RUB      |
-      | RUS      |
+      | BTC      |
 
 
