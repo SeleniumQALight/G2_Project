@@ -11,6 +11,4 @@ Feature: User Login
     Then User sees 'SignOut' button on 'Home' page
 
 
-    Examples:
-      | login       | passWord     |
-      | Valid login | Valid passWord |
+
