@@ -1,6 +1,5 @@
 package api;
 
-import com.google.gson.JsonObject;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -83,7 +82,7 @@ public class ApiHelper {
         String token = getToken(userName, passWord);
 
         JSONObject requestParams = new JSONObject();
-        requestParams.put("title", "New post from API Taras");
+        requestParams.put("title", "New post from API Vika");
         requestParams.put("body", "post body");
         requestParams.put("select1", "One Person");
         requestParams.put("token", token);

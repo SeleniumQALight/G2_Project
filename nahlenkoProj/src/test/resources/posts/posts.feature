@@ -8,6 +8,7 @@ Background:
   @BeforeDeletingAllPostsForDefaultUser
   @AfterDeletingAllPostsForDefaultUser
   Scenario: R003 Check number of posts
+
     And Create 2 new posts via API for 'default' user and 'default' password
     When User clicks on 'Profile' button on 'Home' page
     Then User is redirected to Profile page
