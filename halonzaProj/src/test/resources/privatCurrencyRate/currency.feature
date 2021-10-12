@@ -8,7 +8,7 @@ Feature: PBANUA2X Exchange Rates
     When User opens 'Landing' landing page
     And User scrolls down to exchange rates block
     And User chooses '<filterOption>' filter option
-    Then User sees '<currency>' for '<filterOption>' filter option equal to rates got via API
+    Then User sees '<currency>' rates for '<filterOption>' filter option equal to rates got via API
 
 
 

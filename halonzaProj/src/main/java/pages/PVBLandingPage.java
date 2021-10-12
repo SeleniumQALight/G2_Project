@@ -96,6 +96,7 @@ public class PVBLandingPage {
                 webDriverWait5.until(
                         ExpectedConditions.attributeToBe(rateTypeButton, "title", expectedFilterOptionOnExchangeRatesBlock));
                 logger.info(rateTypeButton.getAttribute("title") + " Element was clicked");
+                logger.info("Filter option: " + rateTypeButton.getAttribute("title"));
             } catch (Exception e) {
                 logger.error("Impossible to choose exchange rates option " + e);
                 Assert.fail("Impossible to choose exchange rates option " + e);

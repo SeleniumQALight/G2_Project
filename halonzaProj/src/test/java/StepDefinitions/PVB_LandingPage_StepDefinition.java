@@ -30,7 +30,7 @@ public class PVB_LandingPage_StepDefinition {
     }
 
 
-    @Then("User sees '(.*)' for '(.*)' filter option equal to rates got via API")
+    @Then("User sees '(.*)' rates for '(.*)' filter option equal to rates got via API")
     public void userSeesCurrencyForFilterOptionFilterOptionEqualToRatesGotViaAPI(String currency, String filterOptionOnExchangeRatesBlock) {
         pvbLandingPage.getAndCompareExchangeRatesFromUIandAPI(currency, filterOptionOnExchangeRatesBlock);
     }
