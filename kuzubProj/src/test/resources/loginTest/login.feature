@@ -18,7 +18,7 @@ Feature: User Login
   @R002
   Scenario: R002 Login with valid Login
     Given User opens 'Login' page
-    When User enters valid 'sk1' login into 'Login' input on 'Login' page
-    And User enters valid 'qwerty0987654321' passWord into 'PassWord' input on 'Login' page
+    When User enters valid 'default' login into 'Login' input on 'Login' page
+    And User enters valid 'default' passWord into 'PassWord' input on 'Login' page
     And User click on 'SingIn' button on 'Login' page
     Then User sees button Sign Out

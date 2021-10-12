@@ -34,22 +34,18 @@ public class LoginPage_StepDefinitions {
     }
 
     @When("^User enters valid '(.*)' login into 'Login' input on 'Login' page$")
-    public void user_enters_valid_Default_Login_Into_Login_input_on_Login_page (String UserName){
-        loginPage.enterLoginInSignIn(UserName);
-        if (DEFAULT.equalsIgnoreCase(UserName)){
-            UserName = TestData.VALID_LOGIN;
+    public void user_enters_valid_Default_Login_Into_Login_input_on_Login_page (String userName){
+               if (DEFAULT.equalsIgnoreCase(userName)){
+            userName = TestData.VALID_LOGIN;
+                   loginPage.enterLoginInSignIn(userName);
         }
     }
     @And("^User enters valid '(.*)' passWord into 'PassWord' input on 'Login' page$")
     public  void user_enters_valid_Default_passWord_into_PassWord_input_on_Login_page (String Password){
-        loginPage.enterPassWordInSignIn(Password);
-        if (DEFAULT.equalsIgnoreCase(Password))
+                if (DEFAULT.equalsIgnoreCase(Password))
             Password = TestData.VALID_PASSWORD;
+        loginPage.enterPassWordInSignIn(Password);
         }
-    @Then("^User sees button Sign Out$")
-    public  void user_sees_button_Sign_Out (String message){
-    loginPage.checkButtonSignOut(message);
-    }
 
     @Then("^User sees alert message with text '(.*)'$")
     public void user_sees_alert_message_with_text_Invalid_username_password(String message)  {
