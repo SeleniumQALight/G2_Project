@@ -15,4 +15,5 @@ Feature: PBANUA2X Exchange Rates
     Examples:
       | currency      | filterOption  |
       | EUR,USD,RUB   | In the branch |
+      | EUR,USD,RUB   | For cards     |
 

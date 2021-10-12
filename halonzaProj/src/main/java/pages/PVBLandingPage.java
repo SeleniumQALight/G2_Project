@@ -1,6 +1,6 @@
 // Exchange rates are rounded to 1 integer after dot
-// Only "In the branch", "For cards" filter option are available on 11 october 2021
-// Currency to be one of "USD", "EUR", "RUB" - on 11 october 2021
+// Only "In the branch", "For cards" filter option are available on 12 october 2021
+// Currency to be one of "USD", "EUR", "RUB" - on 12 october 2021
 
 package pages;
 
@@ -51,8 +51,8 @@ public class PVBLandingPage {
             ".//article[@class='block_content courses']//ul[@class='dropdown-menu inner']//a[@role='option'][.//span[text()='%s']]";
 
 
-    public static ArrayList<String> expectedCurrencyCodeNameOnUI = new ArrayList<>();
-    boolean makeExpectedCurrencyCodeNameOnUIList = Collections.addAll(expectedCurrencyCodeNameOnUI, "USD", "EUR", "RUB");
+    public final ArrayList<String> expectedCurrencyCodeNameListOnUI = new ArrayList<>();
+    boolean makeExpectedCurrencyCodeNameOnUIList = Collections.addAll(expectedCurrencyCodeNameListOnUI, "USD", "EUR", "RUB");
 
 
     public static ArrayList<String> expectedFilterOptionOnExchangeRatesBlockOnUI = new ArrayList<>();
@@ -113,6 +113,25 @@ public class PVBLandingPage {
         return String.format(".//div[@data-cource_type='%s']//tbody//tr", exchangeRateTableType);
     }
 
+    public String getLocatorOfRatesInExchangeRateRowsTableOnUI(
+            String currency, String filterOptionOnExchangeRatesBlock, String rateType, Integer rowNumber) {
+        String locator = null;
+        String exchangeRateTableType = getLocatorOfExchangeRateRowsListOnUI(filterOptionOnExchangeRatesBlock);
+        int numberOfColumn = 3;//to make default check by column 3 in Exchange rates table
+        if (filterOptionOnExchangeRatesBlock.equalsIgnoreCase("In the branch")) {
+            locator = String.format("%s[%s]//td[@id='%s_%s']"
+                    , exchangeRateTableType, rowNumber + 1, currency, rateType);
+        } else if (filterOptionOnExchangeRatesBlock.equalsIgnoreCase("For cards")) {
+            if (rateType.equalsIgnoreCase("sell")) {
+                numberOfColumn = 4;
+            }
+            locator = String.format("%s[%s]//td[%s]"
+                    , exchangeRateTableType, rowNumber + 1, numberOfColumn);
+        }
+        return locator;
+    }
+
+
     public String[] getRateTypeList(String filterOptionOnExchangeRatesBlock) {
         String[] rateTypeList = new String[0];
         if (filterOptionOnExchangeRatesBlock.equalsIgnoreCase("In the branch") ||
@@ -128,7 +147,7 @@ public class PVBLandingPage {
     public double round(String value, int places) {
         if (places < 0) throw new IllegalArgumentException();
         BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.CEILING);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 
@@ -141,7 +160,7 @@ public class PVBLandingPage {
     public void getAndCompareExchangeRatesFromUIandAPI(String currency, String filterOptionOnExchangeRatesBlock) {
         String[] currencyList = currency.split(",");
         for (int i = 0; i < currencyList.length; i++) {
-            if (!expectedCurrencyCodeNameOnUI.contains(currencyList[i])) {
+            if (!expectedCurrencyCodeNameListOnUI.contains(currencyList[i])) {
                 logger.error(currencyList[i] + " currency is not appropriate");
                 Assert.fail(currencyList[i] + " currency is not appropriate");
             }
@@ -149,7 +168,7 @@ public class PVBLandingPage {
                 logger.error(filterOptionOnExchangeRatesBlock + " filterOption is not appropriate");
                 Assert.fail(filterOptionOnExchangeRatesBlock + " filterOption is not appropriate");
             }
-            if (expectedCurrencyCodeNameOnUI.contains(currencyList[i]) &&
+            if (expectedCurrencyCodeNameListOnUI.contains(currencyList[i]) &&
                     expectedFilterOptionOnExchangeRatesBlockOnUI.contains(filterOptionOnExchangeRatesBlock)) {
                 getAndCompareExchangeRatesFromUIandAPIWithFilterOption(currencyList[i], filterOptionOnExchangeRatesBlock);
             } else {
@@ -163,6 +182,8 @@ public class PVBLandingPage {
         String[] rateTypeList = getRateTypeList(filterOptionOnExchangeRatesBlock);
         List<WebElement> listOfCurrencyRates =
                 webDriver.findElements(By.xpath(getLocatorOfExchangeRateRowsListOnUI(filterOptionOnExchangeRatesBlock)));
+        Assert.assertEquals("Number of Expected and Actual currency rows on UI are not equal"
+                , expectedCurrencyCodeNameListOnUI.size(), listOfCurrencyRates.size());
         for (int i = 0; i < listOfCurrencyRates.size(); i++) {
             String currencyFromUI = webDriver.findElement(By.xpath(
                     String.format(getLocatorOfExchangeRateRowsListOnUI(filterOptionOnExchangeRatesBlock) + "[%s]//td[1]", i + 1))).getText();
@@ -172,12 +193,12 @@ public class PVBLandingPage {
                 softAssertions.assertThat(baseCurrencyFromUI).isEqualTo(getBaseCurrencyFromAPI(currency));
                 logger.info(currencyFromUI + ": baseCurrencyUI :" + baseCurrencyFromUI + ", baseCurrencyAPI: " + getBaseCurrencyFromAPI(currency));
                 for (int j = 0; j < rateTypeList.length; j++) {
-                    Double currencyRateBuiFrUI_1 =
-                            round(webDriver.findElement(By.xpath(String.format(
-                                    getLocatorOfExchangeRateRowsListOnUI(filterOptionOnExchangeRatesBlock) +
-                                            "[%s]//td[@id='%s_%s']", i + 1, currency, rateTypeList[j]))).getText(), 1);
-                    softAssertions.assertThat(currencyRateBuiFrUI_1).isEqualTo(getExchangeRateFromAPI(currency, rateTypeList[j]));
-                    logger.info(currencyFromUI + ": " + rateTypeList[j] + "RateUI :" + "fromUI: " + currencyRateBuiFrUI_1 +
+                    Double currencyRateBuiFrUI =
+                            round(webDriver.findElement(By.xpath(
+                                    getLocatorOfRatesInExchangeRateRowsTableOnUI(
+                                            currency, filterOptionOnExchangeRatesBlock, rateTypeList[j], i))).getText(), 1);
+                    softAssertions.assertThat(currencyRateBuiFrUI).isEqualTo(getExchangeRateFromAPI(currency, rateTypeList[j]));
+                    logger.info(currencyFromUI + ": " + rateTypeList[j] + "RateUI :" + "fromUI: " + currencyRateBuiFrUI +
                             ", fromAPI: " + getExchangeRateFromAPI(currency, rateTypeList[j]));
                 }
             }
