@@ -15,4 +15,10 @@ Feature: User Login
       | login       | passWord     |
       | Wrong login | Wrong pass   |
 
-
+  @R002
+  Scenario: R002 Login with valid login
+    Given User opens 'Login' page
+    When User enters 'default' login into 'Login' input on 'Login' page
+    And User enters 'default' passWord into 'PassWord' input on 'Login' page
+    And User click on 'SingIn' button on 'Login' page
+    Then User land on 'homePage'
