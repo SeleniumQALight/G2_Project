@@ -10,17 +10,8 @@ Feature: User Login
     And User click on 'SingIn' button on 'Login' page
     Then User sees alert message with text 'Invalid username / password'
 
+
     Examples:
       | login       | passWord     |
       | Wrong login | Wrong pass   |
       |             | 123456qwerty |
-
-  @R002
-  Scenario: R002 Login with valid Login
-    Given User opens 'Login' page
-    When User enters valid login 'default' into 'Login' input on'Login' page
-    And User enters valid passWord 'default' into 'PassWord' input on 'Login' page
-    And User click on 'SingIn' button on 'Login' page
-    Then User redirect on 'Home' page
-
-
