@@ -33,36 +33,22 @@ public class APIHelper_PrivatBank {
     }
 
     public double getCurrencyBuyValueByAPI(String currencyType) {
-        String buy = "";
-
-        if (currencyType.equals("USD")) {
-            buy = getCurrencyValues()[0].getBuy();
+        double buyValue = 0;
+        for (int j = 0; j < getCurrencyValues().length; j++) {
+            if (getCurrencyValues()[j].getCcy().equals(currencyType)) {
+                buyValue = roundTwoDecimals(getCurrencyValues()[j].getBuy());
+            }
         }
-        else if (currencyType.equals("EUR")) {
-            buy = getCurrencyValues()[1].getBuy();
-        }
-        else if (currencyType.equals("RUR")) {
-            buy = getCurrencyValues()[2].getBuy();
-        }
-
-        double trimmedCurrencyValue = roundTwoDecimals(buy);
-        return trimmedCurrencyValue;
+        return buyValue;
     }
 
     public double getCurrencySellValueByAPI(String currencyType) {
-        String saleValue = "";
-
-        if (currencyType.equals("USD")) {
-            saleValue = getCurrencyValues()[0].getSale();
+        double sellValue = 0;
+        for (int j = 0; j < getCurrencyValues().length; j++) {
+            if (getCurrencyValues()[j].getCcy().equals(currencyType)) {
+                sellValue = roundTwoDecimals(getCurrencyValues()[j].getSale());
+            }
         }
-        else if (currencyType.equals("EUR")) {
-            saleValue = getCurrencyValues()[1].getSale();
-        }
-        else if (currencyType.equals("RUR")) {
-            saleValue = getCurrencyValues()[2].getSale();
-        }
-
-        double trimmedCurrencyValue = roundTwoDecimals(saleValue);
-        return trimmedCurrencyValue;
+        return sellValue;
     }
 }
