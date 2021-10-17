@@ -46,4 +46,8 @@ public class HomePage extends ParentPage{
         clickOnElement(buttonProfile);
         return new ProfilePage(webDriver);
 }
+
+    public void checkIsRedirectOnHomePage() {
+
     }
+}
