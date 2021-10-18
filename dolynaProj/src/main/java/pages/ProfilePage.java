@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.yandex.qatools.htmlelements.element.TextInput;
 
 import java.util.List;
 
@@ -12,10 +13,14 @@ public class ProfilePage extends ParentPage{
     String postTitleLocator = ".//*[text()='%s']";
 
     @FindBy(xpath = ".//*[contains(text(), 'successfully deleted')]")
-    private WebElement successPostDeleteElement;
+    private TextInput successPostDeleteElement;
+    @FindBy(xpath =  ".//*[@class='list-group']/a")
+    private List<WebElement> postsList;
+
 
     public ProfilePage(WebDriver webDriver) {
         super(webDriver);
+
     }
 
     public ProfilePage checkIsPostWasAdded(String post_title) {
@@ -56,5 +61,13 @@ public class ProfilePage extends ParentPage{
         Assert.assertTrue("Element is not Present", isElementPresent(successPostDeleteElement));
 
         return this;
+    }
+
+    public void checkIsRedirectToProfilePage() {
+
+    }
+
+    public void checkNumberOfPosts(int expectedNumberOfPosts) {
+        Assert.assertEquals("Number of posts", expectedNumberOfPosts, postsList.size() );
     }
 }

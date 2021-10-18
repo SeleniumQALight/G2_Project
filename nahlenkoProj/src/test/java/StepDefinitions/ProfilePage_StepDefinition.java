@@ -1,9 +1,7 @@
 package StepDefinitions;
 
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import pages.ProfilePage;
 
 import static libs.DriverHelper.getWebDriver;
@@ -12,12 +10,12 @@ public class ProfilePage_StepDefinition {
     private ProfilePage profilePage = new ProfilePage(getWebDriver());
 
     @Then("^User is redirected to Profile page$")
-    public void userIsRedirectToProfilePage() {
+    public void user_is_redirected_to_Profile_page() {
         profilePage.checkIsRedirectToProfilePage();
     }
 
     @And("^User sees (\\d+) posts in Posts list on Profile page$")
-    public void userSeesPostsInPostsListOnProfilePage(int expectedNumberOfPosts) {
+    public void user_sees_posts_in_Posts_list_on_Profile_page (int expectedNumberOfPosts) {
         profilePage.checkNumberOfPosts(expectedNumberOfPosts);
     }
 }
