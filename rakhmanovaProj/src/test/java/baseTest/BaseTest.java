@@ -19,15 +19,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.PrivatBankPage;
 
 import java.util.concurrent.TimeUnit;
-
-import static org.hamcrest.CoreMatchers.is;
 
 public class BaseTest {
     WebDriver webDriver;
     protected LoginPage loginPage;
     protected HomePage homePage;
+    protected PrivatBankPage privatBankPage;
     protected Logger logger = Logger.getLogger(getClass());
 
     @Rule
@@ -46,6 +46,7 @@ public class BaseTest {
 
         loginPage = new LoginPage(webDriver);
         homePage = new HomePage(webDriver);
+        privatBankPage = new PrivatBankPage(webDriver);
     }
 
     @After
