@@ -17,6 +17,12 @@ public class CurrencyDTO {
         this.base_ccy = base_ccy;
     }
 
+    public CurrencyDTO(String ccy, String buy, String sale) {
+        this.ccy = ccy;
+        this.buy = buy;
+        this.sale = sale;
+    }
+
     public CurrencyDTO() {
     }
 
