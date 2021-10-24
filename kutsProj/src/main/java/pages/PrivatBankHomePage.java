@@ -1,6 +1,6 @@
 package pages;
 
-import api.CurrencyDTO;
+import api.PrivatBankApiHelper;
 import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -10,18 +10,16 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.htmlelements.element.Select;
 
-import static api.EndPoints.EXCHANGE_RATES;
-import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
+import static libs.TestData.*;
 
 public class PrivatBankHomePage extends ParentPage{
 
     Actions actions = new Actions(webDriver);
+    PrivatBankApiHelper privatBankApiHelper = new PrivatBankApiHelper();
 
     @FindBy(xpath = ".//select[@id='courses_type']")
     private Select dropDownCoursesType;
 
-    private Double value_double, scale, result, value_api_double;
     private String currency_ui;
 
     public PrivatBankHomePage(WebDriver webDriver) {
@@ -30,7 +28,7 @@ public class PrivatBankHomePage extends ParentPage{
 
     @Override
     String getRelativeUrl() {
-        return null;
+        return "/";
     }
 
     @Step
@@ -59,80 +57,23 @@ public class PrivatBankHomePage extends ParentPage{
         selectValueInDD(dropDownCoursesType, "posts_course");
     }
 
-    public Double getExchangeBuyingRate(String currency) {
-        CurrencyDTO[] responseBody = given()
-                .contentType(JSON)
-                .log().all()
-                .queryParam("json")
-                .queryParam("exchange")
-                .queryParam("coursid", "5")
-                .when()
-                .get(EXCHANGE_RATES)
-                .then()
-                .statusCode(200)
-                .log().all()
-                .extract()
-                .response().as(CurrencyDTO[].class);
-
-        for (int i = 0; i < responseBody.length; i++) {
-            if (responseBody[i].getCcy().equalsIgnoreCase(currency)) {
-                value_api_double = convertStringToDouble(responseBody[i].getBuy());
-            }
-        }
-        return value_api_double;
+    public void getAllExchangeRatesViaAPI() {
+        privatBankApiHelper.getAllExchangeRates();
     }
 
-    public Double getExchangeSellingRate(String currency) {
-        CurrencyDTO[] responseBody = given()
-                .contentType(JSON)
-                .log().all()
-                .queryParam("json")
-                .queryParam("exchange")
-                .queryParam("coursid", "5")
-                .when()
-                .get(EXCHANGE_RATES)
-                .then()
-                .statusCode(200)
-                .log().all()
-                .extract()
-                .response().as(CurrencyDTO[].class);
-
-        for (int i = 0; i < responseBody.length; i++) {
-            if (responseBody[i].getCcy().equalsIgnoreCase(currency)) {
-                value_api_double = convertStringToDouble(responseBody[i].getSale());
-            }
-        }
-        return value_api_double;
-    }
-
-    public Double convertStringToDouble(String value) {
-        value_double = Double.parseDouble(value);
-        scale = Math.pow(10, 2);
-        result = Math.ceil(value_double * scale) / scale;
-        return result;
-    }
-
-    public void checkExchangeBuyingRate(String currency) {
+    public void checkExchangeRatesForCurrency(String currency) {
+        privatBankApiHelper.getExchangeRatesForCurrency(currency);
         if (currency.equalsIgnoreCase("RUR")) {
             currency_ui = "RUB";
-
-            Assert.assertEquals(convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_buy']", currency_ui))).getText().trim()),
-                    getExchangeBuyingRate(currency));
+            currency_buy_ui = privatBankApiHelper.convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_buy']", currency_ui))).getText().trim());
+            currency_sale_ui = privatBankApiHelper.convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_sell']", currency_ui))).getText().trim());
         } else {
-            Assert.assertEquals(convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_buy']", currency))).getText().trim()),
-                    getExchangeBuyingRate(currency));
+            currency_buy_ui = privatBankApiHelper.convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_buy']", currency))).getText().trim());
+            currency_sale_ui = privatBankApiHelper.convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_sell']", currency))).getText().trim());
         }
-    }
-
-    public void checkExchangeSellingRate(String currency) {
-        if (currency.equalsIgnoreCase("RUR")) {
-            currency_ui = "RUB";
-
-            Assert.assertEquals(convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_sell']", currency_ui))).getText().trim()),
-                    getExchangeSellingRate(currency));
-        } else {
-            Assert.assertEquals(convertStringToDouble(webDriver.findElement(By.xpath(String.format(".//*[@id='%s_sell']", currency))).getText().trim()),
-                    getExchangeSellingRate(currency));
-        }
+        logger.info(String.format("Exchange buying rate for %s currency from API is: ", currency) + currency_buy_api);
+        logger.info(String.format("Exchange buying rate for %s currency from UI is: ", currency) + currency_buy_ui);
+        Assert.assertEquals(currency_buy_ui, currency_buy_api);
+        Assert.assertEquals(currency_sale_ui, currency_sale_api);
     }
 }
