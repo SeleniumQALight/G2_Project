@@ -2,7 +2,6 @@ package ApiPrivatTests;
 
 import api.CurrencyDTO;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.apache.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
