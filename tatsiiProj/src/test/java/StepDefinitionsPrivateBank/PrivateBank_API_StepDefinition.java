@@ -1,24 +1,22 @@
 package StepDefinitionsPrivateBank;
 
-import api.ApiHelper;
+import apiPrivateBank.ApiHelper;
+import apiPrivateBank.CurrencyDTO;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import libs.TestData;
+import org.junit.Assert;
 
 public class PrivateBank_API_StepDefinition {
-    final String DEFAULT = "default";
     private ApiHelper apiHelper = new ApiHelper();
 
-    @And("^Create (\\d+) new posts via API for '(.*)' user and '(.*)' password$")
-    public void createNewPostViaAPIForDefaultUserAndDefaultPassword(int numberOfPosts, String userName, String passWord) {
-        if (DEFAULT.equalsIgnoreCase(userName)){
-            userName = TestData.VALID_LOGIN;
-        }
-        if (DEFAULT.equalsIgnoreCase(passWord)) {
-            passWord = TestData.VALID_PASSWORD;
-        }
-        for (int i = 0; i < numberOfPosts; i++) {
-            apiHelper.createPost("Post from API" + i, userName, passWord);
+    @Given("^Exchange Course '(.*)' and '(.*)' API call$")
+    public void givenExchangeCourseCall(String testCcy, String testBaseCcy) {
+        CurrencyDTO[] currencies = apiHelper.getApiCourseRequest(5);
+        CurrencyDTO testCurrency = apiHelper.extractCurrency(currencies, testCcy, testBaseCcy);
 
-        }
+        Assert.assertNotNull("Currency pair wasn't found ", testCurrency);
+        apiHelper.getUiCourseRequest();
+
     }
 }

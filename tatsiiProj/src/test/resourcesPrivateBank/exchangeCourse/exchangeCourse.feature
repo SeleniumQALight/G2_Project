@@ -1,12 +1,6 @@
-@ExchangeCourseTest @FullRegression
-Feature: ExchangeCourse Feature
+@ExchangeCourseTest
+Feature: Compare UI and API PrivateBank exchange course
 
-  Background:
-    Given Exchange Course API call
-
-  @APIcall
-  @BeforeDeletingAllPostsForDefaultUser
-  @AfterDeletingAllPostsForDefaultUser
-  Scenario: Exchange Course API call
-    When Check course response
-
+  @OneCurrency
+  Scenario: Compare USD UAH
+    Given Exchange Course 'USD' and 'UAH' API call
