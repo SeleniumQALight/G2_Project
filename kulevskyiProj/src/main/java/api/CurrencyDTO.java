@@ -15,10 +15,18 @@ public class CurrencyDTO {
     public CurrencyDTO(String ccy, String base_ccy) {
         this.ccy = ccy;
         this.base_ccy = base_ccy;
-    }
-    public CurrencyDTO(){
+
 
     }
+    public CurrencyDTO(String ccy, String buy, String sale){
+        this.ccy = ccy;
+        this.buy = buy;
+        this.sale = sale;
+    }
+
+    public CurrencyDTO() {
+    }
+
 
     public String getCcy() {
         return ccy;

@@ -32,7 +32,7 @@ public class ApiTests {
                 .contentType(ContentType.JSON)
                 .filter(new AllureRestAssured())
                 .when()
-                     .get(POST_BY_USER, USER_NAME)
+                .get(POST_BY_USER, USER_NAME)
                 .then()
                 .statusCode(200)
                 .log().all()
@@ -47,7 +47,7 @@ public class ApiTests {
         }
 
         PostDTO[] expectedPostDTO = {
-          new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
+                new PostDTO("test2", "test body2", "All Users", new AuthorDTO(USER_NAME), false),
                 new PostDTO("test", "test body", "All Users", new AuthorDTO(USER_NAME), false)
         };
 
@@ -57,7 +57,7 @@ public class ApiTests {
             softAssertions.assertThat(expectedPostDTO[i])
                     .isEqualToIgnoringGivenFields(responseBody[i], "_id", "createdDate", "author");
             softAssertions.assertThat(expectedPostDTO[i].getAuthor())
-                    .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(),"avatar");
+                    .isEqualToIgnoringGivenFields(responseBody[i].getAuthor(), "avatar");
 
         }
 
@@ -68,14 +68,14 @@ public class ApiTests {
     @Test
     public void getAllPostByUserNegative() {
         String responsBody = given()
-                        .contentType(ContentType.JSON)
-                        .log().all()
+                .contentType(ContentType.JSON)
+                .log().all()
                 .when()
-                        .get(POST_BY_USER, "notValidUser")
+                .get(POST_BY_USER, "notValidUser")
                 .then()
-                        .statusCode(200)
-                        .log().all()
-                        .extract().response().getBody().asString();
+                .statusCode(200)
+                .log().all()
+                .extract().response().getBody().asString();
         Assert.assertEquals("Message in response", "\"Sorry, invalid user requested.undefined\"", responsBody);
 //        Assert.assertEquals("Message in response","\"Sorry, invalid user requested.undefined\"",responsBody.replace("\"",""));
     }
@@ -83,14 +83,14 @@ public class ApiTests {
     @Test
     public void getAllPostsByUserPath() {
         Response responseBody = given()
-                        .contentType(ContentType.JSON)
-                        .log().all()
+                .contentType(ContentType.JSON)
+                .log().all()
                 .when()
-                        .get(POST_BY_USER, USER_NAME)
+                .get(POST_BY_USER, USER_NAME)
                 .then()
-                        .statusCode(200)
-                        .log().all()
-                        .extract().response();
+                .statusCode(200)
+                .log().all()
+                .extract().response();
         List<String> titleList = responseBody.jsonPath().getList("title", String.class);
         List<Map> autoList = responseBody.jsonPath().getList("author", Map.class);
 
@@ -112,60 +112,11 @@ public class ApiTests {
         given()
                 .contentType(ContentType.JSON)
                 .log().all()
-        .when()
+                .when()
                 .get(POST_BY_USER, USER_NAME)
-        .then()
+                .then()
                 .statusCode(200).log().all()
                 .assertThat().body(matchesJsonSchemaInClasspath("respons.json"));
     }
 
-    @Test
-    public void getAllCurrencyByPrivatBank() {
-        CurrencyDTO[] responseBody = given()
-                .contentType(ContentType.JSON)
-                .queryParam("coursid","5")
-        .when()
-                .get(POST_BY_PRIVAT_BANK)
-        .then()
-                .statusCode(200)
-                .log().all()
-                .extract().response().as(CurrencyDTO[].class);
-
-        for (CurrencyDTO currencyDTO : responseBody) {
-            logger.info(String.format("Курс %s к %s покупки %s и продажи %s",
-                    currencyDTO.getCcy(),
-                    currencyDTO.getBase_ccy(),
-                    currencyDTO.getBuy(),
-                    currencyDTO.getSale()));
-        }
-
-        CurrencyDTO[] expectedCurrencyDTOList = {
-                new CurrencyDTO("USD", "UAH"),
-                new CurrencyDTO("EUR", "UAH"),
-                new CurrencyDTO("RUR", "UAH"),
-                new CurrencyDTO("BTC", "USD"),
-        };
-
-        Assert.assertEquals("Number of currencies",
-                expectedCurrencyDTOList.length, responseBody.length);
-
-        SoftAssertions softAssertions = new SoftAssertions();
-        for (int i = 0; i < expectedCurrencyDTOList.length; i++) {
-            softAssertions.assertThat(expectedCurrencyDTOList[i])
-                    .isEqualToIgnoringGivenFields(responseBody[i], "buy", "sale");
-        }
-        softAssertions.assertAll();
-    }
-
-    @Test
-    public void getAllCurrencyByUserSchema() {
-        given()
-                .contentType(ContentType.JSON)
-                .log().all()
-        .when()
-                .get(POST_BY_PRIVAT_BANK)
-        .then()
-                .statusCode(200).log().all()
-                .assertThat().body(matchesJsonSchemaInClasspath("responsePrivatBank.json"));
-    }
 }
