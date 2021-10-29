@@ -10,5 +10,5 @@ public interface EndPoints {
     String DELETE_POST = baseUrl + "/api/post/{0}";
 
     String baseUrlPrivatBank = "https://api.privatbank.ua";
-    String POST_BY_PRIVAT_BANK = baseUrlPrivatBank + "/p24api/pubinfo?json&exchange&";
+    String POST_BY_PRIVAT_BANK = baseUrlPrivatBank + "/p24api/pubinfo";
 }
