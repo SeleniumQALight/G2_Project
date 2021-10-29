@@ -36,10 +36,10 @@ public class ApiPrivatBankTests {
         }
 
         CurrencyDTO[] expectedCurrencyDTO = {
-                new CurrencyDTO("USD", "UAH", "26.45000", "26.85000"),
-                new CurrencyDTO("EUR", "UAH", "30.90000", "31.50000"),
-                new CurrencyDTO("RUR", "UAH", "0.35000", "0.38000"),
-                new CurrencyDTO("BTC", "USD", "41205.0704", "45542.4462")
+                new CurrencyDTO("USD", "UAH"),
+                new CurrencyDTO("EUR", "UAH"),
+                new CurrencyDTO("RUR", "UAH"),
+                new CurrencyDTO("BTC", "USD")
         };
 
         Assert.assertEquals(responseBody.length, expectedCurrencyDTO.length);
