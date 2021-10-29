@@ -15,4 +15,3 @@ Feature: Currency exchange PrivatBank
       | USD      |
       | EUR      |
       | RUR      |
-      | BTC      |

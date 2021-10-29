@@ -1,7 +1,8 @@
 package StepDefinitions;
 
 import api.ApiHelperPrivat;
-import io.cucumber.java.en.Given;
+import cucumber.api.java.en.Given;
+
 
 import static libs.TestData.currencyDTOFromAPI;
 
