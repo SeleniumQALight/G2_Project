@@ -16,7 +16,7 @@ public class PrivateBank_API_StepDefinition {
         CurrencyDTO testCurrency = apiHelper.extractCurrency(currencies, testCcy, testBaseCcy);
 
         Assert.assertNotNull("Currency pair wasn't found ", testCurrency);
-        apiHelper.getUiCourseRequest();
+        apiHelper.compareUiCourse(testCcy, testBaseCcy, testCurrency.getBuy(), testCurrency.getSale());
 
     }
 }
