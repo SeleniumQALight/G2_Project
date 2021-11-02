@@ -22,6 +22,10 @@ public class CurrencyDTO {
 
     }
 
+    public CurrencyDTO(String currency, String trim, String trim1) {
+
+    }
+
     public String getCcy() {
         return ccy;
     }
