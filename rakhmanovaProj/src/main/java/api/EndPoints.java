@@ -15,5 +15,4 @@ public interface EndPoints {
     String privatBankUrl = "https://api.privatbank.ua";
     String CURRENCY_LIST = privatBankUrl + "/p24api/pubinfo"; //?json&exchange&coursid=5
 
-
 }
