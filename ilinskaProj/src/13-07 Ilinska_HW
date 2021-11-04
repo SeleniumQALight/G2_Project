@@ -1,0 +1,60 @@
+SIGN IN
+
+Test #1
+
+Steps to reproduce
+
+1. Navigate to https://qa-complex-app-for-testing.herokuapp.com/
+2. Enter valid username
+3. Enter valid password
+4. Click on 'Sign in' button
+
+Expected Result - Home page was opened after successful sign in
+
+Test  №2
+
+Steps to reproduce
+
+1. Navigate to https://qa-complex-app-for-testing.herokuapp.com/
+2. Enter invalid username
+3. Enter valid password
+4. Click on 'Sign in' button
+
+Expected Result - Error message appears after entering invalid credentials
+
+Test #3
+
+1. Navigate to https://qa-complex-app-for-testing.herokuapp.com/
+2. Leave input fields with empty values
+3. Сlick on 'Sign in' button
+
+ Expected Result - After entering invalid credentials fields are highlighted in red and an error message appears
+
+SIGN UP
+
+ Test #4
+
+ 1. Navigate to https://qa-complex-app-for-testing.herokuapp.com/
+ 2. Enter username which is already taken
+
+ Expected Result - Error message which inform user that the current username is already taken
+
+ Test #5
+
+  1. Navigate to https://qa-complex-app-for-testing.herokuapp.com/
+  2. Enter invalid format of e-mail
+
+  Expected Result - Error message which inform user that the current e-mail has invalid format and should be changed
+
+Test #6
+
+  1. Navigate to https://qa-complex-app-for-testing.herokuapp.com/
+  2. Enter password less then 12 character
+    Expected Result - Error message which inform that  user entered password  which contain less than 12 characters
+
+
+
+
+
+
+
