@@ -28,7 +28,7 @@ public abstract class ParentPage {
     public static ConfigProperties configProperties =
             ConfigFactory.create(ConfigProperties.class);
 
-    protected final String baseUrl = configProperties.base_url();
+    protected String baseUrl = configProperties.base_url();
 
     public ParentPage(WebDriver webDriver) {
         this.webDriver = webDriver;

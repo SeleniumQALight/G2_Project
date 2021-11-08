@@ -6,6 +6,8 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.path.xml.XmlPath;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import org.apache.log4j.Logger;
@@ -30,6 +32,16 @@ public class ApiHelper {
             .log(LogDetail.ALL)
             .build();
 
+    public ExtractableResponse<Response> openPrivateBankAPIHomePage(int courseId){
+        return given()
+                .spec(apiRequestSpecification)
+                .when()
+                .get(EndPoints.API_GET_EXCHANGE_COURSE, courseId)
+                .then()
+                .statusCode(200)
+                .log().all()
+                .extract();
+    }
     public  CurrencyDTO[] getApiCourseRequest(int courseId){
         return given()
                     .spec(apiRequestSpecification)
@@ -56,7 +68,7 @@ public class ApiHelper {
         // //*[@id="app"]/div[2]/section/div/div[2]/div[1]/div/div[2]/div[3]/div[2]/div[2]/div[1]/div[2]/div[1]
         // //*[@id="app"]/div[2]/section/div/div[2]/div[1]/div/div[2]/div[3]/div[2]  table
         WebDriver driver = new ChromeDriver();
-        driver.get(EndPoints.UI_GET_EXCHANGE_COURSE);
+        driver.get("https://next.privat24.ua/exchange-rates");
         WebDriverWait wait = new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("contact-number")));
         WebElement table = driver.findElement(By.xpath("//*[@id=\"app\"]/div[2]/section/div/div[2]/div[1]/div/div[2]/div[3]/div[2]"));
@@ -65,7 +77,7 @@ public class ApiHelper {
             WebElement row = rows.get(i);
             WebElement title = row.findElement(By.xpath("./div/div[2]/div"));
             String currencyTitle = title.getText();
-            if(currencyTitle == ccy){
+            if(currencyTitle .equals(ccy)){
                 WebElement buy = row.findElement(By.xpath("./div/div[3]/div"));
                 String buyValue = buy.getText();
                 Assert.assertNotEquals("Api Currency buy is not the same as UI ", buyValue, apiBuy);
