@@ -19,6 +19,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static apiPrivateBank.EndPoints.API_GET_EXCHANGE_COURSE;
@@ -92,11 +93,20 @@ public class ApiHelper {
     }
 
 
-    public CurrencyDTO extractCurrency(CurrencyDTO[] currency, String testCcy, String testBaseCcy) {
-        for (int i = 0; i < currency.length; i++) {
-            if(currency[i].getCcy().equals(testCcy) && currency[i].getBaseCcy().equals(testBaseCcy)){
-                System.out.println(currency[i].getBuy());
-                return currency[i];
+    public CurrencyDTO extractCurrency(CurrencyDTO[] currencies, String testCcy, String testBaseCcy) {
+        for (CurrencyDTO currency : currencies) {
+            if (currency.getCcy().equals(testCcy) && currency.getBaseCcy().equals(testBaseCcy)) {
+                System.out.println(currency.getBuy());
+                return currency;
+            }
+        }
+        return null;
+    }
+    public CurrencyDTO extractUiCurrency(ArrayList<CurrencyDTO> currencies, String testCcy, String testBaseCcy) {
+        for (CurrencyDTO currency : currencies) {
+            if (currency.getCcy().equals(testCcy) && currency.getBaseCcy().equals(testBaseCcy)) {
+                System.out.println(currency.getBuy());
+                return currency;
             }
         }
         return null;

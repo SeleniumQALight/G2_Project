@@ -10,13 +10,17 @@ import libs.TestData;
 import org.junit.Assert;
 import pages.PrivateBankHomePage;
 
+import java.util.ArrayList;
+
 import static libs.DriverHelper.getWebDriver;
 
 public class PrivateBank_API_StepDefinition {
     private ApiHelper apiHelper = new ApiHelper();
     private PrivateBankHomePage uiHomePage = new PrivateBankHomePage(getWebDriver());
     private CurrencyDTO[] apiCurrencies;
+    private ArrayList <CurrencyDTO> uiCurrencies = new ArrayList<CurrencyDTO>();
     private CurrencyDTO apiTestCurrency;
+    private CurrencyDTO uiTestCurrency;
 
     @Given("Open PrivateBank API HomePage")
     public void givenOpenPrivateBankAPIHomePage(){
@@ -60,5 +64,33 @@ public class PrivateBank_API_StepDefinition {
         Assert.assertNotNull("Currency pair wasn't found ", testCurrency);
         apiHelper.compareUiCourse(testCcy, testBaseCcy, testCurrency.getBuy(), testCurrency.getSale());
 
+    }
+
+    @When("Remember Exchange Course Table from UI")
+    public void rememberExchangeCourseTableFromUI() {
+        uiCurrencies.clear();
+        for (CurrencyDTO currency : apiCurrencies) {
+            String ccy = currency.getCcy();
+            if(!currency.getBaseCcy().equals("UAH")){
+                ccy = ccy + "/" + currency.getBaseCcy();
+            }
+            uiHomePage.getExchangeCourse(ccy);
+            CurrencyDTO uiCurrency = new CurrencyDTO(currency.getCcy(), currency.getBaseCcy(),
+                    uiHomePage.buyValue, uiHomePage.saleValue);
+            uiCurrencies.add(uiCurrency);
+        }
+    }
+
+    @Given("^Get Exchange Course '(.*)' and '(.*)' from API Table$")
+    public void getExchangeCourseCcyAndBaseCcyFromAPITable(String testCcy, String testBaseCcy) {
+        apiTestCurrency = apiHelper.extractCurrency(apiCurrencies, testCcy, testBaseCcy);
+        Assert.assertNotNull("Currency pair wasn't found ", apiTestCurrency);
+
+    }
+
+    @When("^Get Exchange Course '(.*)' and '(.*)' from UI Table$")
+    public void getExchangeCourseCcyAndBaseCcyFromUITable(String testCcy, String testBaseCcy) {
+        uiTestCurrency = apiHelper.extractUiCurrency(uiCurrencies, testCcy, testBaseCcy);
+        Assert.assertNotNull("Currency pair wasn't found ", uiTestCurrency);
     }
 }

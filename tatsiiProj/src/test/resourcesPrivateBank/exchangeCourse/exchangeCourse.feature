@@ -33,6 +33,20 @@ Feature: Compare UI and API PrivateBank exchange course
       | RUR | RUB  | UAH     |
 
 
+  @MultiCurrencyAdvanced
+  Scenario: Advanced Compare ccy baseCcy
+    Given Open PrivateBank API HomePage
 
+    Given Open PrivateBank UI HomePage
+    When Remember Exchange Course Table from UI
 
+  Scenario Outline: Compare ccy baseCcy
+    Given Get Exchange Course '<ccy>' and '<baseCcy>' from API Table
+    When Get Exchange Course '<ccy>' and '<baseCcy>' from UI Table
+    Then Compare Course UI and API Course
+    Examples:
+      | ccy | ccy2 | baseCcy |
+      | USD | USD  | UAH     |
+      | EUR | EUR  | UAH     |
+      | RUR | RUB  | UAH     |
 
